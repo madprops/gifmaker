@@ -4,7 +4,6 @@ import numpy as np
 import os
 import random
 import string
-from PIL import Image, ImageDraw
 
 VIDEO = "video.webm"
 FRAMES = 3
