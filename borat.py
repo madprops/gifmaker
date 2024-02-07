@@ -17,6 +17,7 @@ def get_frames():
 	words = get_random_words(FRAMES)
 	frames_done = []
 
+	# Sometimes it fails to read the frames so it needs more tries
 	for x in range(0, FRAMES * 100):
 		index = random.choice(range(total_frames))
 		cap.set(cv2.CAP_PROP_POS_FRAMES, index)
