@@ -9,6 +9,8 @@ from PIL import Image, ImageDraw
 VIDEO = "video.webm"
 FRAMES = 3
 DELAY = 180
+RIGHT = 45
+BOTTOM = 100
 
 def get_frames():
 	cap = cv2.VideoCapture(VIDEO)
@@ -32,10 +34,8 @@ def add_text(frame, text):
 	font = cv2.FONT_HERSHEY_SIMPLEX
 	scale = 3
 	thickness = 3
-	padding_right = 45
-	padding_bottom = 100
 	text_size = cv2.getTextSize(text, font, scale, thickness)[0]
-	text_position = (width - text_size[0] - padding_right, height - padding_bottom)
+	text_position = (width - text_size[0] - RIGHT, height - BOTTOM)
 	cv2.putText(frame, text, text_position, font, scale, (255, 255, 255), thickness, cv2.LINE_AA)
 	return frame
 
