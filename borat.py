@@ -1,6 +1,5 @@
 import cv2
 import imageio
-import numpy as np
 import os
 import random
 import string
