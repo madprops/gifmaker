@@ -26,7 +26,9 @@ def get_frames():
 			frames_done.append(add_text(frame, words[i]))
 
 	cap.release()
-	create_gif(frames_done)
+
+	if len(frames_done) > 0:
+		create_gif(frames_done)
 
 def add_text(frame, text):
 	height, width, _ = frame.shape
