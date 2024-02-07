@@ -14,16 +14,19 @@ BOTTOM = 100
 def get_frames():
 	cap = cv2.VideoCapture(VIDEO)
 	total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
-	indices = random.sample(range(total_frames), min(FRAMES, total_frames))
 	words = get_random_words(FRAMES)
 	frames_done = []
 
-	for i, index in enumerate(indices):
+	for x in range(0, FRAMES * 100):
+		index = random.choice(range(total_frames))
 		cap.set(cv2.CAP_PROP_POS_FRAMES, index)
 		ret, frame = cap.read()
 
 		if ret:
-			frames_done.append(add_text(frame, words[i]))
+			frames_done.append(add_text(frame, words[len(frames_done)]))
+
+		if len(frames_done) == FRAMES:
+			break
 
 	cap.release()
 
