@@ -46,7 +46,7 @@ venv/bin/python borat.py 5
 
 ## Defaults
 
-It's fine tuned to work with the video provided.
+It's fine-tuned to work with the provided video.
 
 It uses these defaults (defined in `borat.py`):
 
