@@ -12,6 +12,7 @@ from pathlib import Path
 
 FPS = 2.2
 FRAMES = 3
+CENTER = False
 RIGHT = 45
 BOTTOM = 100
 SIZE = 3
@@ -45,7 +46,15 @@ def add_text(frame, text):
 	height, width, _ = frame.shape
 	font = cv2.FONT_HERSHEY_SIMPLEX
 	text_size = cv2.getTextSize(text, font, SIZE, THICK)[0]
-	text_position = (width - text_size[0] - RIGHT, height - BOTTOM)
+
+	if CENTER:
+		text_x = (width - text_size[0]) // 2
+		text_y = (height + text_size[1]) // 2
+	else:
+		text_x = width - text_size[0] - RIGHT
+		text_y = height - BOTTOM
+
+	text_position = (text_x, text_y)
 	cv2.putText(frame, text, text_position, font, SIZE, (255, 255, 255), THICK, cv2.LINE_AA)
 	return frame
 
@@ -70,6 +79,7 @@ def check_args():
 	global FRAMES
 	global WORDS
 	global FPS
+	global CENTER
 	global RIGHT
 	global BOTTOM
 	global SIZE
@@ -80,6 +90,7 @@ def check_args():
 	parser.add_argument('--video', type=str, help='Path to the video file')
 	parser.add_argument('--words', type=str, help='Words to use. Use [random] to use a random word')
 	parser.add_argument('--fps', type=float, help='FPS to use')
+	parser.add_argument('--center', action="store_true", help='Center the text')
 	parser.add_argument('--right', type=float, help='Right padding')
 	parser.add_argument('--bottom', type=float, help='Bottom padding')
 	parser.add_argument('--size', type=float, help='Text size')
@@ -99,6 +110,9 @@ def check_args():
 
 	if args.fps is not None:
 		FPS = args.fps
+
+	if args.center is not None:
+		CENTER = args.center
 
 	if args.right is not None:
 		RIGHT = args.right
