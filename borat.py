@@ -11,6 +11,8 @@ RIGHT = 45
 BOTTOM = 100
 WORDS = []
 RAND_WORDS = 3
+SCALE = 3
+THICK = 3
 
 def get_frames(num_frames):
 	cap = cv2.VideoCapture(VIDEO)
@@ -35,11 +37,9 @@ def get_frames(num_frames):
 def add_text(frame, text):
 	height, width, _ = frame.shape
 	font = cv2.FONT_HERSHEY_SIMPLEX
-	scale = 3
-	thickness = 3
-	text_size = cv2.getTextSize(text, font, scale, thickness)[0]
+	text_size = cv2.getTextSize(text, font, SCALE, THICK)[0]
 	text_position = (width - text_size[0] - RIGHT, height - BOTTOM)
-	cv2.putText(frame, text, text_position, font, scale, (255, 255, 255), thickness, cv2.LINE_AA)
+	cv2.putText(frame, text, text_position, font, SCALE, (255, 255, 255), THICK, cv2.LINE_AA)
 	return frame
 
 def get_random_words(num_words):
