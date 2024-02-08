@@ -12,13 +12,13 @@ def random_string():
 	vowels = "aeiou"
 	consonants = "".join(set(string.ascii_lowercase) - set(vowels))
 
-	def cons():
+	def con():
 		return random.choice(consonants)
 
 	def vow():
 		return random.choice(vowels)
 
-	return cons() + vow() + cons() + vow() + cons() + vow()
+	return con() + vow() + con() + vow() + con() + vow()
 
 def is_number(s):
 	try:
