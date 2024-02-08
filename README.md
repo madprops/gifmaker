@@ -57,9 +57,11 @@ It's fine-tuned to work with the provided video.
 It uses these defaults (defined in `borat.py`):
 
 ```
+VIDEO = "video.webm"
 FPS = 2.2
 RIGHT = 45
 BOTTOM = 100
+RAND_WORDS = 3
 SCALE = 3
 THICK = 3
 ```
@@ -73,6 +75,8 @@ THICK = 3
 A bigger `FPS` = A faster gif.
 
 `SCALE` and `THICK` modify the text's size and thickness.
+
+`RAND_WORDS` is the number of random words to use when no arguments are provided.
 
 If you want to use a different video, you might need to adjust these.
 

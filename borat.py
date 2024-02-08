@@ -9,10 +9,10 @@ VIDEO = "video.webm"
 FPS = 2.2
 RIGHT = 45
 BOTTOM = 100
-WORDS = []
 RAND_WORDS = 3
 SCALE = 3
 THICK = 3
+WORDS = []
 
 def get_frames(num_frames):
 	cap = cv2.VideoCapture(VIDEO)
