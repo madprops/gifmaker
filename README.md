@@ -38,13 +38,15 @@ venv/bin/python borat.py --video="/path/to/video.webm"
 
 `webm` and `mp4` should work, and maybe other formats.
 
-You can pass it a string of words to use on each frame:
+You can pass it a string of lines to use on each frame.
+
+They are separated by "," (comma).
 
 ```
-venv/bin/python borat.py --words="Construct Additional Pylons"
+venv/bin/python borat.py --words="Hello Brother, Construct Additional Pylons"
 ```
 
-It will make 3 frames, one per word.
+It will make 2 frames, one per line.
 
 If you want to make a gif with 5 random frames and an FPS of 3:
 
