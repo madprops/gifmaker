@@ -68,11 +68,11 @@ THICK = 3
 
 `FPS` (frames per second) modifies the speed between frame change (ms).
 
+A bigger `FPS` = A faster gif.
+
 `RIGHT` is the padding from the right edge.
 
 `BOTTOM` is the padding from the bottom.
-
-A bigger `FPS` = A faster gif.
 
 `SCALE` and `THICK` modify the text's size and thickness.
 
