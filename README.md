@@ -60,6 +60,12 @@ venv/bin/python borat.py --words="I Like [random] and [random]"
 
 It will pick a random english words from the system's dictionary.
 
+There are 3 kinds of random formats: `[random]`, `[RANDOM]`, and `[Random]`.
+
+The replaced word will use the casing of those.
+
+For example `[RANDOM]` might be `PLANET`.
+
 ## Defaults
 
 It uses these defaults (defined in `borat.py`):

@@ -20,7 +20,6 @@ THICK = 3
 
 HERE = Path(__file__).parent
 VIDEO = Path(HERE, "video.webm")
-RANDSTR = "[random]"
 WORDS = []
 SEP = ","
 
@@ -128,30 +127,45 @@ def check_args():
 	if args.thick is not None:
 		THICK = args.thick
 
-# Replace [random] with a random word
-def check_words():
+def check_random():
 	if len(WORDS) == 0:
 		return
 
-	num_random = sum(w.count(RANDSTR) for w in WORDS)
+	rs_lower = "[random]"
+	rs_upper = "[RANDOM]"
+	rs_title = "[Random]"
 
-	if num_random > 0:
-		randwords = utils.random_words(num_random)
+	num_random = 0
 
-		for i, line in enumerate(WORDS):
-			new_words = []
+	for rs in [rs_lower, rs_upper, rs_title]:
+		num_random += sum(w.count(rs) for w in WORDS)
 
-			for word in line.split():
-				if word == RANDSTR:
-					new_words.append(randwords.pop(0))
-				else:
-					new_words.append(word)
+	if num_random == 0:
+		return
 
-			WORDS[i] = " ".join(new_words)
+	randwords = utils.random_words(num_random)
+
+	for i, line in enumerate(WORDS):
+		new_words = []
+
+		for word in line.split():
+			new_word = word
+
+			if word == rs_lower:
+				new_word = randwords.pop(0).lower()
+			elif word == rs_upper:
+				new_word = randwords.pop(0).upper()
+			elif word == rs_title:
+				new_word = randwords.pop(0).title()
+
+			new_words.append(new_word)
+
+		WORDS[i] = " ".join(new_words)
 
 def main():
 	check_args()
-	check_words()
+	check_random()
+
 	frames = get_frames(FRAMES)
 
 	if len(frames) == 0:
