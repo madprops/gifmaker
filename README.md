@@ -30,56 +30,54 @@ venv/bin/pip install -r requirements.txt
 
 ## Usage
 
-You can supply a string as an argument:
+It's fine-tuned to work with the provided video.
+
+But you can provide any video path using the `--video` flag:
 
 ```
-venv/bin/python borat.py "Construct Additional Pylons"
+venv/bin/python borat.py --video="/path/to/video.webm"
 ```
 
-In this case each word is a frame, so 3 frames.
+`webm` and `mp4` should work, and maybe other formats.
 
-Or let it pick some random words (3 by default):
-
-```
-venv/bin/python borat.py
-```
-
-You can also define the number of random words to use:
+You can pass it a string of words to use on each frame:
 
 ```
-venv/bin/python borat.py 5
+venv/bin/python borat.py --words="Construct Additional Pylons"
+```
+
+With that flag it will make 3 frames, one per word.
+
+If you want to make a gif with 5 random frames and with an FPS of 3:
+
+```
+venv/bin/python borat.py --frames=5 --fps=3
 ```
 
 ## Defaults
-
-It's fine-tuned to work with the provided video.
 
 It uses these defaults (defined in `borat.py`):
 
 ```
 FPS = 2.2
+FRAMES = 3
 RIGHT = 45
 BOTTOM = 100
 SCALE = 3
 THICK = 3
-RAND_WORDS = 3
 ```
 
 `FPS` (frames per second) modifies the speed between frame change (ms).
 
 A bigger `FPS` = A faster gif.
 
+`FRAMES` is the amount of frames to use if `--words` is not used.
+
 `RIGHT` is the padding from the right edge.
 
 `BOTTOM` is the padding from the bottom.
 
 `SCALE` and `THICK` modify the text's size and thickness.
-
-`RAND_WORDS` is the number of random words to use when no arguments are provided.
-
-If you want to use a different video, you might need to adjust these.
-
-Also name the video file `video.webm` or modfiy the `VIDEO` value in `borat.py`.
 
 ## Why?
 

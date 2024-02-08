@@ -11,6 +11,7 @@ import argparse
 from pathlib import Path
 
 FPS = 2.2
+FRAMES = 3
 RIGHT = 45
 BOTTOM = 100
 SIZE = 3
@@ -19,7 +20,6 @@ THICK = 3
 HERE = Path(__file__).parent
 VIDEO = Path(HERE, "video.webm")
 WORDS = []
-FRAMES = 3
 
 def get_frames(num_frames):
 	cap = cv2.VideoCapture(str(VIDEO))
@@ -67,13 +67,13 @@ def create_gif(frames):
 
 def check_args():
 	global VIDEO
+	global FRAMES
 	global WORDS
 	global FPS
 	global RIGHT
 	global BOTTOM
 	global SIZE
 	global THICK
-	global FRAMES
 
 	parser = argparse.ArgumentParser(description='Borat the Gif Maker')
 
