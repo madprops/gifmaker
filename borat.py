@@ -77,16 +77,31 @@ def word_frames(frames):
 
 	return worded
 
-def main():
+def is_number(s):
+	try:
+		return int(s)
+	except:
+		return 0
+
+def check_args():
 	global WORDS
+	global RAND_WORDS
 
 	if len(sys.argv) > 1:
-		wordstr = sys.argv[1].split()
-		WORDS = [word for word in wordstr if word]
+		arg = sys.argv[1]
+		num = is_number(arg)
+
+		if num > 0:
+			RAND_WORDS = num
+		else:
+			wordstr = arg.split()
+			WORDS = [word for word in wordstr if word]
 
 	if len(WORDS) == 0:
 		WORDS = get_random_words(RAND_WORDS)
 
+def main():
+	check_args()
 	frames = get_frames(len(WORDS))
 
 	if len(frames) == 0:
