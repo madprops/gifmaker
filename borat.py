@@ -93,8 +93,8 @@ def check_args():
 	parser.add_argument('--center', action="store_true", help='Center the text')
 	parser.add_argument('--right', type=float, help='Right padding')
 	parser.add_argument('--bottom', type=float, help='Bottom padding')
-	parser.add_argument('--size', type=float, help='Text size')
-	parser.add_argument('--thick', type=float, help='Text thickness')
+	parser.add_argument('--size', type=int, help='Text size')
+	parser.add_argument('--thick', type=int, help='Text thickness')
 	parser.add_argument('--frames', type=int, help='The number of frames to use if no words are provided')
 
 	args = parser.parse_args()
