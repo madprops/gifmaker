@@ -17,7 +17,7 @@ HERE = Path(__file__).parent
 WORDS = []
 
 def get_frames(num_frames):
-	video_path = HERE.joinpath(VIDEO)
+	video_path = Path(HERE, VIDEO)
 	cap = cv2.VideoCapture(str(video_path))
 	total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
 	frames = []
@@ -56,9 +56,9 @@ def word_frames(frames):
 def create_gif(frames):
 	rand = utils.random_string()
 	file_name = f"{rand}.gif"
-	output_dir = HERE.joinpath("output")
+	output_dir = Path(HERE, "output")
 	output_dir.mkdir(parents=False, exist_ok=True)
-	output = output_dir.joinpath(file_name)
+	output = Path(output_dir, file_name)
 	imageio.mimsave(output, frames, fps=FPS, loop=0)
 
 def check_args():
