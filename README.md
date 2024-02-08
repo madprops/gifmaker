@@ -63,7 +63,7 @@ FPS = 2.2
 FRAMES = 3
 RIGHT = 45
 BOTTOM = 100
-SCALE = 3
+SIZE = 3
 THICK = 3
 ```
 
@@ -77,7 +77,7 @@ A bigger `FPS` = A faster gif.
 
 `BOTTOM` is the padding from the bottom.
 
-`SCALE` and `THICK` modify the text's size and thickness.
+`SIZE` and `THICK` modify the text's size and thickness.
 
 ## Why?
 
