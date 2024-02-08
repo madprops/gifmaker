@@ -1,24 +1,28 @@
+# Modules
 import utils
-import sys
+
+# Libraries
 import cv2
 import imageio
+
+# Standard
 import random
+import argparse
 from pathlib import Path
 
-VIDEO = "video.webm"
 FPS = 2.2
 RIGHT = 45
 BOTTOM = 100
-SCALE = 3
+SIZE = 3
 THICK = 3
-RAND_WORDS = 3
 
 HERE = Path(__file__).parent
+VIDEO = Path(HERE, "video.webm")
 WORDS = []
+FRAMES = 3
 
 def get_frames(num_frames):
-	video_path = Path(HERE, VIDEO)
-	cap = cv2.VideoCapture(str(video_path))
+	cap = cv2.VideoCapture(str(VIDEO))
 	total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
 	frames = []
 
@@ -40,9 +44,9 @@ def get_frames(num_frames):
 def add_text(frame, text):
 	height, width, _ = frame.shape
 	font = cv2.FONT_HERSHEY_SIMPLEX
-	text_size = cv2.getTextSize(text, font, SCALE, THICK)[0]
+	text_size = cv2.getTextSize(text, font, SIZE, THICK)[0]
 	text_position = (width - text_size[0] - RIGHT, height - BOTTOM)
-	cv2.putText(frame, text, text_position, font, SCALE, (255, 255, 255), THICK, cv2.LINE_AA)
+	cv2.putText(frame, text, text_position, font, SIZE, (255, 255, 255), THICK, cv2.LINE_AA)
 	return frame
 
 def word_frames(frames):
@@ -62,31 +66,63 @@ def create_gif(frames):
 	imageio.mimsave(output, frames, fps=FPS, loop=0)
 
 def check_args():
+	global VIDEO
 	global WORDS
-	global RAND_WORDS
+	global FPS
+	global RIGHT
+	global BOTTOM
+	global SIZE
+	global THICK
+	global FRAMES
 
-	if len(sys.argv) > 1:
-		arg = sys.argv[1]
-		num = utils.is_number(arg)
+	parser = argparse.ArgumentParser(description='Borat the Gif Maker')
 
-		if num > 0:
-			RAND_WORDS = num
-		else:
-			wordstr = arg.split()
-			WORDS = [word for word in wordstr if word]
+	parser.add_argument('--video', type=str, help='Path to the video file')
+	parser.add_argument('--words', type=str, help='Words to use. Use [random] to use a random word')
+	parser.add_argument('--fps', type=float, help='FPS to use')
+	parser.add_argument('--right', type=float, help='Right padding')
+	parser.add_argument('--bottom', type=float, help='Bottom padding')
+	parser.add_argument('--size', type=float, help='Text size')
+	parser.add_argument('--thick', type=float, help='Text thickness')
+	parser.add_argument('--frames', type=int, help='The number of frames to use if no words are provided')
 
-	if len(WORDS) == 0:
-		WORDS = utils.random_words(RAND_WORDS)
+	args = parser.parse_args()
+
+	if args.video is not None:
+		VIDEO = Path(args.video)
+
+	if args.words is not None:
+		WORDS = args.words.split()
+		FRAMES = len(WORDS)
+	elif args.frames is not None:
+		FRAMES = args.frames
+
+	if args.fps is not None:
+		FPS = args.fps
+
+	if args.right is not None:
+		RIGHT = args.right
+
+	if args.bottom is not None:
+		BOTTOM = args.bottom
+
+	if args.size is not None:
+		SIZE = args.size
+
+	if args.thick is not None:
+		THICK = args.thick
 
 def main():
 	check_args()
-	frames = get_frames(len(WORDS))
+	frames = get_frames(FRAMES)
 
 	if len(frames) == 0:
 		return
 
-	worded = word_frames(frames)
-	create_gif(worded)
+	if len(WORDS) > 0:
+		frames = word_frames(frames)
+
+	create_gif(frames)
 
 if __name__ == "__main__":
 	main()

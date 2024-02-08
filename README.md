@@ -57,7 +57,6 @@ It's fine-tuned to work with the provided video.
 It uses these defaults (defined in `borat.py`):
 
 ```
-VIDEO = "video.webm"
 FPS = 2.2
 RIGHT = 45
 BOTTOM = 100
