@@ -20,6 +20,7 @@ THICK = 3
 
 HERE = Path(__file__).parent
 VIDEO = Path(HERE, "video.webm")
+RANDSTR = "[random]"
 WORDS = []
 
 def get_frames(num_frames):
@@ -126,8 +127,25 @@ def check_args():
 	if args.thick is not None:
 		THICK = args.thick
 
+def check_words():
+	if len(WORDS) == 0:
+		return
+
+	num_random = sum(w.count(RANDSTR) for w in WORDS)
+
+	if num_random > 0:
+		randwords = utils.random_words(num_random)
+
+		for i in range(len(WORDS)):
+			if len(randwords) == 0:
+				break
+
+			if WORDS[i] == RANDSTR:
+				WORDS[i] = randwords.pop(0)
+
 def main():
 	check_args()
+	check_words()
 	frames = get_frames(FRAMES)
 
 	if len(frames) == 0:
