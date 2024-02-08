@@ -12,11 +12,10 @@ from pathlib import Path
 
 FPS = 2.2
 FRAMES = 3
-CENTER = False
-RIGHT = 45
-BOTTOM = 100
 SIZE = 3
 THICK = 3
+LEFT = None
+TOP = None
 
 HERE = Path(__file__).parent
 VIDEO = Path(HERE, "video.webm")
@@ -48,12 +47,12 @@ def add_text(frame, text):
 	font = cv2.FONT_HERSHEY_SIMPLEX
 	text_size = cv2.getTextSize(text, font, SIZE, THICK)[0]
 
-	if CENTER:
+	if LEFT is not None and TOP is not None:
+		text_x = LEFT
+		text_y = TOP
+	else:
 		text_x = (width - text_size[0]) // 2
 		text_y = (height + text_size[1]) // 2
-	else:
-		text_x = width - text_size[0] - RIGHT
-		text_y = height - BOTTOM
 
 	text_position = (text_x, text_y)
 	cv2.putText(frame, text, text_position, font, SIZE, (255, 255, 255), THICK, cv2.LINE_AA)
@@ -80,11 +79,10 @@ def check_args():
 	global FRAMES
 	global WORDS
 	global FPS
-	global CENTER
-	global RIGHT
-	global BOTTOM
 	global SIZE
 	global THICK
+	global LEFT
+	global TOP
 
 	parser = argparse.ArgumentParser(description='Borat the Gif Maker')
 
@@ -92,8 +90,8 @@ def check_args():
 	parser.add_argument('--words', type=str, help='Words to use. Use [random] to use a random word')
 	parser.add_argument('--fps', type=float, help='FPS to use')
 	parser.add_argument('--center', action="store_true", help='Center the text')
-	parser.add_argument('--right', type=float, help='Right padding')
-	parser.add_argument('--bottom', type=float, help='Bottom padding')
+	parser.add_argument('--left', type=int, help='Right padding')
+	parser.add_argument('--top', type=int, help='Bottom padding')
 	parser.add_argument('--size', type=int, help='Text size')
 	parser.add_argument('--thick', type=int, help='Text thickness')
 	parser.add_argument('--frames', type=int, help='The number of frames to use if no words are provided')
@@ -112,20 +110,17 @@ def check_args():
 	if args.fps is not None:
 		FPS = args.fps
 
-	if args.center is not None:
-		CENTER = args.center
-
-	if args.right is not None:
-		RIGHT = args.right
-
-	if args.bottom is not None:
-		BOTTOM = args.bottom
-
 	if args.size is not None:
 		SIZE = args.size
 
 	if args.thick is not None:
 		THICK = args.thick
+
+	if args.left is not None:
+		LEFT = args.left
+
+	if args.top is not None:
+		TOP = args.top
 
 def check_random():
 	if len(WORDS) == 0:

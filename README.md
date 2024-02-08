@@ -77,10 +77,10 @@ It uses these defaults (defined in `borat.py`):
 ```
 FPS = 2.2
 FRAMES = 3
-RIGHT = 45
-BOTTOM = 100
 SIZE = 3
 THICK = 3
+LEFT = None
+TOP = None
 ```
 
 `FPS` (frames per second) modifies the speed between frame change (ms).
@@ -89,9 +89,11 @@ A bigger `FPS` = A faster gif.
 
 `FRAMES` is the amount of frames to use if `--words` is not used.
 
-`RIGHT` is the padding from the right edge.
+`LEFT` is the padding from the left edge.
 
-`BOTTOM` is the padding from the bottom.
+`TOP` is the padding from the top edge.
+
+If these are not set then the text is placed in the center.
 
 `SIZE` and `THICK` modify the text's size and thickness.
 
