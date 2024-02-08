@@ -6,7 +6,7 @@ import random
 import string
 
 VIDEO = "video.webm"
-FPS = 2
+FPS = 2.2
 RIGHT = 45
 BOTTOM = 100
 WORDS = []

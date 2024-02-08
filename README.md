@@ -57,7 +57,7 @@ It's fine-tuned to work with the provided video.
 It uses these defaults (defined in `borat.py`):
 
 ```
-FPS = 2
+FPS = 2.2
 RIGHT = 45
 BOTTOM = 100
 SCALE = 3
