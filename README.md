@@ -10,6 +10,12 @@ Then joins all frames into a gif.
 
 Clone this repo, and get inside the dir.
 
+```
+git clone --depth=1 https://github.com/madprops/borat
+
+cd borat
+```
+
 Then create the virtual env:
 
 ```
