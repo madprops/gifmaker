@@ -13,8 +13,7 @@ BOTTOM = 100
 def get_frames():
 	cap = cv2.VideoCapture(VIDEO)
 	total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
-	words = get_random_words(FRAMES)
-	frames_done = []
+	frames = []
 
 	# Sometimes it fails to read the frames so it needs more tries
 	for x in range(0, FRAMES * 100):
@@ -23,15 +22,13 @@ def get_frames():
 		ret, frame = cap.read()
 
 		if ret:
-			frames_done.append(add_text(frame, words[len(frames_done)]))
+			frames.append(frame)
 
-		if len(frames_done) == FRAMES:
+		if len(frames) == FRAMES:
 			break
 
 	cap.release()
-
-	if len(frames_done) > 0:
-		create_gif(frames_done)
+	return frames
 
 def add_text(frame, text):
 	height, width, _ = frame.shape
@@ -70,5 +67,23 @@ def random_string():
 		random.choice(vowels)
 	)
 
+def word_frames(frames):
+	worded = []
+	words = get_random_words(FRAMES)
+
+	for i, frame in enumerate(frames):
+		worded.append(add_text(frame, words[i]))
+
+	return worded
+
+def main():
+	frames = get_frames()
+
+	if len(frames) == 0:
+		return
+
+	worded = word_frames(frames)
+	create_gif(worded)
+
 if __name__ == "__main__":
-	get_frames()
+	main()
