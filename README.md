@@ -40,10 +40,10 @@ venv/bin/python borat.py --video="/path/to/video.webm"
 
 You can pass it a string of lines to use on each frame.
 
-They are separated by "," (comma).
+They are separated by ";" (semicolons).
 
 ```
-venv/bin/python borat.py --words="Hello Brother, Construct Additional Pylons"
+venv/bin/python borat.py --words="Hello Brother; Construct Additional Pylons"
 ```
 
 It will make 2 frames, one per line.

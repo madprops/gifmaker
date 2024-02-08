@@ -21,7 +21,7 @@ THICK = 3
 HERE = Path(__file__).parent
 VIDEO = Path(HERE, "video.webm")
 WORDS = []
-SEP = ","
+SEP = ";"
 
 def get_frames(num_frames):
 	cap = cv2.VideoCapture(str(VIDEO))
