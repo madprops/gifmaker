@@ -1,3 +1,4 @@
+import sys
 import cv2
 import imageio
 import os
@@ -5,18 +6,19 @@ import random
 import string
 
 VIDEO = "video.webm"
-FRAMES = 3
 DELAY = 180
 RIGHT = 45
 BOTTOM = 100
+WORDS = []
+RAND_WORDS = 3
 
-def get_frames():
+def get_frames(num_frames):
 	cap = cv2.VideoCapture(VIDEO)
 	total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
 	frames = []
 
 	# Sometimes it fails to read the frames so it needs more tries
-	for x in range(0, FRAMES * 100):
+	for x in range(0, num_frames * 25):
 		index = random.choice(range(total_frames))
 		cap.set(cv2.CAP_PROP_POS_FRAMES, index)
 		ret, frame = cap.read()
@@ -24,7 +26,7 @@ def get_frames():
 		if ret:
 			frames.append(frame)
 
-		if len(frames) == FRAMES:
+		if len(frames) == num_frames:
 			break
 
 	cap.release()
@@ -69,15 +71,23 @@ def random_string():
 
 def word_frames(frames):
 	worded = []
-	words = get_random_words(FRAMES)
 
 	for i, frame in enumerate(frames):
-		worded.append(add_text(frame, words[i]))
+		worded.append(add_text(frame, WORDS[i]))
 
 	return worded
 
 def main():
-	frames = get_frames()
+	global WORDS
+
+	if len(sys.argv) > 1:
+		wordstr = sys.argv[1].split()
+		WORDS = [word for word in wordstr if word]
+
+	if len(WORDS) == 0:
+		WORDS = get_random_words(RAND_WORDS)
+
+	frames = get_frames(len(WORDS))
 
 	if len(frames) == 0:
 		return
