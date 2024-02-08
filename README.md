@@ -64,15 +64,15 @@ SCALE = 3
 THICK = 3
 ```
 
-Right is the padding from the right edge.
+`FPS` (frames per second) modifies the speed between frame change (ms).
 
-Bottom is the padding from the bottom.
+`RIGHT` is the padding from the right edge.
 
-FPS (frames per second) modifies the speed between frame change (ms).
+`BOTTOM` is the padding from the bottom.
 
-A bigger fps = a faster gif.
+A bigger `FPS` = A faster gif.
 
-Scale and Thick modify the text's size and thickness.
+`SCALE` and `THICK` modify the text's size and thickness.
 
 If you want to use a different video, you might need to adjust these.
 
