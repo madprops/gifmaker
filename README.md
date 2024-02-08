@@ -2,7 +2,7 @@
 
 This uses a video to extract x number of random frames.
 
-It places random words somewhere on the frames.
+It places a word somewhere on each frame.
 
 Then joins all frames into a gif.
 
