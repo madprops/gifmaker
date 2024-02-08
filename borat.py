@@ -49,7 +49,7 @@ def add_text(frame, text):
 
 	if LEFT is not None and TOP is not None:
 		text_x = LEFT
-		text_y = TOP
+		text_y = text_size[1] + TOP
 	else:
 		text_x = (width - text_size[0]) // 2
 		text_y = (height + text_size[1]) // 2
