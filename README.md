@@ -44,6 +44,30 @@ You can also define the number of random words to use:
 venv/bin/python borat.py 5
 ```
 
+## Defaults
+
+It's fine tuned to work with the video provided.
+
+It uses these defaults (defined in `borat.py`):
+
+```
+DELAY = 180
+RIGHT = 45
+BOTTOM = 100
+```
+
+Right is the padding from the right edge.
+
+Bottom is the padding from the bottom.
+
+Delay modifies the speed between frame change.
+
+A bigger delay = a slower gif.
+
+If you want to use a different video, you might need to adjust these.
+
+Also name the video file `video.webm` or modfiy the `VIDEO` value in `borat.py`.
+
 ## Why?
 
 It might become useful eventually.
