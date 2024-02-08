@@ -1,10 +1,12 @@
 <img src="borat.jpg" width="350">
 
-This uses a video to extract x number of random frames.
+This is a pytohn program to produce gif images.
 
-It places words somewhere on each frame.
+It extracts random frames from a video.
 
-Then joins all frames into a gif.
+It (optionally) places words somewhere on each frame.
+
+Then joins all frames into an animated gif.
 
 ## Installation
 
