@@ -87,17 +87,17 @@ def check_args():
 	global LEFT
 	global TOP
 
-	parser = argparse.ArgumentParser(description='Borat the Gif Maker')
+	parser = argparse.ArgumentParser(description="Borat the Gif Maker")
 
-	parser.add_argument('--video', type=str, help='Path to the video file')
-	parser.add_argument('--words', type=str, help='Words to use. Use [random] to use a random word')
-	parser.add_argument('--fps', type=float, help='FPS to use')
-	parser.add_argument('--center', action="store_true", help='Center the text')
-	parser.add_argument('--left', type=int, help='Right padding')
-	parser.add_argument('--top', type=int, help='Bottom padding')
-	parser.add_argument('--size', type=int, help='Text size')
-	parser.add_argument('--thick', type=int, help='Text thickness')
-	parser.add_argument('--frames', type=int, help='The number of frames to use if no words are provided')
+	parser.add_argument("--video", type=str, help="Path to the video file")
+	parser.add_argument("--words", type=str, help="Words to use. Use [random] to use a random word")
+	parser.add_argument("--fps", type=float, help="FPS to use")
+	parser.add_argument("--center", action="store_true", help="Center the text")
+	parser.add_argument("--left", type=int, help="Right padding")
+	parser.add_argument("--top", type=int, help="Bottom padding")
+	parser.add_argument("--size", type=int, help="Text size")
+	parser.add_argument("--thick", type=int, help="Text thickness")
+	parser.add_argument("--frames", type=int, help="The number of frames to use if no words are provided")
 
 	args = parser.parse_args()
 
