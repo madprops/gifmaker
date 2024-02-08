@@ -97,8 +97,6 @@ A bigger `FPS` = A faster gif.
 
 ## Why?
 
-It might become useful eventually.
+It might be useful in the realm of human verification.
 
-Maybe in the realm of human verification.
-
-Plus it's kinda funny.
+And memes.
