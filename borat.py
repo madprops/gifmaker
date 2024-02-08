@@ -1,9 +1,9 @@
 import sys
 import cv2
 import imageio
-import os
 import random
 import string
+from pathlib import Path
 
 VIDEO = "video.webm"
 FPS = 2.2
@@ -13,12 +13,13 @@ SCALE = 3
 THICK = 3
 RAND_WORDS = 3
 
-DIRPATH = os.path.dirname(os.path.realpath(__file__))
+HERE = Path(__file__).parent
 WORDS = []
 
 def get_frames(num_frames):
-	video_path = os.path.join(DIRPATH, VIDEO)
-	cap = cv2.VideoCapture(video_path)
+
+	video_path = HERE / VIDEO
+	cap = cv2.VideoCapture(str(video_path))
 	total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
 	frames = []
 
@@ -56,9 +57,9 @@ def word_frames(frames):
 def create_gif(frames):
 	rand = random_string()
 	file_name = f"{rand}.gif"
-	output_dir = os.path.join(DIRPATH, "output")
-	os.makedirs(output_dir, exist_ok=True)
-	output = os.path.join(output_dir, file_name)
+	output_dir = HERE / "output"
+	output_dir.mkdir(parents=False, exist_ok=True)
+	output = output_dir / file_name
 	imageio.mimsave(output, frames, fps=FPS, loop=0)
 
 def get_random_words(num_words):
