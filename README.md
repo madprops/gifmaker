@@ -38,6 +38,12 @@ Or let it pick some random words (3 by default):
 venv/bin/python borat.py
 ```
 
+You can also define the number of random words to use:
+
+```
+venv/bin/python borat.py 5
+```
+
 ## Why?
 
 It might become useful eventually.
