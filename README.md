@@ -46,7 +46,7 @@ venv/bin/python borat.py --words="Construct Additional Pylons"
 
 With that flag it will make 3 frames, one per word.
 
-If you want to make a gif with 5 random frames and with an FPS of 3:
+If you want to make a gif with 5 random frames with an FPS of 3:
 
 ```
 venv/bin/python borat.py --frames=5 --fps=3
