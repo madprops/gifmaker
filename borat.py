@@ -2,8 +2,8 @@ import sys
 import cv2
 import imageio
 import random
-import string
 from pathlib import Path
+import utils
 
 VIDEO = "video.webm"
 FPS = 2.2
@@ -54,38 +54,12 @@ def word_frames(frames):
 	return worded
 
 def create_gif(frames):
-	rand = random_string()
+	rand = utils.random_string()
 	file_name = f"{rand}.gif"
 	output_dir = HERE / "output"
 	output_dir.mkdir(parents=False, exist_ok=True)
 	output = output_dir / file_name
 	imageio.mimsave(output, frames, fps=FPS, loop=0)
-
-def get_random_words(num_words):
-	dict_words = "/usr/share/dict/words"
-
-	with open(dict_words, "r") as file:
-		words = file.read().splitlines()
-		return random.sample(words, num_words)
-
-def random_string():
-	vowels = "aeiou"
-	consonants = "".join(set(string.ascii_lowercase) - set(vowels))
-
-	return (
-		random.choice(consonants) +
-		random.choice(vowels) +
-		random.choice(consonants) +
-		random.choice(vowels) +
-		random.choice(consonants) +
-		random.choice(vowels)
-	)
-
-def is_number(s):
-	try:
-		return int(s)
-	except:
-		return 0
 
 def check_args():
 	global WORDS
@@ -93,7 +67,7 @@ def check_args():
 
 	if len(sys.argv) > 1:
 		arg = sys.argv[1]
-		num = is_number(arg)
+		num = utils.is_number(arg)
 
 		if num > 0:
 			RAND_WORDS = num
@@ -102,7 +76,7 @@ def check_args():
 			WORDS = [word for word in wordstr if word]
 
 	if len(WORDS) == 0:
-		WORDS = get_random_words(RAND_WORDS)
+		WORDS = utils.random_words(RAND_WORDS)
 
 def main():
 	check_args()
