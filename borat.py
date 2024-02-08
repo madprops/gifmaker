@@ -17,7 +17,6 @@ HERE = Path(__file__).parent
 WORDS = []
 
 def get_frames(num_frames):
-
 	video_path = HERE / VIDEO
 	cap = cv2.VideoCapture(str(video_path))
 	total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
