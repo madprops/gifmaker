@@ -90,7 +90,7 @@ def check_args():
 	parser = argparse.ArgumentParser(description="Borat the Gif Maker")
 
 	parser.add_argument("--video", type=str, help="Path to the video file")
-	parser.add_argument("--words", type=str, help="Words to use. Use [random] to use a random word")
+	parser.add_argument("--words", type=str, help=f"Words to use. Use [random] to use a random word. Separate lines with {SEP}")
 	parser.add_argument("--fps", type=float, help="FPS to use")
 	parser.add_argument("--center", action="store_true", help="Center the text")
 	parser.add_argument("--left", type=int, help="Right padding")
