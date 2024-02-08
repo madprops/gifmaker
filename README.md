@@ -57,7 +57,7 @@ It's fine-tuned to work with the provided video.
 It uses these defaults (defined in `borat.py`):
 
 ```
-DELAY = 500
+FPS = 2
 RIGHT = 45
 BOTTOM = 100
 SCALE = 3
@@ -68,9 +68,9 @@ Right is the padding from the right edge.
 
 Bottom is the padding from the bottom.
 
-Delay modifies the speed between frame change (ms).
+FPS (frames per second) modifies the speed between frame change (ms).
 
-A bigger delay = a slower gif.
+A bigger fps = a faster gif.
 
 Scale and Thick modify the text's size and thickness.
 

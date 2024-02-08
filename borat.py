@@ -6,7 +6,7 @@ import random
 import string
 
 VIDEO = "video.webm"
-DELAY = 500
+FPS = 2
 RIGHT = 45
 BOTTOM = 100
 WORDS = []
@@ -53,7 +53,7 @@ def create_gif(frames):
 	fname = random_string()
 	output = f"output/{fname}.gif"
 	os.makedirs("output", exist_ok=True)
-	imageio.mimsave(output, frames, duration=DELAY, loop=0)
+	imageio.mimsave(output, frames, fps=FPS, loop=0)
 
 def random_string():
 	vowels = "aeiou"
