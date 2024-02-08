@@ -1,6 +1,6 @@
 <img src="borat.jpg" width="350">
 
-This is a pytohn program to produce gif images.
+This is a python program to produce gif images.
 
 It extracts random frames from a video.
 
