@@ -61,9 +61,9 @@ VIDEO = "video.webm"
 FPS = 2.2
 RIGHT = 45
 BOTTOM = 100
-RAND_WORDS = 3
 SCALE = 3
 THICK = 3
+RAND_WORDS = 3
 ```
 
 `FPS` (frames per second) modifies the speed between frame change (ms).
