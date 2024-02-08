@@ -54,6 +54,14 @@ If you want to make a gif with 5 random frames and with an FPS of 3:
 venv/bin/python borat.py --frames=5 --fps=3
 ```
 
+You can use random words with `[random]`:
+
+```
+venv/bin/python borat.py --words="I Like [random] and [random]"
+```
+
+It will pick a random english words from the system's dictionary.
+
 ## Defaults
 
 It uses these defaults (defined in `borat.py`):
