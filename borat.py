@@ -1,9 +1,9 @@
+import utils
 import sys
 import cv2
 import imageio
 import random
 from pathlib import Path
-import utils
 
 VIDEO = "video.webm"
 FPS = 2.2
