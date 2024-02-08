@@ -12,10 +12,13 @@ BOTTOM = 100
 SCALE = 3
 THICK = 3
 RAND_WORDS = 3
+
+DIRPATH = os.path.dirname(os.path.realpath(__file__))
 WORDS = []
 
 def get_frames(num_frames):
-	cap = cv2.VideoCapture(VIDEO)
+	video_path = os.path.join(DIRPATH, VIDEO)
+	cap = cv2.VideoCapture(video_path)
 	total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
 	frames = []
 
@@ -42,18 +45,28 @@ def add_text(frame, text):
 	cv2.putText(frame, text, text_position, font, SCALE, (255, 255, 255), THICK, cv2.LINE_AA)
 	return frame
 
+def word_frames(frames):
+	worded = []
+
+	for i, frame in enumerate(frames):
+		worded.append(add_text(frame, WORDS[i]))
+
+	return worded
+
+def create_gif(frames):
+	rand = random_string()
+	file_name = f"{rand}.gif"
+	output_dir = os.path.join(DIRPATH, "output")
+	os.makedirs(output_dir, exist_ok=True)
+	output = os.path.join(output_dir, file_name)
+	imageio.mimsave(output, frames, fps=FPS, loop=0)
+
 def get_random_words(num_words):
 	dict_words = "/usr/share/dict/words"
 
 	with open(dict_words, "r") as file:
 		words = file.read().splitlines()
 		return random.sample(words, num_words)
-
-def create_gif(frames):
-	fname = random_string()
-	output = f"output/{fname}.gif"
-	os.makedirs("output", exist_ok=True)
-	imageio.mimsave(output, frames, fps=FPS, loop=0)
 
 def random_string():
 	vowels = "aeiou"
@@ -67,14 +80,6 @@ def random_string():
 		random.choice(consonants) +
 		random.choice(vowels)
 	)
-
-def word_frames(frames):
-	worded = []
-
-	for i, frame in enumerate(frames):
-		worded.append(add_text(frame, WORDS[i]))
-
-	return worded
 
 def is_number(s):
 	try:
