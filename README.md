@@ -30,9 +30,7 @@ venv/bin/pip install -r requirements.txt
 
 ## Usage
 
-It's fine-tuned to work with the provided video.
-
-But you can provide any video path using the `--video` flag:
+You can provide any video path using the `--video` flag:
 
 ```
 venv/bin/python borat.py --video="/path/to/video.webm"
