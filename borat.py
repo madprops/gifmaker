@@ -22,6 +22,7 @@ HERE = Path(__file__).parent
 VIDEO = Path(HERE, "video.webm")
 RANDSTR = "[random]"
 WORDS = []
+SEP = ","
 
 def get_frames(num_frames):
 	cap = cv2.VideoCapture(str(VIDEO))
@@ -104,7 +105,7 @@ def check_args():
 		VIDEO = Path(args.video)
 
 	if args.words is not None:
-		WORDS = args.words.split()
+		WORDS = utils.split_words(args.words, SEP)
 		FRAMES = len(WORDS)
 	elif args.frames is not None:
 		FRAMES = args.frames
@@ -136,12 +137,16 @@ def check_words():
 	if num_random > 0:
 		randwords = utils.random_words(num_random)
 
-		for i in range(len(WORDS)):
-			if len(randwords) == 0:
-				break
+		for i, line in enumerate(WORDS):
+			new_words = []
 
-			if WORDS[i] == RANDSTR:
-				WORDS[i] = randwords.pop(0)
+			for word in line.split():
+				if word == RANDSTR:
+					new_words.append(randwords.pop(0))
+				else:
+					new_words.append(word)
+
+			WORDS[i] = " ".join(new_words)
 
 def main():
 	check_args()
