@@ -128,6 +128,7 @@ def check_args():
 	if args.thick is not None:
 		THICK = args.thick
 
+# Replace [random] with a random word
 def check_words():
 	if len(WORDS) == 0:
 		return
