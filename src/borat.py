@@ -1,6 +1,6 @@
 # Modules
-import state
 from state import Global
+import state
 import utils
 import args
 
