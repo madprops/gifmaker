@@ -35,7 +35,7 @@ def resolve_path(path):
 	if pth.is_absolute():
 		return pth
 	else:
-		return (Path.cwd() / pth).resolve()
+		return Path(Path.cwd(), pth).resolve()
 
 def is_number(s):
 	try:
