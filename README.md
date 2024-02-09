@@ -68,7 +68,7 @@ You can use random words with `[random]`:
 venv/bin/python borat.py --words="I Like [random] and [random]"
 ```
 
-It will pick a random english words from the system's dictionary.
+It will pick random words from a list of english words.
 
 There are 3 kinds of random formats: `[random]`, `[RANDOM]`, and `[Random]`.
 

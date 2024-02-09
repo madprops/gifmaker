@@ -1,12 +1,18 @@
+# Libraries
+import nltk
+
+# Standard
 import random
 import string
 
-def random_words(num_words):
-	dict_words = "/usr/share/dict/words"
+# Download the word list
+# This should happen only once
+nltk.download("words")
+from nltk.corpus import words as WordList
 
-	with open(dict_words, "r") as file:
-		words = file.read().splitlines()
-		return random.sample(words, num_words)
+def random_words(num):
+	words = WordList.words()
+	return random.sample(words, num)
 
 def random_string():
 	vowels = "aeiou"
