@@ -170,7 +170,7 @@ Fixed width to every frame. Height is always automatic.
 
 ---
 
-> input = Type: Str | Default: 'media/video.webm'
+> input = Type: Str | Default: media/video.webm
 
 Which video or image to use for the frames.
 
@@ -192,7 +192,7 @@ The words string to use. Lines are separated by `;`.
 
 ---
 
-> ext = Type: Str | Default: gif
+> ext = Type: Str | Default: "gif"
 
 The format of the output file. Either `gif` or `mp4`.
 
@@ -204,7 +204,7 @@ If the output is a directory it will use `ext` with a random name.
 
 ---
 
-> separator = Type: Str | Default: ;
+> separator = Type: Str | Default: ";"
 
 Which character to consider as the separator in `words`.
 
