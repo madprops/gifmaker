@@ -124,11 +124,6 @@ def check_random():
 	if num_random == 0:
 		return
 
-	randwords = utils.random_words(num_random)
-
-	def get_rand():
-		return randwords.pop(0)
-
 	for i, line in enumerate(Global.words):
 		new_words = []
 
@@ -136,11 +131,11 @@ def check_random():
 			new_word = word
 
 			if word == rs_lower:
-				new_word = get_rand().lower()
+				new_word = utils.random_word().lower()
 			elif word == rs_upper:
-				new_word = get_rand().upper()
+				new_word = utils.random_word().upper()
 			elif word == rs_title:
-				new_word = get_rand().title()
+				new_word = utils.random_word().title()
 
 			new_words.append(new_word)
 
