@@ -86,6 +86,8 @@ Here's a fuller example:
 venv/bin/python src/borat.py --video="/videos/stuff.webm" --size=3 --thick=3 --fps=1.5 --width=600 --words="; I want to eat;; [Random]"
 ```
 
+You can run `borat.py` from anywhere in your system using its virtual env. Relative paths should work fine.
+
 ## Defaults
 
 It uses these defaults (defined in `state.py`):
