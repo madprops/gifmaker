@@ -1,8 +1,6 @@
 # Standard
 from pathlib import Path
-from dataclasses import dataclass
 
-@dataclass
 class Global:
 	# Frames per second to use
 	fps = 2.11
