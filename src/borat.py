@@ -147,7 +147,7 @@ def check_random():
 		Global.words[i] = " ".join(new_words)
 
 def main():
-	state.fill_paths(Path(__file__).parent)
+	config.fill_paths(Path(__file__).parent)
 
 	args.check()
 	check_random()
