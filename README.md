@@ -76,6 +76,14 @@ The replaced word will use the casing of those.
 
 For example `[RANDOM]` might be `PLANET`.
 
+If you want to use words and have some frames without them simply use more `;`.
+
+Here's a fuller example:
+
+```
+venv/bin/python borat.py --video="/videos/stuff.webm" --size=3 --thick=3 --fps=1.5 --width=600 --words="; I want to eat;; [Random]"
+```
+
 ## Defaults
 
 It uses these defaults (defined in `borat.py`):
