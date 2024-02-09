@@ -1,7 +1,8 @@
 # Modules
-from state import Global
-import utils
-import args
+import modules.state as state
+from modules.state import Global
+import modules.utils as utils
+import modules.args as args
 
 # Libraries
 import cv2
@@ -120,6 +121,8 @@ def check_random():
 		Global.words[i] = " ".join(new_words)
 
 def main():
+	state.fill_paths(Path(__file__).parent)
+
 	args.check()
 	check_random()
 

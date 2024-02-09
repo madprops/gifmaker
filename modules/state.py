@@ -1,3 +1,4 @@
+# Standard
 from pathlib import Path
 from dataclasses import dataclass
 
@@ -25,13 +26,13 @@ class Global:
 	width = None
 
 	# The directory where this file resides
-	here = Path(__file__).parent
+	here = None
 
 	# Default path to the video file
-	video = Path(here, "video.webm")
+	video = None
 
 	# The output directory
-	outdir = Path(here, "output")
+	outdir = None
 
 	# Default words to use
 	words = []
@@ -41,3 +42,8 @@ class Global:
 
 	# The list of nouns to use
 	nouns = []
+
+def fill_paths(here):
+	Global.here = here
+	Global.video = Path(here, "media", "video.webm")
+	Global.outdir = Path(here, "output")

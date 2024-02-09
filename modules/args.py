@@ -1,5 +1,5 @@
 # Modules
-from state import Global
+from modules.state import Global
 
 # Standard
 import argparse
