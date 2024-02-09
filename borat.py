@@ -28,6 +28,9 @@ LEFT = None
 # The padding from the top
 TOP = None
 
+# The width to resize the frames
+WIDTH = None
+
 # The directory where this file resides
 HERE = Path(__file__).parent
 
@@ -52,6 +55,11 @@ def get_frames(num_frames):
 		ret, frame = cap.read()
 
 		if ret:
+			if WIDTH is not None:
+				ratio = frame.shape[1] / frame.shape[0]
+				height = int(WIDTH / ratio)
+				frame = cv2.resize(frame, (WIDTH, height))
+
 			frames.append(frame)
 
 		if len(frames) == num_frames:
@@ -64,19 +72,21 @@ def add_text(frame, text):
 	height, width, _ = frame.shape
 	font = cv2.FONT_HERSHEY_SIMPLEX
 	text_size = cv2.getTextSize(text, font, SIZE, THICK)[0]
+	factor = min(width / text_size[0], height / text_size[1])
+	scaled = int(SIZE * factor)
 
 	if LEFT is not None:
 		text_x = LEFT
 	else:
-		text_x = (width - text_size[0]) // 2
+		text_x = (width - (text_size[0] * scaled)) // 2
 
 	if TOP is not None:
 		text_y = text_size[1] + TOP
 	else:
-		text_y = (height + text_size[1]) // 2
+		text_y = (height + (text_size[1] * scaled)) // 2
 
 	text_position = (text_x, text_y)
-	cv2.putText(frame, text, text_position, font, SIZE, (255, 255, 255), THICK, cv2.LINE_AA)
+	cv2.putText(frame, text, text_position, font, scaled, (255, 255, 255), THICK, cv2.LINE_AA)
 	return frame
 
 def word_frames(frames):
@@ -104,15 +114,16 @@ def check_args():
 	global THICK
 	global LEFT
 	global TOP
+	global WIDTH
 
 	parser = argparse.ArgumentParser(description="Borat the Gif Maker")
 
 	parser.add_argument("--video", type=str, help="Path to the video file")
 	parser.add_argument("--words", type=str, help=f"Words to use. Use [random] to use a random word. Separate lines with {SEP}")
 	parser.add_argument("--fps", type=float, help="FPS to use")
-	parser.add_argument("--center", action="store_true", help="Center the text")
 	parser.add_argument("--left", type=int, help="Right padding")
 	parser.add_argument("--top", type=int, help="Bottom padding")
+	parser.add_argument("--width", type=int, help="Width to resize the frames")
 	parser.add_argument("--size", type=int, help="Text size")
 	parser.add_argument("--thick", type=int, help="Text thickness")
 	parser.add_argument("--frames", type=int, help="The number of frames to use if no words are provided")
@@ -142,6 +153,9 @@ def check_args():
 
 	if args.top is not None:
 		TOP = args.top
+
+	if args.width is not None:
+		WIDTH = args.width
 
 def check_random():
 	if len(WORDS) == 0:
