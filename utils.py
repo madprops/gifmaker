@@ -1,12 +1,12 @@
 # Libraries
-from nltk.corpus import words as WordList
+from english_words import get_english_words_set
 
 # Standard
 import random
 import string
 
 def random_words(num):
-	words = WordList.words()
+	words = list(get_english_words_set(['web2']))
 	return random.sample(words, num)
 
 def random_string():
