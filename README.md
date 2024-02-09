@@ -14,7 +14,12 @@ It might be useful in the realm of human verification.
 
 And memes.
 
-## Installation
+## Index
+1. [Installation](#installation)
+1. [Usage](#usage)
+1. [Arguments](#arguments)
+
+## Installation <a name="installation"></a>
 
 Clone this repo, and get inside the dir.
 
@@ -36,7 +41,7 @@ Then install the dependencies:
 venv/bin/pip install -r requirements.txt
 ```
 
-## Usage
+## Usage <a name="usage"></a>
 
 Run `src/borat.py` using the python in the virtual env:
 
@@ -92,7 +97,7 @@ venv/bin/python src/borat.py --video="/videos/stuff.webm" --size=3 --thick=3 --f
 
 You can run `borat.py` from anywhere in your system using its virtual env. Relative paths should work fine.
 
-## Arguments
+## Arguments <a name="arguments"></a>
 
 You can use flag arguments like: `--fps=3 --top=0 --width=500`
 
