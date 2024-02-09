@@ -39,7 +39,7 @@ class Global:
 	separator = ";"
 
 	# The format of the output file. Either gif or mp4
-	ext = "gif"
+	extension = "gif"
 
 	# The order to use when extracting the frames
 	order = "random"

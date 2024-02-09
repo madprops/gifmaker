@@ -105,7 +105,7 @@ If you want to use words and have some frames without them simply use more `;`.
 Here's a fuller example:
 
 ```
-venv/bin/python src/borat.py --input="/videos/stuff.webm" --fontsize=3 --fps=1.5 --width=600 --words="; I want to eat;; [Random] --ext="mp4"
+venv/bin/python src/borat.py --input="/videos/stuff.webm" --fontsize=3 --fps=1.5 --width=600 --words="; I want to eat;; [Random] --format="mp4"
 ```
 
 You can run `borat.py` from anywhere in your system using its virtual env. Relative paths should work fine.
@@ -210,7 +210,7 @@ The words string to use. Lines are separated by `;`.
 
 ---
 
-> ext = Type: Str | Default: "gif"
+> format = Type: Str | Default: "gif"
 
 The format of the output file. Either `gif` or `mp4`.
 
@@ -218,7 +218,7 @@ This is only used when the output is not a direct file path.
 
 For instance if the output ends with `cat.gif` it will use `gif`.
 
-If the output is a directory it will use `ext` with a random name.
+If the output is a directory it will use a random name with the appropiate format.
 
 ---
 

@@ -117,14 +117,14 @@ def render(frames):
 	else:
 		Global.output.mkdir(parents=False, exist_ok=True)
 		rand = utils.random_string()
-		file_name = f"{rand}.{Global.ext}"
+		file_name = f"{rand}.{Global.format}"
 		output = Path(Global.output, file_name)
 
-	used_ext = ext if ext else Global.ext
+	fmt = ext if ext else Global.format
 
-	if used_ext == "gif":
+	if fmt == "gif":
 		imageio.mimsave(output, frames, fps=Global.fps, loop=0)
-	elif used_ext == "mp4":
+	elif fmt == "mp4":
 		imageio.mimsave(output, frames, fps=Global.fps)
 
 	print(f"\nSaved as: {output}\n")
