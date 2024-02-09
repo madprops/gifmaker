@@ -55,7 +55,18 @@ def add_text(frame, text):
 		return frame
 
 	height, width, _ = frame.shape
-	font = cv2.FONT_HERSHEY_SIMPLEX
+
+	if Global.font == "simple":
+		font = cv2.FONT_HERSHEY_SIMPLEX
+	elif Global.font == "complex":
+		font = cv2.FONT_HERSHEY_COMPLEX
+	elif Global.font == "plain":
+		font = cv2.FONT_HERSHEY_PLAIN
+	elif Global.font == "duplex":
+		font = cv2.FONT_HERSHEY_DUPLEX
+	elif Global.font == "triplex":
+		font = cv2.FONT_HERSHEY_TRIPLEX
+
 	text_size = cv2.getTextSize(text, font, Global.size, Global.thick)[0]
 
 	if Global.left is not None:

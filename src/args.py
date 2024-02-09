@@ -24,6 +24,7 @@ def check():
 	parser.add_argument("--ext", type=str, help="The format of the output file. Either gif or mp4")
 	parser.add_argument("--separator", type=str, help="Character to use as the separator")
 	parser.add_argument("--order", type=str, help="The order to use when extracting the frames. Either random or normal")
+	parser.add_argument("--font", type=str, help="The font to use for the text. Either simple, complex, plain, duplex, or triplex")
 
 	args = parser.parse_args()
 
@@ -71,3 +72,6 @@ def check():
 
 	if args.order is not None:
 		Global.order = args.order
+
+	if args.font is not None:
+		Global.font = args.font

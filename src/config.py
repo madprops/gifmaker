@@ -44,6 +44,9 @@ class Global:
 	# The order to use when extracting the frames
 	order = "random"
 
+	# The font to use for the text. Either simple, complex, plain, duplex, or triplex
+	font = "simple"
+
 def fill_paths(main):
 	Global.root = main.parent.resolve()
 	Global.input = Path(Global.root, "media", "video.webm").resolve()

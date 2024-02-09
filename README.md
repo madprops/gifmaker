@@ -242,4 +242,12 @@ Either `random` or `normal`.
 
 ---
 
+> font = Type: Str | Default "simple"
+
+The font to use for the text.
+
+Either `simple`, `complex`, `plain`, `duplex`, or `triplex`.
+
+---
+
 <img src="media/borat.gif" width="600">
