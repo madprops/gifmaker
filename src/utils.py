@@ -29,6 +29,14 @@ def random_string():
 def get_ext(path):
 	return Path(path).suffix.lower()
 
+def resolve_path(path):
+	pth = Path(path)
+
+	if pth.is_absolute():
+		return pth
+	else:
+		return (Path.cwd() / pth).resolve()
+
 def is_number(s):
 	try:
 		return int(s)

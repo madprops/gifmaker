@@ -44,7 +44,7 @@ class Global:
 	ext = "gif"
 
 def fill_paths(main):
-	Global.root = main.parent
-	Global.input = Path(Global.root, "media", "video.webm")
-	Global.wordfile = Path(Global.root, "data", "nouns.txt")
-	Global.output = Path(Global.root, "output")
+	Global.root = main.parent.resolve()
+	Global.input = Path(Global.root, "media", "video.webm").resolve()
+	Global.wordfile = Path(Global.root, "data", "nouns.txt").resolve()
+	Global.output = Path(Global.root, "output").resolve()

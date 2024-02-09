@@ -1,5 +1,6 @@
 # Modules
 from state import Global
+import utils
 
 # Standard
 import argparse
@@ -19,13 +20,13 @@ def check():
 	parser.add_argument("--size", type=float, help="Text size")
 	parser.add_argument("--thick", type=int, help="Text thickness")
 	parser.add_argument("--frames", type=int, help="Number of frames to use if no words are provided")
-	parser.add_argument("--output", "-o", type=str, help="Output directory to save the gif")
+	parser.add_argument("--output", "-o", type=str, help="Output directory to save the file")
 	parser.add_argument("--ext", type=str, help="The format of the output file. Either gif or mp4")
 
 	args = parser.parse_args()
 
 	if args.input is not None:
-		Global.input = Path(args.input)
+		Global.input = utils.resolve_path(args.input)
 
 	if args.words is not None:
 		Global.words = [word.strip() for word in args.words.split(Global.separator)]
@@ -58,7 +59,7 @@ def check():
 		Global.width = args.width
 
 	if args.output is not None:
-		Global.output = Path(args.output)
+		Global.output = utils.resolve_path(args.output)
 
 	if args.ext is not None:
 		Global.ext = args.ext
