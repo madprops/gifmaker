@@ -19,8 +19,14 @@ class Global:
 	# The padding from the left
 	left = None
 
+	# The padding from the right
+	right = None
+
 	# The padding from the top
 	top = None
+
+	# The padding from the bottom
+	bottom = None
 
 	# The width to resize the frames
 	width = None

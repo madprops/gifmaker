@@ -42,11 +42,15 @@ def add_text(frame, text):
 
 	if Global.left is not None:
 		text_x = Global.left
+	elif Global.right is not None:
+		text_x = width - text_size[0] - Global.right
 	else:
 		text_x = (width - text_size[0]) // 2
 
 	if Global.top is not None:
 		text_y = text_size[1] + Global.top
+	elif Global.bottom is not None:
+		text_y = height - (text_size[1] // 2)
 	else:
 		text_y = (height + text_size[1]) // 2
 

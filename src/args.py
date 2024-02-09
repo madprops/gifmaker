@@ -11,8 +11,10 @@ def check():
 	parser.add_argument("--video", type=str, help="Path to the video file")
 	parser.add_argument("--words", type=str, help=f"Words to use. Use [random] to use a random word. Separate lines with {Global.separator}")
 	parser.add_argument("--fps", type=float, help="FPS to use")
-	parser.add_argument("--left", type=int, help="Right padding")
-	parser.add_argument("--top", type=int, help="Bottom padding")
+	parser.add_argument("--left", type=int, help="Left padding")
+	parser.add_argument("--right", type=int, help="Right padding")
+	parser.add_argument("--top", type=int, help="Top padding")
+	parser.add_argument("--bottom", type=int, help="Bottom padding")
 	parser.add_argument("--width", type=int, help="Width to resize the frames")
 	parser.add_argument("--size", type=float, help="Text size")
 	parser.add_argument("--thick", type=int, help="Text thickness")
@@ -42,8 +44,14 @@ def check():
 	if args.left is not None:
 		Global.left = args.left
 
+	if args.right is not None:
+		Global.right = args.right
+
 	if args.top is not None:
 		Global.top = args.top
+
+	if args.bottom is not None:
+		Global.bottom = args.bottom
 
 	if args.width is not None:
 		Global.width = args.width
