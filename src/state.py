@@ -34,15 +34,6 @@ class Global:
 	# The list of nouns to use
 	wordlist = []
 
-	# The directory where this file resides
-	here = None
-
-	# Default path to the video file
-	video = None
-
-	# The output directory
-	outdir = None
-
 def fill_paths(main):
 	Global.root = main.parent
 	Global.video = Path(Global.root, "media", "video.webm")
