@@ -106,49 +106,47 @@ These modify how the gif image is going to be generated.
 
 A bigger `fps` = A faster gif.
 
+---
+
 > frames = Type: Int | Default: 3
 
 The amount of frames to use if `--words` is not used.
+
+---
 
 > size = Type: Int | Default: 3
 
 The size of the text.
 
+---
+
 > thick = Type: Float | Default: 3
 
 The thickness of the text.
+
+---
 
 > left = Type: Int | Default: None
 
 Padding from the left edge.
 
+---
+
 > right = Type: Int | Default: None
 
 Padding from the right edge.
+
+---
 
 > top = Type: Int | Default: None
 
 Padding from the top edge.
 
+---
+
 > bottom = Type: Int | Default: None
 
 Padding from the bottom edge.
-
-> width = Type: Int | Default: None
-
-Fixed width to every frame. Height is always automatic.
-
-> outdir = Type: Str | Default: 'output' directory
-
-In which directoy to save the generated gif.
-
-> video = Type: Str | Default: 'media/video.webm'
-
-Which video to use for the frames.
-
-> words = Type: Str | Default: No words
-
-The words string to use. Lines are separated by `;`.
 
 ---
 
@@ -157,6 +155,30 @@ You only need to set `left` or `right`, not both.
 You only need to set `top` or `bottom`, not both.
 
 If those are not set then the text is placed at the center.
+
+---
+
+> width = Type: Int | Default: None
+
+Fixed width to every frame. Height is always automatic.
+
+---
+
+> outdir = Type: Str | Default: 'output' directory
+
+In which directoy to save the generated gif.
+
+---
+
+> video = Type: Str | Default: 'media/video.webm'
+
+Which video to use for the frames.
+
+---
+
+> words = Type: Str | Default: No words
+
+The words string to use. Lines are separated by `;`.
 
 ---
 
