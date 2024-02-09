@@ -14,7 +14,7 @@ from pathlib import Path
 
 def get_frames(num_frames):
 	frames = []
-	ext = utils.get_ext(Global.input)
+	ext = utils.get_extension(Global.input)
 
 	if ext == ".jpg" or ext == ".png":
 		for x in range(0, num_frames):
@@ -109,13 +109,21 @@ def resize_frames(frames):
 	return new_frames
 
 def render(frames):
-	ext = utils.get_ext(Global.output)
+	ext = utils.get_extension(Global.output)
 
 	if ext:
-		Global.output.parent.mkdir(parents=False, exist_ok=True)
+		try:
+			Global.output.parent.mkdir(parents=False, exist_ok=True)
+		except:
+			return
+
 		output = Global.output
 	else:
-		Global.output.mkdir(parents=False, exist_ok=True)
+		try:
+			Global.output.mkdir(parents=False, exist_ok=True)
+		except:
+			return
+
 		rand = utils.random_string()
 		file_name = f"{rand}.{Global.format}"
 		output = Path(Global.output, file_name)
@@ -166,6 +174,10 @@ def main():
 	config.fill_paths(Path(__file__).parent)
 
 	args.check()
+
+	if not Global.input.exists():
+		return
+
 	check_random()
 
 	frames = get_frames(Global.frames)

@@ -26,7 +26,7 @@ def random_string():
 
 	return con() + vow() + con() + vow() + con() + vow()
 
-def get_ext(path):
+def get_extension(path):
 	return Path(path).suffix.lower()
 
 def resolve_path(path):
