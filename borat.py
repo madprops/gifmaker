@@ -10,10 +10,10 @@ import random
 import argparse
 from pathlib import Path
 
-# The frames per second to use
+# Frames per second to use
 FPS = 2.2
 
-# The number of frames to use if no words are provided
+# Number of frames to use if no words are provided
 FRAMES = 3
 
 # The size of the text
@@ -135,7 +135,7 @@ def check_args():
 	parser.add_argument("--width", type=int, help="Width to resize the frames")
 	parser.add_argument("--size", type=float, help="Text size")
 	parser.add_argument("--thick", type=int, help="Text thickness")
-	parser.add_argument("--frames", type=int, help="The number of frames to use if no words are provided")
+	parser.add_argument("--frames", type=int, help="Number of frames to use if no words are provided")
 
 	args = parser.parse_args()
 
