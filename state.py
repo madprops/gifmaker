@@ -30,6 +30,9 @@ class Global:
 	# Default path to the video file
 	video = Path(here, "video.webm")
 
+	# The output directory
+	outdir = Path(here, "output")
+
 	# Default words to use
 	words = []
 
