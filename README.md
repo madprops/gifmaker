@@ -41,7 +41,7 @@ venv/bin/pip install -r requirements.txt
 You can provide any video path using the `--video` flag:
 
 ```
-venv/bin/python borat.py --video="/path/to/video.webm"
+venv/bin/python src/borat.py --video="/path/to/video.webm"
 ```
 
 `webm` and `mp4` should work, and maybe other formats.
@@ -51,7 +51,7 @@ You can pass it a string of lines to use on each frame.
 They are separated by ";" (semicolons).
 
 ```
-venv/bin/python borat.py --words="Hello Brother; Construct Additional Pylons"
+venv/bin/python src/borat.py --words="Hello Brother; Construct Additional Pylons"
 ```
 
 It will make 2 frames, one per line.
@@ -59,13 +59,13 @@ It will make 2 frames, one per line.
 If you want to make a gif with 5 random frames and an FPS of 3:
 
 ```
-venv/bin/python borat.py --frames=5 --fps=3
+venv/bin/python src/borat.py --frames=5 --fps=3
 ```
 
 You can use random words with `[random]`:
 
 ```
-venv/bin/python borat.py --words="I Like [random] and [random]"
+venv/bin/python src/borat.py --words="I Like [random] and [random]"
 ```
 
 It will pick random words from a list of english words.
@@ -81,7 +81,7 @@ If you want to use words and have some frames without them simply use more `;`.
 Here's a fuller example:
 
 ```
-venv/bin/python borat.py --video="/videos/stuff.webm" --size=3 --thick=3 --fps=1.5 --width=600 --words="; I want to eat;; [Random]"
+venv/bin/python src/borat.py --video="/videos/stuff.webm" --size=3 --thick=3 --fps=1.5 --width=600 --words="; I want to eat;; [Random]"
 ```
 
 ## Defaults
