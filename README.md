@@ -97,42 +97,46 @@ You can run `borat.py` from anywhere in your system using its virtual env. Relat
 It uses these defaults (defined in `state.py`):
 
 ```
-FPS = 2.2
-FRAMES = 3
-SIZE = 3
-THICK = 3
-LEFT = None
-RIGHT = None
-TOP = None
-BOTTOM = None
-WIDTH = None
+fps = 2.2
+frames = 3
+size = 3
+thick = 3
+left = None
+right = None
+top = None
+bottom = None
+width = None
 ```
 
-`FPS` (frames per second) modifies the speed between frame change (ms).
+---
 
-A bigger `FPS` = A faster gif.
+All of these can be set with flags like `--fps=3 --top=0 --width=500`
 
-`FRAMES` is the amount of frames to use if `--words` is not used.
+---
 
-`LEFT` is the padding from the left edge.
+`fps` (frames per second) modifies the speed between frame change (ms).
 
-`RIGHT` is the padding from the right edge.
+A bigger `fps` = A faster gif.
 
-`TOP` is the padding from the top edge.
+`frames` is the amount of frames to use if `--words` is not used.
 
-`BOTTOM` is the padding from the bottom edge.
+`left` is the padding from the left edge.
 
-You only need to define `LEFT` or `RIGHT`, not both.
+`right` is the padding from the right edge.
 
-You only need to define `TOP` or `BOTTOM`, not both.
+`top` is the padding from the top edge.
+
+`bottom` is the padding from the bottom edge.
+
+You only need to set `left` or `right`, not both.
+
+You only need to set `top` or `bottom`, not both.
 
 If these are not set then the text is placed at the center.
 
-`SIZE` and `THICK` modify the text's size and thickness.
+`size` and `thick` modify the text's size and thickness.
 
-`WIDTH` sets a fixed width to every frame. Height is always automatic.
-
-All of these can be changed with flags like `--fps=3 --top=0 --width=500`
+`width` sets a fixed width to every frame. Height is always automatic.
 
 ---
 
