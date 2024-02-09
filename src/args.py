@@ -8,7 +8,7 @@ from pathlib import Path
 def check():
 	parser = argparse.ArgumentParser(description="Borat the Gif Maker")
 
-	parser.add_argument("--input", type=str, help="Path to the a video or image file")
+	parser.add_argument("--input", "-i", type=str, help="Path to the a video or image file")
 	parser.add_argument("--words", type=str, help=f"Words to use. Use [random] to use a random word. Separate lines with {Global.separator}")
 	parser.add_argument("--fps", type=float, help="FPS to use")
 	parser.add_argument("--left", type=int, help="Left padding")
@@ -19,7 +19,7 @@ def check():
 	parser.add_argument("--size", type=float, help="Text size")
 	parser.add_argument("--thick", type=int, help="Text thickness")
 	parser.add_argument("--frames", type=int, help="Number of frames to use if no words are provided")
-	parser.add_argument("--outdir", type=str, help="Output directory to save the gif")
+	parser.add_argument("--outdir", "-o", type=str, help="Output directory to save the gif")
 	parser.add_argument("--ext", type=str, help="The format of the output file. Either gif or mp4")
 
 	args = parser.parse_args()
