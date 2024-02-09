@@ -200,7 +200,7 @@ This is only used when the output is not a direct file path.
 
 For instance if the output ends with `cat.gif` it will use `gif`.
 
-If the output is a directory it will use `ext`.
+If the output is a directory it will use `ext` with a random name.
 
 ---
 
