@@ -100,43 +100,55 @@ These modify how the gif image is going to be generated.
 
 ---
 
->fps = 2.2
+> fps = Type: Float | Default: 2.2
 
 (Frames Per Second) modifies the speed between frame change (ms).
 
 A bigger `fps` = A faster gif.
 
-> frames = 3
+> frames = Type: Int | Default: 3
 
 The amount of frames to use if `--words` is not used.
 
-> size = 3
+> size = Type: Int | Default: 3
 
 The size of the text.
 
-> thick = 3
+> thick = Type: Float | Default: 3
 
 The thickness of the text.
 
-> left = None
+> left = Type: Int | Default: None
 
 Padding from the left edge.
 
-> right = None
+> right = Type: Int | Default: None
 
 Padding from the right edge.
 
-> top = None
+> top = Type: Int | Default: None
 
 Padding from the top edge.
 
-> bottom = None
+> bottom = Type: Int | Default: None
 
 Padding from the bottom edge.
 
-> width = None
+> width = Type: Int | Default: None
 
 Fixed width to every frame. Height is always automatic.
+
+> outdir = Type: Str | Default: 'output' directory
+
+In which directoy to save the generated gif.
+
+> video = Type: Str | Default: 'media/video.webm'
+
+Which video to use for the frames.
+
+> words = Type: Str | Default: No words
+
+The words string to use. Lines are separated by `;`.
 
 ---
 
