@@ -1,14 +1,9 @@
 # Libraries
-import nltk
+from nltk.corpus import words as WordList
 
 # Standard
 import random
 import string
-
-# Download the word list
-# This should happen only once
-nltk.download("words")
-from nltk.corpus import words as WordList
 
 def random_words(num):
 	words = WordList.words()
