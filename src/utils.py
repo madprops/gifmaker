@@ -36,9 +36,3 @@ def resolve_path(path):
 		return pth
 	else:
 		return Path(Path.cwd(), pth).resolve()
-
-def is_number(s):
-	try:
-		return int(s)
-	except:
-		return 0
