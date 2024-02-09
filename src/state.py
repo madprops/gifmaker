@@ -44,6 +44,7 @@ class Global:
 	nouns = []
 
 def fill_paths(here):
-	Global.here = here
-	Global.video = Path(here, "media", "video.webm")
-	Global.outdir = Path(here, "output")
+	Global.root = here.parent
+	Global.video = Path(Global.root, "media", "video.webm")
+	Global.nouns_file = Path(Global.root, "data", "nouns.txt")
+	Global.outdir = Path(Global.root, "output")

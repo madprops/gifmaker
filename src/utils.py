@@ -1,5 +1,5 @@
 # Modules
-from modules.state import Global
+from state import Global
 
 # Standard
 import random
@@ -8,9 +8,7 @@ from pathlib import Path
 
 def random_words(num):
 	if len(Global.nouns) == 0:
-		file = Path(Global.here, "nouns.txt")
-
-		with open(file, "r") as file:
+		with open(Global.nouns_file, "r") as file:
 			lines = file.readlines()
 			Global.nouns = [item.strip() for line in lines for item in line.split() if item.strip()]
 
