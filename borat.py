@@ -185,7 +185,7 @@ def check_random():
 	randwords = utils.random_words(num_random)
 
 	def get_rand():
-		return randwords.pop(0).rstrip("'s")
+		return randwords.pop(0)
 
 	for i, line in enumerate(WORDS):
 		new_words = []
