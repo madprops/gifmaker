@@ -204,4 +204,10 @@ If the output is a directory it will use `ext` with a random name.
 
 ---
 
+> separator = Type: Str | Default: ;
+
+Which character to consider as the separator in `words`.
+
+---
+
 <img src="media/borat.gif" width="600">

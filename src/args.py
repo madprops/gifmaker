@@ -10,7 +10,7 @@ def check():
 	parser = argparse.ArgumentParser(description="Borat the Gif Maker")
 
 	parser.add_argument("--input", "-i", type=str, help="Path to the a video or image file")
-	parser.add_argument("--words", type=str, help=f"Words to use. Use [random] to use a random word. Separate lines with {Global.separator}")
+	parser.add_argument("--words", type=str, help=f"Lines of words to use on the frames")
 	parser.add_argument("--fps", type=float, help="FPS to use")
 	parser.add_argument("--left", type=int, help="Left padding")
 	parser.add_argument("--right", type=int, help="Right padding")
@@ -22,11 +22,15 @@ def check():
 	parser.add_argument("--frames", type=int, help="Number of frames to use if no words are provided")
 	parser.add_argument("--output", "-o", type=str, help="Output directory to save the file")
 	parser.add_argument("--ext", type=str, help="The format of the output file. Either gif or mp4")
+	parser.add_argument("--separator", type=str, help="Character to use as the separator")
 
 	args = parser.parse_args()
 
 	if args.input is not None:
 		Global.input = utils.resolve_path(args.input)
+
+	if args.separator is not None:
+		Global.separator = args.separator
 
 	if args.words is not None:
 		Global.words = [word.strip() for word in args.words.split(Global.separator)]
