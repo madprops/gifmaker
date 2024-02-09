@@ -5,7 +5,7 @@ from dataclasses import dataclass
 @dataclass
 class Global:
 	# Frames per second to use
-	fps = 2.1
+	fps = 2.11
 
 	# Number of frames to use if no words are provided
 	frames = 3
