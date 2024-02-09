@@ -79,7 +79,7 @@ def resize_frames(frames):
 
 	return new_frames
 
-def create_gif(frames):
+def render(frames):
 	rand = utils.random_string()
 	file_name = f"{rand}.{Global.ext}"
 	Global.outdir.mkdir(parents=False, exist_ok=True)
@@ -143,7 +143,7 @@ def main():
 		frames = word_frames(frames)
 
 	frames = resize_frames(frames)
-	create_gif(frames)
+	render(frames)
 
 if __name__ == "__main__":
 	main()
