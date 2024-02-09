@@ -87,6 +87,7 @@ SIZE = 3
 THICK = 3
 LEFT = None
 TOP = None
+WIDTH = None
 ```
 
 `FPS` (frames per second) modifies the speed between frame change (ms).
@@ -103,7 +104,9 @@ If these are not set then the text is placed in the center.
 
 `SIZE` and `THICK` modify the text's size and thickness.
 
-All of these can be changed with flags like `--fps=3 --top=0`
+`WIDTH` sets a fixed width to every frame. Height is always automatic.
+
+All of these can be changed with flags like `--fps=3 --top=0 --width=500`
 
 ---
 

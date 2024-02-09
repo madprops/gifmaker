@@ -69,21 +69,26 @@ def get_frames(num_frames):
 	return frames
 
 def add_text(frame, text):
+	if not text.split():
+		return frame
+
 	height, width, _ = frame.shape
 	font = cv2.FONT_HERSHEY_SIMPLEX
 	text_size = cv2.getTextSize(text, font, SIZE, THICK)[0]
+
+	# Get the scale factor based on the width and height
 	factor = min(width / text_size[0], height / text_size[1])
-	scaled = int(SIZE * factor)
+	scaled = float(SIZE * factor)
 
 	if LEFT is not None:
 		text_x = LEFT
 	else:
-		text_x = (width - (text_size[0] * scaled)) // 2
+		text_x = (width - text_size[0]) // 2
 
 	if TOP is not None:
 		text_y = text_size[1] + TOP
 	else:
-		text_y = (height + (text_size[1] * scaled)) // 2
+		text_y = (height + text_size[1]) // 2
 
 	text_position = (text_x, text_y)
 	thick = int(THICK * factor)
