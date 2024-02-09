@@ -1,4 +1,4 @@
-<img src="borat.jpg" width="350">
+<img src="media/borat.jpg" width="350">
 
 This is a python program to produce gif images.
 
@@ -118,4 +118,4 @@ All of these can be changed with flags like `--fps=3 --top=0 --width=500`
 
 ---
 
-<img src="borat.gif" width="600">
+<img src="media/borat.gif" width="600">
