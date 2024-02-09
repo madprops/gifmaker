@@ -55,11 +55,6 @@ def get_frames(num_frames):
 		ret, frame = cap.read()
 
 		if ret:
-			if WIDTH is not None:
-				ratio = frame.shape[1] / frame.shape[0]
-				height = int(WIDTH / ratio)
-				frame = cv2.resize(frame, (WIDTH, height))
-
 			frames.append(frame)
 
 		if len(frames) == num_frames:
@@ -76,10 +71,6 @@ def add_text(frame, text):
 	font = cv2.FONT_HERSHEY_SIMPLEX
 	text_size = cv2.getTextSize(text, font, SIZE, THICK)[0]
 
-	# Get the scale factor based on the width and height
-	factor = min(width / text_size[0], height / text_size[1])
-	scaled = float(SIZE * factor)
-
 	if LEFT is not None:
 		text_x = LEFT
 	else:
@@ -91,8 +82,7 @@ def add_text(frame, text):
 		text_y = (height + text_size[1]) // 2
 
 	text_position = (text_x, text_y)
-	thick = int(THICK * factor)
-	cv2.putText(frame, text, text_position, font, scaled, (255, 255, 255), thick, cv2.LINE_AA)
+	cv2.putText(frame, text, text_position, font, SIZE, (255, 255, 255), THICK, cv2.LINE_AA)
 	return frame
 
 def word_frames(frames):
@@ -102,6 +92,19 @@ def word_frames(frames):
 		worded.append(add_text(frame, WORDS[i]))
 
 	return worded
+
+def resize_frames(frames):
+	if WIDTH is None:
+		return frames
+
+	new_frames = []
+
+	for frame in frames:
+		ratio = frame.shape[1] / frame.shape[0]
+		height = int(WIDTH / ratio)
+		new_frames.append(cv2.resize(frame, (WIDTH, height)))
+
+	return new_frames
 
 def create_gif(frames):
 	rand = utils.random_string()
@@ -130,7 +133,7 @@ def check_args():
 	parser.add_argument("--left", type=int, help="Right padding")
 	parser.add_argument("--top", type=int, help="Bottom padding")
 	parser.add_argument("--width", type=int, help="Width to resize the frames")
-	parser.add_argument("--size", type=int, help="Text size")
+	parser.add_argument("--size", type=float, help="Text size")
 	parser.add_argument("--thick", type=int, help="Text thickness")
 	parser.add_argument("--frames", type=int, help="The number of frames to use if no words are provided")
 
@@ -213,6 +216,7 @@ def main():
 	if len(WORDS) > 0:
 		frames = word_frames(frames)
 
+	frames = resize_frames(frames)
 	create_gif(frames)
 
 if __name__ == "__main__":
