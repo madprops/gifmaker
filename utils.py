@@ -1,22 +1,20 @@
+# Modules
+from state import Global
+
 # Standard
 import random
 import string
 from pathlib import Path
 
-NOUNS = []
-HERE = Path(__file__).parent
-
 def random_words(num):
-	global NOUNS
-
-	if len(NOUNS) == 0:
-		file = Path(HERE, "nouns.txt")
+	if len(Global.nouns) == 0:
+		file = Path(Global.here, "nouns.txt")
 
 		with open(file, "r") as file:
 			lines = file.readlines()
-			NOUNS = [item.strip() for line in lines for item in line.split() if item.strip()]
+			Global.nouns = [item.strip() for line in lines for item in line.split() if item.strip()]
 
-	return random.sample(NOUNS, num)
+	return random.sample(Global.nouns, num)
 
 def random_string():
 	vowels = "aeiou"

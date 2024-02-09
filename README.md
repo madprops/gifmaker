@@ -86,7 +86,7 @@ venv/bin/python borat.py --video="/videos/stuff.webm" --size=3 --thick=3 --fps=1
 
 ## Defaults
 
-It uses these defaults (defined in `borat.py`):
+It uses these defaults (defined in `state.py`):
 
 ```
 FPS = 2.2
