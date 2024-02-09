@@ -2,7 +2,7 @@
 
 This is a python program to produce gif images.
 
-It extracts random frames from a video.
+It extracts random frames from a video (or images).
 
 It (optionally) places words somewhere on each frame.
 

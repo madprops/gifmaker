@@ -13,23 +13,31 @@ import random
 from pathlib import Path
 
 def get_frames(num_frames):
-	cap = cv2.VideoCapture(str(Global.video))
-	total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
 	frames = []
+	ext = utils.get_ext(Global.video)
 
-	# Sometimes it fails to read the frames so it needs more tries
-	for x in range(0, num_frames * 25):
-		index = random.choice(range(total_frames))
-		cap.set(cv2.CAP_PROP_POS_FRAMES, index)
-		ret, frame = cap.read()
-
-		if ret:
+	if ext == ".jpg" or ext == ".png":
+		for x in range(0, num_frames):
+			frame = cv2.imread(str(Global.video))
 			frames.append(frame)
+	else:
+		cap = cv2.VideoCapture(str(Global.video))
+		total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
 
-		if len(frames) == num_frames:
-			break
+		# Sometimes it fails to read the frames so it needs more tries
+		for x in range(0, num_frames * 25):
+			index = random.choice(range(total_frames))
+			cap.set(cv2.CAP_PROP_POS_FRAMES, index)
+			ret, frame = cap.read()
 
-	cap.release()
+			if ret:
+				frames.append(frame)
+
+			if len(frames) == num_frames:
+				break
+
+		cap.release()
+
 	return frames
 
 def add_text(frame, text):

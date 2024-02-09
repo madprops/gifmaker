@@ -26,6 +26,9 @@ def random_string():
 
 	return con() + vow() + con() + vow() + con() + vow()
 
+def get_ext(path):
+	return Path(path).suffix.lower()
+
 def is_number(s):
 	try:
 		return int(s)
