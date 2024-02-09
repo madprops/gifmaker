@@ -102,7 +102,9 @@ FRAMES = 3
 SIZE = 3
 THICK = 3
 LEFT = None
+RIGHT = None
 TOP = None
+BOTTOM = None
 WIDTH = None
 ```
 
@@ -114,9 +116,17 @@ A bigger `FPS` = A faster gif.
 
 `LEFT` is the padding from the left edge.
 
+`RIGHT` is the padding from the right edge.
+
 `TOP` is the padding from the top edge.
 
-If these are not set then the text is placed in the center.
+`BOTTOM` is the padding from the bottom edge.
+
+You only need to define `LEFT` or `RIGHT`, not both.
+
+You only need to define `TOP` or `BOTTOM`, not both.
+
+If these are not set then the text is placed at the center.
 
 `SIZE` and `THICK` modify the text's size and thickness.
 
