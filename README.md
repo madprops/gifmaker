@@ -8,6 +8,12 @@ It (optionally) places words somewhere on each frame.
 
 Then joins all frames into an animated gif.
 
+## Why?
+
+It might be useful in the realm of human verification.
+
+And memes.
+
 ## Installation
 
 Clone this repo, and get inside the dir.
@@ -96,9 +102,3 @@ A bigger `FPS` = A faster gif.
 If these are not set then the text is placed in the center.
 
 `SIZE` and `THICK` modify the text's size and thickness.
-
-## Why?
-
-It might be useful in the realm of human verification.
-
-And memes.
