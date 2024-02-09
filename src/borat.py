@@ -106,7 +106,7 @@ def render(frames):
 	elif used_ext == "mp4":
 		imageio.mimsave(output, frames, fps=Global.fps)
 
-	print(f"Saved as: {output}")
+	print(f"\nSaved as: {output}\n")
 
 def check_random():
 	if len(Global.words) == 0:
