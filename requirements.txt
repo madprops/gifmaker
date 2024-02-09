@@ -1,3 +1,2 @@
 imageio
 opencv-python
-english-words

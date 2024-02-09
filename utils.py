@@ -1,13 +1,22 @@
-# Libraries
-from english_words import get_english_words_set
-
 # Standard
 import random
 import string
+from pathlib import Path
+
+NOUNS = []
+HERE = Path(__file__).parent
 
 def random_words(num):
-	words = list(get_english_words_set(['web2']))
-	return random.sample(words, num)
+	global NOUNS
+
+	if len(NOUNS) == 0:
+		file = Path(HERE, "nouns.txt")
+
+		with open(file, "r") as file:
+			lines = file.readlines()
+			NOUNS = [item.strip() for line in lines for item in line.split()]
+
+	return random.sample(NOUNS, num)
 
 def random_string():
 	vowels = "aeiou"
