@@ -1,3 +1,5 @@
+# pacman: python-gitpython
+
 import git
 import time
 
