@@ -10,16 +10,34 @@ import random
 import argparse
 from pathlib import Path
 
+# The frames per second to use
 FPS = 2.2
+
+# The number of frames to use if no words are provided
 FRAMES = 3
+
+# The size of the text
 SIZE = 3
+
+# The thickness of the text
 THICK = 3
+
+# The padding from the left
 LEFT = None
+
+# The padding from the top
 TOP = None
 
+# The directory where this file resides
 HERE = Path(__file__).parent
+
+# Default path to the video file
 VIDEO = Path(HERE, "video.webm")
+
+# Default words to use
 WORDS = []
+
+# The separator to use when splitting word lines
 SEP = ";"
 
 def get_frames(num_frames):
