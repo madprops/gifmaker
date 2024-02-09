@@ -43,8 +43,8 @@ class Global:
 	# The output directory
 	outdir = None
 
-def fill_paths(here):
-	Global.root = here.parent
+def fill_paths(main):
+	Global.root = main.parent
 	Global.video = Path(Global.root, "media", "video.webm")
 	Global.wordfile = Path(Global.root, "data", "nouns.txt")
 	Global.outdir = Path(Global.root, "output")
