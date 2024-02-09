@@ -1,8 +1,8 @@
 # Modules
-import state as state
+import state
 from state import Global
-import utils as utils
-import args as args
+import utils
+import args
 
 # Libraries
 import cv2
