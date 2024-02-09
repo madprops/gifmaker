@@ -26,6 +26,3 @@ def is_number(s):
 		return int(s)
 	except:
 		return 0
-
-def split_words(words, sep):
-	return [s.strip() for s in words.split(sep) if s.strip()]

@@ -123,7 +123,7 @@ def check_args():
 		VIDEO = Path(args.video)
 
 	if args.words is not None:
-		WORDS = utils.split_words(args.words, SEP)
+		WORDS = args.words.strip().split(SEP)
 		FRAMES = len(WORDS)
 	elif args.frames is not None:
 		FRAMES = args.frames
