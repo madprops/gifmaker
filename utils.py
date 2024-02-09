@@ -14,7 +14,7 @@ def random_words(num):
 
 		with open(file, "r") as file:
 			lines = file.readlines()
-			NOUNS = [item.strip() for line in lines for item in line.split()]
+			NOUNS = [item.strip() for line in lines for item in line.split() if item.strip()]
 
 	return random.sample(NOUNS, num)
 
