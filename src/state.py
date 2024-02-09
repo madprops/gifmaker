@@ -40,6 +40,9 @@ class Global:
 	# The separator to use when splitting word lines
 	separator = ";"
 
+	# The format of the output file. Either gif or mp4
+	ext = "gif"
+
 def fill_paths(main):
 	Global.root = main.parent
 	Global.video = Path(Global.root, "media", "video.webm")

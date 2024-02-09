@@ -81,10 +81,14 @@ def resize_frames(frames):
 
 def create_gif(frames):
 	rand = utils.random_string()
-	file_name = f"{rand}.gif"
+	file_name = f"{rand}.{Global.ext}"
 	Global.outdir.mkdir(parents=False, exist_ok=True)
 	output = Path(Global.outdir, file_name)
-	imageio.mimsave(output, frames, fps=Global.fps, loop=0)
+
+	if Global.ext == "gif":
+		imageio.mimsave(output, frames, fps=Global.fps, loop=0)
+	elif Global.ext == "mp4":
+		imageio.mimsave(output, frames, fps=Global.fps)
 
 def check_random():
 	if len(Global.words) == 0:

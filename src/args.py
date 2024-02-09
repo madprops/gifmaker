@@ -20,6 +20,7 @@ def check():
 	parser.add_argument("--thick", type=int, help="Text thickness")
 	parser.add_argument("--frames", type=int, help="Number of frames to use if no words are provided")
 	parser.add_argument("--outdir", type=str, help="Output directory to save the gif")
+	parser.add_argument("--ext", type=str, help="The format of the output file. Either gif or mp4")
 
 	args = parser.parse_args()
 
@@ -58,3 +59,6 @@ def check():
 
 	if args.outdir is not None:
 		Global.outdir = Path(args.outdir)
+
+	if args.ext is not None:
+		Global.ext = args.ext

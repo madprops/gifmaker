@@ -6,7 +6,7 @@ It extracts random frames from a video.
 
 It (optionally) places words somewhere on each frame.
 
-Then joins all frames into an animated gif.
+Then joins all frames into an animated gif (or mp4).
 
 ## Why?
 
@@ -92,7 +92,7 @@ If you want to use words and have some frames without them simply use more `;`.
 Here's a fuller example:
 
 ```
-venv/bin/python src/borat.py --video="/videos/stuff.webm" --size=3 --thick=3 --fps=1.5 --width=600 --words="; I want to eat;; [Random]"
+venv/bin/python src/borat.py --video="/videos/stuff.webm" --size=3 --thick=3 --fps=1.5 --width=600 --words="; I want to eat;; [Random] --ext="mp4"
 ```
 
 You can run `borat.py` from anywhere in your system using its virtual env. Relative paths should work fine.
@@ -184,6 +184,12 @@ Which video to use for the frames.
 > words = Type: Str | Default: No words
 
 The words string to use. Lines are separated by `;`.
+
+---
+
+> ext = Type: Str | Default: gif
+
+The format of the output file. Either `gif` or `mp4`.
 
 ---
 
