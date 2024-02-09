@@ -170,15 +170,23 @@ Fixed width to every frame. Height is always automatic.
 
 ---
 
+> input = Type: Str | Default: 'media/video.webm'
+
+Which video or image to use for the frames.
+
+`-i` is a shorter alias for this.
+
+---
+
 > outdir = Type: Str | Default: 'output' directory
 
 In which directoy to save the generated gif.
 
----
+This doesn't include the file name.
 
-> input = Type: Str | Default: 'media/video.webm'
+The file name is always generated automatically.
 
-Which video or image to use for the frames.
+`-o` is a shorter alias for this.
 
 ---
 
