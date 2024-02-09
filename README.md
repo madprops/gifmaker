@@ -41,7 +41,7 @@ venv/bin/pip install -r requirements.txt
 Run `src/borat.py` using the python in the virtual env:
 
 ```
-venv/bin/python src/borat.py"
+venv/bin/python src/borat.py
 ```
 
 You can provide any video path using the `--video` flag:
