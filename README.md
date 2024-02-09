@@ -2,7 +2,7 @@
 
 This is a python program to produce gif images.
 
-It extracts random frames from a video (or images).
+It extracts random frames from a video (or image).
 
 It (optionally) places words somewhere on each frame.
 
@@ -49,10 +49,11 @@ Run `src/borat.py` using the python in the virtual env:
 venv/bin/python src/borat.py
 ```
 
-You can provide any video path using the `--video` flag:
+You can provide a video or image path using the `--input` flag:
 
 ```
-venv/bin/python src/borat.py --video="/path/to/video.webm"
+venv/bin/python src/borat.py --input="/path/to/video.webm"
+venv/bin/python src/borat.py --input="/path/to/image.png
 ```
 
 `webm`, `mp4`, and `gif` should work, and maybe other formats.
@@ -92,7 +93,7 @@ If you want to use words and have some frames without them simply use more `;`.
 Here's a fuller example:
 
 ```
-venv/bin/python src/borat.py --video="/videos/stuff.webm" --size=3 --thick=3 --fps=1.5 --width=600 --words="; I want to eat;; [Random] --ext="mp4"
+venv/bin/python src/borat.py --input="/videos/stuff.webm" --size=3 --thick=3 --fps=1.5 --width=600 --words="; I want to eat;; [Random] --ext="mp4"
 ```
 
 You can run `borat.py` from anywhere in your system using its virtual env. Relative paths should work fine.
@@ -175,9 +176,9 @@ In which directoy to save the generated gif.
 
 ---
 
-> video = Type: Str | Default: 'media/video.webm'
+> input = Type: Str | Default: 'media/video.webm'
 
-Which video to use for the frames.
+Which video or image to use for the frames.
 
 ---
 

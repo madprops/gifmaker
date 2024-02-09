@@ -14,14 +14,14 @@ from pathlib import Path
 
 def get_frames(num_frames):
 	frames = []
-	ext = utils.get_ext(Global.video)
+	ext = utils.get_ext(Global.input)
 
 	if ext == ".jpg" or ext == ".png":
 		for x in range(0, num_frames):
-			frame = cv2.imread(str(Global.video))
+			frame = cv2.imread(str(Global.input))
 			frames.append(frame)
 	else:
-		cap = cv2.VideoCapture(str(Global.video))
+		cap = cv2.VideoCapture(str(Global.input))
 		total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
 
 		# Sometimes it fails to read the frames so it needs more tries

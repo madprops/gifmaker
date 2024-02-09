@@ -8,7 +8,7 @@ from pathlib import Path
 def check():
 	parser = argparse.ArgumentParser(description="Borat the Gif Maker")
 
-	parser.add_argument("--video", type=str, help="Path to the video file")
+	parser.add_argument("--input", type=str, help="Path to the a video or image file")
 	parser.add_argument("--words", type=str, help=f"Words to use. Use [random] to use a random word. Separate lines with {Global.separator}")
 	parser.add_argument("--fps", type=float, help="FPS to use")
 	parser.add_argument("--left", type=int, help="Left padding")
@@ -24,8 +24,8 @@ def check():
 
 	args = parser.parse_args()
 
-	if args.video is not None:
-		Global.video = Path(args.video)
+	if args.input is not None:
+		Global.input = Path(args.input)
 
 	if args.words is not None:
 		Global.words = [word.strip() for word in args.words.split(Global.separator)]
