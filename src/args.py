@@ -9,7 +9,7 @@ def check():
 	parser = argparse.ArgumentParser(description="Borat the Gif Maker")
 
 	parser.add_argument("--video", type=str, help="Path to the video file")
-	parser.add_argument("--words", type=str, help=f"Words to use. Use [random] to use a random word. Separate lines with {Global.sep}")
+	parser.add_argument("--words", type=str, help=f"Words to use. Use [random] to use a random word. Separate lines with {Global.separator}")
 	parser.add_argument("--fps", type=float, help="FPS to use")
 	parser.add_argument("--left", type=int, help="Right padding")
 	parser.add_argument("--top", type=int, help="Bottom padding")
@@ -25,7 +25,7 @@ def check():
 		Global.video = Path(args.video)
 
 	if args.words is not None:
-		Global.words = [word.strip() for word in args.words.split(Global.sep)]
+		Global.words = [word.strip() for word in args.words.split(Global.separator)]
 		Global.frames = len(Global.words)
 	elif args.frames is not None:
 		Global.frames = args.frames

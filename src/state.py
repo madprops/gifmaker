@@ -28,11 +28,11 @@ class Global:
 	# Default words to use
 	words = []
 
-	# The separator to use when splitting word lines
-	sep = ";"
-
 	# The list of nouns to use
 	wordlist = []
+
+	# The separator to use when splitting word lines
+	separator = ";"
 
 def fill_paths(main):
 	Global.root = main.parent
