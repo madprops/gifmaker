@@ -152,25 +152,25 @@ The thickness of the text.
 
 > left = Type: Int | Default: None
 
-Padding from the left edge.
+Padding from the left edge to position the text.
 
 ---
 
 > right = Type: Int | Default: None
 
-Padding from the right edge.
+Padding from the right edge to position the text.
 
 ---
 
 > top = Type: Int | Default: None
 
-Padding from the top edge.
+Padding from the top edge to position the text.
 
 ---
 
 > bottom = Type: Int | Default: None
 
-Padding from the bottom edge.
+Padding from the bottom edge to position the text.
 
 ---
 
