@@ -1,5 +1,5 @@
 # Modules
-from state import Global
+from config import Global
 import utils
 
 # Standard
