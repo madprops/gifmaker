@@ -47,4 +47,4 @@ def fill_paths(main):
 	Global.root = main.parent
 	Global.input = Path(Global.root, "media", "video.webm")
 	Global.wordfile = Path(Global.root, "data", "nouns.txt")
-	Global.outdir = Path(Global.root, "output")
+	Global.output = Path(Global.root, "output")

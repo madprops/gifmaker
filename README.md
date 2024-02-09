@@ -178,13 +178,9 @@ Which video or image to use for the frames.
 
 ---
 
-> outdir = Type: Str | Default: 'output' directory
+> output = Type: Str | Default: 'output' directory
 
 In which directoy to save the generated gif.
-
-This doesn't include the file name.
-
-The file name is always generated automatically.
 
 `-o` is a shorter alias for this.
 
@@ -199,6 +195,12 @@ The words string to use. Lines are separated by `;`.
 > ext = Type: Str | Default: gif
 
 The format of the output file. Either `gif` or `mp4`.
+
+This is only used when the output is not a direct file path.
+
+For instance if the output ends with `cat.gif` it will use `gif`.
+
+If the output is a directory it will use `ext`.
 
 ---
 

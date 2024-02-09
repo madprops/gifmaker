@@ -88,14 +88,22 @@ def resize_frames(frames):
 	return new_frames
 
 def render(frames):
-	rand = utils.random_string()
-	file_name = f"{rand}.{Global.ext}"
-	Global.outdir.mkdir(parents=False, exist_ok=True)
-	output = Path(Global.outdir, file_name)
+	ext = utils.get_ext(Global.output)
 
-	if Global.ext == "gif":
+	if ext:
+		Global.output.parent.mkdir(parents=False, exist_ok=True)
+		output = Global.output
+	else:
+		Global.output.mkdir(parents=False, exist_ok=True)
+		rand = utils.random_string()
+		file_name = f"{rand}.{Global.ext}"
+		output = Path(Global.output, file_name)
+
+	used_ext = ext if ext else Global.ext
+
+	if used_ext == "gif":
 		imageio.mimsave(output, frames, fps=Global.fps, loop=0)
-	elif Global.ext == "mp4":
+	elif used_ext == "mp4":
 		imageio.mimsave(output, frames, fps=Global.fps)
 
 	print(f"Saved as: {output}")
