@@ -50,7 +50,7 @@ You can provide any video path using the `--video` flag:
 venv/bin/python src/borat.py --video="/path/to/video.webm"
 ```
 
-`webm` and `mp4`, and `gif` should work, and maybe other formats.
+`webm`, `mp4`, and `gif` should work, and maybe other formats.
 
 You can pass it a string of lines to use on each frame.
 
