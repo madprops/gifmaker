@@ -92,9 +92,13 @@ venv/bin/python src/borat.py --video="/videos/stuff.webm" --size=3 --thick=3 --f
 
 You can run `borat.py` from anywhere in your system using its virtual env. Relative paths should work fine.
 
-## Defaults
+## Arguments
 
-It uses these defaults (defined in `state.py`):
+You can use flag arguments like: `--fps=3 --top=0 --width=500`
+
+These modify how the gif image is going to be generated.
+
+---
 
 >fps = 2.2
 
@@ -133,10 +137,6 @@ Padding from the bottom edge.
 > width = None
 
 Fixed width to every frame. Height is always automatic.
-
----
-
-All of these can be set with flags like `--fps=3 --top=0 --width=500`
 
 ---
 
