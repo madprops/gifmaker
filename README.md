@@ -222,4 +222,6 @@ Either `random` or `normal`.
 
 `normal` loops back to the first frame if needed.
 
+---
+
 <img src="media/borat.gif" width="600">
