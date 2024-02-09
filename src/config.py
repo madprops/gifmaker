@@ -46,5 +46,5 @@ class Global:
 def fill_paths(main):
 	Global.root = main.parent.resolve()
 	Global.input = Path(Global.root, "media", "video.webm").resolve()
-	Global.wordfile = Path(Global.root, "data", "nouns.txt").resolve()
 	Global.output = Path(Global.root, "output").resolve()
+	Global.wordfile = Path(Global.root, "data", "nouns.txt").resolve()
