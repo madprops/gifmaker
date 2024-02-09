@@ -9,10 +9,10 @@ class Global:
 	frames = 3
 
 	# The size of the text
-	size = 3
+	fontsize = 3
 
 	# The thickness of the text
-	thick = 3
+	boldness = 3
 
 	# The padding from the left
 	left = None

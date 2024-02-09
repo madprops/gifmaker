@@ -105,7 +105,7 @@ If you want to use words and have some frames without them simply use more `;`.
 Here's a fuller example:
 
 ```
-venv/bin/python src/borat.py --input="/videos/stuff.webm" --size=3 --thick=3 --fps=1.5 --width=600 --words="; I want to eat;; [Random] --ext="mp4"
+venv/bin/python src/borat.py --input="/videos/stuff.webm" --fontsize=3 --fps=1.5 --width=600 --words="; I want to eat;; [Random] --ext="mp4"
 ```
 
 You can run `borat.py` from anywhere in your system using its virtual env. Relative paths should work fine.
@@ -138,13 +138,13 @@ The amount of frames to use if `--words` is not used.
 
 ---
 
-> size = Type: Int | Default: 3
+> fontsize = Type: Int | Default: 3
 
 The size of the text.
 
 ---
 
-> thick = Type: Float | Default: 3
+> boldness = Type: Float | Default: 3
 
 The thickness of the text.
 

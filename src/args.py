@@ -17,8 +17,8 @@ def check():
 	parser.add_argument("--top", type=int, help="Top padding")
 	parser.add_argument("--bottom", type=int, help="Bottom padding")
 	parser.add_argument("--width", type=int, help="Width to resize the frames")
-	parser.add_argument("--size", type=float, help="Text size")
-	parser.add_argument("--thick", type=int, help="Text thickness")
+	parser.add_argument("--fontsize", type=float, help="Text size")
+	parser.add_argument("--boldness", type=int, help="Text thickness")
 	parser.add_argument("--frames", type=int, help="Number of frames to use if no words are provided")
 	parser.add_argument("--output", "-o", type=str, help="Output directory to save the file")
 	parser.add_argument("--ext", type=str, help="The format of the output file. Either gif or mp4")
@@ -43,11 +43,11 @@ def check():
 	if args.fps is not None:
 		Global.fps = args.fps
 
-	if args.size is not None:
-		Global.size = args.size
+	if args.fontsize is not None:
+		Global.fontsize = args.fontsize
 
-	if args.thick is not None:
-		Global.thick = args.thick
+	if args.boldness is not None:
+		Global.boldness = args.boldness
 
 	if args.left is not None:
 		Global.left = args.left
