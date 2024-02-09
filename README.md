@@ -210,4 +210,16 @@ Which character to consider as the separator in `words`.
 
 ---
 
+> order = Type: Str | Default: "random"
+
+The order used to extract the frames.
+
+Either `random` or `normal`.
+
+`random` picks frames randomly.
+
+`normal` picks frames in order starting from the first one.
+
+`normal` loops back to the first frame if needed.
+
 <img src="media/borat.gif" width="600">

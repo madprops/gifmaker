@@ -41,6 +41,9 @@ class Global:
 	# The format of the output file. Either gif or mp4
 	ext = "gif"
 
+	# The order to use when extracting the frames
+	order = "random"
+
 def fill_paths(main):
 	Global.root = main.parent.resolve()
 	Global.input = Path(Global.root, "media", "video.webm").resolve()

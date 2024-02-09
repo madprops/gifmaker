@@ -23,10 +23,15 @@ def get_frames(num_frames):
 	else:
 		cap = cv2.VideoCapture(str(Global.input))
 		total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+		current = 0
 
 		# Sometimes it fails to read the frames so it needs more tries
 		for x in range(0, num_frames * 25):
-			index = random.choice(range(total_frames))
+			if Global.order == "normal":
+				index = current
+			elif Global.order == "random":
+				index = random.choice(range(total_frames))
+
 			cap.set(cv2.CAP_PROP_POS_FRAMES, index)
 			ret, frame = cap.read()
 
@@ -35,6 +40,11 @@ def get_frames(num_frames):
 
 			if len(frames) == num_frames:
 				break
+
+			current += 1
+
+			if current >= total_frames:
+				current = 0
 
 		cap.release()
 
