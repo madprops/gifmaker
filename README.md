@@ -102,3 +102,5 @@ A bigger `FPS` = A faster gif.
 If these are not set then the text is placed in the center.
 
 `SIZE` and `THICK` modify the text's size and thickness.
+
+All of these can be changed with flags like `--fps=3 --top=0`
