@@ -19,6 +19,12 @@ And memes.
 1. [Usage](#usage)
 1. [Arguments](#arguments)
 
+---
+
+<img src="media/installation.gif">
+
+---
+
 ## Installation <a name="installation"></a>
 
 Clone this repo, and get inside the dir.
@@ -40,6 +46,12 @@ Then install the dependencies:
 ```
 venv/bin/pip install -r requirements.txt
 ```
+
+---
+
+<img src="media/usage.gif">
+
+---
 
 ## Usage <a name="usage"></a>
 
@@ -97,6 +109,12 @@ venv/bin/python src/borat.py --input="/videos/stuff.webm" --size=3 --thick=3 --f
 ```
 
 You can run `borat.py` from anywhere in your system using its virtual env. Relative paths should work fine.
+
+---
+
+<img src="media/arguments.gif">
+
+---
 
 ## Arguments <a name="arguments"></a>
 
