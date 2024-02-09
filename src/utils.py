@@ -7,12 +7,12 @@ import string
 from pathlib import Path
 
 def random_words(num):
-	if len(Global.nouns) == 0:
-		with open(Global.nouns_file, "r") as file:
+	if len(Global.wordlist) == 0:
+		with open(Global.wordfile, "r") as file:
 			lines = file.readlines()
-			Global.nouns = [item.strip() for line in lines for item in line.split() if item.strip()]
+			Global.wordlist = [item.strip() for line in lines for item in line.split() if item.strip()]
 
-	return random.sample(Global.nouns, num)
+	return random.sample(Global.wordlist, num)
 
 def random_string():
 	vowels = "aeiou"

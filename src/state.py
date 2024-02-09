@@ -25,6 +25,15 @@ class Global:
 	# The width to resize the frames
 	width = None
 
+	# Default words to use
+	words = []
+
+	# The separator to use when splitting word lines
+	sep = ";"
+
+	# The list of nouns to use
+	wordlist = []
+
 	# The directory where this file resides
 	here = None
 
@@ -34,17 +43,8 @@ class Global:
 	# The output directory
 	outdir = None
 
-	# Default words to use
-	words = []
-
-	# The separator to use when splitting word lines
-	sep = ";"
-
-	# The list of nouns to use
-	nouns = []
-
 def fill_paths(here):
 	Global.root = here.parent
 	Global.video = Path(Global.root, "media", "video.webm")
-	Global.nouns_file = Path(Global.root, "data", "nouns.txt")
+	Global.wordfile = Path(Global.root, "data", "nouns.txt")
 	Global.outdir = Path(Global.root, "output")
