@@ -3,7 +3,7 @@ from pathlib import Path
 
 class Global:
 	# Frames per second to use
-	fps = 2.11
+	fps = 2.0
 
 	# Number of frames to use if no words are provided
 	frames = 3
@@ -39,7 +39,7 @@ class Global:
 	separator = ";"
 
 	# The format of the output file. Either gif or mp4
-	extension = "gif"
+	format = "gif"
 
 	# The order to use when extracting the frames
 	order = "random"

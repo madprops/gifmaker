@@ -124,7 +124,7 @@ These modify how the gif image is going to be generated.
 
 ---
 
-> fps = Type: Float | Default: 2.11
+> fps = Type: Float | Default: 2.0
 
 (Frames Per Second) modifies the speed between frame change (ms).
 
