@@ -138,7 +138,9 @@ These modify how the gif image is going to be generated.
 
 > input = Type: str | Default: media/video.webm
 
-Which video or image to use for the frames.
+Which video or image to use as the source of the frames.
+
+`webm`, `mp4`, `gif`, and even `jpg` or `png` should work.
 
 `-i` is a shorter alias for this.
 
