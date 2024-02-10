@@ -125,7 +125,7 @@ Relative paths should work fine.
 Here's a fuller example:
 
 ```
-venv/bin/python src/borat.py --input="/videos/stuff.webm" --fontsize=3.3 --fps=1.5 --width=600 --words="I want to eat;; [Random] ; [again];" --format="mp4" --output="stuff/videos"
+venv/bin/python src/borat.py --input="/videos/stuff.webm" --fontsize=3.3 --fps=1.5 --width=600 --words="I want to eat;; [Random] ; [again] ;" --format="mp4" --output="stuff/videos"
 ```
 
 ---
