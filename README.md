@@ -158,7 +158,7 @@ It will use a random file name.
 
 Using `gif` or `mp4` depending on the `format` argument.
 
-Or the path plus name of the file.
+Or you can enter the path plus the file name.
 
 For example: `stuff/videos/cat.gif`
 
