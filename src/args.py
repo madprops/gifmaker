@@ -28,11 +28,13 @@ def check():
 
 	args = p.parse_args()
 
-	def proc(attr, value):
+	def proc(attr):
+		value = getattr(args, attr)
+
 		if value is not None:
 			setattr(Global, attr, value)
 
-	proc("separator", args.separator)
+	proc("separator")
 
 	if args.words is not None:
 		Global.words = [word.strip() for word in args.words.split(Global.separator)]
@@ -40,17 +42,17 @@ def check():
 	elif args.frames is not None:
 		Global.frames = args.frames
 
-	proc("fps", args.fps)
-	proc("fontsize", args.fontsize)
-	proc("boldness", args.boldness)
-	proc("left", args.left)
-	proc("right", args.right)
-	proc("top", args.top)
-	proc("bottom", args.bottom)
-	proc("width", args.width)
-	proc("format", args.format)
-	proc("order", args.order)
-	proc("font", args.font)
+	proc("fps")
+	proc("fontsize")
+	proc("boldness")
+	proc("left")
+	proc("right")
+	proc("top")
+	proc("bottom")
+	proc("width")
+	proc("format")
+	proc("order")
+	proc("font")
 
 	if args.input is not None:
 		Global.input = utils.resolve_path(args.input)
