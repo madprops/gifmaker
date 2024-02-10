@@ -180,6 +180,8 @@ The words string to use.
 
 Lines are separated by `;`.
 
+Each line is a frame.
+
 Special words include `[random]` and `[again]`.
 
 As described in [Usage](#usage).
