@@ -250,7 +250,9 @@ The color of the text.
 
 3 numbers from 0 to 255, separated by commas.
 
-`0,0,0` would be black for instance.
+`0,0,0` would be black, for instance.
+
+---
 
 > boldness = Type: Float | Default: 3
 
