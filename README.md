@@ -82,11 +82,9 @@ venv/bin/python src/borat.py --words="Hello Brother; Construct Additional Pylons
 
 It will make 2 frames, one per line.
 
-If you want to make a gif with 5 random frames and an FPS of 3:
+If you want to use words and have some frames without them simply use more `;`.
 
-```
-venv/bin/python src/borat.py --frames=5 --fps=3
-```
+---
 
 You can use random words with `[random]`:
 
@@ -102,7 +100,7 @@ The replaced word will use the casing of those.
 
 For example `[RANDOM]` might be `PLANET`.
 
-If you want to use words and have some frames without them simply use more `;`.
+---
 
 If you want to repeat the text in the next frame use `[again]` in a line.
 
@@ -110,11 +108,15 @@ For example `--words="Buy Buttcoin ; [again] ;;`
 
 It will use that text on the first two frames and then show 2 empty frames.
 
+---
+
 Here's a fuller example:
 
 ```
 venv/bin/python src/borat.py --input="/videos/stuff.webm" --fontsize=3 --fps=1.5 --width=600 --words="I want to eat;; [Random] ; [again];" --format="mp4"
 ```
+
+---
 
 You can run `borat.py` from anywhere in your system using its virtual env. Relative paths should work fine.
 
