@@ -50,6 +50,11 @@ class Global:
 	# The thickness of the text
 	boldness = 3
 
+	again = "[again]"
+	random_lower = "[random]"
+	random_upper = "[RANDOM]"
+	random_title = "[Random]"
+
 def fill_paths(main):
 	Global.root = main.parent.resolve()
 	Global.input = Path(Global.root, "media", "video.webm").resolve()

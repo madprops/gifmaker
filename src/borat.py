@@ -51,7 +51,7 @@ def get_frames(num_frames):
 	return frames
 
 def add_text(frame, text):
-	if not text.split():
+	if not text:
 		return frame
 
 	height, width, _ = frame.shape
@@ -91,6 +91,11 @@ def word_frames(frames):
 	worded = []
 
 	for i, frame in enumerate(frames):
+		if Global.words[i] == Global.again:
+			if i > 0:
+				prev = Global.words[i - 1]
+				Global.words[i] = prev
+
 		worded.append(add_text(frame, Global.words[i]))
 
 	return worded
@@ -141,13 +146,9 @@ def check_random():
 	if len(Global.words) == 0:
 		return
 
-	rs_lower = "[random]"
-	rs_upper = "[RANDOM]"
-	rs_title = "[Random]"
-
 	num_random = 0
 
-	for rs in [rs_lower, rs_upper, rs_title]:
+	for rs in [Global.random_lower, Global.random_upper, Global.random_title]:
 		num_random += sum(w.count(rs) for w in Global.words)
 
 	if num_random == 0:
@@ -159,11 +160,11 @@ def check_random():
 		for word in line.split():
 			new_word = word
 
-			if word == rs_lower:
+			if word == Global.random_lower:
 				new_word = utils.random_word().lower()
-			elif word == rs_upper:
+			elif word == Global.random_upper:
 				new_word = utils.random_word().upper()
-			elif word == rs_title:
+			elif word == Global.random_title:
 				new_word = utils.random_word().title()
 
 			new_words.append(new_word)

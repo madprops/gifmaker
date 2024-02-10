@@ -102,6 +102,12 @@ For example `[RANDOM]` might be `PLANET`.
 
 If you want to use words and have some frames without them simply use more `;`.
 
+If you want to repeat the text in the next frame use `[again]` in a line.
+
+For example `--words="Buy Buttcoin ; [again] ;;`
+
+It will use that text on the first two frames and then show 2 empty frames.
+
 Here's a fuller example:
 
 ```
