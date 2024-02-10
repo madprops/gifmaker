@@ -51,6 +51,8 @@ Then install the dependencies:
 venv/bin/pip install -r requirements.txt
 ```
 
+Or simply run `install.sh` to automate virtual env creation.
+
 There's a `test.sh` file that runs borat with some pre-defined flags to test if things are working properly.
 
 ---
