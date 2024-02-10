@@ -102,7 +102,7 @@ It will pick random words from a list of english words.
 
 There are 3 kinds of random formats: `[random]`, `[RANDOM]`, and `[Random]`.
 
-The replaced word will use the casing of those.
+The replaced word will use the case of those.
 
 For example `[RANDOM]` might be `PLANET`.
 
