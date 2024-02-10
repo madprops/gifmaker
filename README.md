@@ -176,7 +176,9 @@ The format is deduced by the extension (gif or mp4).
 
 > words = Type: str | Default: No words
 
-The words string to use. Lines are separated by `;`.
+The words string to use.
+
+Lines are separated by `;`.
 
 Special words include `[random]` and `[again]`.
 
