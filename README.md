@@ -31,7 +31,7 @@ And memes.
 
 ## Installation <a name="installation"></a>
 
-Clone this repo, and get inside the directory.
+Clone this repo, and get inside the directory:
 
 ```
 git clone --depth=1 https://github.com/madprops/borat
