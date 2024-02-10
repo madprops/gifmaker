@@ -178,6 +178,10 @@ The format is deduced by the extension (gif or mp4).
 
 The words string to use. Lines are separated by `;`.
 
+Special words include `[random]` and `[again]`.
+
+As described in [Usage](#usage).
+
 ---
 
 > fps = Type: float | Default: 2.0
