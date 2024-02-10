@@ -76,7 +76,7 @@ venv/bin/python src/borat.py --input="/path/to/video.webm"
 venv/bin/python src/borat.py --input="/path/to/image.png
 ```
 
-`webm`, `mp4`, and `gif` should work, and maybe other formats.
+`webm`, `mp4`, `gif`, `jpg`, and `png` should work, and maybe other formats.
 
 You can pass it a string of lines to use on each frame.
 
