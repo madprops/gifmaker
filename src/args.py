@@ -32,7 +32,7 @@ def check():
 		if value is not None:
 			setattr(Global, attr, value)
 
-	proc(Global.separator, args.separator)
+	proc("separator", args.separator)
 
 	if args.words is not None:
 		Global.words = [word.strip() for word in args.words.split(Global.separator)]
