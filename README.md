@@ -136,7 +136,7 @@ venv/bin/python src/borat.py --input="/videos/stuff.webm" --fontsize=3.3 --fps=1
 
 ## Arguments <a name="arguments"></a>
 
-You can use flag arguments like: `--fps=3 --top=0 --width=500`
+You can use flag arguments like: `--fps=2.4 --top=0 --width=500`
 
 These modify how the file is going to be generated.
 
