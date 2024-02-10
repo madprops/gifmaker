@@ -248,7 +248,7 @@ The size of the text.
 
 The color of the text.
 
-3 numbers from 0 to 255, separated by commas.
+3 numbers from `0` to `255`, separated by commas.
 
 `0,0,0` would be black, for instance.
 
