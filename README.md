@@ -47,6 +47,8 @@ Then install the dependencies:
 venv/bin/pip install -r requirements.txt
 ```
 
+There's a `test.sh` file that runs borat with some pre-defined flags to test if things are working properly.
+
 ---
 
 <img src="media/usage.gif">
@@ -115,8 +117,6 @@ venv/bin/python src/borat.py --input="/videos/stuff.webm" --fontsize=3 --fps=1.5
 ```
 
 You can run `borat.py` from anywhere in your system using its virtual env. Relative paths should work fine.
-
-There's a `test.sh` file that runs borat with some pre-defined flags to test things are working properly.
 
 ---
 
