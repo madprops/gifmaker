@@ -83,7 +83,7 @@ You can pass it a string of lines to use on each frame.
 They are separated by `;` (semicolons).
 
 ```
-venv/bin/python src/borat.py --words="Hello Brother; Construct Additional Pylons"
+venv/bin/python src/borat.py --words="Hello Brother ; Construct Additional Pylons"
 ```
 
 It will make 2 frames, one per line.
