@@ -136,7 +136,7 @@ These modify how the gif image is going to be generated.
 
 ---
 
-> input = Type: str | Default: media/video.webm
+> input = Type: str | Default: The included example video
 
 Which video or image to use as the source of the frames.
 
