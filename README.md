@@ -152,9 +152,9 @@ For example: `stuff/videos`
 
 Or the path plus name of the file.
 
-The format is deduced by the file name's extension.
-
 For example: `stuff/videos/cat.gif`
+
+The format is deduced by the extension (gif or mp4).
 
 `-o` is a shorter alias for this.
 
