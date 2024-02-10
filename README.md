@@ -156,6 +156,8 @@ For example: `stuff/videos`
 
 It will use a random file name.
 
+Using `gif` or `mp4` depending on the `format` argument.
+
 Or the path plus name of the file.
 
 For example: `stuff/videos/cat.gif`
