@@ -79,7 +79,7 @@ def add_text(frame, text):
 	if Global.top is not None:
 		text_y = text_size[1] + Global.top
 	elif Global.bottom is not None:
-		text_y = height - (text_size[1] // 2)
+		text_y = height - Global.bottom - (text_size[1] // 2)
 	else:
 		text_y = (height + text_size[1]) // 2
 
