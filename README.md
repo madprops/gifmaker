@@ -110,15 +110,15 @@ It will use that text on the first two frames and then show 2 empty frames.
 
 ---
 
+You can run `borat.py` from anywhere in your system using its virtual env. Relative paths should work fine.
+
+---
+
 Here's a fuller example:
 
 ```
 venv/bin/python src/borat.py --input="/videos/stuff.webm" --fontsize=3 --fps=1.5 --width=600 --words="I want to eat;; [Random] ; [again];" --format="mp4"
 ```
-
----
-
-You can run `borat.py` from anywhere in your system using its virtual env. Relative paths should work fine.
 
 ---
 
