@@ -148,9 +148,13 @@ Which video or image to use for the frames.
 
 In which directoy to save the generated file.
 
+For example: `stuff/videos`
+
 Or the path plus name of the file.
 
 The format is deduced by the file name's extension (if defined).
+
+For example: `stuff/videos/cat.gif`
 
 `-o` is a shorter alias for this.
 
