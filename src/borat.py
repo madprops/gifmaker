@@ -91,11 +91,6 @@ def word_frames(frames):
 	worded = []
 
 	for i, frame in enumerate(frames):
-		if Global.words[i] == Global.again:
-			if i > 0:
-				prev = Global.words[i - 1]
-				Global.words[i] = prev
-
 		worded.append(add_text(frame, Global.words[i]))
 
 	return worded
@@ -171,6 +166,18 @@ def check_random():
 
 		Global.words[i] = " ".join(new_words)
 
+def check_repeat():
+	if len(Global.words) == 0:
+		return
+
+	for i, word in enumerate(Global.words):
+		if i == 0:
+			continue
+
+		if word == Global.repeat:
+			prev = Global.words[i - 1]
+			Global.words[i] = prev
+
 def main():
 	config.fill_paths(Path(__file__).parent)
 
@@ -180,6 +187,7 @@ def main():
 		return
 
 	check_random()
+	check_repeat()
 
 	frames = get_frames(Global.frames)
 
