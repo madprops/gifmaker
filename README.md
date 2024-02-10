@@ -154,6 +154,8 @@ In which directoy to save the generated file.
 
 For example: `stuff/videos`
 
+It will use a random file name.
+
 Or the path plus name of the file.
 
 For example: `stuff/videos/cat.gif`
