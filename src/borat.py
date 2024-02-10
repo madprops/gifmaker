@@ -84,7 +84,7 @@ def add_text(frame, text):
 		text_y = (height + text_size[1]) // 2
 
 	text_position = (text_x, text_y)
-	cv2.putText(frame, text, text_position, font, Global.fontsize, (255, 255, 255), Global.boldness, cv2.LINE_AA)
+	cv2.putText(frame, text, text_position, font, Global.fontsize, Global.fontcolor, Global.boldness, cv2.LINE_AA)
 	return frame
 
 def word_frames(frames):

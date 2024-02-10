@@ -138,18 +138,6 @@ The amount of frames to use if `--words` is not used.
 
 ---
 
-> fontsize = Type: Int | Default: 3
-
-The size of the text.
-
----
-
-> boldness = Type: Float | Default: 3
-
-The thickness of the text.
-
----
-
 > left = Type: Int | Default: None
 
 Padding from the left edge to position the text.
@@ -247,6 +235,26 @@ Either `random` or `normal`.
 The font to use for the text.
 
 Either `simple`, `complex`, `plain`, `duplex`, or `triplex`.
+
+---
+
+> fontsize = Type: Int | Default: 3
+
+The size of the text.
+
+---
+
+> fontcolor = Type: Str | Default: "255,255,255"
+
+The color of the text.
+
+3 numbers from 0 to 255, separated by commas.
+
+`0,0,0` would be black for instance.
+
+> boldness = Type: Float | Default: 3
+
+The thickness of the text.
 
 ---
 

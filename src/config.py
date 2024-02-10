@@ -8,12 +8,6 @@ class Global:
 	# Number of frames to use if no words are provided
 	frames = 3
 
-	# The size of the text
-	fontsize = 3
-
-	# The thickness of the text
-	boldness = 3
-
 	# The padding from the left
 	left = None
 
@@ -46,6 +40,15 @@ class Global:
 
 	# The font to use for the text. Either simple, complex, plain, duplex, or triplex
 	font = "simple"
+
+	# The size of the text
+	fontsize = 3
+
+	# The color of the text
+	fontcolor = (255, 255, 255)
+
+	# The thickness of the text
+	boldness = 3
 
 def fill_paths(main):
 	Global.root = main.parent.resolve()
