@@ -80,7 +80,7 @@ venv/bin/python src/borat.py --input="/path/to/image.png
 
 You can pass it a string of lines to use on each frame.
 
-They are separated by ";" (semicolons).
+They are separated by `;` (semicolons).
 
 ```
 venv/bin/python src/borat.py --words="Hello Brother; Construct Additional Pylons"
