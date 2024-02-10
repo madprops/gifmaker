@@ -136,6 +136,28 @@ These modify how the gif image is going to be generated.
 
 ---
 
+> input = Type: str | Default: media/video.webm
+
+Which video or image to use for the frames.
+
+`-i` is a shorter alias for this.
+
+---
+
+> output = Type: str | Default: 'output' directory
+
+In which directoy to save the generated gif.
+
+`-o` is a shorter alias for this.
+
+---
+
+> words = Type: str | Default: No words
+
+The words string to use. Lines are separated by `;`.
+
+---
+
 > fps = Type: float | Default: 2.0
 
 (Frames Per Second) modifies the speed between frame change (ms).
@@ -185,28 +207,6 @@ If those are not set then the text is placed at the center.
 > width = Type: int | Default: None
 
 Fixed width to every frame. Height is always automatic.
-
----
-
-> input = Type: str | Default: media/video.webm
-
-Which video or image to use for the frames.
-
-`-i` is a shorter alias for this.
-
----
-
-> output = Type: str | Default: 'output' directory
-
-In which directoy to save the generated gif.
-
-`-o` is a shorter alias for this.
-
----
-
-> words = Type: str | Default: No words
-
-The words string to use. Lines are separated by `;`.
 
 ---
 
