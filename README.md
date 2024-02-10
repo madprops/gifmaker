@@ -146,7 +146,11 @@ Which video or image to use for the frames.
 
 > output = Type: str | Default: 'output' directory
 
-In which directoy to save the generated gif.
+In which directoy to save the generated file.
+
+Or the path plus name of the file.
+
+The format is deduced by the file name's extension (if defined).
 
 `-o` is a shorter alias for this.
 
