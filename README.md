@@ -238,7 +238,7 @@ Either `simple`, `complex`, `plain`, `duplex`, or `triplex`.
 
 ---
 
-> fontsize = Type: Int | Default: 3
+> fontsize = Type: Float | Default: 3
 
 The size of the text.
 
@@ -254,7 +254,7 @@ The color of the text.
 
 ---
 
-> boldness = Type: Float | Default: 3
+> boldness = Type: Int | Default: 3
 
 The thickness of the text.
 
