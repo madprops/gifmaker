@@ -1,4 +1,4 @@
-<img src="media/borat.jpg" width="350">
+<img src="media/borat.jpg" width="380">
 
 This is a python program to produce gif images (or videos).
 
@@ -8,11 +8,15 @@ It (optionally) places words somewhere on each frame.
 
 Then joins all frames into an animated gif (or mp4).
 
+---
+
 ## Why?
 
 It might be useful in the realm of human verification.
 
 And memes.
+
+---
 
 ## Index
 1. [Installation](#installation)
