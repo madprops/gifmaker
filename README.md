@@ -138,7 +138,7 @@ venv/bin/python src/borat.py --input="/videos/stuff.webm" --fontsize=3.3 --fps=1
 
 You can use flag arguments like: `--fps=3 --top=0 --width=500`
 
-These modify how the gif image is going to be generated.
+These modify how the file is going to be generated.
 
 ---
 
