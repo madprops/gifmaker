@@ -152,7 +152,7 @@ For example: `stuff/videos`
 
 Or the path plus name of the file.
 
-The format is deduced by the file name's extension (if defined).
+The format is deduced by the file name's extension.
 
 For example: `stuff/videos/cat.gif`
 
