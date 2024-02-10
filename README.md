@@ -142,6 +142,8 @@ Which video or image to use as the source of the frames.
 
 `webm`, `mp4`, `gif`, and even `jpg` or `png` should work.
 
+For example: `stuff/cow.mp4`
+
 `-i` is a shorter alias for this.
 
 ---
