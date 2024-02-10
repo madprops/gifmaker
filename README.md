@@ -73,7 +73,7 @@ You can provide a video or image path using the `--input` flag:
 
 ```
 venv/bin/python src/borat.py --input="/path/to/video.webm"
-venv/bin/python src/borat.py --input="/path/to/image.png
+venv/bin/python src/borat.py --input="/path/to/image.png"
 ```
 
 `webm`, `mp4`, `gif`, `jpg`, and `png` should work, and maybe other formats.
@@ -110,7 +110,7 @@ For example `[RANDOM]` might be `PLANET`.
 
 If you want to repeat the text in the next frame use `[again]` in a line.
 
-For example `--words="Buy Buttcoin ; [again] ;;`
+For example `--words="Buy Buttcoin ; [again] ;;"`
 
 It will use that text on the first two frames and then show 2 empty frames.
 
@@ -125,7 +125,7 @@ Relative paths should work fine.
 Here's a fuller example:
 
 ```
-venv/bin/python src/borat.py --input="/videos/stuff.webm" --fontsize=3.3 --fps=1.5 --width=600 --words="I want to eat ;; [Random] ; [again] ;" --format="mp4" --output="stuff/videos"
+venv/bin/python src/borat.py --input="/videos/stuff.webm" --fontsize=3.3 --fps=1.5 --width=600 --words="I want to eat ;; [Random] ; [again] ;" --format=mp4 --output="stuff/videos"
 ```
 
 ---
@@ -136,7 +136,7 @@ venv/bin/python src/borat.py --input="/videos/stuff.webm" --fontsize=3.3 --fps=1
 
 ## Arguments <a name="arguments"></a>
 
-You can use flag arguments like: `--fps=2.4 --width=500 --order="normal"`
+You can use flag arguments like: `--fps=2.4 --width=500 --order=normal`
 
 These modify how the file is going to be generated.
 
