@@ -148,7 +148,7 @@ For example: `stuff/cow.mp4`
 
 ---
 
-> output = Type: str | Default: 'output' directory
+> output = Type: str | Default: The borat/output directory
 
 In which directoy to save the generated file.
 
