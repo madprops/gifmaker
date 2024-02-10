@@ -242,6 +242,8 @@ Either `simple`, `complex`, `plain`, `duplex`, or `triplex`.
 
 The size of the text.
 
+This number is used as the "scale".
+
 ---
 
 > fontcolor = Type: str | Default: "255,255,255"
