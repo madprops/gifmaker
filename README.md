@@ -124,7 +124,7 @@ These modify how the gif image is going to be generated.
 
 ---
 
-> fps = Type: Float | Default: 2.0
+> fps = Type: float | Default: 2.0
 
 (Frames Per Second) modifies the speed between frame change (ms).
 
@@ -132,31 +132,31 @@ A bigger `fps` = A faster gif.
 
 ---
 
-> frames = Type: Int | Default: 3
+> frames = Type: int | Default: 3
 
 The amount of frames to use if `--words` is not used.
 
 ---
 
-> left = Type: Int | Default: None
+> left = Type: int | Default: None
 
 Padding from the left edge to position the text.
 
 ---
 
-> right = Type: Int | Default: None
+> right = Type: int | Default: None
 
 Padding from the right edge to position the text.
 
 ---
 
-> top = Type: Int | Default: None
+> top = Type: int | Default: None
 
 Padding from the top edge to position the text.
 
 ---
 
-> bottom = Type: Int | Default: None
+> bottom = Type: int | Default: None
 
 Padding from the bottom edge to position the text.
 
@@ -170,13 +170,13 @@ If those are not set then the text is placed at the center.
 
 ---
 
-> width = Type: Int | Default: None
+> width = Type: int | Default: None
 
 Fixed width to every frame. Height is always automatic.
 
 ---
 
-> input = Type: Str | Default: media/video.webm
+> input = Type: str | Default: media/video.webm
 
 Which video or image to use for the frames.
 
@@ -184,7 +184,7 @@ Which video or image to use for the frames.
 
 ---
 
-> output = Type: Str | Default: 'output' directory
+> output = Type: str | Default: 'output' directory
 
 In which directoy to save the generated gif.
 
@@ -192,13 +192,13 @@ In which directoy to save the generated gif.
 
 ---
 
-> words = Type: Str | Default: No words
+> words = Type: str | Default: No words
 
 The words string to use. Lines are separated by `;`.
 
 ---
 
-> format = Type: Str | Default: "gif"
+> format = Type: str | Default: "gif"
 
 The format of the output file. Either `gif` or `mp4`.
 
@@ -210,13 +210,13 @@ If the output is a directory it will use a random name with the appropiate forma
 
 ---
 
-> separator = Type: Str | Default: ";"
+> separator = Type: str | Default: ";"
 
 Which character to consider as the separator in `words`.
 
 ---
 
-> order = Type: Str | Default: "random"
+> order = Type: str | Default: "random"
 
 The order used to extract the frames.
 
@@ -230,7 +230,7 @@ Either `random` or `normal`.
 
 ---
 
-> font = Type: Str | Default "simple"
+> font = Type: str | Default "simple"
 
 The font to use for the text.
 
@@ -238,13 +238,13 @@ Either `simple`, `complex`, `plain`, `duplex`, or `triplex`.
 
 ---
 
-> fontsize = Type: Float | Default: 3
+> fontsize = Type: float | Default: 3
 
 The size of the text.
 
 ---
 
-> fontcolor = Type: Str | Default: "255,255,255"
+> fontcolor = Type: str | Default: "255,255,255"
 
 The color of the text.
 
@@ -254,7 +254,7 @@ The color of the text.
 
 ---
 
-> boldness = Type: Int | Default: 3
+> boldness = Type: int | Default: 3
 
 The thickness of the text.
 
