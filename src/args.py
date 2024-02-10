@@ -28,11 +28,11 @@ def check():
 
 	args = p.parse_args()
 
-	if args.input is not None:
-		Global.input = utils.resolve_path(args.input)
+	def proc(attr, value):
+		if value is not None:
+			setattr(Global, attr, value)
 
-	if args.separator is not None:
-		Global.separator = args.separator
+	proc(Global.separator, args.separator)
 
 	if args.words is not None:
 		Global.words = [word.strip() for word in args.words.split(Global.separator)]
@@ -40,38 +40,20 @@ def check():
 	elif args.frames is not None:
 		Global.frames = args.frames
 
-	if args.fps is not None:
-		Global.fps = args.fps
+	proc("fps", args.fps)
+	proc("fontsize", args.fontsize)
+	proc("boldness", args.boldness)
+	proc("left", args.left)
+	proc("right", args.right)
+	proc("top", args.top)
+	proc("bottom", args.bottom)
+	proc("width", args.width)
+	proc("format", args.format)
+	proc("order", args.order)
+	proc("font", args.font)
 
-	if args.fontsize is not None:
-		Global.fontsize = args.fontsize
-
-	if args.boldness is not None:
-		Global.boldness = args.boldness
-
-	if args.left is not None:
-		Global.left = args.left
-
-	if args.right is not None:
-		Global.right = args.right
-
-	if args.top is not None:
-		Global.top = args.top
-
-	if args.bottom is not None:
-		Global.bottom = args.bottom
-
-	if args.width is not None:
-		Global.width = args.width
+	if args.input is not None:
+		Global.input = utils.resolve_path(args.input)
 
 	if args.output is not None:
 		Global.output = utils.resolve_path(args.output)
-
-	if args.format is not None:
-		Global.format = args.format
-
-	if args.order is not None:
-		Global.order = args.order
-
-	if args.font is not None:
-		Global.font = args.font
