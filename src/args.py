@@ -77,5 +77,6 @@ def check():
 	commas("fontcolor")
 	commas("bgcolor")
 
-	if not Global.input.exists():
+	if not Global.input.exists() or \
+	not Global.input.is_file():
 		utils.exit()
