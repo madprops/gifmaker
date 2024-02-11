@@ -307,7 +307,9 @@ The bigger the number, the fatter the text is.
 
 > bgcolor = Type: str | Default: None
 
-Add a rectangle background below the text.
+Add a background rectangle below the text.
+
+In case you want to give the text more contrast.
 
 3 numbers from `0` to `255`, separated by commas.
 
@@ -319,7 +321,7 @@ Add a rectangle background below the text.
 
 From `0` to `1`.
 
-The opacity level of the background color.
+The opacity level of the background rectangle.
 
 The closer it is to `0` the more transparent it is.
 
