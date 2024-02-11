@@ -66,20 +66,22 @@ def add_text(frame, text):
 		font = cv2.FONT_HERSHEY_TRIPLEX
 
 	text_size, baseline = cv2.getTextSize(text, font, Global.fontsize, Global.boldness)
+	text_width = text_size[0]
+	text_height = text_size[1]
 
 	if Global.left is not None:
 		text_x = Global.left
 	elif Global.right is not None:
-		text_x = width - text_size[0] - Global.right
+		text_x = width - text_width - Global.right
 	else:
-		text_x = (width - text_size[0]) // 2
+		text_x = (width - text_width) // 2
 
 	if Global.top is not None:
-		text_y = text_size[1] + Global.top
+		text_y = text_height + Global.top
 	elif Global.bottom is not None:
-		text_y = height - Global.bottom - (text_size[1] // 2)
+		text_y = height - baseline - Global.bottom
 	else:
-		text_y = (height + text_size[1]) // 2
+		text_y = (height + text_height) // 2
 
 	text_position = (text_x, text_y)
 
@@ -87,9 +89,9 @@ def add_text(frame, text):
 		padding_x = 10
 		padding_y = 10
 		rect_x = text_x - padding_x
-		rect_y = text_y - text_size[1] - padding_y
-		rect_width = padding_x + text_size[0] + padding_x
-		rect_height = padding_y + text_size[1] + baseline + padding_y
+		rect_y = text_y - text_height - padding_y
+		rect_width = padding_x + text_width + padding_x
+		rect_height = padding_y + text_height + baseline + padding_y
 		opacity = Global.opacity
 		cv2.addWeighted(frame, 1 - opacity, cv2.rectangle(frame.copy(), (rect_x, rect_y), (rect_x + rect_width, rect_y + rect_height), Global.bgcolor, -1), opacity, 0, frame)
 
