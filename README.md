@@ -69,7 +69,7 @@ Run `src/borat.py` using the Python in the virtual env:
 venv/bin/python src/borat.py
 ```
 
-You can provide a video or image path using the `--input` flag:
+You can provide a video or image path using the `--input` argument:
 
 ```shell
 venv/bin/python src/borat.py --input="/path/to/video.webm"
@@ -137,7 +137,7 @@ venv/bin/python src/borat.py --input="/videos/stuff.webm" --fontsize=3.3 --fps=1
 
 ## Arguments <a name="arguments"></a>
 
-You can use flag arguments like: `--fps=2.4 --width=500 --order=normal`
+You can use arguments like: `--fps=2.4 --width=500 --order=normal`
 
 These modify how the file is going to be generated.
 
