@@ -73,6 +73,7 @@ You can provide a video or image path using the `--input` flag:
 
 ```bash
 venv/bin/python src/borat.py --input="/path/to/video.webm"
+venv/bin/python src/borat.py --input="/path/to/animated.gif"
 venv/bin/python src/borat.py --input="/path/to/image.png"
 ```
 
