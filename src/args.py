@@ -48,6 +48,7 @@ def check():
 		if value is not None:
 			setattr(Global, attr, utils.resolve_path(value))
 
+	# Needed for 'words'
 	proc("separator")
 
 	if args.words is not None:
