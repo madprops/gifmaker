@@ -26,6 +26,7 @@ def check():
 	p.add_argument("--fontsize", type=float, help="Text size")
 	p.add_argument("--fontcolor", type=str, help="Text color. 3 numbers from 0 to 255, separated by commas")
 	p.add_argument("--boldness", type=int, help="Text thickness")
+	p.add_argument("--bgcolor", type=str, help="Background color. 3 numbers from 0 to 255, separated by commas")
 
 	args = p.parse_args()
 
@@ -35,6 +36,18 @@ def check():
 		if value is not None:
 			setattr(Global, attr, value)
 
+	def commas(attr):
+		value = getattr(args, attr)
+
+		if value is not None:
+			setattr(Global, attr, tuple(map(int, value.split(","))))
+
+	def path(attr):
+		value = getattr(args, attr)
+
+		if value is not None:
+			setattr(Global, attr, utils.resolve_path(value))
+
 	proc("separator")
 
 	if args.words is not None:
@@ -42,6 +55,9 @@ def check():
 		Global.frames = len(Global.words)
 	elif args.frames is not None:
 		Global.frames = args.frames
+
+	path("input")
+	path("output")
 
 	proc("fps")
 	proc("fontsize")
@@ -55,11 +71,5 @@ def check():
 	proc("order")
 	proc("font")
 
-	if args.input is not None:
-		Global.input = utils.resolve_path(args.input)
-
-	if args.output is not None:
-		Global.output = utils.resolve_path(args.output)
-
-	if args.fontcolor is not None:
-		Global.fontcolor = tuple(map(int, args.fontcolor.split(",")))
+	commas("fontcolor")
+	commas("bgcolor")

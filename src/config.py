@@ -50,6 +50,9 @@ class Global:
 	# The thickness of the text
 	boldness = 3
 
+	# The color of the background
+	bgcolor = None
+
 	repeat = "[again]"
 	random_lower = "[random]"
 	random_upper = "[RANDOM]"

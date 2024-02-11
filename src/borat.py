@@ -67,7 +67,7 @@ def add_text(frame, text):
 	elif Global.font == "triplex":
 		font = cv2.FONT_HERSHEY_TRIPLEX
 
-	text_size = cv2.getTextSize(text, font, Global.fontsize, Global.boldness)[0]
+	text_size, baseline = cv2.getTextSize(text, font, Global.fontsize, Global.boldness)
 
 	if Global.left is not None:
 		text_x = Global.left
@@ -84,6 +84,17 @@ def add_text(frame, text):
 		text_y = (height + text_size[1]) // 2
 
 	text_position = (text_x, text_y)
+
+	if Global.bgcolor:
+		padding_x = 10
+		padding_y = 10
+		rect_x = text_x - padding_x
+		rect_y = text_y - text_size[1] - padding_y
+		rect_width = padding_x + text_size[0] + padding_x
+		rect_height = padding_y + text_size[1] + baseline + padding_y
+
+		cv2.rectangle(frame, (rect_x, rect_y), (rect_x + rect_width, rect_y + rect_height), Global.bgcolor, -1)
+
 	cv2.putText(frame, text, text_position, font, Global.fontsize, Global.fontcolor, Global.boldness, cv2.LINE_AA)
 	return frame
 
