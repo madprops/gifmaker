@@ -2,6 +2,7 @@
 from config import Global
 
 # Standard
+import sys
 import random
 import string
 from pathlib import Path
@@ -28,3 +29,6 @@ def resolve_path(path):
 		return pth
 	else:
 		return Path(Path.cwd(), pth).resolve()
+
+def exit():
+	sys.exit(0)

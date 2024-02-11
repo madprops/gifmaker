@@ -97,6 +97,9 @@ def add_text(frame, text):
 	return frame
 
 def word_frames(frames):
+	if len(Global.words) == 0:
+		return frames
+
 	worded = []
 
 	for i, frame in enumerate(frames):
