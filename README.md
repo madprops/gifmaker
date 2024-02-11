@@ -305,6 +305,24 @@ The thickness of the text.
 
 The bigger the number, the fatter the text is.
 
+> bgcolor = Type: str | Default: None
+
+Add a rectangle background below the text.
+
+3 numbers from `0` to `255`, separated by commas.
+
+`0,0,0` would be black, for instance.
+
+---
+
+> opacity = Type: float | Default: 0.5
+
+From `0` to `1`.
+
+The opacity level of the background color.
+
+The closer it is to `0` the more transparent it is.
+
 ---
 
 <img src="media/borat.gif" width="600">

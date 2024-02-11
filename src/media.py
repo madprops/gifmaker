@@ -84,13 +84,13 @@ def add_text(frame, text):
 	text_position = (text_x, text_y)
 
 	if Global.bgcolor:
-		opacity = 0.5
 		padding_x = 10
 		padding_y = 10
 		rect_x = text_x - padding_x
 		rect_y = text_y - text_size[1] - padding_y
 		rect_width = padding_x + text_size[0] + padding_x
 		rect_height = padding_y + text_size[1] + baseline + padding_y
+		opacity = Global.opacity
 		cv2.addWeighted(frame, 1 - opacity, cv2.rectangle(frame.copy(), (rect_x, rect_y), (rect_x + rect_width, rect_y + rect_height), Global.bgcolor, -1), opacity, 0, frame)
 
 	cv2.putText(frame, text, text_position, font, Global.fontsize, Global.fontcolor, Global.boldness, cv2.LINE_AA)

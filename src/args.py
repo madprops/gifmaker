@@ -27,6 +27,7 @@ def check():
 	p.add_argument("--fontcolor", type=str, help="Text color. 3 numbers from 0 to 255, separated by commas")
 	p.add_argument("--boldness", type=int, help="Text thickness")
 	p.add_argument("--bgcolor", type=str, help="Background color. 3 numbers from 0 to 255, separated by commas")
+	p.add_argument("--opacity", type=float, help="The opacity of the background color of text")
 
 	args = p.parse_args()
 
@@ -63,6 +64,7 @@ def check():
 	proc("fps")
 	proc("fontsize")
 	proc("boldness")
+	proc("opacity")
 	proc("left")
 	proc("right")
 	proc("top")
