@@ -33,7 +33,7 @@ And memes.
 
 Clone this repo, and get inside the directory:
 
-```bash
+```shell
 git clone --depth=1 https://github.com/madprops/borat
 
 cd borat
@@ -41,13 +41,13 @@ cd borat
 
 Then create the virtual env:
 
-```bash
+```shell
 python -m venv venv
 ```
 
 Then install the dependencies:
 
-```bash
+```shell
 venv/bin/pip install -r requirements.txt
 ```
 
@@ -65,13 +65,13 @@ There's a `test.sh` file that runs the program with some arguments to test if th
 
 Run `src/borat.py` using the Python in the virtual env:
 
-```bash
+```shell
 venv/bin/python src/borat.py
 ```
 
 You can provide a video or image path using the `--input` flag:
 
-```bash
+```shell
 venv/bin/python src/borat.py --input="/path/to/video.webm"
 venv/bin/python src/borat.py --input="/path/to/animated.gif"
 venv/bin/python src/borat.py --input="/path/to/image.png"
@@ -83,7 +83,7 @@ You can pass it a string of lines to use on each frame.
 
 They are separated by `;` (semicolons).
 
-```bash
+```shell
 venv/bin/python src/borat.py --words="Hello Brother ; Construct Additional Pylons"
 ```
 
@@ -95,7 +95,7 @@ If you want to use words and have some frames without them simply use more `;`.
 
 You can use random words with `[random]`:
 
-```bash
+```shell
 venv/bin/python src/borat.py --words="I Like [random] and [random]"
 ```
 
@@ -125,7 +125,7 @@ Relative paths should work fine.
 
 Here's a fuller example:
 
-```bash
+```shell
 venv/bin/python src/borat.py --input="/videos/stuff.webm" --fontsize=3.3 --fps=1.5 --width=600 --words="I want to eat ;; [Random] ; [again] ;" --format=mp4 --output="stuff/videos"
 ```
 
