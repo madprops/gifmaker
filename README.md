@@ -53,7 +53,7 @@ venv/bin/pip install -r requirements.txt
 
 Or simply run `install.sh` to create the virtual env and install the dependencies.
 
-There's a `test.sh` file that runs borat with some pre-defined flags to test if things are working properly.
+There's a `test.sh` file that runs the program with some arguemnts to test if things are working properly.
 
 ---
 
@@ -304,6 +304,8 @@ The color of the text.
 The thickness of the text.
 
 The bigger the number, the fatter the text is.
+
+---
 
 > bgcolor = Type: str | Default: None
 
