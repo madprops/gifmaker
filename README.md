@@ -1,6 +1,6 @@
 <img src="media/borat.jpg" width="380">
 
-This is a python program to produce gif images (or videos).
+This is a Python program to produce gif images (or videos).
 
 It extracts random (or sequential) frames from a video (or image).
 
@@ -53,7 +53,7 @@ venv/bin/pip install -r requirements.txt
 
 Or simply run `install.sh` to create the virtual env and install the dependencies.
 
-There's a `test.sh` file that runs the program with some arguemnts to test if things are working properly.
+There's a `test.sh` file that runs the program with some arguments to test if things are working properly.
 
 ---
 
@@ -63,7 +63,7 @@ There's a `test.sh` file that runs the program with some arguemnts to test if th
 
 ## Usage <a name="usage"></a>
 
-Run `src/borat.py` using the python in the virtual env:
+Run `src/borat.py` using the Python in the virtual env:
 
 ```bash
 venv/bin/python src/borat.py
@@ -99,7 +99,7 @@ You can use random words with `[random]`:
 venv/bin/python src/borat.py --words="I Like [random] and [random]"
 ```
 
-It will pick random words from a list of english words.
+It will pick random words from a list of English words.
 
 There are 3 kinds of random formats: `[random]`, `[RANDOM]`, and `[Random]`.
 
@@ -145,7 +145,7 @@ These modify how the file is going to be generated.
 
 > input = Type: str | Default: The included example video
 
-Which video or image to use as the source of the frames.
+Path to a video or image to use as the source of the frames.
 
 `webm`, `mp4`, `gif`, and even `jpg` or `png` should work.
 
@@ -157,7 +157,7 @@ For example: `stuff/cow.mp4`
 
 > output = Type: str | Default: The borat/output directory
 
-In which directoy to save the generated file.
+In which directory to save the generated file.
 
 For example: `stuff/videos`
 
@@ -191,7 +191,7 @@ As described in [Usage](#usage).
 
 > fps = Type: float | Default: 2.0
 
-(Frames Per Second) modifies the speed between frame change (ms).
+(Frames Per Second) modifies the speed between frame changes (ms).
 
 A bigger `fps` = A faster gif.
 
@@ -247,15 +247,15 @@ The format of the output file. Either `gif` or `mp4`.
 
 This is only used when the output is not a direct file path.
 
-For instance if the output ends with `cat.gif` it will use `gif`.
+For instance, if the output ends with `cat.gif` it will use `gif`.
 
-If the output is a directory it will use a random name with the appropiate format.
+If the output is a directory it will use a random name with the appropriate format.
 
 ---
 
 > separator = Type: str | Default: ";"
 
-Which character to consider as the separator in `words`.
+The character to use as the line separator in `words`.
 
 ---
 
