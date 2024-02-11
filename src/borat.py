@@ -5,12 +5,8 @@ import args
 import words
 import media
 
-# Standard
-from pathlib import Path
-
 def main():
-	config.fill_paths(Path(__file__).parent)
-
+	config.fill_paths(__file__)
 	args.check()
 
 	if not Global.input.exists():

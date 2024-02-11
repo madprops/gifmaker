@@ -58,8 +58,8 @@ class Global:
 	random_upper = "[RANDOM]"
 	random_title = "[Random]"
 
-def fill_paths(main):
-	Global.root = main.parent.resolve()
+def fill_paths(main_file):
+	Global.root = Path(main_file).parent.parent.resolve()
 	Global.input = Path(Global.root, "media", "video.webm").resolve()
 	Global.output = Path(Global.root, "output").resolve()
 	Global.wordfile = Path(Global.root, "data", "nouns.txt").resolve()
