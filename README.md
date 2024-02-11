@@ -33,7 +33,7 @@ And memes.
 
 Clone this repo, and get inside the directory:
 
-```
+```bash
 git clone --depth=1 https://github.com/madprops/borat
 
 cd borat
@@ -41,13 +41,13 @@ cd borat
 
 Then create the virtual env:
 
-```
+```bash
 python -m venv venv
 ```
 
 Then install the dependencies:
 
-```
+```bash
 venv/bin/pip install -r requirements.txt
 ```
 
@@ -65,13 +65,13 @@ There's a `test.sh` file that runs borat with some pre-defined flags to test if 
 
 Run `src/borat.py` using the python in the virtual env:
 
-```
+```bash
 venv/bin/python src/borat.py
 ```
 
 You can provide a video or image path using the `--input` flag:
 
-```
+```bash
 venv/bin/python src/borat.py --input="/path/to/video.webm"
 venv/bin/python src/borat.py --input="/path/to/image.png"
 ```
@@ -82,7 +82,7 @@ You can pass it a string of lines to use on each frame.
 
 They are separated by `;` (semicolons).
 
-```
+```bash
 venv/bin/python src/borat.py --words="Hello Brother ; Construct Additional Pylons"
 ```
 
@@ -94,7 +94,7 @@ If you want to use words and have some frames without them simply use more `;`.
 
 You can use random words with `[random]`:
 
-```
+```bash
 venv/bin/python src/borat.py --words="I Like [random] and [random]"
 ```
 
@@ -124,7 +124,7 @@ Relative paths should work fine.
 
 Here's a fuller example:
 
-```
+```bash
 venv/bin/python src/borat.py --input="/videos/stuff.webm" --fontsize=3.3 --fps=1.5 --width=600 --words="I want to eat ;; [Random] ; [again] ;" --format=mp4 --output="stuff/videos"
 ```
 
@@ -284,6 +284,8 @@ Either `simple`, `complex`, `plain`, `duplex`, or `triplex`.
 
 The size of the text.
 
+The number acts as a scale, not exact pixels.
+
 ---
 
 > fontcolor = Type: str | Default: "255,255,255"
@@ -299,6 +301,8 @@ The color of the text.
 > boldness = Type: int | Default: 3
 
 The thickness of the text.
+
+The bigger the number, the fatter the text is.
 
 ---
 
