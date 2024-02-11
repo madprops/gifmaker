@@ -26,8 +26,8 @@ def check():
 	p.add_argument("--fontsize", type=float, help="Text size")
 	p.add_argument("--fontcolor", type=str, help="Text color. 3 numbers from 0 to 255, separated by commas")
 	p.add_argument("--boldness", type=int, help="Text thickness")
-	p.add_argument("--bgcolor", type=str, help="Background color. 3 numbers from 0 to 255, separated by commas")
-	p.add_argument("--opacity", type=float, help="The opacity of the background color of text")
+	p.add_argument("--bgcolor", type=str, help="Add a background rectangle for the text with this color. 3 numbers from 0 to 255, separated by commas")
+	p.add_argument("--opacity", type=float, help="The opacity of the background rectangle")
 
 	args = p.parse_args()
 
