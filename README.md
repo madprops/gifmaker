@@ -371,6 +371,23 @@ Like: `cat,dog,cow,horse`
 
 ---
 
+### Script
+
+You can provide a `toml` file to define any argument.
+
+Then point to it using `--script="/path/to/script.toml`
+
+For example, the script can look like this:
+
+```toml
+words = "; [Random] Lion ; [repeat 2] ;"
+bottom = 10
+right = 10
+fontcolor = "10,44,129"
+```
+
+---
+
 <img src="media/borat.gif" width="600">
 
 ---
