@@ -10,30 +10,29 @@ def check_random():
 	if len(Global.words) == 0:
 		return
 
-	num_random = 0
+	def replace(match):
+		n = match["number"]
+		number = int(n) if n is not None else 1
+		rand = match["word"]
+		randwords = []
 
-	for rs in [Global.random_lower, Global.random_upper, Global.random_title]:
-		num_random += sum(w.count(rs) for w in Global.words)
+		for _ in range(number):
+			if rand == "random":
+				randwords.append(words.random_word().lower())
+			elif rand == "RANDOM":
+				randwords.append(words.random_word().upper())
+			elif rand == "Random":
+				randwords.append(words.random_word().title())
 
-	if num_random == 0:
-		return
+		return " ".join(randwords)
 
-	for i, line in enumerate(Global.words):
-		new_words = []
+	new_words = []
 
-		for word in line.split():
-			new_word = word
+	for line in Global.words:
+		pattern = re.compile(r"\[(?P<word>random)(?:\s+(?P<number>\d+))?\]", re.IGNORECASE)
+		new_words.append(re.sub(pattern, replace, line))
 
-			if word == Global.random_lower:
-				new_word = words.random_word().lower()
-			elif word == Global.random_upper:
-				new_word = words.random_word().upper()
-			elif word == Global.random_title:
-				new_word = words.random_word().title()
-
-			new_words.append(new_word)
-
-		Global.words[i] = " ".join(new_words)
+	Global.words = new_words
 
 def check_repeat():
 	if len(Global.words) == 0:
@@ -42,11 +41,11 @@ def check_repeat():
 	new_words = []
 
 	for word in Global.words:
-		pattern = r"\[repeat(?:\s+(\d+))?\]"
+		pattern = re.compile(r"\[(?P<word>repeat)(?:\s+(?P<number>\d+))?\]", re.IGNORECASE)
 		match = re.match(pattern, word)
 
 		if match:
-			n = match.group(1)
+			n = match["number"]
 			number = int(n) if n is not None else 1
 			new_words.extend([Global.words[Global.words.index(word) - 1]] * number)
 		else:
