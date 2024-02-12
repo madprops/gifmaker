@@ -109,17 +109,17 @@ For example `[RANDOM]` might be `PLANET`.
 
 ---
 
-If you want to repeat the text in the next frame use `[repeat]` in a line:
+If you want to repeat the previous line, use `[repeat]`:
 
-For example `--words="Buy Buttcoin ; [repeat] ;;"`
+For example `--words="Buy Buttcoin ; [repeat]"`
 
-It will use that text on the first two frames and then show 2 empty frames.
+It will use that text on the first two frames.
 
-You can also provide a number to specify how many time to repeat a frame:
+You can also provide a number to specify how many time to repeat:
 
-For example `--words="Buy Buttcoin ; [repeat 2] ;;"`
+For example `--words="Buy Buttcoin ; [repeat 2]"`
 
-The line will be shown in 3 frames (The original plus the 2 repeats).
+The line will be shown in 3 frames (the original plus the 2 repeats).
 
 ---
 
