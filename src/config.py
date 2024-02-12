@@ -26,7 +26,7 @@ class Global:
 	# Default words to use
 	words = []
 
-	# The list of nouns to use
+	# The pool for random words
 	wordlist = []
 
 	# The separator to use when splitting word lines
