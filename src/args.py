@@ -29,6 +29,7 @@ def check():
 	p.add_argument("--bgcolor", type=str, help="Add a background rectangle for the text with this color. 3 numbers from 0 to 255, separated by commas")
 	p.add_argument("--opacity", type=float, help="The opacity of the background rectangle")
 	p.add_argument("--padding", type=int, help="The padding of the background rectangle")
+	p.add_argument("--no-baseline", action="store_true", help="Don't add the baseline to the background rectangle's height")
 
 	args = p.parse_args()
 
@@ -73,6 +74,7 @@ def check():
 	proc("font")
 	proc("frames")
 	proc("padding")
+	proc("no_baseline")
 
 	commas("fontcolor")
 	commas("bgcolor")

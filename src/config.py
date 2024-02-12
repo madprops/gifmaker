@@ -59,6 +59,9 @@ class Global:
 	# The padding of the background
 	padding = 10
 
+	# Don't add the baseline to the background's height
+	no_baseline = False
+
 def fill_paths(main_file):
 	Global.root = Path(main_file).parent.parent.resolve()
 	Global.input = Path(Global.root, "media", "video.webm").resolve()
