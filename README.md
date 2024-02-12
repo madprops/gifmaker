@@ -380,10 +380,10 @@ Then point to it using `--script="/path/to/script.toml"`
 For example, the script can look like this:
 
 ```toml
-words = "; [Random] Lion ; [repeat 2] ;"
+words = "Disregard [Random] ; [repeat] ; Acquire [Random] ; [repeat] ;"
 bottom = 10
 right = 10
-fontcolor = "10,44,129"
+fontcolor = "180,44,44"
 bgcolor = "0,0,0"
 ```
 
