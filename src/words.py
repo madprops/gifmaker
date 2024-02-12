@@ -39,6 +39,7 @@ def check_repeat():
 		return
 
 	new_words = []
+	prev_word = None
 
 	for word in Global.words:
 		pattern = re.compile(r"\[(?P<word>repeat)(?:\s+(?P<number>\d+))?\]", re.IGNORECASE)
@@ -47,7 +48,7 @@ def check_repeat():
 		if match:
 			n = match["number"]
 			number = int(n) if n is not None else 1
-			new_words.extend([Global.words[Global.words.index(word) - 1]] * number)
+			new_words.extend([new_words[-1]] * number)
 		else:
 			new_words.append(word)
 
