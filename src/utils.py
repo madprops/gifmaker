@@ -1,10 +1,8 @@
-# Modules
-from config import Global
-
 # Standard
 import sys
 import random
 import string
+import tomllib
 from pathlib import Path
 
 def random_string():
@@ -23,12 +21,20 @@ def get_extension(path):
 	return Path(path).suffix.lower()
 
 def resolve_path(path):
-	pth = Path(path)
+	pth = full_path(Path(path))
 
 	if pth.is_absolute():
 		return pth
 	else:
-		return Path(Path.cwd(), pth).resolve()
+		return full_path(Path(Path.cwd(), pth))
 
-def exit():
+def full_path(path):
+	return path.expanduser().resolve()
+
+def exit(message):
+	print(f"\nExit: {message}\n")
 	sys.exit(0)
+
+def read_toml(path):
+	with open(path, "rb") as file:
+		return tomllib.load(file)

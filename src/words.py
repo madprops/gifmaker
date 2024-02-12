@@ -1,5 +1,5 @@
 # Modules
-from config import Global
+from args import Global
 import words
 
 # Standard

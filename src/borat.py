@@ -1,12 +1,11 @@
 # Modules
-from config import Global
-import config
+from args import Global
 import args
 import words
 import media
 
 def main():
-	config.fill_paths(__file__)
+	args.fill_paths(__file__)
 	args.check()
 
 	words.check_random()

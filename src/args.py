@@ -1,10 +1,73 @@
 # Modules
-from config import Global
 import utils
 
 # Standard
 import argparse
 from pathlib import Path
+
+class Global:
+	# Frames per second to use
+	fps = 2.0
+
+	# Number of frames to use if no words are provided
+	frames = 3
+
+	# The padding from the left
+	left = None
+
+	# The padding from the right
+	right = None
+
+	# The padding from the top
+	top = None
+
+	# The padding from the bottom
+	bottom = None
+
+	# The width to resize the frames
+	width = None
+
+	# Default words to use
+	words = []
+
+	# The pool for random words
+	wordlist = []
+
+	# The separator to use when splitting word lines
+	separator = ";"
+
+	# The format of the output file. Either gif or mp4
+	format = "gif"
+
+	# The order to use when extracting the frames
+	order = "random"
+
+	# The font to use for the text. Either simple, complex, plain, duplex, or triplex
+	font = "simple"
+
+	# The size of the text
+	fontsize = 3.0
+
+	# The color of the text
+	fontcolor = (255, 255, 255)
+
+	# The thickness of the text
+	boldness = 3
+
+	# The color of the background
+	bgcolor = None
+
+	# The opacity of the background
+	opacity = 0.5
+
+	# The padding of the background
+	padding = 10
+
+	# Don't add the baseline to the background's height
+	no_baseline = False
+
+	# Path to a TOML file that defines the arguments to use
+	script = None
 
 def check():
 	p = argparse.ArgumentParser(description="Borat the Gif Maker")
@@ -31,6 +94,7 @@ def check():
 	p.add_argument("--padding", type=int, help="The padding of the background rectangle")
 	p.add_argument("--no-baseline", action="store_true", help="Don't add the baseline to the background rectangle's height")
 	p.add_argument("--wordlist", type=str, help="List of words to consider for random words. Separated by commas")
+	p.add_argument("--script", type=str, help="Path to a TOML file that defines the arguments to use")
 
 	args = p.parse_args()
 
@@ -51,6 +115,10 @@ def check():
 
 		if value is not None:
 			setattr(Global, attr, utils.resolve_path(value))
+
+	# Get script args first
+	path("script")
+	check_script(args)
 
 	# Needed for 'words'
 	proc("separator")
@@ -83,4 +151,22 @@ def check():
 
 	if not Global.input.exists() or \
 	not Global.input.is_file():
-		utils.exit()
+		utils.exit("Input file does not exist")
+
+def fill_paths(main_file):
+	Global.root = utils.full_path(Path(main_file).parent.parent)
+	Global.input = utils.full_path(Path(Global.root, "media", "video.webm"))
+	Global.output = utils.full_path(Path(Global.root, "output"))
+	Global.wordfile = utils.full_path(Path(Global.root, "data", "nouns.txt"))
+
+def check_script(args):
+	if Global.script is None:
+		return
+
+	if not Path(Global.script).exists():
+		utils.exit(f"Script file does not exist")
+
+	data = utils.read_toml(Global.script)
+
+	for key in data:
+		setattr(args, key, data[key])
