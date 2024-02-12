@@ -359,6 +359,18 @@ But it might look better in some cases.
 
 ---
 
+> wordlist = Type: str | Default: Empty
+
+Random words are selected from this list.
+
+If the list is empty it will be filled with a long list of nouns.
+
+You can specify the words to consider, separated by commas.
+
+Like: `cat,dog,cow,horse`
+
+---
+
 <img src="media/borat.gif" width="600">
 
 ---

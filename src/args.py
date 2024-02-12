@@ -30,6 +30,7 @@ def check():
 	p.add_argument("--opacity", type=float, help="The opacity of the background rectangle")
 	p.add_argument("--padding", type=int, help="The padding of the background rectangle")
 	p.add_argument("--no-baseline", action="store_true", help="Don't add the baseline to the background rectangle's height")
+	p.add_argument("--wordlist", type=str, help="List of words to consider for random words. Separated by commas")
 
 	args = p.parse_args()
 
@@ -39,11 +40,11 @@ def check():
 		if value is not None:
 			setattr(Global, attr, value)
 
-	def commas(attr):
+	def commas(attr, vtype):
 		value = getattr(args, attr)
 
 		if value is not None:
-			setattr(Global, attr, tuple(map(int, value.split(","))))
+			setattr(Global, attr, tuple(map(vtype, value.split(","))))
 
 	def path(attr):
 		value = getattr(args, attr)
@@ -76,8 +77,9 @@ def check():
 	proc("padding")
 	proc("no_baseline")
 
-	commas("fontcolor")
-	commas("bgcolor")
+	commas("fontcolor", int)
+	commas("bgcolor", int)
+	commas("wordlist", str)
 
 	if not Global.input.exists() or \
 	not Global.input.is_file():
