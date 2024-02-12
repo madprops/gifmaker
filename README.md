@@ -339,11 +339,23 @@ The closer it is to `0` the more transparent it is.
 
 ---
 
-> Padding = Type: int | Default: 10
+> padding = Type: int | Default: 10
 
 The padding of the background rectangle.
 
 This gives some spacing around the text.
+
+---
+
+> no-baseline = Type: flag | Default: 10
+
+Use this to not add the baseline to the background rectangle's height.
+
+The baseline is the room reserved for letters that have descenders like `y`.
+
+If you disable it the rectangle will not cover all possible letters.
+
+But it might look better in some cases.
 
 ---
 
