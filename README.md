@@ -117,9 +117,9 @@ If you want to repeat the previous line, use `[repeat]`:
 
 For example `--words="Buy Buttcoin ; [repeat]"`
 
-It will use that text on the first two frames.
+It will use that text in the first two frames.
 
-You can also provide a number to specify how many time to repeat:
+You can also provide a number to specify how many times to repeat:
 
 For example `--words="Buy Buttcoin ; [repeat 2]"`
 
@@ -167,7 +167,7 @@ For example: `stuff/cow.mp4`
 
 > output = Type: str | Default: The borat/output directory
 
-In which directory to save the generated file.
+Directory path save the generated file.
 
 For example: `stuff/videos`
 
@@ -377,7 +377,7 @@ You can make `toml` files that define the arguments to use.
 
 Provide the path of a script like this: `--script="/path/to/script.toml"`
 
-For example, the script can look like this:
+For example, a script can look like this:
 
 ```toml
 words = "Disregard [Random] ; [repeat] ; Acquire [Random] ; [repeat] ;"
