@@ -291,7 +291,7 @@ Either `simple`, `complex`, `plain`, `duplex`, or `triplex`.
 
 ---
 
-> fontsize = Type: float | Default: 2.5
+> fontsize = Type: float | Default: 2.6
 
 The size of the text.
 
