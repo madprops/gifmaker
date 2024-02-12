@@ -291,7 +291,7 @@ Either `simple`, `complex`, `plain`, `duplex`, or `triplex`.
 
 ---
 
-> fontsize = Type: float | Default: 3.0
+> fontsize = Type: float | Default: 2.5
 
 The size of the text.
 
@@ -384,6 +384,7 @@ words = "; [Random] Lion ; [repeat 2] ;"
 bottom = 10
 right = 10
 fontcolor = "10,44,129"
+bgcolor = "0,0,0"
 ```
 
 ---

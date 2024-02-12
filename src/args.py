@@ -46,7 +46,7 @@ class Global:
 	font = "simple"
 
 	# The size of the text
-	fontsize = 3.0
+	fontsize = 2.5
 
 	# The color of the text
 	fontcolor = (255, 255, 255)
