@@ -11,6 +11,7 @@ def main():
 
 	words.check_random()
 	words.check_repeat()
+	media.check_frames()
 
 	frames = media.get_frames(Global.frames)
 	frames = media.word_frames(frames)

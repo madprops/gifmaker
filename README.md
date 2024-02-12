@@ -109,11 +109,17 @@ For example `[RANDOM]` might be `PLANET`.
 
 ---
 
-If you want to repeat the text in the next frame use `[again]` in a line.
+If you want to repeat the text in the next frame use `[repeat]` in a line:
 
-For example `--words="Buy Buttcoin ; [again] ;;"`
+For example `--words="Buy Buttcoin ; [repeat] ;;"`
 
 It will use that text on the first two frames and then show 2 empty frames.
+
+You can also provide a number to specify how many time to repeat a frame:
+
+For example `--words="Buy Buttcoin ; [repeat 2] ;;"`
+
+The line will be shown in 3 frames (The original plus the 2 repeats).
 
 ---
 
@@ -126,7 +132,7 @@ Relative paths should work fine.
 Here's a fuller example:
 
 ```shell
-venv/bin/python src/borat.py --input="/videos/stuff.webm" --fontsize=3.3 --fps=1.5 --width=600 --words="I want to eat ;; [Random] ; [again] ;" --format=mp4 --output="stuff/videos"
+venv/bin/python src/borat.py --input="/videos/stuff.webm" --fontsize=3.3 --fps=1.5 --width=600 --words="I want to eat ;; [Random] ; [repeat] ;" --format=mp4 --output="stuff/videos"
 ```
 
 ---
@@ -183,7 +189,7 @@ Lines are separated by `;`.
 
 Each line is a frame.
 
-Special words include `[random]` and `[again]`.
+Special words include `[random]` and `[repeat]`.
 
 As described in [Usage](#usage).
 

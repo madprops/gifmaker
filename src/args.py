@@ -54,9 +54,6 @@ def check():
 
 	if args.words is not None:
 		Global.words = [word.strip() for word in args.words.split(Global.separator)]
-		Global.frames = len(Global.words)
-	elif args.frames is not None:
-		Global.frames = args.frames
 
 	path("input")
 	path("output")
@@ -73,6 +70,7 @@ def check():
 	proc("format")
 	proc("order")
 	proc("font")
+	proc("frames")
 
 	commas("fontcolor")
 	commas("bgcolor")

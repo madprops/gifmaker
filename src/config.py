@@ -56,7 +56,6 @@ class Global:
 	# The opacity of the background
 	opacity = 0.5
 
-	repeat = "[again]"
 	random_lower = "[random]"
 	random_upper = "[RANDOM]"
 	random_title = "[Random]"

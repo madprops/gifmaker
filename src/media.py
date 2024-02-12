@@ -150,3 +150,7 @@ def render(frames):
 		imageio.mimsave(output, frames, fps=Global.fps)
 
 	print(f"\nSaved as: {output}\n")
+
+def check_frames():
+	num = len(Global.words)
+	Global.frames = num if num > 0 else Global.frames
