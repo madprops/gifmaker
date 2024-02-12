@@ -351,7 +351,7 @@ This gives some spacing around the text.
 
 Use this to not add the baseline to the background rectangle's height.
 
-The baseline is the room reserved for letters that have descenders like `y`.
+The baseline is the room reserved for letters that have descenders, like the bottom half of `y`.
 
 If you disable it the rectangle will not cover all possible letters.
 
