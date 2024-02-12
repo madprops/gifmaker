@@ -21,10 +21,10 @@ def get_extension(path):
 	return Path(path).suffix.lower()
 
 def resolve_path(path):
-	pth = full_path(Path(path))
+	pth = Path(path).expanduser()
 
 	if pth.is_absolute():
-		return pth
+		return full_path(pth)
 	else:
 		return full_path(Path(Path.cwd(), pth))
 
