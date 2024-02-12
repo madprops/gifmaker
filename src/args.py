@@ -169,4 +169,5 @@ def check_script(args):
 	data = utils.read_toml(Global.script)
 
 	for key in data:
-		setattr(args, key, data[key])
+		k = key.replace("-", "_")
+		setattr(args, k, data[key])
