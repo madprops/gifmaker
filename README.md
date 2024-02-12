@@ -107,10 +107,6 @@ The replaced word will use the case of those.
 
 For example `[RANDOM]` might be `PLANET`.
 
-You can specify how many random words to generate by using a number:
-
-For example `[Random 3]` might generate `Drivers Say Stories`.
-
 ---
 
 If you want to repeat the previous line, use `[repeat]`:

@@ -56,6 +56,10 @@ class Global:
 	# The opacity of the background
 	opacity = 0.5
 
+	random_lower = "[random]"
+	random_upper = "[RANDOM]"
+	random_title = "[Random]"
+
 def fill_paths(main_file):
 	Global.root = Path(main_file).parent.parent.resolve()
 	Global.input = Path(Global.root, "media", "video.webm").resolve()
