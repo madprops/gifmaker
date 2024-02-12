@@ -373,9 +373,9 @@ Like: `cat,dog,cow,horse`
 
 ### Script
 
-You can provide a `toml` file to define any argument.
+You can make `toml` files that define the arguments to use.
 
-Then point to it using `--script="/path/to/script.toml"`
+Provide the path of a script like this: `--script="/path/to/script.toml"`
 
 For example, the script can look like this:
 
