@@ -7,7 +7,7 @@ import media
 def main():
 	args.fill_paths(__file__)
 
-	args.check_args()
+	args.parse_args()
 	words.check_random()
 	words.check_repeat()
 	media.check_frames()
