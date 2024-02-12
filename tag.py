@@ -1,5 +1,6 @@
-# pacman: python-gitpython
+#!/usr/bin/env bash
 
+# pacman: python-gitpython
 import git
 import time
 
