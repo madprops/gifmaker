@@ -69,7 +69,7 @@ class Global:
 	# Path to a TOML file that defines the arguments to use
 	script = None
 
-def check():
+def check_args():
 	p = argparse.ArgumentParser(description="Borat the Gif Maker")
 
 	p.add_argument("--input", "-i", type=str, help="Path to the a video or image file")
