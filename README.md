@@ -381,10 +381,10 @@ For example, the script can look like this:
 
 ```toml
 words = "Disregard [Random] ; [repeat] ; Acquire [Random] ; [repeat] ;"
-bottom = 10
-right = 10
 fontcolor = "44,80,200"
 bgcolor = "0,0,0"
+bottom = 10
+right = 10
 ```
 
 ---
