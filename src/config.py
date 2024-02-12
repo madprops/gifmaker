@@ -56,6 +56,9 @@ class Global:
 	# The opacity of the background
 	opacity = 0.5
 
+	# The padding of the background
+	padding = 10
+
 def fill_paths(main_file):
 	Global.root = Path(main_file).parent.parent.resolve()
 	Global.input = Path(Global.root, "media", "video.webm").resolve()

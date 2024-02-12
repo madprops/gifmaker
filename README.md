@@ -339,6 +339,14 @@ The closer it is to `0` the more transparent it is.
 
 ---
 
+> Padding = Type: int | Default: 10
+
+The padding of the background rectangle.
+
+This gives some spacing around the text.
+
+---
+
 <img src="media/borat.gif" width="600">
 
 ---
