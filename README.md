@@ -383,7 +383,7 @@ For example, the script can look like this:
 words = "Disregard [Random] ; [repeat] ; Acquire [Random] ; [repeat] ;"
 bottom = 10
 right = 10
-fontcolor = "180,44,44"
+fontcolor = "44,80,200"
 bgcolor = "0,0,0"
 ```
 
