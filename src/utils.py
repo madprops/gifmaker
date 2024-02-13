@@ -37,10 +37,10 @@ def exit(message):
 
 def read_toml(path):
 	if (not path.exists()) or (not path.is_file()):
-		exit(f"TOML file does not exist")
+		exit("TOML file does not exist")
 
 	try:
 		with open(path, "rb") as file:
 			return tomllib.load(file)
 	except:
-		exit(f"Failed to read TOML file")
+		exit("Failed to read TOML file")
