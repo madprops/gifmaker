@@ -72,6 +72,9 @@ class Global:
 	# The quality of an mp4 video render
 	quality = 8
 
+	# How to loop a gif render
+	loop = 0
+
 def parse_args():
 	p = argparse.ArgumentParser(description="Borat the Gif Maker")
 
