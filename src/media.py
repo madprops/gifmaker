@@ -128,19 +128,20 @@ def resize_frames(frames):
 
 def render(frames):
 	ext = utils.get_extension(Global.output)
+	err_msg = "Failed to make output directory"
 
 	if ext:
 		try:
 			Global.output.parent.mkdir(parents=False, exist_ok=True)
 		except:
-			return
+			utils.exit(err_msg)
 
 		output = Global.output
 	else:
 		try:
 			Global.output.mkdir(parents=False, exist_ok=True)
 		except:
-			return
+			utils.exit(err_msg)
 
 		rand = utils.random_string()
 		file_name = f"{rand}.{Global.format}"

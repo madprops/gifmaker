@@ -373,7 +373,7 @@ Like: `cat,dog,cow,horse`
 
 ### Script
 
-You can make `toml` files that define the arguments to use.
+You can make `TOML` files that define the arguments to use.
 
 Provide the path of a script like this: `--script="/path/to/script.toml"`
 

@@ -163,10 +163,7 @@ def check_script(args):
 	if Global.script is None:
 		return
 
-	if not Path(Global.script).exists():
-		utils.exit(f"Script file does not exist")
-
-	data = utils.read_toml(Global.script)
+	data = utils.read_toml(Path(Global.script))
 
 	for key in data:
 		k = key.replace("-", "_")
