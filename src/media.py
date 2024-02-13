@@ -48,7 +48,7 @@ def get_frames(num_frames):
 
 	return frames
 
-def add_text(frame, text, extra_height):
+def add_text(frame, text, lineheight):
 	if not text:
 		return frame, 0
 
@@ -83,7 +83,7 @@ def add_text(frame, text, extra_height):
 	else:
 		text_y = (height + text_height) // 2
 
-	text_y += extra_height
+	text_y += lineheight
 	text_position = (text_x, text_y)
 
 	if Global.bgcolor:
@@ -113,12 +113,12 @@ def word_frames(frames):
 
 	for i, frame in enumerate(frames):
 		lines = [line.strip() for line in Global.words[i].split(Global.linebreak)]
-		extra_height = 0
+		lineheight = 0
 
 		for line in lines:
-			wframe, height = add_text(frame, line, extra_height)
+			wframe, height = add_text(frame, line, lineheight)
 			worded.append(wframe)
-			extra_height += height + Global.linespace
+			lineheight += height + Global.linespace
 
 	return worded
 
