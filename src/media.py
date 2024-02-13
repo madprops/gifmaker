@@ -97,9 +97,8 @@ def add_text(frame, text, extra_height):
 		rect_y = text_y - text_height - padding
 		rect_width = padding + text_width + padding
 		rect_height = padding + text_height + bline + padding
-		opacity = Global.opacity
 		rcopy = cv2.rectangle(frame.copy(), (rect_x, rect_y), (rect_x + rect_width, rect_y + rect_height), Global.bgcolor, -1)
-		cv2.addWeighted(frame, 1 - opacity, rcopy, opacity, 0, frame)
+		cv2.addWeighted(frame, 1 - Global.opacity, rcopy, Global.opacity, 0, frame)
 
 	cv2.putText(frame, text, text_position, font, Global.fontsize, Global.fontcolor, Global.boldness, cv2.LINE_AA)
 	return frame, text_height
