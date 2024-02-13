@@ -389,7 +389,7 @@ How to loop the gifs.
 
 `1 or more` = Specific number of loops
 
---
+---
 
 ### Script
 
