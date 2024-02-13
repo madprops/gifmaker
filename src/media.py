@@ -66,22 +66,38 @@ def add_text(frame, text, lineheight):
 		font = cv2.FONT_HERSHEY_TRIPLEX
 
 	text_size, baseline = cv2.getTextSize(text, font, Global.fontsize, Global.boldness)
+
 	text_width = text_size[0]
 	text_height = text_size[1]
 
-	if Global.left is not None:
-		text_x = Global.left
-	elif Global.right is not None:
-		text_x = width - text_width - Global.right
+	p_top = Global.top
+	p_bottom = Global.bottom
+	p_left = Global.left
+	p_right = Global.right
+
+	if (p_left is not None) and (p_left >= 0):
+		text_x = p_left
+	elif (p_right is not None) and (p_right >= 0):
+		text_x = width - text_width - p_right
 	else:
 		text_x = (width - text_width) // 2
 
-	if Global.top is not None:
-		text_y = text_height + Global.top
-	elif Global.bottom is not None:
-		text_y = height - baseline - Global.bottom
+		if (p_left is not None) and (p_left < 0):
+			text_x += p_left
+		elif (p_right is not None) and (p_right < 0):
+			text_x -= p_right
+
+	if (p_top is not None) and (p_top >= 0):
+		text_y = text_height + p_top
+	elif (p_bottom is not None) and (p_bottom >= 0):
+		text_y = height - baseline - p_bottom
 	else:
 		text_y = (height + text_height) // 2
+
+		if (p_top is not None) and (p_top < 0):
+			text_y += p_top
+		elif (p_bottom is not None) and (p_bottom < 0):
+			text_y -= p_bottom
 
 	text_y += lineheight
 	text_position = (text_x, text_y)

@@ -255,6 +255,12 @@ You only need to set `top` or `bottom`, not both.
 
 If those are not set then the text is placed at the center.
 
+If any of those is set to a negative value like `-100`, it will apply it from the center.
+
+For example: `--top=-100` would pull it a bit to the top from the center.
+
+And `--right=-100` would pull it a bit to the right from the center.
+
 ---
 
 > width = Type: int | Default: None
