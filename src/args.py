@@ -85,7 +85,7 @@ def parse_args():
 	p = argparse.ArgumentParser(description="Borat the Gif Maker")
 
 	p.add_argument("--input", "-i", type=str, help="Path to the a video or image file")
-	p.add_argument("--words", type=str, help=f"Lines of words to use on the frames")
+	p.add_argument("--words", type=str, help="Lines of words to use on the frames")
 	p.add_argument("--fps", type=float, help="FPS to use")
 	p.add_argument("--left", type=int, help="Left padding")
 	p.add_argument("--right", type=int, help="Right padding")
