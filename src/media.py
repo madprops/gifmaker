@@ -50,7 +50,7 @@ def get_frames(num_frames):
 
 def add_text(frame, text, extra_height):
 	if not text:
-		return frame, top
+		return frame, 0
 
 	height, width, _ = frame.shape
 
