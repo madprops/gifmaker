@@ -4,8 +4,14 @@
 # You probably don't want to run this
 
 # pacman: python-gitpython
+import os
 import git
 import time
+from pathlib import Path
+
+here = Path(__file__).resolve()
+parent = here.parent.parent
+os.chdir(parent)
 
 name = int(time.time())
 repo = git.Repo(".")
