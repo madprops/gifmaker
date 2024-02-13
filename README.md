@@ -433,7 +433,7 @@ right = 10
 
 ---
 
-<img src="media/borat.gif" width="500">
+<img src="media/borat.gif" width="550">
 
 ---
 
