@@ -411,7 +411,7 @@ Spacing between lines separated by `\n`.
 
 > linebreak = Type: str | Default: "\n"
 
-Which character to use for linebreaks.
+The character to use for linebreaks.
 
 ---
 
