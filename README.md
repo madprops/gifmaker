@@ -409,6 +409,12 @@ Spacing between lines separated by `\n`.
 
 ---
 
+> linebreak = Type: str | Default: "\n"
+
+Which character to use for linebreaks.
+
+---
+
 ### Script
 
 You can make `TOML` files that define the arguments to use.

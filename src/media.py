@@ -110,7 +110,7 @@ def word_frames(frames):
 	worded = []
 
 	for i, frame in enumerate(frames):
-		lines = [line.strip() for line in Global.words[i].split("\\n")]
+		lines = [line.strip() for line in Global.words[i].split(Global.linebreak)]
 		extra_height = 0
 
 		for line in lines:

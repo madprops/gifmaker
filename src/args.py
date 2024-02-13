@@ -78,6 +78,9 @@ class Global:
 	# Spacing between lines
 	linespace = 20
 
+	# Linebreak character
+	linebreak = "\\n"
+
 def parse_args():
 	p = argparse.ArgumentParser(description="Borat the Gif Maker")
 
@@ -107,6 +110,7 @@ def parse_args():
 	p.add_argument("--quality", type=int, help="Quality of the render when using the mp4 format")
 	p.add_argument("--loop", type=int, help="How to loop a gif render")
 	p.add_argument("--linespace", type=int, help="Spacing between lines")
+	p.add_argument("--linebreak", type=str, help="Linebreak character")
 
 	args = p.parse_args()
 
@@ -159,6 +163,7 @@ def parse_args():
 	proc("quality")
 	proc("loop")
 	proc("linespace")
+	proc("linebreak")
 
 	commas("fontcolor", int)
 	commas("bgcolor", int)
