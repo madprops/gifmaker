@@ -48,9 +48,9 @@ def get_frames(num_frames):
 
 	return frames
 
-def add_text(frame, text):
+def add_text(frame, text, extra_height):
 	if not text:
-		return frame
+		return frame, top
 
 	height, width, _ = frame.shape
 
@@ -83,6 +83,7 @@ def add_text(frame, text):
 	else:
 		text_y = (height + text_height) // 2
 
+	text_y += extra_height
 	text_position = (text_x, text_y)
 
 	if Global.bgcolor:
@@ -100,7 +101,7 @@ def add_text(frame, text):
 		cv2.addWeighted(frame, 1 - opacity, cv2.rectangle(frame.copy(), (rect_x, rect_y), (rect_x + rect_width, rect_y + rect_height), Global.bgcolor, -1), opacity, 0, frame)
 
 	cv2.putText(frame, text, text_position, font, Global.fontsize, Global.fontcolor, Global.boldness, cv2.LINE_AA)
-	return frame
+	return frame, text_height
 
 def word_frames(frames):
 	if len(Global.words) == 0:
@@ -109,7 +110,13 @@ def word_frames(frames):
 	worded = []
 
 	for i, frame in enumerate(frames):
-		worded.append(add_text(frame, Global.words[i]))
+		lines = [line.strip() for line in Global.words[i].split("\\n")]
+		extra_height = 0
+
+		for line in lines:
+			wframe, height = add_text(frame, line, extra_height)
+			worded.append(wframe)
+			extra_height += height + Global.linespace
 
 	return worded
 

@@ -75,6 +75,9 @@ class Global:
 	# How to loop a gif render
 	loop = 0
 
+	# Spacing between lines
+	linespace = 20
+
 def parse_args():
 	p = argparse.ArgumentParser(description="Borat the Gif Maker")
 
@@ -103,6 +106,7 @@ def parse_args():
 	p.add_argument("--script", type=str, help="Path to a TOML file that defines the arguments to use")
 	p.add_argument("--quality", type=int, help="Quality of the render when using the mp4 format")
 	p.add_argument("--loop", type=int, help="How to loop a gif render")
+	p.add_argument("--linespace", type=int, help="Spacing between lines")
 
 	args = p.parse_args()
 
@@ -154,6 +158,7 @@ def parse_args():
 	proc("no_baseline")
 	proc("quality")
 	proc("loop")
+	proc("linespace")
 
 	commas("fontcolor", int)
 	commas("bgcolor", int)

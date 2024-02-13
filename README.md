@@ -127,6 +127,18 @@ The line will be shown in 3 frames (the original plus the 2 repeats).
 
 ---
 
+You can use linebreaks with `\n`.
+
+For example: `--words="Hello \n World"`
+
+Will place `Hello` where a normal line would be.
+
+And then place `World` underneath it.
+
+You can control the spacing with the `linespace` argument.
+
+---
+
 You can run `borat.py` from anywhere in your system using its virtual env.
 
 Relative paths should work fine.
@@ -388,6 +400,12 @@ How to loop the gifs.
 `0` = Infinite loop
 
 `1 or more` = Specific number of loops
+
+---
+
+> linespace = Type: int | Default 20
+
+Spacing between lines separated by `\n`.
 
 ---
 
