@@ -99,6 +99,7 @@ def parse_args():
 	p.add_argument("--wordlist", type=str, help="List of words to consider for random words. Separated by commas")
 	p.add_argument("--script", type=str, help="Path to a TOML file that defines the arguments to use")
 	p.add_argument("--quality", type=int, help="Quality of the render when using the mp4 format")
+	p.add_argument("--loop", type=int, help="How to loop a gif render")
 
 	args = p.parse_args()
 
@@ -149,6 +150,7 @@ def parse_args():
 	proc("padding")
 	proc("no_baseline")
 	proc("quality")
+	proc("loop")
 
 	commas("fontcolor", int)
 	commas("bgcolor", int)

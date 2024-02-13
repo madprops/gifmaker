@@ -150,7 +150,8 @@ def render(frames):
 	fmt = ext if ext else Global.format
 
 	if fmt == "gif":
-		imageio.mimsave(output, frames, fps=Global.fps, loop=0)
+		loop =  None if Global.loop <= -1 else Global.loop
+		imageio.mimsave(output, frames, fps=Global.fps, loop=loop)
 	elif fmt == "mp4":
 		imageio.mimsave(output, frames, fps=Global.fps, quality=Global.quality)
 

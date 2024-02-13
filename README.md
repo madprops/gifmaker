@@ -379,6 +379,18 @@ The quality of an `mp4` video render.
 
 ---
 
+> loop = Type: int | Default 0
+
+How to loop the gifs.
+
+`-1` = No loop
+
+`0` = Infinite loop
+
+`1 or more` = Specific number of loops
+
+--
+
 ### Script
 
 You can make `TOML` files that define the arguments to use.
