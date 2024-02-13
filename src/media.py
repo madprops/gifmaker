@@ -152,7 +152,7 @@ def render(frames):
 	if fmt == "gif":
 		imageio.mimsave(output, frames, fps=Global.fps, loop=0)
 	elif fmt == "mp4":
-		imageio.mimsave(output, frames, fps=Global.fps)
+		imageio.mimsave(output, frames, fps=Global.fps, quality=Global.quality)
 
 	print(f"\nSaved as: {output}\n")
 
