@@ -5,6 +5,7 @@ import utils
 # Libraries
 import cv2
 import imageio
+from PIL import Image
 
 # Standard
 from pathlib import Path
@@ -185,3 +186,13 @@ def render(frames):
 def check_frames():
 	num = len(Global.words)
 	Global.frames = num if num > 0 else Global.frames
+
+def fix_frames(frames):
+	new_frames = []
+
+	for frame in frames:
+		rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+		pil_image = Image.fromarray(rgb_frame)
+		new_frames.append(pil_image)
+
+	return new_frames
