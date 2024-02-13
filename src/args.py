@@ -7,7 +7,7 @@ from pathlib import Path
 
 class Global:
 	# Frames per second to use
-	fps = 2.0
+	delay = 500
 
 	# Number of frames to use if no words are provided
 	frames = 3
@@ -86,7 +86,7 @@ def parse_args():
 
 	p.add_argument("--input", "-i", type=str, help="Path to the a video or image file")
 	p.add_argument("--words", type=str, help="Lines of words to use on the frames")
-	p.add_argument("--fps", type=float, help="FPS to use")
+	p.add_argument("--delay", type=int, help="The delay in ms between frames")
 	p.add_argument("--left", type=int, help="Left padding")
 	p.add_argument("--right", type=int, help="Right padding")
 	p.add_argument("--top", type=int, help="Top padding")
@@ -145,7 +145,7 @@ def parse_args():
 	path("input")
 	path("output")
 
-	proc("fps")
+	proc("delay")
 	proc("fontsize")
 	proc("boldness")
 	proc("opacity")

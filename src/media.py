@@ -133,9 +133,10 @@ def word_frames(frames):
 		lineheight = 0
 
 		for line in lines:
-			wframe, height = add_text(frame, line, lineheight)
-			worded.append(wframe)
+			frame, height = add_text(frame, line, lineheight)
 			lineheight += height + Global.linespace
+
+		worded.append(frame)
 
 	return worded
 
@@ -177,7 +178,7 @@ def render(frames):
 
 	if fmt == "gif":
 		loop =  None if Global.loop <= -1 else Global.loop
-		imageio.mimsave(output, frames, fps=Global.fps, loop=loop)
+		frames[0].save(output, save_all=True, append_images=frames[1:], duration=Global.delay, loop=loop, optimize=True)
 	elif fmt == "mp4":
 		imageio.mimsave(output, frames, fps=Global.fps, quality=Global.quality)
 
