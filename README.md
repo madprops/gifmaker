@@ -455,17 +455,17 @@ And: `gray`, `blur`, `invert`, `saturate`, `random`, `random2`
 
 ---
 
-> resize = Type: flag | Default: False
+> remake = Type: flag | Default: False
 
-Use this if you only want to resize a render.
+Use this if you only want to re-render the frames.
 
 It re-uses all the frames, resizes, and renders again.
 
 It doesn't do the rest of the operations.
 
-You need to provide `width` for this to work.
+For example: `--input="/path/to/file.gif" --resize --width=500 --delay=300`
 
-For example: `--input="/path/to/file.gif" --resize --width=500`
+For instance, you can use this to change the `width` or `delay` of a rendered file.
 
 ---
 

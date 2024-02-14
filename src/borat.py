@@ -29,7 +29,7 @@ def main():
 	# Extract the required frames from the file
 	frames = media.get_frames(path)
 
-	if Global.resize:
+	if Global.remake:
 		# Only resize the frames
 		frames = media.resize_frames(frames)
 	else:

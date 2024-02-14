@@ -21,8 +21,8 @@ def get_frames(path):
 	else:
 		cap = cv2.VideoCapture(str(path))
 		total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
-		num_frames = total_frames if Global.resize else Global.frames
-		order = "normal" if Global.resize else Global.order
+		num_frames = total_frames if Global.remake else Global.frames
+		order = "normal" if Global.remake else Global.order
 		current = 0
 
 		# Sometimes it fails to read the frames so it needs more tries
