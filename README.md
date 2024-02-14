@@ -421,6 +421,14 @@ The character to use for linebreaks.
 
 ---
 
+> linebreak = Type: str | Default: None
+
+A color filter to apply to each frame.
+
+Either: `red`, `green`, `blue`, `invert`, `saturation`, `negative`, `sepia`, `grayscale`
+
+---
+
 ### Script
 
 You can make `TOML` files that define the arguments to use.

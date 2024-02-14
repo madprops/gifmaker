@@ -81,6 +81,9 @@ class Global:
 	# Linebreak character
 	linebreak = "\\n"
 
+	# Color filter to apply to frames
+	filter = None
+
 def parse_args():
 	p = argparse.ArgumentParser(description="Borat the Gif Maker")
 
@@ -111,6 +114,7 @@ def parse_args():
 	p.add_argument("--loop", type=int, help="How to loop a gif render")
 	p.add_argument("--linespace", type=int, help="Spacing between lines")
 	p.add_argument("--linebreak", type=str, help="Linebreak character")
+	p.add_argument("--filter", type=str, choices=["red", "green", "blue", "invert", "saturation", "negative", "sepia", "grayscale"], help="Color filter to apply to frames")
 
 	args = p.parse_args()
 
@@ -164,6 +168,7 @@ def parse_args():
 	proc("loop")
 	proc("linespace")
 	proc("linebreak")
+	proc("filter")
 
 	commas("fontcolor", int)
 	commas("bgcolor", int)

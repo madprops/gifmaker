@@ -4,6 +4,7 @@ import utils
 
 # Libraries
 import cv2
+import numpy as np
 from PIL import Image
 
 # Standard
@@ -203,5 +204,43 @@ def to_pillow(frames):
 		rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 		pil_image = Image.fromarray(rgb_frame)
 		new_frames.append(pil_image)
+
+	return new_frames
+
+def apply_filters(frames):
+	if Global.filter is None:
+		return frames
+
+	new_frames = []
+
+	for frame in frames:
+		hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+
+		if Global.filter == "red":
+			hsv[:, :, 0] = (hsv[:, :, 0] - 60) % 180
+		elif Global.filter == "green":
+			hsv[:, :, 0] = (hsv[:, :, 0] + 60) % 180
+		elif Global.filter == "blue":
+			hsv[:, :, 0] = (hsv[:, :, 0] + 120) % 180
+		elif Global.filter == "invert":
+			hsv[:, :, 0] = (hsv[:, :, 0] + 90) % 180
+			hsv[:, :, 1] = 255 - hsv[:, :, 1]
+			hsv[:, :, 2] = 255 - hsv[:, :, 2]
+		elif Global.filter == "sepia":
+			hsv[:, :, 0] = (hsv[:, :, 0] + 20) % 180
+			hsv[:, :, 1] = (hsv[:, :, 1] + 50) % 255
+			hsv[:, :, 2] = (hsv[:, :, 2] + 100) % 255
+		elif Global.filter == "negative":
+			hsv[:, :, 0] = (hsv[:, :, 0] + 90) % 180
+			hsv[:, :, 1] = 255 - hsv[:, :, 1]
+			hsv[:, :, 2] = 255 - hsv[:, :, 2]
+		elif Global.filter == "saturation":
+			hsv[:, :, 0] = 0
+			hsv[:, :, 2] = 255
+		elif Global.filter == "grayscale":
+			hsv[:, :, 1] = 0
+
+		new_frame = cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR, frame)
+		new_frames.append(new_frame)
 
 	return new_frames
