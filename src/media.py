@@ -207,7 +207,7 @@ def to_pillow(frames):
 	return new_frames
 
 def apply_filters(frames):
-	if Global.filter is None:
+	if (Global.filter is None) and (len(Global.filterlist) == 0):
 		return frames
 
 	new_frames = []
@@ -230,6 +230,9 @@ def apply_filters(frames):
 	for frame in frames:
 		if Global.filter == "random2":
 			filter = random.choice(filters)
+
+		if len(Global.filterlist) > 0:
+			filter = Global.filterlist.pop(0)
 
 		if filter == "hue1":
 			hsv = get_hsv(frame)

@@ -84,6 +84,9 @@ class Global:
 	# Re-render the frames to change the width or delay
 	remake = False
 
+	# List of filters to use per frame
+	filterlist = []
+
 	# Color filter to apply to frames
 	filter = None
 
@@ -122,11 +125,12 @@ def parse_args():
 		"hue1", "hue2", "hue3", "hue4", "hue5", "hue6", "hue7", "hue8",
 		"gray", "blur", "invert", "saturate", "random", "random2"
 		], help="Color filter to apply to frames")
+	p.add_argument("--filterlist", type=str, help="Filters to use per frame. Separated by semicolons")
 
 	args = p.parse_args()
 
-	def get_tuple(value, vtype, separator):
-		return tuple(map(vtype, map(str.strip, value.split(separator))))
+	def get_list(value, vtype, separator):
+		return list(map(vtype, map(str.strip, value.split(separator))))
 
 	def normal(attr):
 		value = getattr(args, attr)
@@ -138,13 +142,13 @@ def parse_args():
 		value = getattr(args, attr)
 
 		if value is not None:
-			setattr(Global, attr, get_tuple(value, vtype, ","))
+			setattr(Global, attr, get_list(value, vtype, ","))
 
 	def semicolons(attr, vtype):
 		value = getattr(args, attr)
 
 		if value is not None:
-			setattr(Global, attr, get_tuple(value, vtype, ";"))
+			setattr(Global, attr, get_list(value, vtype, ";"))
 
 	def path(attr):
 		value = getattr(args, attr)
@@ -156,7 +160,7 @@ def parse_args():
 		value = getattr(args, attr)
 
 		if value is not None:
-			paths = tuple(utils.resolve_path(p.strip()) for p in value.split(";"))
+			paths = [utils.resolve_path(p.strip()) for p in value.split(";")]
 			setattr(Global, attr, paths)
 
 	# Get script args first
@@ -194,6 +198,7 @@ def parse_args():
 	commas("bgcolor", int)
 
 	semicolons("wordlist", str)
+	semicolons("filterlist", str)
 
 	pathlist("input")
 	path("output")
@@ -208,7 +213,7 @@ def parse_args():
 
 def fill_paths(main_file):
 	Global.root = utils.full_path(Path(main_file).parent.parent)
-	Global.input = (utils.full_path(Path(Global.root, "media", "video.webm")))
+	Global.input = [utils.full_path(Path(Global.root, "media", "video.webm"))]
 	Global.output = utils.full_path(Path(Global.root, "output"))
 	Global.wordfile = utils.full_path(Path(Global.root, "data", "nouns.txt"))
 
