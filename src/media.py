@@ -266,16 +266,16 @@ def apply_filters(frames):
 			hsv[:, :, 1] = 255 - hsv[:, :, 1]
 			hsv[:, :, 2] = 255 - hsv[:, :, 2]
 			new_frame = do_hsv(hsv)
+		elif Global.filter == "saturation":
+			hsv = get_hsv(frame)
+			hsv[:, :, 0] = 0
+			hsv[:, :, 2] = 255
+			new_frame = do_hsv(hsv)
 		elif Global.filter == "sepia":
 			hsv = get_hsv(frame)
 			hsv[:, :, 0] = (hsv[:, :, 0] + 20) % 180
 			hsv[:, :, 1] = (hsv[:, :, 1] + 50) % 255
 			hsv[:, :, 2] = (hsv[:, :, 2] + 100) % 255
-			new_frame = do_hsv(hsv)
-		elif Global.filter == "saturation":
-			hsv = get_hsv(frame)
-			hsv[:, :, 0] = 0
-			hsv[:, :, 2] = 255
 			new_frame = do_hsv(hsv)
 
 		new_frames.append(new_frame)

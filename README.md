@@ -413,13 +413,13 @@ The character to use for linebreaks.
 
 ---
 
-> linebreak = Type: str | Default: None
+> filter = Type: str | Default: None
 
 A color filter to apply to each frame.
 
 Either: `hue1`, `hue2`, `hue3`, `hue4`, `hue5`, `hue6`, `hue7`, `hue8`
 
-And: `invert`, `saturation`, `sepia`, `grayscale`, `blur`
+And: `grayscale`, `blur`, `invert`, `saturation`, `sepia`
 
 ---
 

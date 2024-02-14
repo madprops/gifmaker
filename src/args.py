@@ -112,7 +112,7 @@ def parse_args():
 	p.add_argument("--linebreak", type=str, help="Linebreak character")
 	p.add_argument("--filter", type=str, choices=[
 		"hue1", "hue2", "hue3", "hue4", "hue5", "hue6", "hue7", "hue8",
-		"invert", "saturation", "sepia", "grayscale", "blur",
+		"grayscale", "blur", "invert", "saturation", "sepia",
 		], help="Color filter to apply to frames")
 
 	args = p.parse_args()
