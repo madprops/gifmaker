@@ -104,7 +104,7 @@ def add_text(frame, text, lineheight):
 
 	text_y += lineheight
 	text_position = (text_x, text_y)
-	rgb = utils.invert_list(Global.fontcolor)
+	rgb = list(reversed((Global.fontcolor)))
 
 	if Global.bgcolor:
 		if Global.no_baseline:
