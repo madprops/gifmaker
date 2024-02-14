@@ -69,9 +69,6 @@ class Global:
 	# Path to a TOML file that defines the arguments to use
 	script = None
 
-	# The quality of an mp4 video render
-	quality = 8
-
 	# How to loop a gif render
 	loop = 0
 
@@ -110,7 +107,6 @@ def parse_args():
 	p.add_argument("--no-baseline", action="store_true", help="Don't add the baseline to the background rectangle's height")
 	p.add_argument("--wordlist", type=str, help="List of words to consider for random words. Separated by commas")
 	p.add_argument("--script", type=str, help="Path to a TOML file that defines the arguments to use")
-	p.add_argument("--quality", type=int, help="Quality of the render when using the mp4 format")
 	p.add_argument("--loop", type=int, help="How to loop a gif render")
 	p.add_argument("--linespace", type=int, help="Spacing between lines")
 	p.add_argument("--linebreak", type=str, help="Linebreak character")
@@ -164,7 +160,6 @@ def parse_args():
 	proc("frames")
 	proc("padding")
 	proc("no_baseline")
-	proc("quality")
 	proc("loop")
 	proc("linespace")
 	proc("linebreak")

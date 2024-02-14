@@ -389,14 +389,6 @@ Like: `cat,dog,cow,horse`
 
 ---
 
-> quality = Type: int | Default 8
-
-From `1` to `10`.
-
-The quality of an `mp4` video render.
-
----
-
 > loop = Type: int | Default 0
 
 How to loop the gifs.
