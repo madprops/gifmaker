@@ -213,12 +213,7 @@ def apply_filters(frames):
 		return frames
 
 	new_frames = []
-
-	def get_rgb(frame):
-		return cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-
-	def do_rgb(rgb):
-		return cv2.cvtColor(rgb, cv2.COLOR_RGB2BGR)
+	hue_step = 20
 
 	def get_hsv(frame):
 		return cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
@@ -227,31 +222,43 @@ def apply_filters(frames):
 		return cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
 
 	for frame in frames:
-		if Global.filter == "red":
-			rgb = get_rgb(frame)
-			rgb[:, :, 0] = np.minimum(rgb[:, :, 0] + 50, 255)
-			new_frame = do_rgb(rgb)
-		elif Global.filter == "green":
-			rgb = get_rgb(frame)
-			rgb[:, :, 1] = np.minimum(rgb[:, :, 1] + 50, 255)
-			new_frame = do_rgb(rgb)
-		elif Global.filter == "blue":
-			rgb = get_rgb(frame)
-			rgb[:, :, 2] = np.minimum(rgb[:, :, 2] + 50, 255)
-			new_frame = do_rgb(rgb)
-		elif Global.filter == "yellow":
-			rgb = get_rgb(frame)
-			rgb[:, :, 0] = np.minimum(rgb[:, :, 0] + 50, 255)
-			rgb[:, :, 1] = np.minimum(rgb[:, :, 1] + 50, 255)
-			new_frame = do_rgb(rgb)
-		elif Global.filter == "cyan":
-			rgb = get_rgb(frame)
-			rgb[:, :, 1] = np.minimum(rgb[:, :, 1] + 50, 255)
-			rgb[:, :, 2] = np.minimum(rgb[:, :, 2] + 50, 255)
-			new_frame = do_rgb(rgb)
-
-		elif Global.filter == "grayscale":
+		if Global.filter == "grayscale":
 			new_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+		elif Global.filter == "blur":
+			new_frame = cv2.GaussianBlur(frame, (45, 45), 0)
+
+		elif Global.filter == "hue1":
+			hsv = get_hsv(frame)
+			hsv[:, :, 0] = (hsv[:, :, 0] + hue_step * 1) % 180
+			new_frame = do_hsv(hsv)
+		elif Global.filter == "hue2":
+			hsv = get_hsv(frame)
+			hsv[:, :, 0] = (hsv[:, :, 0] + hue_step * 2) % 180
+			new_frame = do_hsv(hsv)
+		elif Global.filter == "hue3":
+			hsv = get_hsv(frame)
+			hsv[:, :, 0] = (hsv[:, :, 0] + hue_step * 3) % 180
+			new_frame = do_hsv(hsv)
+		elif Global.filter == "hue4":
+			hsv = get_hsv(frame)
+			hsv[:, :, 0] = (hsv[:, :, 0] + hue_step * 4) % 180
+			new_frame = do_hsv(hsv)
+		elif Global.filter == "hue5":
+			hsv = get_hsv(frame)
+			hsv[:, :, 0] = (hsv[:, :, 0] + hue_step * 5) % 180
+			new_frame = do_hsv(hsv)
+		elif Global.filter == "hue6":
+			hsv = get_hsv(frame)
+			hsv[:, :, 0] = (hsv[:, :, 0] + hue_step * 6) % 180
+			new_frame = do_hsv(hsv)
+		elif Global.filter == "hue7":
+			hsv = get_hsv(frame)
+			hsv[:, :, 0] = (hsv[:, :, 0] + hue_step * 7) % 180
+			new_frame = do_hsv(hsv)
+		elif Global.filter == "hue8":
+			hsv = get_hsv(frame)
+			hsv[:, :, 0] = (hsv[:, :, 0] + hue_step * 8) % 180
+			new_frame = do_hsv(hsv)
 
 		elif Global.filter == "invert":
 			hsv = get_hsv(frame)
