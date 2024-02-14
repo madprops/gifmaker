@@ -8,6 +8,8 @@ It (optionally) places words somewhere on each frame.
 
 Then joins all frames into an animated `gif` or `mp4`.
 
+You can use many arguments to produce different kinds of animations.
+
 ---
 
 ## Why?
