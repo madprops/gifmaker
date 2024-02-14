@@ -220,6 +220,11 @@ def apply_filters(frames):
 	def do_hsv(hsv):
 		return cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
 
+	def do_hue(frame, num):
+		hsv = get_hsv(frame)
+		hsv[:, :, 0] = (hsv[:, :, 0] + hue_step * num) % 180
+		return do_hsv(hsv)
+
 	filters = ["hue1", "hue2", "hue3", "hue4", "hue5", "hue6", "hue7", "hue8",
 	"gray", "blur", "invert", "saturate"]
 
@@ -236,37 +241,21 @@ def apply_filters(frames):
 			filter = random.choice(filters)
 
 		if filter == "hue1":
-			hsv = get_hsv(frame)
-			hsv[:, :, 0] = (hsv[:, :, 0] + hue_step * 1) % 180
-			new_frame = do_hsv(hsv)
+			new_frame = do_hue(frame, 1)
 		elif filter == "hue2":
-			hsv = get_hsv(frame)
-			hsv[:, :, 0] = (hsv[:, :, 0] + hue_step * 2) % 180
-			new_frame = do_hsv(hsv)
+			new_frame = do_hue(frame, 2)
 		elif filter == "hue3":
-			hsv = get_hsv(frame)
-			hsv[:, :, 0] = (hsv[:, :, 0] + hue_step * 3) % 180
-			new_frame = do_hsv(hsv)
+			new_frame = do_hue(frame, 3)
 		elif filter == "hue4":
-			hsv = get_hsv(frame)
-			hsv[:, :, 0] = (hsv[:, :, 0] + hue_step * 4) % 180
-			new_frame = do_hsv(hsv)
+			new_frame = do_hue(frame, 4)
 		elif filter == "hue5":
-			hsv = get_hsv(frame)
-			hsv[:, :, 0] = (hsv[:, :, 0] + hue_step * 5) % 180
-			new_frame = do_hsv(hsv)
+			new_frame = do_hue(frame, 5)
 		elif filter == "hue6":
-			hsv = get_hsv(frame)
-			hsv[:, :, 0] = (hsv[:, :, 0] + hue_step * 6) % 180
-			new_frame = do_hsv(hsv)
+			new_frame = do_hue(frame, 6)
 		elif filter == "hue7":
-			hsv = get_hsv(frame)
-			hsv[:, :, 0] = (hsv[:, :, 0] + hue_step * 7) % 180
-			new_frame = do_hsv(hsv)
+			new_frame = do_hue(frame, 7)
 		elif filter == "hue8":
-			hsv = get_hsv(frame)
-			hsv[:, :, 0] = (hsv[:, :, 0] + hue_step * 8) % 180
-			new_frame = do_hsv(hsv)
+			new_frame = do_hue(frame, 8)
 
 		elif filter == "gray":
 			new_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
