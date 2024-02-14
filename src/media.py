@@ -10,24 +10,26 @@ from PIL import Image
 from pathlib import Path
 import random
 
-def get_frames(num_frames):
+def get_frames():
 	frames = []
 	ext = utils.get_extension(Global.input)
 
 	if ext == ".jpg" or ext == ".png":
-		for x in range(0, num_frames):
+		for _ in range(0, Global.frames):
 			frame = cv2.imread(str(Global.input))
 			frames.append(frame)
 	else:
 		cap = cv2.VideoCapture(str(Global.input))
 		total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+		num_frames = total_frames if Global.resize else Global.frames
+		order = "normal" if Global.resize else Global.order
 		current = 0
 
 		# Sometimes it fails to read the frames so it needs more tries
-		for x in range(0, num_frames * 25):
-			if Global.order == "normal":
+		for _ in range(0, num_frames * 25):
+			if order == "normal":
 				index = current
-			elif Global.order == "random":
+			elif order == "random":
 				index = random.choice(range(total_frames))
 
 			cap.set(cv2.CAP_PROP_POS_FRAMES, index)
@@ -39,7 +41,7 @@ def get_frames(num_frames):
 			if len(frames) == num_frames:
 				break
 
-			if Global.order == "normal":
+			if order == "normal":
 				current += 1
 
 				if current >= total_frames:
@@ -193,10 +195,6 @@ def render(frames):
 		out.release()
 
 	print(f"\nSaved as: {output}\n")
-
-def check_frames():
-	num = len(Global.words)
-	Global.frames = num if num > 0 else Global.frames
 
 def to_pillow(frames):
 	new_frames = []

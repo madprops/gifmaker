@@ -10,12 +10,17 @@ def main():
 	args.parse_args()
 	words.check_random()
 	words.check_repeat()
-	media.check_frames()
 
-	frames = media.get_frames(Global.frames)
-	frames = media.apply_filters(frames)
-	frames = media.word_frames(frames)
-	frames = media.resize_frames(frames)
+	frames = media.get_frames()
+
+	if Global.resize:
+		# Only resize the frames
+		frames = media.resize_frames(frames)
+	else:
+		# Do all the operations
+		frames = media.apply_filters(frames)
+		frames = media.word_frames(frames)
+		frames = media.resize_frames(frames)
 
 	media.render(frames)
 

@@ -365,7 +365,7 @@ This gives some spacing around the text.
 
 ---
 
-> no-baseline = Type: flag | Default: 10
+> no-baseline = Type: flag | Default: False
 
 Use this to not add the baseline to the background rectangle's height.
 
@@ -420,6 +420,18 @@ A color filter to apply to each frame.
 Either: `hue1`, `hue2`, `hue3`, `hue4`, `hue5`, `hue6`, `hue7`, `hue8`
 
 And: `gray`, `blur`, `invert`, `saturate`
+
+---
+
+> resize = Type: flag | Default: False
+
+Use this if you only want to resize a render.
+
+It re-uses all the frames and renders it again.
+
+It doesn't do the rest of the operations.
+
+You need to provide `width` for this to work.
 
 ---
 

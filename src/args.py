@@ -110,6 +110,7 @@ def parse_args():
 	p.add_argument("--loop", type=int, help="How to loop a gif render")
 	p.add_argument("--linespace", type=int, help="Spacing between lines")
 	p.add_argument("--linebreak", type=str, help="Linebreak character")
+	p.add_argument("--resize", action="store_true", help="Linebreak character")
 	p.add_argument("--filter", type=str, choices=[
 		"hue1", "hue2", "hue3", "hue4", "hue5", "hue6", "hue7", "hue8",
 		"gray", "blur", "invert", "saturate",
@@ -167,6 +168,7 @@ def parse_args():
 	proc("linespace")
 	proc("linebreak")
 	proc("filter")
+	proc("resize")
 
 	commas("fontcolor", int)
 	commas("bgcolor", int)
@@ -175,6 +177,12 @@ def parse_args():
 	if not Global.input.exists() or \
 	not Global.input.is_file():
 		utils.exit("Input file does not exist")
+
+	if Global.resize and Global.width is None:
+		utils.exit("Width is required for resizing")
+
+	num_words = len(Global.words)
+	Global.frames = num_words if num_words > 0 else Global.frames
 
 def fill_paths(main_file):
 	Global.root = utils.full_path(Path(main_file).parent.parent)
