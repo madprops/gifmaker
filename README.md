@@ -185,7 +185,7 @@ If multiple inputs, one is selected randomly as the source of the frames.
 
 > output = Type: str | Default: The borat/output directory
 
-Directory path save the generated file.
+Directory path to save the generated file.
 
 For example: `stuff/videos`
 
