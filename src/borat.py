@@ -13,9 +13,9 @@ def main():
 	media.check_frames()
 
 	frames = media.get_frames(Global.frames)
-	frames = media.word_frames(frames)
 	frames = media.resize_frames(frames)
 	frames = media.apply_filters(frames)
+	frames = media.word_frames(frames)
 
 	media.render(frames)
 
