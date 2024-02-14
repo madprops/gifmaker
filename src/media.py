@@ -4,7 +4,6 @@ import utils
 
 # Libraries
 import cv2
-import numpy as np
 from PIL import Image
 
 # Standard
