@@ -33,9 +33,6 @@ class Global:
 	# The pool for random words
 	wordlist = []
 
-	# Path to a file with random words
-	wordfile = None
-
 	# The separator to use when splitting word lines
 	separator = ";"
 
