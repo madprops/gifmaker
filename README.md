@@ -419,7 +419,7 @@ A color filter to apply to each frame.
 
 Either: `hue1`, `hue2`, `hue3`, `hue4`, `hue5`, `hue6`, `hue7`, `hue8`
 
-And: `grayscale`, `blur`, `invert`, `saturation`, `sepia`
+And: `gray`, `blur`, `invert`, `saturate`
 
 ---
 
