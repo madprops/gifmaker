@@ -221,8 +221,8 @@ def apply_filters(frames):
 		return cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
 
 	for frame in frames:
-		hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 		rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+		hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
 		if Global.filter == "red":
 			rgb[:, :, 0] = np.minimum(rgb[:, :, 0] + 50, 255)
