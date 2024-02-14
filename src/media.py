@@ -53,7 +53,7 @@ def add_text(frame, text, lineheight):
 	if not text:
 		return frame, 0
 
-	height, width, _ = frame.shape
+	width, height = get_shape(frame)
 
 	if Global.font == "simple":
 		font = cv2.FONT_HERSHEY_SIMPLEX
@@ -147,7 +147,8 @@ def resize_frames(frames):
 	new_frames = []
 
 	for frame in frames:
-		ratio = frame.shape[1] / frame.shape[0]
+		w, h = get_shape(frame)
+		ratio = w / h
 		height = int(Global.width / ratio)
 		new_frames.append(cv2.resize(frame, (Global.width, height)))
 
@@ -181,7 +182,7 @@ def render(frames):
 		frames = to_pillow(frames)
 		frames[0].save(output, save_all=True, append_images=frames[1:], duration=Global.delay, loop=loop, optimize=True)
 	elif fmt == "mp4":
-		height, width, _ = frames[0].shape
+		width, height = get_shape(frames[0])
 		fourcc = cv2.VideoWriter_fourcc(*"mp4v")
 		fps = 1000 / Global.delay
 		out = cv2.VideoWriter(str(output), fourcc, fps, (width, height))
@@ -213,15 +214,34 @@ def apply_filters(frames):
 
 	new_frames = []
 
+	def u_rgb(rgb):
+		return cv2.cvtColor(rgb, cv2.COLOR_RGB2BGR)
+
 	for frame in frames:
 		hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+		rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
 		if Global.filter == "red":
-			hsv[:, :, 0] = (hsv[:, :, 0] - 60) % 180
+			rgb[:, :, 0] = np.minimum(rgb[:, :, 0] + 50, 255)
+			new_frame = u_rgb(rgb)
 		elif Global.filter == "green":
-			hsv[:, :, 0] = (hsv[:, :, 0] + 60) % 180
+			rgb[:, :, 1] = np.minimum(rgb[:, :, 1] + 50, 255)
+			new_frame = u_rgb(rgb)
 		elif Global.filter == "blue":
-			hsv[:, :, 0] = (hsv[:, :, 0] + 120) % 180
+			rgb[:, :, 2] = np.minimum(rgb[:, :, 2] + 50, 255)
+			new_frame = u_rgb(rgb)
+		elif Global.filter == "yellow":
+			rgb[:, :, 0] = np.minimum(rgb[:, :, 0] + 50, 255)
+			rgb[:, :, 1] = np.minimum(rgb[:, :, 1] + 50, 255)
+			new_frame = u_rgb(rgb)
+		elif Global.filter == "cyan":
+			rgb[:, :, 1] = np.minimum(rgb[:, :, 1] + 50, 255)
+			rgb[:, :, 2] = np.minimum(rgb[:, :, 2] + 50, 255)
+			new_frame = u_rgb(rgb)
+
+		elif Global.filter == "grayscale":
+			new_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+
 		elif Global.filter == "invert":
 			hsv[:, :, 0] = (hsv[:, :, 0] + 90) % 180
 			hsv[:, :, 1] = 255 - hsv[:, :, 1]
@@ -233,10 +253,10 @@ def apply_filters(frames):
 		elif Global.filter == "saturation":
 			hsv[:, :, 0] = 0
 			hsv[:, :, 2] = 255
-		elif Global.filter == "grayscale":
-			hsv[:, :, 1] = 0
 
-		new_frame = cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR, frame)
 		new_frames.append(new_frame)
 
 	return new_frames
+
+def get_shape(frame):
+	return frame.shape[1], frame.shape[0]

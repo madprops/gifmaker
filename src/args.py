@@ -110,7 +110,7 @@ def parse_args():
 	p.add_argument("--loop", type=int, help="How to loop a gif render")
 	p.add_argument("--linespace", type=int, help="Spacing between lines")
 	p.add_argument("--linebreak", type=str, help="Linebreak character")
-	p.add_argument("--filter", type=str, choices=["red", "green", "blue", "invert", "saturation", "sepia", "grayscale"], help="Color filter to apply to frames")
+	p.add_argument("--filter", type=str, choices=["red", "green", "blue", "yellow", "cyan", "invert", "saturation", "sepia", "grayscale"], help="Color filter to apply to frames")
 
 	args = p.parse_args()
 
