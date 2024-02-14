@@ -4,3 +4,4 @@ bgcolor = "0,0,0"
 bottom = 10
 right = 10
 filter = "hue5"
+width = 600
