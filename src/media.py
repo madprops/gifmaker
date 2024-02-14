@@ -214,51 +214,62 @@ def apply_filters(frames):
 
 	new_frames = []
 
-	def u_rgb(rgb):
+	def get_rgb(frame):
+		return cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+
+	def do_rgb(rgb):
 		return cv2.cvtColor(rgb, cv2.COLOR_RGB2BGR)
 
-	def u_hsv(hsv):
+	def get_hsv(frame):
+		return cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+
+	def do_hsv(hsv):
 		return cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
 
 	for frame in frames:
-		rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-		hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-
 		if Global.filter == "red":
+			rgb = get_rgb(frame)
 			rgb[:, :, 0] = np.minimum(rgb[:, :, 0] + 50, 255)
-			new_frame = u_rgb(rgb)
+			new_frame = do_rgb(rgb)
 		elif Global.filter == "green":
+			rgb = get_rgb(frame)
 			rgb[:, :, 1] = np.minimum(rgb[:, :, 1] + 50, 255)
-			new_frame = u_rgb(rgb)
+			new_frame = do_rgb(rgb)
 		elif Global.filter == "blue":
+			rgb = get_rgb(frame)
 			rgb[:, :, 2] = np.minimum(rgb[:, :, 2] + 50, 255)
-			new_frame = u_rgb(rgb)
+			new_frame = do_rgb(rgb)
 		elif Global.filter == "yellow":
+			rgb = get_rgb(frame)
 			rgb[:, :, 0] = np.minimum(rgb[:, :, 0] + 50, 255)
 			rgb[:, :, 1] = np.minimum(rgb[:, :, 1] + 50, 255)
-			new_frame = u_rgb(rgb)
+			new_frame = do_rgb(rgb)
 		elif Global.filter == "cyan":
+			rgb = get_rgb(frame)
 			rgb[:, :, 1] = np.minimum(rgb[:, :, 1] + 50, 255)
 			rgb[:, :, 2] = np.minimum(rgb[:, :, 2] + 50, 255)
-			new_frame = u_rgb(rgb)
+			new_frame = do_rgb(rgb)
 
 		elif Global.filter == "grayscale":
 			new_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
 		elif Global.filter == "invert":
+			hsv = get_hsv(frame)
 			hsv[:, :, 0] = (hsv[:, :, 0] + 90) % 180
 			hsv[:, :, 1] = 255 - hsv[:, :, 1]
 			hsv[:, :, 2] = 255 - hsv[:, :, 2]
-			new_frame = u_hsv(hsv)
+			new_frame = do_hsv(hsv)
 		elif Global.filter == "sepia":
+			hsv = get_hsv(frame)
 			hsv[:, :, 0] = (hsv[:, :, 0] + 20) % 180
 			hsv[:, :, 1] = (hsv[:, :, 1] + 50) % 255
 			hsv[:, :, 2] = (hsv[:, :, 2] + 100) % 255
-			new_frame = u_hsv(hsv)
+			new_frame = do_hsv(hsv)
 		elif Global.filter == "saturation":
+			hsv = get_hsv(frame)
 			hsv[:, :, 0] = 0
 			hsv[:, :, 2] = 255
-			new_frame = u_hsv(hsv)
+			new_frame = do_hsv(hsv)
 
 		new_frames.append(new_frame)
 
