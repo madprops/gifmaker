@@ -146,7 +146,7 @@ def parse_args():
 		value = getattr(args, attr)
 
 		if value is not None:
-			paths = [utils.resolve_path(p.strip()) for p in value.split(";")]
+			paths = tuple(utils.resolve_path(p.strip()) for p in value.split(";"))
 			setattr(Global, attr, paths)
 
 	# Get script args first
@@ -199,7 +199,7 @@ def parse_args():
 
 def fill_paths(main_file):
 	Global.root = utils.full_path(Path(main_file).parent.parent)
-	Global.input = [utils.full_path(Path(Global.root, "media", "video.webm"))]
+	Global.input = (utils.full_path(Path(Global.root, "media", "video.webm")))
 	Global.output = utils.full_path(Path(Global.root, "output"))
 	Global.wordfile = utils.full_path(Path(Global.root, "data", "nouns.txt"))
 
