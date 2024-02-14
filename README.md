@@ -16,6 +16,8 @@ You can use many arguments to produce different kinds of animations.
 
 It might be useful in the realm of human verification.
 
+<img src="media/mean.gif">
+
 And memes.
 
 ---
@@ -463,7 +465,7 @@ right = 10
 
 ---
 
-<img src="media/borat.gif" width="550">
+<img src="media/borat.gif">
 
 ---
 

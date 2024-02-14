@@ -135,7 +135,6 @@ def parse_args():
 
 	def semicolons(attr, vtype):
 		value = getattr(args, attr)
-		print(value)
 
 		if value is not None:
 			setattr(Global, attr, get_tuple(value, vtype, ";"))
