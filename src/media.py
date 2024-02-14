@@ -224,15 +224,15 @@ def apply_filters(frames):
 
 	filter = Global.filter
 
-	if Global.filter == "random":
-		filter = random.choice(filters)
-
-	for frame in frames:
-		if Global.filter == "random2":
+	if len(Global.filterlist) == 0:
+		if Global.filter == "random":
 			filter = random.choice(filters)
 
+	for frame in frames:
 		if len(Global.filterlist) > 0:
 			filter = Global.filterlist.pop(0)
+		elif Global.filter == "random2":
+			filter = random.choice(filters)
 
 		if filter == "hue1":
 			hsv = get_hsv(frame)
