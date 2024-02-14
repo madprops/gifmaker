@@ -33,6 +33,9 @@ class Global:
 	# The pool for random words
 	wordlist = []
 
+	# Path to a file with random words
+	wordfile = None
+
 	# The separator to use when splitting word lines
 	separator = ";"
 
@@ -106,6 +109,7 @@ def parse_args():
 	p.add_argument("--padding", type=int, help="The padding of the background rectangle")
 	p.add_argument("--no-baseline", action="store_true", help="Don't add the baseline to the background rectangle's height")
 	p.add_argument("--wordlist", type=str, help="List of words to consider for random words. Separated by semicolons")
+	p.add_argument("--wordfile", type=str, help="Path to a list of words to consider for random words")
 	p.add_argument("--script", type=str, help="Path to a TOML file that defines the arguments to use")
 	p.add_argument("--loop", type=int, help="How to loop a gif render")
 	p.add_argument("--linespace", type=int, help="Spacing between lines")
@@ -188,12 +192,16 @@ def parse_args():
 
 	semicolons("wordlist", str)
 
-	path("output")
 	pathlist("input")
+	path("output")
+	path("wordfile")
 
 	for path in Global.input:
 		if not path.exists() or not path.is_file():
 			utils.exit("Input file does not exist")
+
+	if not Global.wordfile.exists() or not Global.wordfile.is_file():
+		utils.exit("Word file does not exist")
 
 	if Global.resize and Global.width is None:
 		utils.exit("Width is required for resizing")

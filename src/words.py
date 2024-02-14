@@ -58,6 +58,6 @@ def random_word():
 	if len(Global.wordlist) == 0:
 		with open(Global.wordfile, "r") as file:
 			lines = file.readlines()
-			Global.wordlist = [item.strip() for line in lines for item in line.split() if item.strip()]
+			Global.wordlist = [line.strip() for line in lines]
 
 	return random.choice(Global.wordlist)

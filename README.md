@@ -399,6 +399,24 @@ Like: `--wordlist="cat; dog; nice cow; big horse"`
 
 ---
 
+> wordfile = Type: str | Default: List of nouns
+
+Path to a text file with the random words to use.
+
+This is a simple text file with each word or phrase in their own line.
+
+For example:
+
+```
+dog
+a cow
+horse
+```
+
+Then you point to it: `--wordfile="/path/to/animals.txt"`
+
+---
+
 > loop = Type: int | Default 0
 
 How to loop the gifs.
