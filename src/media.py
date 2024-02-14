@@ -39,10 +39,11 @@ def get_frames(num_frames):
 			if len(frames) == num_frames:
 				break
 
-			current += 1
+			if Global.order == "normal":
+				current += 1
 
-			if current >= total_frames:
-				current = 0
+				if current >= total_frames:
+					current = 0
 
 		cap.release()
 
