@@ -417,7 +417,7 @@ The character to use for linebreaks.
 
 A color filter to apply to each frame.
 
-Either: `red`, `green`, `blue`, `invert`, `grayscale`
+Either: `red`, `green`, `blue`, `invert`, `saturation`, `sepia`, `grayscale`
 
 ---
 
