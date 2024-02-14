@@ -104,6 +104,7 @@ def add_text(frame, text, lineheight):
 
 	text_y += lineheight
 	text_position = (text_x, text_y)
+	rgb = utils.invert_list(Global.fontcolor)
 
 	if Global.bgcolor:
 		if Global.no_baseline:
@@ -121,7 +122,7 @@ def add_text(frame, text, lineheight):
 		rcopy = cv2.rectangle(frame.copy(), rect_1, rect_2, Global.bgcolor, -1)
 		cv2.addWeighted(frame, 1 - Global.opacity, rcopy, Global.opacity, 0, frame)
 
-	cv2.putText(frame, text, text_position, font, Global.fontsize, Global.fontcolor, Global.boldness, cv2.LINE_AA)
+	cv2.putText(frame, text, text_position, font, Global.fontsize, rgb, Global.boldness, cv2.LINE_AA)
 	return frame, text_height
 
 def word_frames(frames):

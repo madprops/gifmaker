@@ -44,3 +44,6 @@ def read_toml(path):
 			return tomllib.load(file)
 	except:
 		exit("Failed to read TOML file")
+
+def invert_list(items):
+	return items[::-1]
