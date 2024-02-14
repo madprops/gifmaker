@@ -148,7 +148,7 @@ Relative paths should work fine.
 Here's a fuller example:
 
 ```shell
-venv/bin/python src/borat.py --input="/videos/stuff.webm" --fontsize=2.8 --fps=1.5 --width=600 --words="I want to eat ;; [Random] ; [repeat 2] ;" --format=mp4 --bgcolor=0,0,0 --no-baseline --output="stuff/videos"
+venv/bin/python src/borat.py --input="/videos/stuff.webm" --fontsize=2.8 --delay=300 --width=600 --words="I want to eat ;; [Random] ; [repeat 2] ;" --format=mp4 --bgcolor=0,0,0 --no-baseline --output="stuff/videos"
 ```
 
 ---
@@ -159,7 +159,7 @@ venv/bin/python src/borat.py --input="/videos/stuff.webm" --fontsize=2.8 --fps=1
 
 ## Arguments <a name="arguments"></a>
 
-You can use arguments like: `--fps=2.4 --width=500 --order=normal`
+You can use arguments like: `--delay=350 --width=500 --order=normal`
 
 These modify how the file is going to be generated.
 
@@ -211,11 +211,11 @@ As described in [Usage](#usage).
 
 ---
 
-> fps = Type: float | Default: 2.0
+> delay = Type: int | Default: 500
 
-(Frames Per Second) modifies the speed between frame changes (ms).
+The delay between frames. In milliseconds.
 
-A bigger `fps` = A faster gif.
+A smaller `delay` = A faster gif.
 
 ---
 
@@ -309,7 +309,7 @@ Either `simple`, `complex`, `plain`, `duplex`, or `triplex`.
 
 ---
 
-> fontsize = Type: float | Default: 2.6
+> fontsize = Type: float | Default: 2.5
 
 The size of the text.
 
@@ -385,7 +385,7 @@ If the list is empty it will be filled with a long list of nouns.
 
 You can specify the words to consider, separated by commas.
 
-Like: `cat,dog,cow,horse`
+Like: `--wordlist=cat,dog,cow,horse`
 
 ---
 
@@ -427,7 +427,7 @@ And: `gray`, `blur`, `invert`, `saturate`
 
 Use this if you only want to resize a render.
 
-It re-uses all the frames and renders it again.
+It re-uses all the frames, resizes, and renders again.
 
 It doesn't do the rest of the operations.
 
