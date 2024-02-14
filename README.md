@@ -447,7 +447,11 @@ A color filter to apply to each frame.
 
 Either: `hue1`, `hue2`, `hue3`, `hue4`, `hue5`, `hue6`, `hue7`, `hue8`
 
-And: `gray`, `blur`, `invert`, `saturate`
+And: `gray`, `blur`, `invert`, `saturate`, `random`, `random2`
+
+`random` picks a random filter for all frames.
+
+`random2` picks a random filter on every frame.
 
 ---
 

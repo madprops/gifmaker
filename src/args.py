@@ -117,7 +117,7 @@ def parse_args():
 	p.add_argument("--resize", action="store_true", help="Linebreak character")
 	p.add_argument("--filter", type=str, choices=[
 		"hue1", "hue2", "hue3", "hue4", "hue5", "hue6", "hue7", "hue8",
-		"gray", "blur", "invert", "saturate",
+		"gray", "blur", "invert", "saturate", "random", "random2"
 		], help="Color filter to apply to frames")
 
 	args = p.parse_args()

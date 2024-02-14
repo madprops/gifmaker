@@ -219,47 +219,58 @@ def apply_filters(frames):
 	def do_hsv(hsv):
 		return cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
 
+	filters = ["hue1", "hue2", "hue3", "hue4", "hue5", "hue6", "hue7", "hue8",
+	"gray", "blur", "invert", "saturate"]
+
+	filter = Global.filter
+
+	if Global.filter == "random":
+		filter = random.choice(filters)
+
 	for frame in frames:
-		if Global.filter == "hue1":
+		if Global.filter == "random2":
+			filter = random.choice(filters)
+
+		if filter == "hue1":
 			hsv = get_hsv(frame)
 			hsv[:, :, 0] = (hsv[:, :, 0] + hue_step * 1) % 180
 			new_frame = do_hsv(hsv)
-		elif Global.filter == "hue2":
+		elif filter == "hue2":
 			hsv = get_hsv(frame)
 			hsv[:, :, 0] = (hsv[:, :, 0] + hue_step * 2) % 180
 			new_frame = do_hsv(hsv)
-		elif Global.filter == "hue3":
+		elif filter == "hue3":
 			hsv = get_hsv(frame)
 			hsv[:, :, 0] = (hsv[:, :, 0] + hue_step * 3) % 180
 			new_frame = do_hsv(hsv)
-		elif Global.filter == "hue4":
+		elif filter == "hue4":
 			hsv = get_hsv(frame)
 			hsv[:, :, 0] = (hsv[:, :, 0] + hue_step * 4) % 180
 			new_frame = do_hsv(hsv)
-		elif Global.filter == "hue5":
+		elif filter == "hue5":
 			hsv = get_hsv(frame)
 			hsv[:, :, 0] = (hsv[:, :, 0] + hue_step * 5) % 180
 			new_frame = do_hsv(hsv)
-		elif Global.filter == "hue6":
+		elif filter == "hue6":
 			hsv = get_hsv(frame)
 			hsv[:, :, 0] = (hsv[:, :, 0] + hue_step * 6) % 180
 			new_frame = do_hsv(hsv)
-		elif Global.filter == "hue7":
+		elif filter == "hue7":
 			hsv = get_hsv(frame)
 			hsv[:, :, 0] = (hsv[:, :, 0] + hue_step * 7) % 180
 			new_frame = do_hsv(hsv)
-		elif Global.filter == "hue8":
+		elif filter == "hue8":
 			hsv = get_hsv(frame)
 			hsv[:, :, 0] = (hsv[:, :, 0] + hue_step * 8) % 180
 			new_frame = do_hsv(hsv)
 
-		elif Global.filter == "gray":
+		elif filter == "gray":
 			new_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-		elif Global.filter == "blur":
+		elif filter == "blur":
 			new_frame = cv2.GaussianBlur(frame, (45, 45), 0)
-		elif Global.filter == "invert":
+		elif filter == "invert":
 			new_frame = cv2.bitwise_not(frame)
-		elif Global.filter == "saturate":
+		elif filter == "saturate":
 			hsv = get_hsv(frame)
 			hsv[:, :, 0] = 0
 			hsv[:, :, 2] = 255
