@@ -433,6 +433,8 @@ It doesn't do the rest of the operations.
 
 You need to provide `width` for this to work.
 
+For example: `--input="/path/to/render.gif" --resize --width=500`
+
 ---
 
 ### Script
