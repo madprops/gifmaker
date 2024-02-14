@@ -222,12 +222,7 @@ def apply_filters(frames):
 		return cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
 
 	for frame in frames:
-		if Global.filter == "gray":
-			new_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-		elif Global.filter == "blur":
-			new_frame = cv2.GaussianBlur(frame, (45, 45), 0)
-
-		elif Global.filter == "hue1":
+		if Global.filter == "hue1":
 			hsv = get_hsv(frame)
 			hsv[:, :, 0] = (hsv[:, :, 0] + hue_step * 1) % 180
 			new_frame = do_hsv(hsv)
@@ -260,6 +255,10 @@ def apply_filters(frames):
 			hsv[:, :, 0] = (hsv[:, :, 0] + hue_step * 8) % 180
 			new_frame = do_hsv(hsv)
 
+		elif Global.filter == "gray":
+			new_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+		elif Global.filter == "blur":
+			new_frame = cv2.GaussianBlur(frame, (45, 45), 0)
 		elif Global.filter == "invert":
 			new_frame = cv2.bitwise_not(frame)
 		elif Global.filter == "saturate":
