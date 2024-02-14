@@ -81,7 +81,7 @@ class Global:
 	# Linebreak character
 	linebreak = "\\n"
 
-	# Re-render the frames to maybe change the width or delay
+	# Re-render the frames to change the width or delay
 	remake = False
 
 	# Color filter to apply to frames
@@ -117,7 +117,7 @@ def parse_args():
 	p.add_argument("--loop", type=int, help="How to loop a gif render")
 	p.add_argument("--linespace", type=int, help="Spacing between lines")
 	p.add_argument("--linebreak", type=str, help="Linebreak character")
-	p.add_argument("--remake", action="store_true", help="Linebreak character")
+	p.add_argument("--remake", action="store_true", help="Re-render the frames to change the width or delay")
 	p.add_argument("--filter", type=str, choices=[
 		"hue1", "hue2", "hue3", "hue4", "hue5", "hue6", "hue7", "hue8",
 		"gray", "blur", "invert", "saturate", "random", "random2"

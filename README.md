@@ -463,7 +463,7 @@ It re-uses all the frames, resizes, and renders again.
 
 It doesn't do the rest of the operations.
 
-For example: `--input="/path/to/file.gif" --resize --width=500 --delay=300`
+For example: `--input="/path/to/file.gif" --remake --width=500 --delay=300`
 
 For instance, you can use this to change the `width` or `delay` of a rendered file.
 
