@@ -118,7 +118,7 @@ def parse_args():
 
 	args = p.parse_args()
 
-	def proc(attr):
+	def normal(attr):
 		value = getattr(args, attr)
 
 		if value is not None:
@@ -154,38 +154,39 @@ def parse_args():
 	check_script(args)
 
 	# Needed for 'words'
-	proc("separator")
+	normal("separator")
 
 	if args.words is not None:
 		Global.words = [word.strip() for word in args.words.split(Global.separator)]
 
-	pathlist("input")
-	path("output")
-
-	proc("delay")
-	proc("fontsize")
-	proc("boldness")
-	proc("opacity")
-	proc("left")
-	proc("right")
-	proc("top")
-	proc("bottom")
-	proc("width")
-	proc("format")
-	proc("order")
-	proc("font")
-	proc("frames")
-	proc("padding")
-	proc("no_baseline")
-	proc("loop")
-	proc("linespace")
-	proc("linebreak")
-	proc("filter")
-	proc("resize")
+	normal("delay")
+	normal("fontsize")
+	normal("boldness")
+	normal("opacity")
+	normal("left")
+	normal("right")
+	normal("top")
+	normal("bottom")
+	normal("width")
+	normal("format")
+	normal("order")
+	normal("font")
+	normal("frames")
+	normal("padding")
+	normal("no_baseline")
+	normal("loop")
+	normal("linespace")
+	normal("linebreak")
+	normal("filter")
+	normal("resize")
 
 	commas("fontcolor", int)
 	commas("bgcolor", int)
+
 	semicolons("wordlist", str)
+
+	path("output")
+	pathlist("input")
 
 	for path in Global.input:
 		if not path.exists() or not path.is_file():
