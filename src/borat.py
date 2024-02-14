@@ -15,7 +15,6 @@ def main():
 	frames = media.get_frames(Global.frames)
 	frames = media.word_frames(frames)
 	frames = media.resize_frames(frames)
-	frames = media.fix_frames(frames)
 
 	media.render(frames)
 

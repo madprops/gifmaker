@@ -178,9 +178,17 @@ def render(frames):
 
 	if fmt == "gif":
 		loop =  None if Global.loop <= -1 else Global.loop
+		frames = to_pillow(frames)
 		frames[0].save(output, save_all=True, append_images=frames[1:], duration=Global.delay, loop=loop, optimize=True)
 	elif fmt == "mp4":
-		imageio.mimsave(output, frames, fps=Global.fps, quality=Global.quality)
+		height, width, _ = frames[0].shape
+		fourcc = cv2.VideoWriter_fourcc(*"mp4v")
+		out = cv2.VideoWriter(str(output), fourcc, 2, (width, height))
+
+		for frame in frames:
+			out.write(frame)
+
+		out.release()
 
 	print(f"\nSaved as: {output}\n")
 
@@ -188,7 +196,7 @@ def check_frames():
 	num = len(Global.words)
 	Global.frames = num if num > 0 else Global.frames
 
-def fix_frames(frames):
+def to_pillow(frames):
 	new_frames = []
 
 	for frame in frames:
