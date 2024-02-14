@@ -271,3 +271,7 @@ def apply_filters(frames):
 
 def get_shape(frame):
 	return frame.shape[1], frame.shape[0]
+
+def count_frames():
+	num_words = len(Global.words)
+	Global.frames = num_words if num_words > 0 else Global.frames

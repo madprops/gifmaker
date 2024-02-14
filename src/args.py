@@ -206,9 +206,6 @@ def parse_args():
 	if Global.resize and Global.width is None:
 		utils.exit("Width is required for resizing")
 
-	num_words = len(Global.words)
-	Global.frames = num_words if num_words > 0 else Global.frames
-
 def fill_paths(main_file):
 	Global.root = utils.full_path(Path(main_file).parent.parent)
 	Global.input = (utils.full_path(Path(Global.root, "media", "video.webm")))

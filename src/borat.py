@@ -20,6 +20,9 @@ def main():
 	# Replace [repeat] with repeated lines
 	words.check_repeat()
 
+	# Check how many frames to extract
+	media.count_frames()
+
 	# Pick one input path randomly
 	path = random.choice(Global.input)
 

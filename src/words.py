@@ -39,7 +39,6 @@ def check_repeat():
 		return
 
 	new_words = []
-	prev_word = None
 
 	for word in Global.words:
 		pattern = re.compile(r"\[(?P<word>repeat)(?:\s+(?P<number>\d+))?\]", re.IGNORECASE)
