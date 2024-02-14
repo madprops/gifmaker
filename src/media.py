@@ -269,6 +269,7 @@ def apply_filters(frames):
 
 		elif filter == "gray":
 			new_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+			new_frame = cv2.cvtColor(new_frame, cv2.COLOR_GRAY2BGR)
 		elif filter == "blur":
 			new_frame = cv2.GaussianBlur(frame, (45, 45), 0)
 		elif filter == "invert":
