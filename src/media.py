@@ -4,7 +4,6 @@ import utils
 
 # Libraries
 import cv2
-import imageio
 from PIL import Image
 
 # Standard
@@ -183,7 +182,8 @@ def render(frames):
 	elif fmt == "mp4":
 		height, width, _ = frames[0].shape
 		fourcc = cv2.VideoWriter_fourcc(*"mp4v")
-		out = cv2.VideoWriter(str(output), fourcc, 2, (width, height))
+		fps = 1000 / Global.delay
+		out = cv2.VideoWriter(str(output), fourcc, fps, (width, height))
 
 		for frame in frames:
 			out.write(frame)
