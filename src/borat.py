@@ -13,7 +13,10 @@ def main():
 	words.check_random()
 	words.check_repeat()
 
+	# Pick one input path randomly
 	path = random.choice(Global.input)
+
+	# Extract the required frames from the file
 	frames = media.get_frames(path)
 
 	if Global.resize:
