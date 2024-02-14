@@ -118,6 +118,9 @@ def parse_args():
 
 	args = p.parse_args()
 
+	def get_tuple(value, vtype, separator):
+		return tuple(map(vtype, map(str.strip, value.split(separator))))
+
 	def normal(attr):
 		value = getattr(args, attr)
 
@@ -128,13 +131,14 @@ def parse_args():
 		value = getattr(args, attr)
 
 		if value is not None:
-			setattr(Global, attr, tuple(map(vtype, value.split(","))))
+			setattr(Global, attr, get_tuple(value, vtype, ","))
 
 	def semicolons(attr, vtype):
 		value = getattr(args, attr)
+		print(value)
 
 		if value is not None:
-			setattr(Global, attr, tuple(map(vtype, value.split(";"))))
+			setattr(Global, attr, get_tuple(value, vtype, ";"))
 
 	def path(attr):
 		value = getattr(args, attr)
