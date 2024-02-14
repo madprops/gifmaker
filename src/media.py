@@ -217,6 +217,9 @@ def apply_filters(frames):
 	def u_rgb(rgb):
 		return cv2.cvtColor(rgb, cv2.COLOR_RGB2BGR)
 
+	def u_hsv(hsv):
+		return cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
+
 	for frame in frames:
 		hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 		rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
@@ -246,13 +249,16 @@ def apply_filters(frames):
 			hsv[:, :, 0] = (hsv[:, :, 0] + 90) % 180
 			hsv[:, :, 1] = 255 - hsv[:, :, 1]
 			hsv[:, :, 2] = 255 - hsv[:, :, 2]
+			new_frame = u_hsv(hsv)
 		elif Global.filter == "sepia":
 			hsv[:, :, 0] = (hsv[:, :, 0] + 20) % 180
 			hsv[:, :, 1] = (hsv[:, :, 1] + 50) % 255
 			hsv[:, :, 2] = (hsv[:, :, 2] + 100) % 255
+			new_frame = u_hsv(hsv)
 		elif Global.filter == "saturation":
 			hsv[:, :, 0] = 0
 			hsv[:, :, 2] = 255
+			new_frame = u_hsv(hsv)
 
 		new_frames.append(new_frame)
 
