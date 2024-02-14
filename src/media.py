@@ -10,16 +10,16 @@ from PIL import Image
 from pathlib import Path
 import random
 
-def get_frames():
+def get_frames(path):
 	frames = []
-	ext = utils.get_extension(Global.input)
+	ext = utils.get_extension(path)
 
 	if ext == ".jpg" or ext == ".png":
 		for _ in range(0, Global.frames):
-			frame = cv2.imread(str(Global.input))
+			frame = cv2.imread(str(path))
 			frames.append(frame)
 	else:
-		cap = cv2.VideoCapture(str(Global.input))
+		cap = cv2.VideoCapture(str(path))
 		total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
 		num_frames = total_frames if Global.resize else Global.frames
 		order = "normal" if Global.resize else Global.order

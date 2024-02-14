@@ -171,7 +171,11 @@ Path to a video or image to use as the source of the frames.
 
 `webm`, `mp4`, `gif`, and even `jpg` or `png` should work.
 
-For example: `stuff/cow.mp4`
+For example: `--input=stuff/cow.mp4`
+
+It's possible to use multiple input files by separating them with semicolons.
+
+For example: `--input=/some/path/1.gif;/some/other/path/2.mp4;/another/one/3.png`
 
 `-i` is a shorter alias for this.
 
@@ -383,9 +387,9 @@ Random words are selected from this list.
 
 If the list is empty it will be filled with a long list of nouns.
 
-You can specify the words to consider, separated by commas.
+You can specify the words to consider, separated by semicolons.
 
-Like: `--wordlist=cat,dog,cow,horse`
+Like: `--wordlist="cat; dog; nice cow; big horse"`
 
 ---
 

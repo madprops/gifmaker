@@ -4,14 +4,17 @@ import args
 import words
 import media
 
+# Libraries
+import random
+
 def main():
 	args.fill_paths(__file__)
-
 	args.parse_args()
 	words.check_random()
 	words.check_repeat()
 
-	frames = media.get_frames()
+	path = random.choice(Global.input)
+	frames = media.get_frames(path)
 
 	if Global.resize:
 		# Only resize the frames

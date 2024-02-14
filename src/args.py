@@ -84,7 +84,7 @@ class Global:
 def parse_args():
 	p = argparse.ArgumentParser(description="Borat the Gif Maker")
 
-	p.add_argument("--input", "-i", type=str, help="Path to the a video or image file")
+	p.add_argument("--input", "-i", type=str, help="Path to the a video or image file. Separated by semicolons")
 	p.add_argument("--words", type=str, help="Lines of words to use on the frames")
 	p.add_argument("--delay", type=int, help="The delay in ms between frames")
 	p.add_argument("--left", type=int, help="Left padding")
@@ -105,7 +105,7 @@ def parse_args():
 	p.add_argument("--opacity", type=float, help="The opacity of the background rectangle")
 	p.add_argument("--padding", type=int, help="The padding of the background rectangle")
 	p.add_argument("--no-baseline", action="store_true", help="Don't add the baseline to the background rectangle's height")
-	p.add_argument("--wordlist", type=str, help="List of words to consider for random words. Separated by commas")
+	p.add_argument("--wordlist", type=str, help="List of words to consider for random words. Separated by semicolons")
 	p.add_argument("--script", type=str, help="Path to a TOML file that defines the arguments to use")
 	p.add_argument("--loop", type=int, help="How to loop a gif render")
 	p.add_argument("--linespace", type=int, help="Spacing between lines")
@@ -130,11 +130,24 @@ def parse_args():
 		if value is not None:
 			setattr(Global, attr, tuple(map(vtype, value.split(","))))
 
+	def semicolons(attr, vtype):
+		value = getattr(args, attr)
+
+		if value is not None:
+			setattr(Global, attr, tuple(map(vtype, value.split(";"))))
+
 	def path(attr):
 		value = getattr(args, attr)
 
 		if value is not None:
 			setattr(Global, attr, utils.resolve_path(value))
+
+	def pathlist(attr):
+		value = getattr(args, attr)
+
+		if value is not None:
+			paths = [utils.resolve_path(p.strip()) for p in value.split(";")]
+			setattr(Global, attr, paths)
 
 	# Get script args first
 	path("script")
@@ -146,7 +159,7 @@ def parse_args():
 	if args.words is not None:
 		Global.words = [word.strip() for word in args.words.split(Global.separator)]
 
-	path("input")
+	pathlist("input")
 	path("output")
 
 	proc("delay")
@@ -172,11 +185,11 @@ def parse_args():
 
 	commas("fontcolor", int)
 	commas("bgcolor", int)
-	commas("wordlist", str)
+	semicolons("wordlist", str)
 
-	if not Global.input.exists() or \
-	not Global.input.is_file():
-		utils.exit("Input file does not exist")
+	for path in Global.input:
+		if not path.exists() or not path.is_file():
+			utils.exit("Input file does not exist")
 
 	if Global.resize and Global.width is None:
 		utils.exit("Width is required for resizing")
@@ -186,7 +199,7 @@ def parse_args():
 
 def fill_paths(main_file):
 	Global.root = utils.full_path(Path(main_file).parent.parent)
-	Global.input = utils.full_path(Path(Global.root, "media", "video.webm"))
+	Global.input = [utils.full_path(Path(Global.root, "media", "video.webm"))]
 	Global.output = utils.full_path(Path(Global.root, "output"))
 	Global.wordfile = utils.full_path(Path(Global.root, "data", "nouns.txt"))
 
