@@ -108,10 +108,10 @@ def add_text(frame, text, lineheight):
 	rgb = list(reversed((Global.fontcolor)))
 
 	if Global.bgcolor:
-		if Global.no_baseline:
-			bline = 0
-		else:
+		if Global.baseline:
 			bline = baseline
+		else:
+			bline = 0
 
 		padding = Global.padding
 		rect_x = text_x - padding

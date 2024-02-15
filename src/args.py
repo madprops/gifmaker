@@ -61,10 +61,10 @@ class Global:
 	opacity = 0.5
 
 	# The padding of the background
-	padding = 10
+	padding = 33
 
 	# Don't add the baseline to the background's height
-	no_baseline = False
+	baseline = False
 
 	# Path to a TOML file that defines the arguments to use
 	script = None
@@ -113,7 +113,7 @@ def parse_args():
 	p.add_argument("--bgcolor", type=str, help="Add a background rectangle for the text with this color. 3 numbers from 0 to 255, separated by commas")
 	p.add_argument("--opacity", type=float, help="The opacity of the background rectangle")
 	p.add_argument("--padding", type=int, help="The padding of the background rectangle")
-	p.add_argument("--no-baseline", action="store_true", help="Don't add the baseline to the background rectangle's height")
+	p.add_argument("--baseline", action="store_true", help="Add the baseline to the background rectangle's height")
 	p.add_argument("--wordlist", type=str, help="List of words to consider for random words. Separated by semicolons")
 	p.add_argument("--wordfile", type=str, help="Path to a list of words to consider for random words")
 	p.add_argument("--script", type=str, help="Path to a TOML file that defines the arguments to use")
@@ -188,7 +188,7 @@ def parse_args():
 	normal("font")
 	normal("frames")
 	normal("padding")
-	normal("no_baseline")
+	normal("baseline")
 	normal("loop")
 	normal("linespace")
 	normal("linebreak")

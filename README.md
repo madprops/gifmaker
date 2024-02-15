@@ -152,7 +152,7 @@ Relative paths should work fine.
 Here's a fuller example:
 
 ```shell
-venv/bin/python src/borat.py --input="/videos/stuff.webm" --fontsize=2.8 --delay=300 --width=600 --words="I want to eat ;; [Random] ; [repeat 2] ;" --format=mp4 --bgcolor=0,0,0 --no-baseline --output="stuff/videos"
+venv/bin/python src/borat.py --input="/videos/stuff.webm" --fontsize=2.8 --delay=300 --width=600 --words="I want to eat ;; [Random] ; [repeat 2] ;" --format=mp4 --bgcolor=0,0,0 --baseline --output="stuff/videos"
 ```
 
 ---
@@ -375,15 +375,13 @@ This gives some spacing around the text.
 
 ---
 
-> no-baseline = Type: flag | Default: False
+> baseline = Type: flag | Default: False
 
-Use this to not add the baseline to the background rectangle's height.
+Use this to add the baseline to the background rectangle's height.
 
 The baseline is the room reserved for letters that have descenders, like the bottom half of `y`.
 
-If you disable it the rectangle will not cover all possible letters.
-
-But it might look better in some cases.
+If you enable it the rectangle will cover all possible letters.
 
 ---
 
