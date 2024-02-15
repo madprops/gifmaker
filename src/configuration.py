@@ -229,5 +229,5 @@ class Configuration:
 			k = key.replace("-", "_")
 			setattr(args, k, data[key])
 
-# Main config object
+# Main configuration object
 config = Configuration()
