@@ -61,7 +61,7 @@ class Configuration:
 	opacity = 0.5
 
 	# The padding of the background
-	padding = 33
+	padding = 20
 
 	# Don't add the baseline to the background's height
 	baseline = False

@@ -369,7 +369,7 @@ The closer it is to `0` the more transparent it is.
 
 ---
 
-> padding = Type: int | Default: 10
+> padding = Type: int | Default: 20
 
 The padding of the background rectangle.
 
