@@ -6,7 +6,7 @@ import argparse
 from pathlib import Path
 
 class Global:
-	# Frames per second to use
+	# Delay between frames
 	delay = 500
 
 	# Number of frames to use if no words are provided
