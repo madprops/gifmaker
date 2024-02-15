@@ -279,6 +279,8 @@ def count_frames():
 
 	if config.framelist:
 		config.frames = len(config.framelist)
-	else:
+	elif config.words:
 		num_words = len(config.words)
 		config.frames = num_words if num_words > 0 else config.frames
+	else:
+		config.frames = 3
