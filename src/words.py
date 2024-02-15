@@ -1,5 +1,5 @@
 # Modules
-from settings import Settings
+from configuration import config
 import words
 
 # Standard
@@ -7,7 +7,7 @@ import re
 import random
 
 def check_random():
-	if not Settings.words:
+	if not config.words:
 		return
 
 	def replace(match):
@@ -28,19 +28,19 @@ def check_random():
 
 	new_words = []
 
-	for line in Settings.words:
+	for line in config.words:
 		pattern = re.compile(r"\[(?P<word>random)(?:\s+(?P<number>\d+))?\]", re.IGNORECASE)
 		new_words.append(re.sub(pattern, replace, line))
 
-	Settings.words = new_words
+	config.words = new_words
 
 def check_repeat():
-	if not Settings.words:
+	if not config.words:
 		return
 
 	new_words = []
 
-	for word in Settings.words:
+	for word in config.words:
 		pattern = re.compile(r"\[(?P<word>repeat)(?:\s+(?P<number>\d+))?\]", re.IGNORECASE)
 		match = re.match(pattern, word)
 
@@ -51,12 +51,12 @@ def check_repeat():
 		else:
 			new_words.append(word)
 
-	Settings.words = new_words
+	config.words = new_words
 
 def random_word():
-	if not Settings.wordlist:
-		with open(Settings.wordfile, "r") as file:
+	if not config.wordlist:
+		with open(config.wordfile, "r") as file:
 			lines = file.readlines()
-			Settings.wordlist = [line.strip() for line in lines]
+			config.wordlist = [line.strip() for line in lines]
 
-	return random.choice(Settings.wordlist)
+	return random.choice(config.wordlist)
