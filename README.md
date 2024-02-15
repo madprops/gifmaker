@@ -1,4 +1,4 @@
-<img src="media/borat.jpg" width="380">
+<img src="media/image.jpg" width="380">
 
 This is a Python program to produce gif images or videos.
 
@@ -38,9 +38,9 @@ And memes.
 Clone this repo, and get inside the directory:
 
 ```shell
-git clone --depth=1 https://github.com/madprops/borat
+git clone --depth=1 this_rep_url
 
-cd borat
+cd new_directory
 ```
 
 Then create the virtual env:
@@ -187,7 +187,7 @@ If multiple inputs, one is selected randomly as the source of the frames.
 
 ---
 
-> output = Type: str | Default: The borat/output directory
+> output = Type: str | Default: The output directory
 
 Directory path to save the generated file.
 
@@ -500,17 +500,3 @@ bgcolor = "0,0,0"
 bottom = 10
 right = 10
 ```
-
----
-
-<img src="media/borat.gif">
-
----
-
-Borat Sagdiyev, born on May 27, 1972, is a cultural figure known for his distinctive style and comedic persona. Originating from the village of Kuzcek in Kazakhstan, Borat gained prominence as a journalist and television personality. His early life was marked by a fascination with performance arts and humor, and he showcased his talents at local events, earning the admiration of his community.
-
-Borat pursued higher education in journalism at Kazakh State University, reflecting his curiosity about the world beyond his homeland. His professional journey led him to become a television reporter for Kazakh Television, where he contributed to the state-run network. Over time, he gained recognition and was selected by the government to represent Kazakhstan in various international events, showcasing the nation's culture and traditions.
-
-Borat's unconventional approach and distinctive sense of humor made him a memorable character, both locally and internationally. His interactions with people from different cultures, documented in a unique documentary-style film, provided a humorous and, at times, controversial perspective on cultural differences and stereotypes.
-
-Beyond his on-screen exploits, Borat became a cultural icon, sparking discussions about the boundaries of satire and the impact of media on public perception. His legacy endures as a testament to the power of comedy to navigate complex social issues and challenge preconceived notions.
