@@ -475,7 +475,7 @@ The specific list of frame indices to use.
 
 The first frame starts at `0`.
 
-For example `--framelist="2 ; 5 ; 2 ; 0 ; 3`
+For example `--framelist="2 ; 5 ; 2 ; 0 ; 3"`
 
 It will use those specific frames.
 
