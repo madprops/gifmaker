@@ -2,7 +2,6 @@
 import sys
 import random
 import string
-import tomllib
 from pathlib import Path
 
 def random_string():
@@ -36,6 +35,8 @@ def exit(message):
 	sys.exit(0)
 
 def read_toml(path):
+	import tomllib
+
 	if (not path.exists()) or (not path.is_file()):
 		exit("TOML file does not exist")
 
