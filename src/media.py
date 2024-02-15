@@ -260,6 +260,8 @@ def apply_filters(frames):
 			hsv[:, :, 0] = 0
 			hsv[:, :, 2] = 255
 			new_frame = do_hsv(hsv)
+		else:
+			new_frame = frame
 
 		new_frames.append(new_frame)
 
