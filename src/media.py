@@ -201,7 +201,7 @@ def render(frames):
 
 		out.release()
 
-	print(f"\nSaved as: {output}\n")
+	return output
 
 def to_pillow(frames):
 	new_frames = []

@@ -32,7 +32,7 @@ def full_path(path):
 
 def exit(message):
 	print(f"\nExit: {message}\n")
-	sys.exit(0)
+	sys.exit(1)
 
 def read_toml(path):
 	import tomllib

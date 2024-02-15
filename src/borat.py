@@ -42,7 +42,8 @@ def main():
 		frames = media.resize_frames(frames)
 
 	# Render and save the output
-	media.render(frames)
+	output = media.render(frames)
+	print(output)
 
 if __name__ == "__main__":
 	main()
