@@ -485,7 +485,7 @@ This defines the available pool of frames but `order` is still respected.
 
 ---
 
-### Script
+### Scripts
 
 You can make `TOML` files that define the arguments to use.
 
