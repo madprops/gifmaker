@@ -23,14 +23,15 @@ def get_frames(path):
 		total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
 		num_frames = total_frames if Global.remake else Global.frames
 		order = "normal" if Global.remake else Global.order
+		framelist = Global.framelist if Global.framelist else range(total_frames)
 		current = 0
 
 		# Sometimes it fails to read the frames so it needs more tries
 		for _ in range(0, num_frames * 25):
 			if order == "normal":
-				index = current
+				index = framelist[current]
 			elif order == "random":
-				index = random.choice(range(total_frames))
+				index = random.choice(framelist)
 
 			cap.set(cv2.CAP_PROP_POS_FRAMES, index)
 			ret, frame = cap.read()
@@ -44,7 +45,7 @@ def get_frames(path):
 			if order == "normal":
 				current += 1
 
-				if current >= total_frames:
+				if current >= len(framelist):
 					current = 0
 
 		cap.release()
@@ -130,8 +131,13 @@ def word_frames(frames):
 		return frames
 
 	worded = []
+	num_words = len(Global.words)
 
 	for i, frame in enumerate(frames):
+		if i >= num_words:
+			worded.append(frame)
+			continue
+
 		lines = [line.strip() for line in Global.words[i].split(Global.linebreak)]
 		lineheight = 0
 
@@ -278,5 +284,8 @@ def get_shape(frame):
 	return frame.shape[1], frame.shape[0]
 
 def count_frames():
-	num_words = len(Global.words)
-	Global.frames = num_words if num_words > 0 else Global.frames
+	if Global.framelist:
+		Global.frames = len(Global.framelist)
+	else:
+		num_words = len(Global.words)
+		Global.frames = num_words if num_words > 0 else Global.frames

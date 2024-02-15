@@ -87,6 +87,9 @@ class Global:
 	# Color filter to apply to frames
 	filter = None
 
+	# The list of frame indices to use in order
+	framelist = None
+
 def parse_args():
 	p = argparse.ArgumentParser(description="Borat the Gif Maker")
 
@@ -123,6 +126,7 @@ def parse_args():
 		"gray", "blur", "invert", "saturate", "random", "random2"
 		], help="Color filter to apply to frames")
 	p.add_argument("--filterlist", type=str, help="Filters to use per frame. Separated by semicolons")
+	p.add_argument("--framelist", type=str, help="List of frame indices to use. Separated by semicolons")
 
 	args = p.parse_args()
 
@@ -196,6 +200,7 @@ def parse_args():
 
 	semicolons("wordlist", str)
 	semicolons("filterlist", str)
+	semicolons("framelist", int)
 
 	pathlist("input")
 	path("output")
