@@ -229,39 +229,42 @@ def apply_filters(frames):
 	filters = ["hue1", "hue2", "hue3", "hue4", "hue5", "hue6", "hue7", "hue8",
 	"gray", "blur", "invert", "saturate", "none"]
 
-	fltr = config.filter
+	filtr = config.filter
 
 	if not config.filterlist:
 		if config.filter == "random":
-			fltr = random.choice(filters)
+			filtr = random.choice(filters)
 
 	for frame in frames:
 		if config.filterlist:
-			fltr = config.filterlist.pop(0)
+			filtr = config.filterlist.pop(0)
 		elif config.filter == "random2":
-			fltr = random.choice(filters)
+			filtr = random.choice(filters)
+
+		new_frame = None
 
 		for n in range(1, 9):
-			if fltr == f"hue{n}":
+			if filtr == f"hue{n}":
 				hsv = get_hsv(frame)
 				hsv[:, :, 0] = (hsv[:, :, 0] + hue_step * n) % 180
 				new_frame = do_hsv(hsv)
 				break
 
-		if fltr == "gray":
-			new_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-			new_frame = cv2.cvtColor(new_frame, cv2.COLOR_GRAY2BGR)
-		elif fltr == "blur":
-			new_frame = cv2.GaussianBlur(frame, (45, 45), 0)
-		elif fltr == "invert":
-			new_frame = cv2.bitwise_not(frame)
-		elif fltr == "saturate":
-			hsv = get_hsv(frame)
-			hsv[:, :, 0] = 0
-			hsv[:, :, 2] = 255
-			new_frame = do_hsv(hsv)
-		else:
-			new_frame = frame
+		if new_frame is None:
+			if filtr == "gray":
+				new_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+				new_frame = cv2.cvtColor(new_frame, cv2.COLOR_GRAY2BGR)
+			elif filtr == "blur":
+				new_frame = cv2.GaussianBlur(frame, (45, 45), 0)
+			elif filtr == "invert":
+				new_frame = cv2.bitwise_not(frame)
+			elif filtr == "saturate":
+				hsv = get_hsv(frame)
+				hsv[:, :, 0] = 0
+				hsv[:, :, 2] = 255
+				new_frame = do_hsv(hsv)
+			else:
+				new_frame = frame
 
 		new_frames.append(new_frame)
 
