@@ -67,18 +67,18 @@ There's a `scripts/test.sh` file that runs the program with some arguments to te
 
 ## Usage <a name="usage"></a>
 
-Run `src/borat.py` using the Python in the virtual env:
+Run `src/main.py` using the Python in the virtual env:
 
 ```shell
-venv/bin/python src/borat.py
+venv/bin/python src/main.py
 ```
 
 You can provide a video or image path using the `--input` argument:
 
 ```shell
-venv/bin/python src/borat.py --input"/path/to/video.webm"
-venv/bin/python src/borat.py --input="/path/to/animated.gif"
-venv/bin/python src/borat.py --input="/path/to/image.png"
+venv/bin/python src/main.py --input"/path/to/video.webm"
+venv/bin/python src/main.py --input="/path/to/animated.gif"
+venv/bin/python src/main.py --input="/path/to/image.png"
 ```
 
 `webm`, `mp4`, `gif`, `jpg`, and `png` should work, and maybe other formats.
@@ -88,7 +88,7 @@ You can pass it a string of lines to use on each frame.
 They are separated by `;` (semicolons).
 
 ```shell
-venv/bin/python src/borat.py --words="Hello Brother ; Construct Additional Pylons"
+venv/bin/python src/main.py --words="Hello Brother ; Construct Additional Pylons"
 ```
 
 It will make 2 frames, one per line.
@@ -100,7 +100,7 @@ If you want to use words and have some frames without them simply use more `;`.
 You can use random words with `[random]`:
 
 ```shell
-venv/bin/python src/borat.py --words="I Like [random] and [random]"
+venv/bin/python src/main.py --words="I Like [random] and [random]"
 ```
 
 It will pick random words from a list of English words.
@@ -143,7 +143,7 @@ You can control the spacing with the `linespace` argument.
 
 ---
 
-You can run `borat.py` from anywhere in your system using its virtual env.
+You can run `main.py` from anywhere in your system using its virtual env.
 
 Relative paths should work fine.
 
@@ -152,7 +152,7 @@ Relative paths should work fine.
 Here's a fuller example:
 
 ```shell
-venv/bin/python src/borat.py --input="/videos/stuff.webm" --fontsize=2.8 --delay=300 --width=600 --words="I want to eat ;; [Random] ; [repeat 2] ;" --format=mp4 --bgcolor=0,0,0 --baseline --output="stuff/videos"
+venv/bin/python src/main.py --input="/videos/stuff.webm" --fontsize=2.8 --delay=300 --width=600 --words="I want to eat ;; [Random] ; [repeat 2] ;" --format=mp4 --bgcolor=0,0,0 --baseline --output="stuff/videos"
 ```
 
 ---
