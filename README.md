@@ -38,7 +38,7 @@ And memes.
 Clone this repo, and get inside the directory:
 
 ```shell
-git clone --depth=1 this_rep_url
+git clone --depth=1 this_repo_url
 
 cd new_directory
 ```
