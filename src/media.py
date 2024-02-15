@@ -229,33 +229,33 @@ def apply_filters(frames):
 	filters = ["hue1", "hue2", "hue3", "hue4", "hue5", "hue6", "hue7", "hue8",
 	"gray", "blur", "invert", "saturate", "none"]
 
-	filter = Global.filter
+	fltr = Global.filter
 
 	if not Global.filterlist:
 		if Global.filter == "random":
-			filter = random.choice(filters)
+			fltr = random.choice(filters)
 
 	for frame in frames:
 		if Global.filterlist:
-			filter = Global.filterlist.pop(0)
+			fltr = Global.filterlist.pop(0)
 		elif Global.filter == "random2":
-			filter = random.choice(filters)
+			fltr = random.choice(filters)
 
 		for n in range(1, 9):
-			if filter == f"hue{n}":
+			if fltr == f"hue{n}":
 				hsv = get_hsv(frame)
 				hsv[:, :, 0] = (hsv[:, :, 0] + hue_step * n) % 180
 				new_frame = do_hsv(hsv)
 				break
 
-		if filter == "gray":
+		if fltr == "gray":
 			new_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 			new_frame = cv2.cvtColor(new_frame, cv2.COLOR_GRAY2BGR)
-		elif filter == "blur":
+		elif fltr == "blur":
 			new_frame = cv2.GaussianBlur(frame, (45, 45), 0)
-		elif filter == "invert":
+		elif fltr == "invert":
 			new_frame = cv2.bitwise_not(frame)
-		elif filter == "saturate":
+		elif fltr == "saturate":
 			hsv = get_hsv(frame)
 			hsv[:, :, 0] = 0
 			hsv[:, :, 2] = 255
