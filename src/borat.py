@@ -1,6 +1,6 @@
 # Modules
-from args import Global
-import args
+from settings import Settings
+import settings
 import words
 import media
 
@@ -9,10 +9,10 @@ import random
 
 def main():
 	# Fill some paths based on root path
-	args.fill_paths(__file__)
+	settings.fill_paths(__file__)
 
 	# Check the provided arguments
-	args.parse_args()
+	settings.parse_args()
 
 	# Replace [random] with random words
 	words.check_random()
@@ -24,12 +24,12 @@ def main():
 	media.count_frames()
 
 	# Pick one input path randomly
-	path = random.choice(Global.input)
+	path = random.choice(Settings.input)
 
 	# Extract the required frames from the file
 	frames = media.get_frames(path)
 
-	if Global.remake:
+	if Settings.remake:
 		# Only resize the frames
 		frames = media.resize_frames(frames)
 	else:

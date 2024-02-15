@@ -5,7 +5,7 @@ import utils
 import argparse
 from pathlib import Path
 
-class Global:
+class Settings:
 	# Delay between frames
 	delay = 500
 
@@ -137,32 +137,32 @@ def parse_args():
 		value = getattr(args, attr)
 
 		if value is not None:
-			setattr(Global, attr, value)
+			setattr(Settings, attr, value)
 
 	def commas(attr, vtype):
 		value = getattr(args, attr)
 
 		if value is not None:
-			setattr(Global, attr, get_list(value, vtype, ","))
+			setattr(Settings, attr, get_list(value, vtype, ","))
 
 	def semicolons(attr, vtype):
 		value = getattr(args, attr)
 
 		if value is not None:
-			setattr(Global, attr, get_list(value, vtype, ";"))
+			setattr(Settings, attr, get_list(value, vtype, ";"))
 
 	def path(attr):
 		value = getattr(args, attr)
 
 		if value is not None:
-			setattr(Global, attr, utils.resolve_path(value))
+			setattr(Settings, attr, utils.resolve_path(value))
 
 	def pathlist(attr):
 		value = getattr(args, attr)
 
 		if value is not None:
 			paths = [utils.resolve_path(p.strip()) for p in value.split(";")]
-			setattr(Global, attr, paths)
+			setattr(Settings, attr, paths)
 
 	# Get script args first
 	path("script")
@@ -172,7 +172,7 @@ def parse_args():
 	normal("separator")
 
 	if args.words is not None:
-		Global.words = [word.strip() for word in args.words.split(Global.separator)]
+		Settings.words = [word.strip() for word in args.words.split(Settings.separator)]
 
 	normal("delay")
 	normal("fontsize")
@@ -206,24 +206,24 @@ def parse_args():
 	path("output")
 	path("wordfile")
 
-	for path in Global.input:
+	for path in Settings.input:
 		if not path.exists() or not path.is_file():
 			utils.exit("Input file does not exist")
 
-	if not Global.wordfile.exists() or not Global.wordfile.is_file():
+	if not Settings.wordfile.exists() or not Settings.wordfile.is_file():
 		utils.exit("Word file does not exist")
 
 def fill_paths(main_file):
-	Global.root = utils.full_path(Path(main_file).parent.parent)
-	Global.input = [utils.full_path(Path(Global.root, "media", "video.webm"))]
-	Global.output = utils.full_path(Path(Global.root, "output"))
-	Global.wordfile = utils.full_path(Path(Global.root, "data", "nouns.txt"))
+	Settings.root = utils.full_path(Path(main_file).parent.parent)
+	Settings.input = [utils.full_path(Path(Settings.root, "media", "video.webm"))]
+	Settings.output = utils.full_path(Path(Settings.root, "output"))
+	Settings.wordfile = utils.full_path(Path(Settings.root, "data", "nouns.txt"))
 
 def check_script(args):
-	if Global.script is None:
+	if Settings.script is None:
 		return
 
-	data = utils.read_toml(Path(Global.script))
+	data = utils.read_toml(Path(Settings.script))
 
 	for key in data:
 		k = key.replace("-", "_")
