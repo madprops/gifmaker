@@ -269,6 +269,9 @@ def get_shape(frame):
 	return frame.shape[1], frame.shape[0]
 
 def count_frames():
+	if Global.frames is not None:
+		return
+
 	if Global.framelist:
 		Global.frames = len(Global.framelist)
 	else:

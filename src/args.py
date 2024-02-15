@@ -10,7 +10,7 @@ class Global:
 	delay = 500
 
 	# Number of frames to use if no words are provided
-	frames = 3
+	frames = None
 
 	# The padding from the left
 	left = None

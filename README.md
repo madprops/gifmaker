@@ -231,7 +231,9 @@ A smaller `delay` = A faster gif.
 
 > frames = Type: int | Default: 3
 
-The amount of frames to use if `--words` is not used.
+The amount of frames to use.
+
+This value has higher priority than the other frame count methods.
 
 ---
 
