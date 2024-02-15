@@ -469,6 +469,20 @@ For instance, you can use this to change the `width` or `delay` of a rendered fi
 
 ---
 
+> framelist = Type: str | Default: None
+
+The specific list of frame indices to use.
+
+The first frame starts at `0`.
+
+For example `--framelist="2 ; 5 ; 2 ; 0 ; 3`
+
+It will use those specific frames.
+
+It also defines how long the animation is.
+
+---
+
 ### Script
 
 You can make `TOML` files that define the arguments to use.

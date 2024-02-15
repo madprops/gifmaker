@@ -127,7 +127,7 @@ def add_text(frame, text, lineheight):
 	return frame, text_height
 
 def word_frames(frames):
-	if len(Global.words) == 0:
+	if not Global.words:
 		return frames
 
 	worded = []
@@ -214,7 +214,7 @@ def to_pillow(frames):
 	return new_frames
 
 def apply_filters(frames):
-	if (Global.filter is None) and (len(Global.filterlist) == 0):
+	if (not Global.filter) and (not Global.filterlist):
 		return frames
 
 	new_frames = []
@@ -236,12 +236,12 @@ def apply_filters(frames):
 
 	filter = Global.filter
 
-	if len(Global.filterlist) == 0:
+	if not Global.filterlist:
 		if Global.filter == "random":
 			filter = random.choice(filters)
 
 	for frame in frames:
-		if len(Global.filterlist) > 0:
+		if Global.filterlist:
 			filter = Global.filterlist.pop(0)
 		elif Global.filter == "random2":
 			filter = random.choice(filters)

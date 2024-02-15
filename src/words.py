@@ -7,7 +7,7 @@ import re
 import random
 
 def check_random():
-	if len(Global.words) == 0:
+	if not Global.words:
 		return
 
 	def replace(match):
@@ -35,7 +35,7 @@ def check_random():
 	Global.words = new_words
 
 def check_repeat():
-	if len(Global.words) == 0:
+	if not Global.words:
 		return
 
 	new_words = []
@@ -54,7 +54,7 @@ def check_repeat():
 	Global.words = new_words
 
 def random_word():
-	if len(Global.wordlist) == 0:
+	if not Global.wordlist:
 		with open(Global.wordfile, "r") as file:
 			lines = file.readlines()
 			Global.wordlist = [line.strip() for line in lines]

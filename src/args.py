@@ -88,7 +88,7 @@ class Global:
 	filter = None
 
 	# The list of frame indices to use in order
-	framelist = None
+	framelist = []
 
 def parse_args():
 	p = argparse.ArgumentParser(description="Borat the Gif Maker")
