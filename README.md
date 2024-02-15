@@ -481,6 +481,8 @@ It will use those specific frames.
 
 It also defines how long the animation is.
 
+This defines the available pool of frames but `order` is still respected.
+
 ---
 
 ### Script

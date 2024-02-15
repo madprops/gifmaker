@@ -87,7 +87,7 @@ class Global:
 	# Color filter to apply to frames
 	filter = None
 
-	# The list of frame indices to use in order
+	# The list of frame indices to use
 	framelist = []
 
 def parse_args():
