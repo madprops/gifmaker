@@ -227,7 +227,7 @@ def apply_filters(frames):
 		return cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
 
 	filters = ["hue1", "hue2", "hue3", "hue4", "hue5", "hue6", "hue7", "hue8",
-	"gray", "blur", "invert", "saturate"]
+	"gray", "blur", "invert", "saturate", "none"]
 
 	filter = Global.filter
 
