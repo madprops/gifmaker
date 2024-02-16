@@ -26,32 +26,49 @@ def check_random():
 
 		return " ".join(randwords)
 
-	new_words = []
+	new_lines = []
+	pattern = re.compile(r"\[(?P<word>random)(?:\s+(?P<number>\d+))?\]", re.IGNORECASE)
 
 	for line in config.words:
-		pattern = re.compile(r"\[(?P<word>random)(?:\s+(?P<number>\d+))?\]", re.IGNORECASE)
-		new_words.append(re.sub(pattern, replace, line))
+		new_lines.append(re.sub(pattern, replace, line))
 
-	config.words = new_words
+	config.words = new_lines
 
 def check_repeat():
 	if not config.words:
 		return
 
-	new_words = []
+	new_lines = []
+	pattern = re.compile(r"\[(?P<word>repeat)(?:\s+(?P<number>\d+))?\]", re.IGNORECASE)
 
-	for word in config.words:
-		pattern = re.compile(r"\[(?P<word>repeat)(?:\s+(?P<number>\d+))?\]", re.IGNORECASE)
-		match = re.match(pattern, word)
+	for line in config.words:
+		match = re.match(pattern, line)
 
 		if match:
 			n = match["number"]
 			number = int(n) if n is not None else 1
-			new_words.extend([new_words[-1]] * number)
+			new_lines.extend([new_lines[-1]] * number)
 		else:
-			new_words.append(word)
+			new_lines.append(line)
 
-	config.words = new_words
+	config.words = new_lines
+
+def check_empty():
+	if not config.words:
+		return
+
+	new_lines = []
+	pattern = re.compile(r"\[(?P<word>empty)\]", re.IGNORECASE)
+
+	for line in config.words:
+		match = re.match(pattern, line)
+
+		if match:
+			new_lines.append("")
+		else:
+			new_lines.append(line)
+
+	config.words = new_lines
 
 def random_word():
 	if not config.randomlist:

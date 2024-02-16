@@ -143,6 +143,16 @@ You can control the spacing with the `linespace` argument.
 
 ---
 
+Another way to define an empty line is using `[empty]`
+
+For example: `hello ; world ; [empty]`
+
+This could be useful in `wordfile` to add empty lines at the end.
+
+Else you can just add more `;` to `words`.
+
+---
+
 You can run `main.py` from anywhere in your system using its virtual env.
 
 Relative paths should work fine.
@@ -225,7 +235,7 @@ As described in [Usage](#usage).
 
 File to use as the source of word lines.
 
-For example a file can be like:
+For example, a file can be like:
 
 ```
 This is a line
@@ -233,6 +243,7 @@ I am a [random]
 
 This is a line after an empty line
 [repeat]
+[empty]
 ```
 
 Then you can point to it like:
@@ -241,7 +252,7 @@ Then you can point to it like:
 ---wordfile="/path/to/words.txt"
 ```
 
-It will use that same as with `--words`
+It will use word lines the same as with `--words`.
 
 ---
 
@@ -427,7 +438,7 @@ Like: `--randomlist="cat; dog; nice cow; big horse"`
 
 Path to a text file with the random words to use.
 
-This is a simple text file with each word or phrase in their own line.
+This is a simple text file with each word or phrase in its own line.
 
 For example:
 
@@ -467,7 +478,7 @@ The character to use for linebreaks.
 
 > filter = Type: str | Default: None
 
-A color filter to apply to each frame.
+A color filter applied to each frame.
 
 Either: `hue1`, `hue2`, `hue3`, `hue4`, `hue5`, `hue6`, `hue7`, `hue8`
 

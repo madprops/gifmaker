@@ -212,6 +212,9 @@ class Configuration:
 		path("wordfile")
 		path("randomfile")
 
+		self.check_args(args)
+
+	def check_args(self, args):
 		for path in self.input:
 			if not path.exists() or not path.is_file():
 				utils.exit("Input file does not exist")
@@ -238,9 +241,8 @@ class Configuration:
 			setattr(args, k, data[key])
 
 	def read_wordfile(self):
-		with open(config.wordfile, "r") as file:
-			lines = file.readlines()
-			self.words = [line.strip() for line in lines]
+		self.words = config.wordfile.read_text().splitlines()
+		print(self.words)
 
 # Main configuration object
 config = Configuration()

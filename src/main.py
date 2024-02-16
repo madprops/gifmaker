@@ -13,6 +13,9 @@ def main():
 	# Check the provided arguments
 	config.parse_args()
 
+	# Replace [empty] with empty lines
+	words.check_empty()
+
 	# Replace [random] with random words
 	words.check_random()
 
