@@ -221,6 +221,30 @@ As described in [Usage](#usage).
 
 ---
 
+> wordfile = Type: str | Default: None
+
+File to use as the source of word lines.
+
+For example a file can be like:
+
+```
+This is a line
+I am a [random]
+
+This is a line after an empty line
+[repeat]
+```
+
+Then you can point to it like:
+
+```
+---wordfile="/path/to/words.txt"
+```
+
+It will use that same as with `--words`
+
+---
+
 > delay = Type: int | Default: 500
 
 The delay between frames. In milliseconds.

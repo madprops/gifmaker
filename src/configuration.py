@@ -30,6 +30,9 @@ class Configuration:
 	# Default words to use
 	words = []
 
+	# File to use as the source of word lines
+	wordfile = None
+
 	# The pool for random words
 	randomlist = []
 
@@ -101,6 +104,7 @@ class Configuration:
 
 		p.add_argument("--input", "-i", type=str, help="Path to the a video or image file. Separated by semicolons")
 		p.add_argument("--words", type=str, help="Lines of words to use on the frames")
+		p.add_argument("--wordfile", type=str, help="Path of file with word lines")
 		p.add_argument("--delay", type=int, help="The delay in ms between frames")
 		p.add_argument("--left", type=int, help="Left padding")
 		p.add_argument("--right", type=int, help="Right padding")
@@ -174,12 +178,6 @@ class Configuration:
 		path("script")
 		self.check_script(args)
 
-		# Needed for 'words'
-		normal("separator")
-
-		if args.words is not None:
-			self.words = [word.strip() for word in args.words.split(self.separator)]
-
 		normal("delay")
 		normal("fontsize")
 		normal("boldness")
@@ -196,6 +194,7 @@ class Configuration:
 		normal("padding")
 		normal("baseline")
 		normal("loop")
+		normal("separator")
 		normal("linespace")
 		normal("linebreak")
 		normal("filter")
@@ -210,11 +209,20 @@ class Configuration:
 
 		pathlist("input")
 		path("output")
+		path("wordfile")
 		path("randomfile")
 
 		for path in self.input:
 			if not path.exists() or not path.is_file():
 				utils.exit("Input file does not exist")
+
+		if self.wordfile:
+			if not self.wordfile.exists() or not self.wordfile.is_file():
+				utils.exit("Word file does not exist")
+
+			self.read_wordfile()
+		elif args.words:
+			self.words = [word.strip() for word in args.words.split(self.separator)]
 
 		if not self.randomfile.exists() or not self.randomfile.is_file():
 			utils.exit("Word file does not exist")
@@ -228,6 +236,11 @@ class Configuration:
 		for key in data:
 			k = key.replace("-", "_")
 			setattr(args, k, data[key])
+
+	def read_wordfile(self):
+		with open(config.wordfile, "r") as file:
+			lines = file.readlines()
+			self.words = [line.strip() for line in lines]
 
 # Main configuration object
 config = Configuration()
