@@ -87,6 +87,9 @@ class Configuration:
 	# List of filters to use per frame
 	filterlist = []
 
+	# The list of allowed filters when picking randomly
+	filteropts = []
+
 	# Color filter to apply to frames
 	filter = None
 
@@ -136,6 +139,7 @@ class Configuration:
 			"gray", "blur", "invert", "saturate", "random", "random2", "none",
 			], help="Color filter to apply to frames")
 		p.add_argument("--filterlist", type=str, help="Filters to use per frame. Separated by semicolons")
+		p.add_argument("--filteropts", type=str, help="The list of allowed filters when picking randomly. Separated by semicolons")
 		p.add_argument("--framelist", type=str, help="List of frame indices to use. Separated by semicolons")
 
 		args = p.parse_args()
@@ -205,6 +209,7 @@ class Configuration:
 
 		semicolons("randomlist", str)
 		semicolons("filterlist", str)
+		semicolons("filteropts", str)
 		semicolons("framelist", int)
 
 		pathlist("input")
@@ -242,7 +247,6 @@ class Configuration:
 
 	def read_wordfile(self):
 		self.words = config.wordfile.read_text().splitlines()
-		print(self.words)
 
 # Main configuration object
 config = Configuration()

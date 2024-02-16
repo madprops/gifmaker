@@ -520,6 +520,16 @@ This defines the available pool of frames but `order` is still respected.
 
 ---
 
+> filteropts = Type: str | Default: None
+
+This defines the pool of available filters to pick randomly.
+
+This applies when `filter` is `random` or `random2`.
+
+For example: `--filteropts="hue1 ; hue2 ; hue3"`
+
+---
+
 ### Scripts
 
 You can make `TOML` files that define the arguments to use.

@@ -226,8 +226,13 @@ def apply_filters(frames):
 	def do_hsv(hsv):
 		return cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
 
-	filters = ["hue1", "hue2", "hue3", "hue4", "hue5", "hue6", "hue7", "hue8",
+	all_filters = ["hue1", "hue2", "hue3", "hue4", "hue5", "hue6", "hue7", "hue8",
 	"gray", "blur", "invert", "saturate", "none"]
+
+	if config.filteropts:
+		filters = config.filteropts
+	else:
+		filters = all_filters
 
 	filtr = config.filter
 

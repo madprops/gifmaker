@@ -72,8 +72,7 @@ def check_empty():
 
 def random_word():
 	if not config.randomlist:
-		with open(config.randomfile, "r") as file:
-			lines = file.readlines()
-			config.randomlist = [line.strip() for line in lines]
+		lines = config.randomfile.read_text().splitlines()
+		config.randomlist = [line.strip() for line in lines]
 
 	return random.choice(config.randomlist)

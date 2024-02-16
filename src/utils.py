@@ -42,6 +42,6 @@ def read_toml(path):
 
 	try:
 		with open(path, "rb") as file:
-			return tomllib.load(file)
+			return tomllib.load(path)
 	except:
 		exit("Failed to read TOML file")
