@@ -143,7 +143,7 @@ You can control the spacing with the `linespace` argument.
 
 ---
 
-Another way to define an empty line is using `[empty]`
+Another way to define an empty line is using `[empty]`.
 
 For example: `hello ; world ; [empty]`
 
