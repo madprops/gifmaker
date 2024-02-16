@@ -256,7 +256,7 @@ It will use word lines the same as with `--words`.
 
 ---
 
-> delay = Type: int | Default: 500
+> delay = Type: int | Default: 600
 
 The delay between frames. In milliseconds.
 

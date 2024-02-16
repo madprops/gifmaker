@@ -7,7 +7,7 @@ from pathlib import Path
 
 class Configuration:
 	# Delay between frames
-	delay = 500
+	delay = 600
 
 	# Number of frames to use if no words are provided
 	frames = None
