@@ -31,7 +31,7 @@ class Configuration:
 	words = []
 
 	# The pool for random words
-	wordlist = []
+	randomlist = []
 
 	# The separator to use when splitting word lines
 	separator = ";"
@@ -94,7 +94,7 @@ class Configuration:
 		self.root = utils.full_path(Path(main_file).parent.parent)
 		self.input = [utils.full_path(Path(self.root, "media", "video.webm"))]
 		self.output = utils.full_path(Path(self.root, "output"))
-		self.wordfile = utils.full_path(Path(self.root, "data", "nouns.txt"))
+		self.randomfile = utils.full_path(Path(self.root, "data", "nouns.txt"))
 
 	def parse_args(self):
 		p = argparse.ArgumentParser(description="Borat the Gif Maker")
@@ -120,8 +120,8 @@ class Configuration:
 		p.add_argument("--opacity", type=float, help="The opacity of the background rectangle")
 		p.add_argument("--padding", type=int, help="The padding of the background rectangle")
 		p.add_argument("--baseline", action="store_true", help="Add the baseline to the background rectangle's height")
-		p.add_argument("--wordlist", type=str, help="List of words to consider for random words. Separated by semicolons")
-		p.add_argument("--wordfile", type=str, help="Path to a list of words to consider for random words")
+		p.add_argument("--randomlist", type=str, help="List of words to consider for random words. Separated by semicolons")
+		p.add_argument("--randomfile", type=str, help="Path to a list of words to consider for random words")
 		p.add_argument("--script", type=str, help="Path to a TOML file that defines the arguments to use")
 		p.add_argument("--loop", type=int, help="How to loop a gif render")
 		p.add_argument("--linespace", type=int, help="Spacing between lines")
@@ -204,19 +204,19 @@ class Configuration:
 		commas("fontcolor", int)
 		commas("bgcolor", int)
 
-		semicolons("wordlist", str)
+		semicolons("randomlist", str)
 		semicolons("filterlist", str)
 		semicolons("framelist", int)
 
 		pathlist("input")
 		path("output")
-		path("wordfile")
+		path("randomfile")
 
 		for path in self.input:
 			if not path.exists() or not path.is_file():
 				utils.exit("Input file does not exist")
 
-		if not self.wordfile.exists() or not self.wordfile.is_file():
+		if not self.randomfile.exists() or not self.randomfile.is_file():
 			utils.exit("Word file does not exist")
 
 	def check_script(self, args):

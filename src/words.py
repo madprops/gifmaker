@@ -54,9 +54,9 @@ def check_repeat():
 	config.words = new_words
 
 def random_word():
-	if not config.wordlist:
-		with open(config.wordfile, "r") as file:
+	if not config.randomlist:
+		with open(config.randomfile, "r") as file:
 			lines = file.readlines()
-			config.wordlist = [line.strip() for line in lines]
+			config.randomlist = [line.strip() for line in lines]
 
-	return random.choice(config.wordlist)
+	return random.choice(config.randomlist)
