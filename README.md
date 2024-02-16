@@ -387,7 +387,7 @@ If you enable it the rectangle will cover all possible letters.
 
 ---
 
-> wordlist = Type: str | Default: Empty
+> randomlist = Type: str | Default: Empty
 
 Random words are selected from this list.
 
@@ -395,11 +395,11 @@ If the list is empty it will be filled with a long list of nouns.
 
 You can specify the words to consider, separated by semicolons.
 
-Like: `--wordlist="cat; dog; nice cow; big horse"`
+Like: `--randomlist="cat; dog; nice cow; big horse"`
 
 ---
 
-> wordfile = Type: str | Default: List of nouns
+> randomfile = Type: str | Default: List of nouns
 
 Path to a text file with the random words to use.
 
@@ -413,7 +413,7 @@ a cow
 horse
 ```
 
-Then you point to it: `--wordfile="/path/to/animals.txt"`
+Then you point to it: `--randomfile="/path/to/animals.txt"`
 
 ---
 
