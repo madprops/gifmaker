@@ -98,6 +98,12 @@ def get_text_data(frame, lines):
 	lineheight = 0
 	framedata = []
 
+	p_top = config.top
+	p_bottom = config.bottom
+	p_left = config.left
+	p_right = config.right
+	padding = config.padding
+
 	for line in lines:
 		text_size, baseline = cv2.getTextSize(line, font, config.fontsize, config.boldness)
 		text_width = text_size[0]
@@ -107,15 +113,10 @@ def get_text_data(frame, lines):
 		if text_width > max_width:
 			max_width = text_width
 
-		p_top = config.top
-		p_bottom = config.bottom
-		p_left = config.left
-		p_right = config.right
-
 		if (p_left is not None) and (p_left >= 0):
-			text_x = p_left
+			text_x = p_left + padding
 		elif (p_right is not None) and (p_right >= 0):
-			text_x = width - text_width - p_right
+			text_x = width - text_width - p_right - padding
 		else:
 			text_x = (width - text_width) // 2
 
@@ -125,9 +126,12 @@ def get_text_data(frame, lines):
 				text_x -= p_right
 
 		if (p_top is not None) and (p_top >= 0):
-			text_y = text_height + p_top
+			text_y = text_height + p_top + padding
 		elif (p_bottom is not None) and (p_bottom >= 0):
-			text_y = height - baseline - p_bottom
+			text_y = height - p_bottom - (baseline * 2) - (padding * 2)
+
+			if config.baseline:
+				text_y -= baseline
 		else:
 			text_y = (height + text_height) // 2
 
