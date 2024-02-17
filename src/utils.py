@@ -42,6 +42,7 @@ def read_toml(path):
 
 	try:
 		with open(path, "rb") as file:
-			return tomllib.load(path)
-	except:
+			return tomllib.load(file)
+	except Exception as e:
+		print(f"Error: {e}")
 		exit("Failed to read TOML file")
