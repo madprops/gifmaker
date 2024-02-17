@@ -12,16 +12,16 @@ class Configuration:
 	# Number of frames to use if no words are provided
 	frames = None
 
-	# The padding from the left
+	# The padding of the text from the left
 	left = None
 
-	# The padding from the right
+	# The padding of the text from the right
 	right = None
 
-	# The padding from the top
+	# The padding of the text from the top
 	top = None
 
-	# The padding from the bottom
+	# The padding of the text from the bottom
 	bottom = None
 
 	# The width to resize the frames
