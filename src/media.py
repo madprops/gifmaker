@@ -63,13 +63,13 @@ def add_text(frame, lines):
 
 	if config.bgcolor:
 		if config.baseline:
-			bline = baseline
+			baseline = data["framedata"][0]["baseline"]
 		else:
-			bline = 0
+			baseline = 0
 
 		rgb_bg = list(reversed((config.bgcolor)))
 		rect_1 = (data["min_x_rect"] - padding, data["min_y_rect"] - padding)
-		rect_2 = (data["max_x_rect"] + padding, data["max_y_rect"] + padding + bline)
+		rect_2 = (data["max_x_rect"] + padding, data["max_y_rect"] + padding + baseline)
 
 		cv2.rectangle(frame, (rect_1), rect_2, rgb_bg, -1)
 
@@ -151,6 +151,7 @@ def get_text_data(frame, lines):
 			"y": text_y,
 			"x_rect": x_rect,
 			"y_rect": y_rect,
+			"baseline": baseline,
 		}
 
 		framedata.append(fdata)
