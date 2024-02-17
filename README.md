@@ -249,7 +249,7 @@ This is a line after an empty line
 Then you can point to it like:
 
 ```
----wordfile="/path/to/words.txt"
+--wordfile="/path/to/words.txt"
 ```
 
 It will use word lines the same as with `--words`.
