@@ -155,35 +155,18 @@ def get_text_data(frame, lines):
 
 		framedata.append(fdata)
 
-	min_x, min_y = float("inf"), float("inf")
-	max_x, max_y = 0, 0
-	min_x_rect, min_y_rect = float("inf"), float("inf")
-	max_x_rect, max_y_rect = 0, 0
+	min_x, min_y, min_x_rect, min_y_rect = float("inf"), float("inf"), float("inf"), float("inf")
+	max_x, max_y, max_x_rect, max_y_rect = 0, 0, 0, 0
 
 	for item in framedata:
-		if item["x"] < min_x:
-			min_x = item["x"]
-
-		if item["y"] < min_y:
-			min_y = item["y"]
-
-		if item["x"] + item["width"] > max_x:
-			max_x = item["x"] + item["width"]
-
-		if item["y"] + item["height"] > max_y:
-			max_y = item["y"] + item["height"]
-
-		if item["x_rect"] < min_x_rect:
-			min_x_rect = item["x_rect"]
-
-		if item["y_rect"] < min_y_rect:
-			min_y_rect = item["y_rect"]
-
-		if item["x_rect"] + item["width"] > max_x_rect:
-			max_x_rect = item["x_rect"] + item["width"]
-
-		if item["y_rect"] + item["height"] > max_y_rect:
-			max_y_rect = item["y_rect"] + item["height"]
+		min_x = min(min_x, item["x"])
+		min_y = min(min_y, item["y"])
+		max_x = max(max_x, item["x"] + item["width"])
+		max_y = max(max_y, item["y"] + item["height"])
+		min_x_rect = min(min_x_rect, item["x_rect"])
+		min_y_rect = min(min_y_rect, item["y_rect"])
+		max_x_rect = max(max_x_rect, item["x_rect"] + item["width"])
+		max_y_rect = max(max_y_rect, item["y_rect"] + item["height"])
 
 	ans = {
 		"width": width,
