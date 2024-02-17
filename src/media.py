@@ -53,9 +53,6 @@ def get_frames(path):
 	return frames
 
 def add_text(frame, lines):
-	if not lines:
-		return frame
-
 	font = get_font()
 	data = get_text_data(frame, lines)
 	rgb_font = list(reversed((config.fontcolor)))
@@ -200,7 +197,10 @@ def word_frames(frames):
 			continue
 
 		lines = [line.strip() for line in config.words[i].split(config.linebreak)]
-		frame = add_text(frame, lines)
+
+		if any(element.strip() for element in lines):
+			frame = add_text(frame, lines)
+
 		worded.append(frame)
 
 	return worded
