@@ -256,11 +256,29 @@ It will use word lines the same as with `--words`.
 
 ---
 
+> separator = Type: str | Default: ";"
+
+The character to use as the line separator in `words`.
+
+---
+
+> linebreak = Type: str | Default: "\n"
+
+The character to use for linebreaks.
+
+---
+
+> linespace = Type: int | Default 20
+
+Spacing between lines separated by `\n`.
+
+---
+
 > delay = Type: int | Default: 600
 
 The delay between frames. In milliseconds.
 
-A smaller `delay` = A faster gif.
+A smaller `delay` = A faster animation.
 
 ---
 
@@ -269,6 +287,22 @@ A smaller `delay` = A faster gif.
 The amount of frames to use.
 
 This value has higher priority than the other frame count methods.
+
+---
+
+> framelist = Type: str | Default: None
+
+The specific list of frame indices to use.
+
+The first frame starts at `0`.
+
+For example `--framelist="2 ; 5 ; 2 ; 0 ; 3"`
+
+It will use those specific frames.
+
+It also defines how long the animation is.
+
+This defines the available pool of frames but `order` is still respected.
 
 ---
 
@@ -325,12 +359,6 @@ This is only used when the output is not a direct file path.
 For instance, if the output ends with `cat.gif` it will use `gif`.
 
 If the output is a directory it will use a random name with the appropriate format.
-
----
-
-> separator = Type: str | Default: ";"
-
-The character to use as the line separator in `words`.
 
 ---
 
@@ -454,25 +482,13 @@ Then you point to it: `--randomfile="/path/to/animals.txt"`
 
 > loop = Type: int | Default 0
 
-How to loop the gifs.
+How to loop gif renders.
 
 `-1` = No loop
 
 `0` = Infinite loop
 
 `1 or more` = Specific number of loops
-
----
-
-> linespace = Type: int | Default 20
-
-Spacing between lines separated by `\n`.
-
----
-
-> linebreak = Type: str | Default: "\n"
-
-The character to use for linebreaks.
 
 ---
 
@@ -490,6 +506,16 @@ And: `gray`, `blur`, `invert`, `saturate`, `random`, `random2`, `none`
 
 ---
 
+> filteropts = Type: str | Default: None
+
+This defines the pool of available filters to pick randomly.
+
+This applies when `filter` is `random` or `random2`.
+
+For example: `--filteropts="hue1 ; hue2 ; hue3 ; gray"`
+
+---
+
 > remake = Type: flag | Default: False
 
 Use this if you only want to re-render the frames.
@@ -501,32 +527,6 @@ It doesn't do the rest of the operations.
 For example: `--input="/path/to/file.gif" --remake --width=500 --delay=300`
 
 For instance, you can use this to change the `width` or `delay` of a rendered file.
-
----
-
-> framelist = Type: str | Default: None
-
-The specific list of frame indices to use.
-
-The first frame starts at `0`.
-
-For example `--framelist="2 ; 5 ; 2 ; 0 ; 3"`
-
-It will use those specific frames.
-
-It also defines how long the animation is.
-
-This defines the available pool of frames but `order` is still respected.
-
----
-
-> filteropts = Type: str | Default: None
-
-This defines the pool of available filters to pick randomly.
-
-This applies when `filter` is `random` or `random2`.
-
-For example: `--filteropts="hue1 ; hue2 ; hue3"`
 
 ---
 
