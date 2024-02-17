@@ -498,7 +498,7 @@ How to loop gif renders.
 
 A color filter applied to each frame.
 
-Either: `hue1`, `hue2`, `hue3`, `hue4`, `hue5`, `hue6`, `hue7`, `hue8`, `hues`, `anyhue`, `anyhue2`
+Either: `hue1`, `hue2` .. up to `hue8`, `anyhue`, `anyhue2`
 
 And: `gray`, `blur`, `invert`, `saturate`, `random`, `random2`, `none`
 
