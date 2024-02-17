@@ -135,7 +135,7 @@ class Configuration:
 		p.add_argument("--linebreak", type=str, help="Linebreak character")
 		p.add_argument("--remake", action="store_true", help="Re-render the frames to change the width or delay")
 		p.add_argument("--filter", type=str, choices=[
-			"hue1", "hue2", "hue3", "hue4", "hue5", "hue6", "hue7", "hue8",
+			"hue1", "hue2", "hue3", "hue4", "hue5", "hue6", "hue7", "hue8", "anyhue", "anyhue2",
 			"gray", "blur", "invert", "saturate", "random", "random2", "none",
 			], help="Color filter to apply to frames")
 		p.add_argument("--filterlist", type=str, help="Filters to use per frame. Separated by semicolons")
