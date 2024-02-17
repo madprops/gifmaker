@@ -128,7 +128,7 @@ def get_text_data(frame, lines):
 		if (p_top is not None) and (p_top >= 0):
 			text_y = text_height + p_top + padding
 		elif (p_bottom is not None) and (p_bottom >= 0):
-			text_y = height - p_bottom - (baseline * 2) - (padding * 2)
+			text_y = height - p_bottom - ((len(lines) - 1) * (text_height + config.linespace)) - padding
 
 			if config.baseline:
 				text_y -= baseline
