@@ -544,6 +544,6 @@ For example, a script can look like this:
 words = "Disregard [Random] ; [repeat] ; Acquire [Random] ; [repeat] ;"
 fontcolor = "44,80,200"
 bgcolor = "0,0,0"
-bottom = 10
-right = 10
+bottom = 0
+right = 0
 ```
