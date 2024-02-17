@@ -39,7 +39,7 @@ def check_repeat():
 		return
 
 	new_lines = []
-	pattern = re.compile(r"\[(?P<word>repeat)(?:\s+(?P<number>\d+))?\]", re.IGNORECASE)
+	pattern = re.compile(r"^\[(?P<word>repeat)(?:\s+(?P<number>\d+))?\]$", re.IGNORECASE)
 
 	for line in config.words:
 		match = re.match(pattern, line)
@@ -58,7 +58,7 @@ def check_empty():
 		return
 
 	new_lines = []
-	pattern = re.compile(r"\[(?P<word>empty)\]", re.IGNORECASE)
+	pattern = re.compile(r"^\[(?P<word>empty)\]$", re.IGNORECASE)
 
 	for line in config.words:
 		match = re.match(pattern, line)
