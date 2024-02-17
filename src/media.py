@@ -68,7 +68,8 @@ def add_text(frame, lines):
 		rect_1 = (data["min_x_rect"] - padding, data["min_y_rect"] - padding)
 		rect_2 = (data["max_x_rect"] + padding, data["max_y_rect"] + padding + baseline)
 
-		cv2.rectangle(frame, (rect_1), rect_2, rgb_bg, -1)
+		rcopy = cv2.rectangle(frame.copy(), (rect_1), rect_2, rgb_bg, -1)
+		cv2.addWeighted(frame, 1 - config.opacity, rcopy, config.opacity, 0, frame)
 
 	for i, line in enumerate(lines):
 		framedata = data["framedata"][i]
