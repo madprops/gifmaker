@@ -52,12 +52,35 @@ def get_frames(path):
 
 	return frames
 
-def add_text(frame, text, lineheight):
-	if not text:
-		return frame, 0
+def add_text(frame, lines):
+	if not lines:
+		return frame
 
-	width, height = get_shape(frame)
+	font = get_font()
+	data = get_text_data(frame, lines)
+	rgb_font = list(reversed((config.fontcolor)))
+	padding = config.padding
 
+	if config.bgcolor:
+		if config.baseline:
+			bline = baseline
+		else:
+			bline = 0
+
+		rgb_bg = list(reversed((config.bgcolor)))
+		rect_1 = (data["min_x_rect"] - padding, data["min_y_rect"] - padding)
+		rect_2 = (data["max_x_rect"] + padding, data["max_y_rect"] + padding + bline)
+
+		cv2.rectangle(frame, (rect_1), rect_2, rgb_bg, -1)
+
+	for i, line in enumerate(lines):
+		framedata = data["framedata"][i]
+		position = (framedata["x"], framedata["y"])
+		cv2.putText(frame, line, position, font, config.fontsize, rgb_font, config.boldness, cv2.LINE_AA)
+
+	return frame
+
+def get_font():
 	if config.font == "simple":
 		font = cv2.FONT_HERSHEY_SIMPLEX
 	elif config.font == "complex":
@@ -69,62 +92,116 @@ def add_text(frame, text, lineheight):
 	elif config.font == "triplex":
 		font = cv2.FONT_HERSHEY_TRIPLEX
 
-	text_size, baseline = cv2.getTextSize(text, font, config.fontsize, config.boldness)
+	return font
 
-	text_width = text_size[0]
-	text_height = text_size[1]
+def get_text_data(frame, lines):
+	width, height = get_shape(frame)
+	max_width, max_height = 0, 0
+	font = get_font()
+	lineheight = 0
+	framedata = []
 
-	p_top = config.top
-	p_bottom = config.bottom
-	p_left = config.left
-	p_right = config.right
+	for line in lines:
+		text_size, baseline = cv2.getTextSize(line, font, config.fontsize, config.boldness)
+		text_width = text_size[0]
+		text_height = text_size[1]
+		max_height += text_height + config.linespace
 
-	if (p_left is not None) and (p_left >= 0):
-		text_x = p_left
-	elif (p_right is not None) and (p_right >= 0):
-		text_x = width - text_width - p_right
-	else:
-		text_x = (width - text_width) // 2
+		if text_width > max_width:
+			max_width = text_width
 
-		if (p_left is not None) and (p_left < 0):
-			text_x += p_left
-		elif (p_right is not None) and (p_right < 0):
-			text_x -= p_right
+		p_top = config.top
+		p_bottom = config.bottom
+		p_left = config.left
+		p_right = config.right
 
-	if (p_top is not None) and (p_top >= 0):
-		text_y = text_height + p_top
-	elif (p_bottom is not None) and (p_bottom >= 0):
-		text_y = height - baseline - p_bottom
-	else:
-		text_y = (height + text_height) // 2
-
-		if (p_top is not None) and (p_top < 0):
-			text_y += p_top
-		elif (p_bottom is not None) and (p_bottom < 0):
-			text_y -= p_bottom
-
-	text_y += lineheight
-	text_position = (text_x, text_y)
-	rgb = list(reversed((config.fontcolor)))
-
-	if config.bgcolor:
-		if config.baseline:
-			bline = baseline
+		if (p_left is not None) and (p_left >= 0):
+			text_x = p_left
+		elif (p_right is not None) and (p_right >= 0):
+			text_x = width - text_width - p_right
 		else:
-			bline = 0
+			text_x = (width - text_width) // 2
 
-		padding = config.padding
-		rect_x = text_x - padding
-		rect_y = text_y - text_height - padding
-		rect_width = padding + text_width + padding
-		rect_height = padding + text_height + bline + padding
-		rect_1 = (rect_x, rect_y)
-		rect_2 = (rect_x + rect_width, rect_y + rect_height)
-		rcopy = cv2.rectangle(frame.copy(), rect_1, rect_2, config.bgcolor, -1)
-		cv2.addWeighted(frame, 1 - config.opacity, rcopy, config.opacity, 0, frame)
+			if (p_left is not None) and (p_left < 0):
+				text_x += p_left
+			elif (p_right is not None) and (p_right < 0):
+				text_x -= p_right
 
-	cv2.putText(frame, text, text_position, font, config.fontsize, rgb, config.boldness, cv2.LINE_AA)
-	return frame, text_height
+		if (p_top is not None) and (p_top >= 0):
+			text_y = text_height + p_top
+		elif (p_bottom is not None) and (p_bottom >= 0):
+			text_y = height - baseline - p_bottom
+		else:
+			text_y = (height + text_height) // 2
+
+			if (p_top is not None) and (p_top < 0):
+				text_y += p_top
+			elif (p_bottom is not None) and (p_bottom < 0):
+				text_y -= p_bottom
+
+		text_y += lineheight
+		lineheight += text_height + config.linespace
+		x_rect = text_x
+		y_rect = text_y - text_height
+
+		fdata = {
+			"width": text_width,
+			"height": text_height,
+			"x": text_x,
+			"y": text_y,
+			"x_rect": x_rect,
+			"y_rect": y_rect,
+		}
+
+		framedata.append(fdata)
+
+	min_x, min_y = float("inf"), float("inf")
+	max_x, max_y = 0, 0
+	min_x_rect, min_y_rect = float("inf"), float("inf")
+	max_x_rect, max_y_rect = 0, 0
+
+	for item in framedata:
+		if item["x"] < min_x:
+			min_x = item["x"]
+
+		if item["y"] < min_y:
+			min_y = item["y"]
+
+		if item["x"] + item["width"] > max_x:
+			max_x = item["x"] + item["width"]
+
+		if item["y"] + item["height"] > max_y:
+			max_y = item["y"] + item["height"]
+
+		if item["x_rect"] < min_x_rect:
+			min_x_rect = item["x_rect"]
+
+		if item["y_rect"] < min_y_rect:
+			min_y_rect = item["y_rect"]
+
+		if item["x_rect"] + item["width"] > max_x_rect:
+			max_x_rect = item["x_rect"] + item["width"]
+
+		if item["y_rect"] + item["height"] > max_y_rect:
+			max_y_rect = item["y_rect"] + item["height"]
+
+	ans = {
+		"width": width,
+		"height": height,
+		"framedata": framedata,
+		"max_width": max_width,
+		"max_height": max_height,
+		"max_x": max_x,
+		"max_y": max_y,
+		"min_x": min_x,
+		"min_y": min_y,
+		"max_x_rect": max_x_rect,
+		"max_y_rect": max_y_rect,
+		"min_x_rect": min_x_rect,
+		"min_y_rect": min_y_rect,
+	}
+
+	return ans
 
 def word_frames(frames):
 	if not config.words:
@@ -139,12 +216,7 @@ def word_frames(frames):
 			continue
 
 		lines = [line.strip() for line in config.words[i].split(config.linebreak)]
-		lineheight = 0
-
-		for line in lines:
-			frame, height = add_text(frame, line, lineheight)
-			lineheight += height + config.linespace
-
+		frame = add_text(frame, lines)
 		worded.append(frame)
 
 	return worded
