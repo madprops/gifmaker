@@ -219,11 +219,16 @@ def word_frames(frames: List[Any]) -> List[Any]:
 	num_words = len(config.words)
 
 	for i, frame in enumerate(frames):
-		if i >= num_words:
-			worded.append(frame)
-			continue
+		index = i
 
-		lines = [line.strip() for line in config.words[i].split(config.linebreak)]
+		if index >= num_words:
+			if config.fillwords:
+				index = num_words - 1
+			else:
+				worded.append(frame)
+				continue
+
+		lines = [line.strip() for line in config.words[index].split(config.linebreak)]
 
 		if any(element.strip() for element in lines):
 			frame = add_text(frame, lines)

@@ -104,6 +104,9 @@ class Configuration:
 	# If this is False it will try to not repeat random filters
 	repeatfilter = False
 
+	# Fill the rest of the frames with the last word line
+	fillwords = False
+
 	# --- INTERAL VARS
 
 	# List to keep track of used random words
@@ -156,6 +159,7 @@ class Configuration:
 		p.add_argument("--framelist", type=str, help="List of frame indices to use. Separated by commas")
 		p.add_argument("--repeatrandom", action="store_true", help="Repeating random words is ok")
 		p.add_argument("--repeatfilter", action="store_true", help="Repeating random filters is ok")
+		p.add_argument("--fillwords", action="store_true", help="Fill the rest of the frames with the last word line")
 
 		args = p.parse_args()
 
@@ -217,6 +221,7 @@ class Configuration:
 		normal("remake")
 		normal("repeatrandom")
 		normal("repeatfilter")
+		normal("fillwords")
 
 		commas("fontcolor", int)
 		commas("bgcolor", int)

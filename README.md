@@ -270,6 +270,22 @@ It will use word lines the same as with `--words`.
 
 ---
 
+> fillwords = Type: flag | Default: False
+
+Fill the rest of the frames with the last word line.
+
+If there are no more lines to use, it will re-use the last line.
+
+For you can do like:
+
+```
+--words="Single Line" --frames=5 --fillwords
+```
+
+And it will use that line in all 5 frames.
+
+---
+
 > separator = Type: str | Default: ";"
 
 The character to use as the line separator in `words`.
