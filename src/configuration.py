@@ -155,7 +155,7 @@ class Configuration:
 		p.add_argument("--filteropts", type=str, help="The list of allowed filters when picking randomly. Separated by commas")
 		p.add_argument("--framelist", type=str, help="List of frame indices to use. Separated by commas")
 		p.add_argument("--repeatrandom", action="store_true", help="Repeating random words is ok")
-		p.add_argument("--repeatfilter", action="store_true", help="Repeating random words is ok")
+		p.add_argument("--repeatfilter", action="store_true", help="Repeating random filters is ok")
 
 		args = p.parse_args()
 
