@@ -5,10 +5,11 @@ import media
 
 # Libraries
 import random
+from pathlib import Path
 
-def main():
+def main() -> None:
 	# Fill some paths based on root path
-	config.fill_paths(__file__)
+	config.fill_paths(Path(__file__))
 
 	# Check the provided arguments
 	config.parse_args()

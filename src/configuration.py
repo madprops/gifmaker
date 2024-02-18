@@ -4,37 +4,39 @@ import utils
 # Standard
 import argparse
 from pathlib import Path
+from typing import List, Union, Any, Tuple
+from argparse import Namespace
 
 class Configuration:
 	# Delay between frames
 	delay = 600
 
 	# Number of frames to use if no words are provided
-	frames = None
+	frames: Union[int, None] = None
 
 	# The padding of the text from the left
-	left = None
+	left: Union[int, None] = None
 
 	# The padding of the text from the right
-	right = None
+	right: Union[int, None] = None
 
 	# The padding of the text from the top
-	top = None
+	top: Union[int, None] = None
 
 	# The padding of the text from the bottom
-	bottom = None
+	bottom: Union[int, None] = None
 
 	# The width to resize the frames
-	width = None
+	width: Union[int, None] = None
 
 	# Default words to use
-	words = []
+	words: List[str] = []
 
 	# File to use as the source of word lines
-	wordfile = None
+	wordfile: Union[Path, None] = None
 
 	# The pool for random words
-	randomlist = []
+	randomlist: List[str] = []
 
 	# The separator to use when splitting word lines
 	separator = ";"
@@ -52,13 +54,13 @@ class Configuration:
 	fontsize = 2.5
 
 	# The color of the text
-	fontcolor = (255, 255, 255)
+	fontcolor: Union[List[int], str] = [255, 255, 255]
 
 	# The thickness of the text
 	boldness = 3
 
 	# The color of the background
-	bgcolor = None
+	bgcolor: Union[List[int], str, None] = None
 
 	# The opacity of the background
 	opacity = 0.5
@@ -70,7 +72,7 @@ class Configuration:
 	baseline = False
 
 	# Path to a TOML file that defines the arguments to use
-	script = None
+	script: Union[Path, None] = None
 
 	# How to loop a gif render
 	loop = 0
@@ -85,16 +87,16 @@ class Configuration:
 	remake = False
 
 	# List of filters to use per frame
-	filterlist = []
+	filterlist: List[str] = []
 
 	# The list of allowed filters when picking randomly
-	filteropts = []
+	filteropts: List[str] = []
 
 	# Color filter to apply to frames
-	filter = None
+	filter: Union[str, None] = None
 
 	# The list of frame indices to use
-	framelist = []
+	framelist: List[str] = []
 
 	# If this is False it will try to not repeat random words
 	repeatrandom = False
@@ -105,15 +107,15 @@ class Configuration:
 	# --- INTERAL VARS
 
 	# List to keep track of used random words
-	randwords = []
+	randwords: List[str] = []
 
-	def fill_paths(self, main_file):
-		self.root = utils.full_path(Path(main_file).parent.parent)
+	def fill_paths(self, main_file: Path) -> None:
+		self.root = utils.full_path(main_file.parent.parent)
 		self.input = [utils.full_path(Path(self.root, "media", "video.webm"))]
 		self.output = utils.full_path(Path(self.root, "output"))
 		self.randomfile = utils.full_path(Path(self.root, "data", "nouns.txt"))
 
-	def parse_args(self):
+	def parse_args(self) -> None:
 		p = argparse.ArgumentParser(description="Borat the Gif Maker")
 
 		p.add_argument("--input", "-i", type=str, help="Path to the a video or image file. Separated by commas")
@@ -157,16 +159,16 @@ class Configuration:
 
 		args = p.parse_args()
 
-		def get_list(value, vtype, separator):
+		def get_list(value: str, vtype: Any, separator: str) -> List[Any]:
 			return list(map(vtype, map(str.strip, value.split(separator))))
 
-		def normal(attr):
+		def normal(attr: str) -> None:
 			value = getattr(args, attr)
 
 			if value is not None:
 				setattr(self, attr, value)
 
-		def commas(attr, vtype):
+		def commas(attr: str, vtype: Any) -> None:
 			value = getattr(args, attr)
 
 			if value is not None:
@@ -175,13 +177,13 @@ class Configuration:
 				else:
 					setattr(self, attr, get_list(value, vtype, ","))
 
-		def path(attr):
+		def path(attr: str) -> None:
 			value = getattr(args, attr)
 
 			if value is not None:
 				setattr(self, attr, utils.resolve_path(value))
 
-		def pathlist(attr):
+		def pathlist(attr: str) -> None:
 			value = getattr(args, attr)
 
 			if value is not None:
@@ -229,17 +231,19 @@ class Configuration:
 
 		self.check_args(args)
 
-	def check_args(self, args):
-		def separate(value):
+	def check_args(self, args: Namespace) -> None:
+		def separate(value: str) -> List[str]:
 			return [item.strip() for item in value.split(self.separator)]
 
 		for path in self.input:
 			if not path.exists() or not path.is_file():
 				utils.exit("Input file does not exist")
+				return None
 
 		if self.wordfile:
 			if not self.wordfile.exists() or not self.wordfile.is_file():
 				utils.exit("Word file does not exist")
+				return None
 
 			self.read_wordfile()
 		elif args.words:
@@ -250,6 +254,7 @@ class Configuration:
 
 		if not self.randomfile.exists() or not self.randomfile.is_file():
 			utils.exit("Word file does not exist")
+			return None
 
 		if args.fontcolor == "random_light":
 			self.fontcolor = utils.random_light()
@@ -261,18 +266,20 @@ class Configuration:
 		elif args.bgcolor == "random_dark":
 			self.bgcolor = utils.random_dark()
 
-	def check_script(self, args):
+	def check_script(self, args: Namespace) -> None:
 		if self.script is None:
 			return
 
 		data = utils.read_toml(Path(self.script))
 
-		for key in data:
-			k = key.replace("-", "_")
-			setattr(args, k, data[key])
+		if data:
+			for key in data:
+				k = key.replace("-", "_")
+				setattr(args, k, data[key])
 
-	def read_wordfile(self):
-		self.words = config.wordfile.read_text().splitlines()
+	def read_wordfile(self) -> None:
+		if config.wordfile:
+			self.words = config.wordfile.read_text().splitlines()
 
 # Main configuration object
 config = Configuration()

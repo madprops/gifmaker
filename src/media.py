@@ -3,24 +3,28 @@ from configuration import config
 import utils
 
 # Libraries
-import cv2
-from PIL import Image
+import cv2 # type: ignore
+from PIL import Image # type: ignore
 
 # Standard
 from pathlib import Path
 import random
+from typing import List, Any, Dict, Tuple, Union
 
-def get_frames(path):
+def get_frames(path: Path) -> List[Any]:
 	frames = []
 	ext = utils.get_extension(path)
 
 	if ext == ".jpg" or ext == ".png":
+		assert isinstance(config.frames, int)
+
 		for _ in range(0, config.frames):
 			frame = cv2.imread(str(path))
 			frames.append(frame)
 	else:
 		cap = cv2.VideoCapture(str(path))
 		total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+		assert isinstance(config.frames, int)
 		num_frames = total_frames if config.remake else config.frames
 		order = "normal" if config.remake else config.order
 		framelist = config.framelist if config.framelist else range(total_frames)
@@ -52,7 +56,7 @@ def get_frames(path):
 
 	return frames
 
-def add_text(frame, lines):
+def add_text(frame: Any, lines: List[str]) -> Any:
 	font = get_font()
 	data = get_text_data(frame, lines)
 	padding = config.padding
@@ -61,8 +65,10 @@ def add_text(frame, lines):
 		rgb_font = utils.random_light()
 	elif config.fontcolor == "random_dark2":
 		rgb_font = utils.random_dark()
-	else:
+	elif isinstance(config.fontcolor, list):
 		rgb_font = list(reversed((config.fontcolor)))
+	else:
+		rgb_font = [255, 255, 255]
 
 	if config.bgcolor:
 		if config.baseline:
@@ -74,8 +80,10 @@ def add_text(frame, lines):
 			rgb_bg = utils.random_light()
 		elif config.bgcolor == "random_dark2":
 			rgb_bg = utils.random_dark()
-		else:
+		elif isinstance(config.bgcolor, list):
 			rgb_bg = list(reversed((config.bgcolor)))
+		else:
+			rgb_bg = [0, 0, 0]
 
 		rect_1 = (data["min_x_rect"] - padding, data["min_y_rect"] - padding)
 		rect_2 = (data["max_x_rect"] + padding, data["max_y_rect"] + padding + baseline)
@@ -90,7 +98,7 @@ def add_text(frame, lines):
 
 	return frame
 
-def get_font():
+def get_font() -> Any:
 	if config.font == "simple":
 		font = cv2.FONT_HERSHEY_SIMPLEX
 	elif config.font == "complex":
@@ -101,10 +109,12 @@ def get_font():
 		font = cv2.FONT_HERSHEY_DUPLEX
 	elif config.font == "triplex":
 		font = cv2.FONT_HERSHEY_TRIPLEX
+	else:
+		font = cv2.FONT_HERSHEY_SIMPLEX
 
 	return font
 
-def get_text_data(frame, lines):
+def get_text_data(frame: Any, lines: List[str]) -> Dict[str, Any]:
 	width, height = get_shape(frame)
 	max_width, max_height = 0, 0
 	font = get_font()
@@ -201,7 +211,7 @@ def get_text_data(frame, lines):
 
 	return ans
 
-def word_frames(frames):
+def word_frames(frames: List[Any]) -> List[Any]:
 	if not config.words:
 		return frames
 
@@ -222,7 +232,7 @@ def word_frames(frames):
 
 	return worded
 
-def resize_frames(frames):
+def resize_frames(frames: List[Any]) -> List[Any]:
 	if config.width is None:
 		return frames
 
@@ -236,7 +246,7 @@ def resize_frames(frames):
 
 	return new_frames
 
-def render(frames):
+def render(frames: List[Any]) -> Union[Path, None]:
 	ext = utils.get_extension(config.output)
 	err_msg = "Failed to make output directory"
 
@@ -245,6 +255,7 @@ def render(frames):
 			config.output.parent.mkdir(parents=False, exist_ok=True)
 		except:
 			utils.exit(err_msg)
+			return None
 
 		output = config.output
 	else:
@@ -252,6 +263,7 @@ def render(frames):
 			config.output.mkdir(parents=False, exist_ok=True)
 		except:
 			utils.exit(err_msg)
+			return None
 
 		rand = utils.random_string()
 		file_name = f"{rand}.{config.format}"
@@ -276,7 +288,7 @@ def render(frames):
 
 	return output
 
-def to_pillow(frames):
+def to_pillow(frames: List[Any]) -> List[Any]:
 	new_frames = []
 
 	for frame in frames:
@@ -286,7 +298,7 @@ def to_pillow(frames):
 
 	return new_frames
 
-def apply_filters(frames):
+def apply_filters(frames: List[Any]) -> List[Any]:
 	if (not config.filter) and (not config.filterlist):
 		return frames
 
@@ -300,7 +312,7 @@ def apply_filters(frames):
 	all_filters.extend(["gray", "blur", "invert", "saturate", "none"])
 	filters = []
 
-	def get_filters():
+	def get_filters() -> None:
 		nonlocal filters
 
 		if config.filteropts:
@@ -308,16 +320,16 @@ def apply_filters(frames):
 		else:
 			filters = all_filters
 
-	def get_hsv(frame):
+	def get_hsv(frame: Any) -> Any:
 		return cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
-	def do_hsv(hsv):
+	def do_hsv(hsv: Any) -> Any:
 		return cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
 
-	def random_hue():
+	def random_hue() -> str:
 		return f"hue{random.randint(min_hue, max_hue)}"
 
-	def random_filter():
+	def random_filter() -> str:
 		filtr = random.choice(filters)
 
 		if not config.repeatfilter:
@@ -374,10 +386,10 @@ def apply_filters(frames):
 
 	return new_frames
 
-def get_shape(frame):
+def get_shape(frame: Any) -> Tuple[int, int]:
 	return frame.shape[1], frame.shape[0]
 
-def count_frames():
+def count_frames() -> None:
 	if config.frames is not None:
 		return
 

@@ -5,12 +5,13 @@ import words
 # Standard
 import re
 import random
+from typing import List, Any
 
-def check_random():
+def check_random() -> None:
 	if not config.words:
 		return
 
-	def replace(match):
+	def replace(match: re.Match[Any]) -> str:
 		n = match["number"]
 		number = int(n) if n is not None else 1
 		rand = match["word"]
@@ -21,7 +22,7 @@ def check_random():
 
 		return " ".join(randwords)
 
-	new_lines = []
+	new_lines: List[str] = []
 	pattern = re.compile(r"\[(?P<word>random)(?:\s+(?P<number>\d+))?\]", re.IGNORECASE)
 	pattern_multi = re.compile(r"\[(?:x(?P<number>\d+))?\]$", re.IGNORECASE)
 
@@ -44,11 +45,11 @@ def check_random():
 
 	config.words = new_lines
 
-def check_repeat():
+def check_repeat() -> None:
 	if not config.words:
 		return
 
-	new_lines = []
+	new_lines: List[str] = []
 	pattern = re.compile(r"^\[(?P<word>repeat)(?:\s+(?P<number>\d+))?\]$", re.IGNORECASE)
 
 	for line in config.words:
@@ -63,11 +64,11 @@ def check_repeat():
 
 	config.words = new_lines
 
-def check_empty():
+def check_empty() -> None:
 	if not config.words:
 		return
 
-	new_lines = []
+	new_lines: List[str] = []
 	pattern = re.compile(r"^\[(?P<word>empty)\]$", re.IGNORECASE)
 
 	for line in config.words:
@@ -80,7 +81,7 @@ def check_empty():
 
 	config.words = new_lines
 
-def random_word():
+def random_word() -> str:
 	if not config.randomlist:
 		lines = config.randomfile.read_text().splitlines()
 		config.randomlist = [line.strip() for line in lines]
@@ -98,7 +99,7 @@ def random_word():
 
 	return w
 
-def get_rand_word(rand):
+def get_rand_word(rand: str) -> str:
 	if rand == "random":
 		return words.random_word().lower()
 	elif rand == "RANDOM":
