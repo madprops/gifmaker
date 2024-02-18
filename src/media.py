@@ -329,7 +329,10 @@ def apply_filters(frames: List[Any]) -> List[Any]:
 
 	def random_filter() -> str:
 		filtr = random.choice(filters)
-		remove_filter(filtr)
+
+		if not config.repeatfilter:
+			remove_filter(filtr)
+
 		return filtr
 
 	def remove_filter(filtr: str) -> None:
