@@ -105,7 +105,7 @@ class Configuration:
 	def parse_args(self):
 		p = argparse.ArgumentParser(description="Borat the Gif Maker")
 
-		p.add_argument("--input", "-i", type=str, help="Path to the a video or image file. Separated by semicolons")
+		p.add_argument("--input", "-i", type=str, help="Path to the a video or image file. Separated by commas")
 		p.add_argument("--words", type=str, help="Lines of words to use on the frames")
 		p.add_argument("--wordfile", type=str, help="Path of file with word lines")
 		p.add_argument("--delay", type=int, help="The delay in ms between frames")
@@ -138,9 +138,9 @@ class Configuration:
 			"hue1", "hue2", "hue3", "hue4", "hue5", "hue6", "hue7", "hue8", "anyhue", "anyhue2",
 			"gray", "blur", "invert", "saturate", "random", "random2", "none",
 			], help="Color filter to apply to frames")
-		p.add_argument("--filterlist", type=str, help="Filters to use per frame. Separated by semicolons")
-		p.add_argument("--filteropts", type=str, help="The list of allowed filters when picking randomly. Separated by semicolons")
-		p.add_argument("--framelist", type=str, help="List of frame indices to use. Separated by semicolons")
+		p.add_argument("--filterlist", type=str, help="Filters to use per frame. Separated by commas")
+		p.add_argument("--filteropts", type=str, help="The list of allowed filters when picking randomly. Separated by commas")
+		p.add_argument("--framelist", type=str, help="List of frame indices to use. Separated by commas")
 
 		args = p.parse_args()
 
@@ -175,7 +175,7 @@ class Configuration:
 			value = getattr(args, attr)
 
 			if value is not None:
-				paths = [utils.resolve_path(p.strip()) for p in value.split(";")]
+				paths = [utils.resolve_path(p.strip()) for p in value.split(",")]
 				setattr(self, attr, paths)
 
 		# Get script args first
@@ -206,11 +206,9 @@ class Configuration:
 
 		commas("fontcolor", int)
 		commas("bgcolor", int)
-
-		semicolons("randomlist", str)
-		semicolons("filterlist", str)
-		semicolons("filteropts", str)
-		semicolons("framelist", int)
+		commas("filterlist", str)
+		commas("filteropts", str)
+		commas("framelist", int)
 
 		pathlist("input")
 		path("output")
@@ -220,6 +218,9 @@ class Configuration:
 		self.check_args(args)
 
 	def check_args(self, args):
+		def separate(value):
+			return [item.strip() for item in value.split(self.separator)]
+
 		for path in self.input:
 			if not path.exists() or not path.is_file():
 				utils.exit("Input file does not exist")
@@ -230,7 +231,10 @@ class Configuration:
 
 			self.read_wordfile()
 		elif args.words:
-			self.words = [word.strip() for word in args.words.split(self.separator)]
+			self.words = separate(args.words)
+
+		if args.randomlist:
+			self.randomlist = separate(args.randomlist)
 
 		if not self.randomfile.exists() or not self.randomfile.is_file():
 			utils.exit("Word file does not exist")
