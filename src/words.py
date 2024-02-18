@@ -17,20 +17,30 @@ def check_random():
 		randwords = []
 
 		for _ in range(number):
-			if rand == "random":
-				randwords.append(words.random_word().lower())
-			elif rand == "RANDOM":
-				randwords.append(words.random_word().upper())
-			elif rand == "Random":
-				randwords.append(words.random_word().title())
+			randwords.append(get_rand_word(rand))
 
 		return " ".join(randwords)
 
 	new_lines = []
 	pattern = re.compile(r"\[(?P<word>random)(?:\s+(?P<number>\d+))?\]", re.IGNORECASE)
+	pattern_multi = re.compile(r"\[(?:x(?P<number>\d+))?\]$", re.IGNORECASE)
 
 	for line in config.words:
-		new_lines.append(re.sub(pattern, replace, line))
+		match = re.search(pattern, line)
+
+		if match:
+			multi = 1
+			match_multi = re.search(pattern_multi, line)
+
+			if match_multi:
+				multi = max(1, int(match_multi["number"]))
+				line = re.sub(pattern_multi, "", line)
+
+			for _ in range(multi):
+				new_line = re.sub(pattern, replace, line)
+				new_lines.append(new_line)
+		else:
+			new_lines.append(line)
 
 	config.words = new_lines
 
@@ -76,3 +86,13 @@ def random_word():
 		config.randomlist = [line.strip() for line in lines]
 
 	return random.choice(config.randomlist)
+
+def get_rand_word(rand):
+	if rand == "random":
+		return words.random_word().lower()
+	elif rand == "RANDOM":
+		return words.random_word().upper()
+	elif rand == "Random":
+		return words.random_word().title()
+	else:
+		return ""
