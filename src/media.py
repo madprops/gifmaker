@@ -313,17 +313,31 @@ def apply_filters(frames: List[Any]) -> List[Any]:
 	max_hue = 8
 	hue_step = 20
 
-	all_filters = [f"hue{i}" for i in range(min_hue, max_hue + 1)]
-	all_filters.extend(["gray", "blur", "invert", "saturate", "none"])
+	hue_filters = [f"hue{i}" for i in range(min_hue, max_hue + 1)]
+	all_filters = hue_filters + ["gray", "blur", "invert", "saturate", "none"]
 	filters = []
 
 	def get_filters() -> None:
 		nonlocal filters
 
 		if config.filteropts:
-			filters = config.filteropts
+			filters = config.filteropts.copy()
+		elif config.filter == "anyhue" or config.filter == "anyhue2":
+			filters = hue_filters.copy()
 		else:
-			filters = all_filters
+			filters = all_filters.copy()
+
+	def random_filter() -> str:
+		filtr = random.choice(filters)
+		remove_filter(filtr)
+		return filtr
+
+	def remove_filter(filtr: str) -> None:
+		if filtr in filters:
+			filters.remove(filtr)
+
+		if not filters:
+			get_filters()
 
 	def get_hsv(frame: Any) -> Any:
 		return cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
@@ -331,35 +345,17 @@ def apply_filters(frames: List[Any]) -> List[Any]:
 	def do_hsv(hsv: Any) -> Any:
 		return cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
 
-	def random_hue() -> str:
-		return f"hue{random.randint(min_hue, max_hue)}"
-
-	def random_filter() -> str:
-		filtr = random.choice(filters)
-
-		if not config.repeatfilter:
-			filters.remove(filtr)
-
-		if not filters:
-			get_filters()
-
-		return filtr
-
 	get_filters()
 	filtr = config.filter
 
 	if not config.filterlist:
-		if config.filter == "anyhue":
-			filtr = random_hue()
-		elif config.filter == "random":
+		if config.filter == "random" or config.filter == "anyhue":
 			filtr = random_filter()
 
 	for frame in frames:
 		if config.filterlist:
 			filtr = config.filterlist.pop(0)
-		elif config.filter == "anyhue2":
-			filtr = random_hue()
-		elif config.filter == "random2":
+		elif config.filter == "random2" or config.filter == "anyhue2":
 			filtr = random_filter()
 
 		new_frame = None
