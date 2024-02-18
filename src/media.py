@@ -57,9 +57,9 @@ def add_text(frame, lines):
 	data = get_text_data(frame, lines)
 	padding = config.padding
 
-	if config.fontcolor == "random_light":
+	if config.fontcolor == "random_light2":
 		rgb_font = utils.random_light()
-	elif config.fontcolor == "random_dark":
+	elif config.fontcolor == "random_dark2":
 		rgb_font = utils.random_dark()
 	else:
 		rgb_font = list(reversed((config.fontcolor)))
@@ -70,9 +70,9 @@ def add_text(frame, lines):
 		else:
 			baseline = 0
 
-		if config.bgcolor == "random_light":
+		if config.bgcolor == "random_light2":
 			rgb_bg = utils.random_light()
-		elif config.bgcolor == "random_dark":
+		elif config.bgcolor == "random_dark2":
 			rgb_bg = utils.random_dark()
 		else:
 			rgb_bg = list(reversed((config.bgcolor)))

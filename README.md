@@ -422,6 +422,10 @@ The value can also be `random_light` or `random_dark`.
 
 These will get a random light or dark color.
 
+The value can also be `random_light2` or `random_dark2`.
+
+These will get a random light or dark color on each frame.
+
 ---
 
 > boldness = Type: int | Default: 3
@@ -447,6 +451,10 @@ It uses the `rgb` format.
 The value can also be `random_light` or `random_dark`.
 
 These will get a random light or dark color.
+
+The value can also be `random_light2` or `random_dark2`.
+
+These will get a random light or dark color on each frame.
 
 ---
 
