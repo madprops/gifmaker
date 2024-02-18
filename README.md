@@ -546,6 +546,14 @@ For example: `--filteropts="hue1,hue2,hue3,gray"`
 
 ---
 
+> repeatfilter = Type: flag | Default: False
+
+If this is enabled, random filters can be repeated at any time.
+
+Else it will cycle through them randomly without repetitions.
+
+---
+
 > remake = Type: flag | Default: False
 
 Use this if you only want to re-render the frames.

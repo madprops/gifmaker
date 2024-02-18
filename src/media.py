@@ -286,13 +286,15 @@ def apply_filters(frames):
 
 	all_filters = [f"hue{i}" for i in range(min_hue, max_hue + 1)]
 	all_filters.extend(["gray", "blur", "invert", "saturate", "none"])
+	filters = []
 
-	if config.filteropts:
-		filters = config.filteropts
-	else:
-		filters = all_filters
+	def get_filters():
+		nonlocal filters
 
-	filtr = config.filter
+		if config.filteropts:
+			filters = config.filteropts
+		else:
+			filters = all_filters
 
 	def get_hsv(frame):
 		return cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
@@ -304,7 +306,18 @@ def apply_filters(frames):
 		return f"hue{random.randint(min_hue, max_hue)}"
 
 	def random_filter():
+		filtr = random.choice(filters)
+
+		if config.repeatfilter:
+			filters.remove(filtr)
+
+		if not filters:
+			get_filters()
+
 		return random.choice(filters)
+
+	get_filters()
+	filtr = config.filter
 
 	if not config.filterlist:
 		if config.filter == "anyhue":

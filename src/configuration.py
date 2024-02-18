@@ -99,6 +99,9 @@ class Configuration:
 	# If this is False it will try to not repeat random words
 	repeatrandom = False
 
+	# If this is False it will try to not repeat random filters
+	repeatfilter = False
+
 	# --- INTERAL VARS
 
 	# List to keep track of used random words
@@ -150,6 +153,7 @@ class Configuration:
 		p.add_argument("--filteropts", type=str, help="The list of allowed filters when picking randomly. Separated by commas")
 		p.add_argument("--framelist", type=str, help="List of frame indices to use. Separated by commas")
 		p.add_argument("--repeatrandom", action="store_true", help="Repeating random words is ok")
+		p.add_argument("--repeatfilter", action="store_true", help="Repeating random words is ok")
 
 		args = p.parse_args()
 
@@ -207,6 +211,7 @@ class Configuration:
 		normal("filter")
 		normal("remake")
 		normal("repeatrandom")
+		normal("repeatfilter")
 
 		commas("fontcolor", int)
 		commas("bgcolor", int)
