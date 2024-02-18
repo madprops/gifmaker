@@ -189,7 +189,7 @@ For example: `--input=stuff/cow.mp4`
 
 It's possible to use multiple input files by separating them with commas.
 
-For example: `--input=/some/path/1.gif , /some/other/path/2.mp4 , /another/one/3.png`
+For example: `--input=/some/path/1.gif,/some/other/path/2.mp4,/another/one/3.png`
 
 If multiple inputs, one is selected randomly as the source of the frames.
 
@@ -296,7 +296,7 @@ The specific list of frame indices to use.
 
 The first frame starts at `0`.
 
-For example `--framelist="2 ; 5 ; 2 ; 0 ; 3"`
+For example `--framelist="2,5,2,0,3"`
 
 It will use those specific frames.
 
@@ -518,7 +518,7 @@ This defines the pool of available filters to pick randomly.
 
 This applies when `filter` is `random` or `random2`.
 
-For example: `--filteropts="hue1 ; hue2 ; hue3 ; gray"`
+For example: `--filteropts="hue1,hue2,hue3,gray"`
 
 ---
 
