@@ -322,7 +322,7 @@ def apply_filters(frames: List[Any]) -> List[Any]:
 
 		if config.filteropts:
 			filters = config.filteropts.copy()
-		elif config.filter == "anyhue" or config.filter == "anyhue2":
+		elif config.filter.startswith("anyhue"):
 			filters = hue_filters.copy()
 		else:
 			filters = all_filters.copy()
