@@ -55,8 +55,14 @@ def get_frames(path):
 def add_text(frame, lines):
 	font = get_font()
 	data = get_text_data(frame, lines)
-	rgb_font = list(reversed((config.fontcolor)))
 	padding = config.padding
+
+	if config.fontcolor == "random_light":
+		rgb_font = utils.random_light()
+	elif config.fontcolor == "random_dark":
+		rgb_font = utils.random_dark()
+	else:
+		rgb_font = list(reversed((config.fontcolor)))
 
 	if config.bgcolor:
 		if config.baseline:
@@ -64,7 +70,13 @@ def add_text(frame, lines):
 		else:
 			baseline = 0
 
-		rgb_bg = list(reversed((config.bgcolor)))
+		if config.bgcolor == "random_light":
+			rgb_bg = utils.random_light()
+		elif config.bgcolor == "random_dark":
+			rgb_bg = utils.random_dark()
+		else:
+			rgb_bg = list(reversed((config.bgcolor)))
+
 		rect_1 = (data["min_x_rect"] - padding, data["min_y_rect"] - padding)
 		rect_2 = (data["max_x_rect"] + padding, data["max_y_rect"] + padding + baseline)
 

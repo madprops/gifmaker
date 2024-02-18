@@ -2,6 +2,7 @@
 import sys
 import random
 import string
+import colorsys
 from pathlib import Path
 
 def random_string():
@@ -45,3 +46,16 @@ def read_toml(path):
 	except Exception as e:
 		print(f"Error: {e}")
 		exit("Failed to read TOML file")
+
+def random_color(lightness):
+	hue = random.random()
+	saturation = 0.8
+	r, g, b = colorsys.hsv_to_rgb(hue, saturation, lightness)
+	r, g, b = int(r * 255), int(g * 255), int(b * 255)
+	return r, g, b
+
+def random_light():
+	return random_color(0.8)
+
+def random_dark():
+	return random_color(0.2)

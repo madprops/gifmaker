@@ -416,6 +416,12 @@ The color of the text.
 
 `0,0,0` would be black, for instance.
 
+It uses the `rgb` format.
+
+The value can also be `random_light` or `random_dark`.
+
+These will get a random light or dark color.
+
 ---
 
 > boldness = Type: int | Default: 3
@@ -435,6 +441,12 @@ In case you want to give the text more contrast.
 3 numbers from `0` to `255`, separated by commas.
 
 `0,0,0` would be black, for instance.
+
+It uses the `rgb` format.
+
+The value can also be `random_light` or `random_dark`.
+
+These will get a random light or dark color.
 
 ---
 
