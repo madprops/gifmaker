@@ -93,7 +93,7 @@ class Configuration:
 	filteropts: List[str] = []
 
 	# Color filter to apply to frames
-	filter: Union[str, None] = None
+	filter = "none"
 
 	# The list of frame indices to use
 	framelist: List[str] = []

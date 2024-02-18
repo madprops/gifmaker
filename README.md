@@ -552,7 +552,7 @@ How to loop gif renders.
 
 ---
 
-> filter = Type: str | Default: None
+> filter = Type: str | Default: "none"
 
 A color filter applied to each frame.
 

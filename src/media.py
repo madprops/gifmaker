@@ -304,7 +304,7 @@ def to_pillow(frames: List[Any]) -> List[Any]:
 	return new_frames
 
 def apply_filters(frames: List[Any]) -> List[Any]:
-	if (not config.filter) and (not config.filterlist):
+	if (config.filter == "none") and (not config.filterlist):
 		return frames
 
 	new_frames = []
