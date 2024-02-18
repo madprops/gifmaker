@@ -279,10 +279,13 @@ def apply_filters(frames):
 		return frames
 
 	new_frames = []
+
+	min_hue = 1
+	max_hue = 8
 	hue_step = 20
 
-	all_filters = ["hue1", "hue2", "hue3", "hue4", "hue5", "hue6", "hue7", "hue8",
-	"gray", "blur", "invert", "saturate", "none"]
+	all_filters = [f"hue{i}" for i in range(min_hue, max_hue + 1)]
+	all_filters.extend(["gray", "blur", "invert", "saturate", "none"])
 
 	if config.filteropts:
 		filters = config.filteropts
@@ -298,7 +301,7 @@ def apply_filters(frames):
 		return cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
 
 	def random_hue():
-		return f"hue{random.randint(1, 8)}"
+		return f"hue{random.randint(min_hue, max_hue)}"
 
 	def random_filter():
 		return random.choice(filters)
@@ -319,7 +322,7 @@ def apply_filters(frames):
 
 		new_frame = None
 
-		for n in range(1, 9):
+		for n in range(min_hue, max_hue + 1):
 			if filtr == f"hue{n}":
 				hsv = get_hsv(frame)
 				hsv[:, :, 0] = (hsv[:, :, 0] + hue_step * n) % 180
