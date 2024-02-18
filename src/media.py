@@ -308,13 +308,13 @@ def apply_filters(frames):
 	def random_filter():
 		filtr = random.choice(filters)
 
-		if config.repeatfilter:
+		if not config.repeatfilter:
 			filters.remove(filtr)
 
 		if not filters:
 			get_filters()
 
-		return random.choice(filters)
+		return filtr
 
 	get_filters()
 	filtr = config.filter
