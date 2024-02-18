@@ -260,6 +260,8 @@ It will use word lines the same as with `--words`.
 
 The character to use as the line separator in `words`.
 
+This also affects `randomlist`.
+
 ---
 
 > linebreak = Type: str | Default: "\n"

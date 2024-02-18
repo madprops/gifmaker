@@ -127,7 +127,7 @@ class Configuration:
 		p.add_argument("--opacity", type=float, help="The opacity of the background rectangle")
 		p.add_argument("--padding", type=int, help="The padding of the background rectangle")
 		p.add_argument("--baseline", action="store_true", help="Add the baseline to the background rectangle's height")
-		p.add_argument("--randomlist", type=str, help="List of words to consider for random words. Separated by semicolons")
+		p.add_argument("--randomlist", type=str, help="List of words to consider for random words")
 		p.add_argument("--randomfile", type=str, help="Path to a list of words to consider for random words")
 		p.add_argument("--script", type=str, help="Path to a TOML file that defines the arguments to use")
 		p.add_argument("--loop", type=int, help="How to loop a gif render")
@@ -158,12 +158,6 @@ class Configuration:
 
 			if value is not None:
 				setattr(self, attr, get_list(value, vtype, ","))
-
-		def semicolons(attr, vtype):
-			value = getattr(args, attr)
-
-			if value is not None:
-				setattr(self, attr, get_list(value, vtype, ";"))
 
 		def path(attr):
 			value = getattr(args, attr)
