@@ -498,6 +498,14 @@ Then you point to it: `--randomfile="/path/to/animals.txt"`
 
 ---
 
+> repeatrandom = Type: flag | Default: False
+
+If this is enabled, random words can be repeated at any time.
+
+Else it will cycle through them randomly without repetitions.
+
+---
+
 > loop = Type: int | Default 0
 
 How to loop gif renders.

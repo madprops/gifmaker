@@ -85,7 +85,18 @@ def random_word():
 		lines = config.randomfile.read_text().splitlines()
 		config.randomlist = [line.strip() for line in lines]
 
-	return random.choice(config.randomlist)
+	if not config.randwords:
+		config.randwords = config.randomlist.copy()
+
+	if not config.randwords:
+		return ""
+
+	w = random.choice(config.randwords)
+
+	if not config.repeatrandom:
+		config.randwords.remove(w)
+
+	return w
 
 def get_rand_word(rand):
 	if rand == "random":
