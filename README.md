@@ -460,7 +460,7 @@ If the list is empty it will be filled with a long list of nouns.
 
 You can specify the words to consider, separated by semicolons.
 
-Like: `--randomlist="cat; dog; nice cow; big horse"`
+Like: `--randomlist="cat ; dog ; nice cow ; big horse"`
 
 ---
 
