@@ -342,11 +342,11 @@ def apply_filters(frames: List[Any]) -> List[Any]:
 		if not filters:
 			get_filters()
 
-	def get_hsv(frame: Any) -> Any:
+	def to_hsv(frame: Any) -> Any:
 		return cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
-	def do_hsv(hsv: Any) -> Any:
-		return cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
+	def to_bgr(frame: Any) -> Any:
+		return cv2.cvtColor(frame, cv2.COLOR_HSV2BGR)
 
 	get_filters()
 	filtr = config.filter
@@ -366,9 +366,9 @@ def apply_filters(frames: List[Any]) -> List[Any]:
 		if filtr.startswith("hue"):
 			for n in range(min_hue, max_hue + 1):
 				if filtr == f"hue{n}":
-					hsv = get_hsv(frame)
+					hsv = to_hsv(frame)
 					hsv[:, :, 0] = (hsv[:, :, 0] + hue_step * n) % 180
-					new_frame = do_hsv(hsv)
+					new_frame = to_bgr(hsv)
 					break
 
 		if new_frame is None:
@@ -380,10 +380,10 @@ def apply_filters(frames: List[Any]) -> List[Any]:
 			elif filtr == "invert":
 				new_frame = cv2.bitwise_not(frame)
 			elif filtr == "saturate":
-				hsv = get_hsv(frame)
+				hsv = to_hsv(frame)
 				hsv[:, :, 0] = 0
 				hsv[:, :, 2] = 255
-				new_frame = do_hsv(hsv)
+				new_frame = to_bgr(hsv)
 			else:
 				new_frame = frame
 
