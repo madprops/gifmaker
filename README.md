@@ -117,6 +117,20 @@ For example `[Random 3]` might generate `Drivers Say Stories`.
 
 ---
 
+You can multiply random commands by using numbers like `[x2]`.
+
+For example:
+
+```
+--words="Buy [Random] [x2]"
+```
+
+This might produce: `Buy Sink ; Buy Plane`.
+
+The multipliers need to be at the end of the line.
+
+---
+
 If you want to repeat the previous line, use `[repeat]`:
 
 For example `--words="Buy Buttcoin ; [repeat]"`
