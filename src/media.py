@@ -9,7 +9,7 @@ from PIL import Image # type: ignore
 # Standard
 import random
 from pathlib import Path
-from typing import List, Any, Dict, Union
+from typing import List, Any, Dict, Union, Tuple
 
 def get_frames() -> List[Any]:
 	frames = []
@@ -224,16 +224,28 @@ def word_frames(frames: List[Any]) -> List[Any]:
 	return worded
 
 def resize_frames(frames: List[Any]) -> List[Any]:
-	if config.width is None:
+	if (not config.width) and (not config.height):
 		return frames
 
 	new_frames = []
+	new_width = config.width
+	new_height = config.height
+
+	def get_ratio() -> float:
+		w, h = get_shape(frames[0])
+		return w / h
+
+	if new_width and (not new_height):
+		ratio = get_ratio()
+		new_height = int(new_width / ratio)
+	elif new_height and (not new_width):
+		ratio = get_ratio()
+		new_width = int(new_height * ratio)
+
+	size = (new_width, new_height)
 
 	for frame in frames:
-		w, h = get_shape(frame)
-		ratio = w / h
-		height = int(config.width / ratio)
-		new_frames.append(cv2.resize(frame, (config.width, height)))
+		new_frames.append(cv2.resize(frame, size))
 
 	return new_frames
 
@@ -377,8 +389,8 @@ def apply_filters(frames: List[Any]) -> List[Any]:
 
 	return new_frames
 
-def get_shape(frame: Any) -> List[int]:
-	return [frame.shape[1], frame.shape[0]]
+def get_shape(frame: Any) -> Tuple[int, int]:
+	return frame.shape[1], frame.shape[0]
 
 def count_frames() -> None:
 	if config.frames is not None:

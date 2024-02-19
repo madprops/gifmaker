@@ -400,7 +400,17 @@ And `--right -100` would pull it a bit to the right from the center.
 
 > **width** (Type: int | Default: None)
 
-Fixed width to every frame. Height is always automatic.
+Fixed width of every frame.
+
+If the height is not defined it will use an automatic one.
+
+---
+
+> **height** (Type: int | Default: None)
+
+Fixed height of every frame.
+
+If the width is not defined it will use an automatic one.
 
 ---
 
