@@ -59,7 +59,7 @@ def get_frames(path: Path) -> List[Any]:
 def add_text(frame: Any, lines: List[str]) -> Any:
 	font = get_font()
 	data = get_text_data(frame, lines)
-	rgb_font = utils.get_color(config.fontcolor)
+	rgb_font = get_color(config.fontcolor)
 	padding = config.padding
 
 	if config.bgcolor:
@@ -68,7 +68,7 @@ def add_text(frame: Any, lines: List[str]) -> Any:
 		else:
 			baseline = 0
 
-		rgb_bg = utils.get_color(config.bgcolor)
+		rgb_bg = get_color(config.bgcolor)
 
 		rect_1 = (data["min_x_rect"] - padding, data["min_y_rect"] - padding)
 		rect_2 = (data["max_x_rect"] + padding, data["max_y_rect"] + padding + baseline)
@@ -390,3 +390,16 @@ def count_frames() -> None:
 		config.frames = num_words if num_words > 0 else config.frames
 	else:
 		config.frames = 3
+
+def get_color(value: Union[str, List[int]]) -> List[int]:
+	rgb = None
+
+	if isinstance(value, str):
+		if value == "light2":
+			rgb = utils.random_light()
+		elif value == "dark2":
+			rgb = utils.random_dark()
+	elif isinstance(value, list):
+		rgb = list(reversed((value)))
+
+	return rgb or [100, 100, 100]
