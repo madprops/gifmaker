@@ -38,7 +38,7 @@ And memes.
 Clone this repo, and get inside the directory:
 
 ```shell
-git clone --depth=1 this_repo_url
+git clone --depth 1 this_repo_url
 
 cd new_directory
 ```
@@ -76,9 +76,9 @@ venv/bin/python src/main.py
 You can provide a video or image path using the `--input` argument:
 
 ```shell
-venv/bin/python src/main.py --input"/path/to/video.webm"
-venv/bin/python src/main.py --input="/path/to/animated.gif"
-venv/bin/python src/main.py --input="/path/to/image.png"
+venv/bin/python src/main.py --input "/path/to/video.webm"
+venv/bin/python src/main.py --input "/path/to/animated.gif"
+venv/bin/python src/main.py --input "/path/to/image.png"
 ```
 
 `webm`, `mp4`, `gif`, `jpg`, and `png` should work, and maybe other formats.
@@ -88,7 +88,7 @@ You can pass it a string of lines to use on each frame.
 They are separated by `;` (semicolons).
 
 ```shell
-venv/bin/python src/main.py --words="Hello Brother ; Construct Additional Pylons"
+venv/bin/python src/main.py --words "Hello Brother ; Construct Additional Pylons"
 ```
 
 It will make 2 frames, one per line.
@@ -100,7 +100,7 @@ If you want to use words and have some frames without them simply use more `;`.
 You can use random words with `[random]`:
 
 ```shell
-venv/bin/python src/main.py --words="I Like [random] and [random]"
+venv/bin/python src/main.py --words "I Like [random] and [random]"
 ```
 
 It will pick random words from a list of English words.
@@ -122,7 +122,7 @@ You can multiply random commands by using numbers like `[x2]`.
 For example:
 
 ```
---words="Buy [Random] [x2]"
+--words "Buy [Random] [x2]"
 ```
 
 This might produce: `Buy Sink ; Buy Plane`.
@@ -133,13 +133,13 @@ The multipliers need to be at the end of the line.
 
 If you want to repeat the previous line, use `[repeat]`:
 
-For example `--words="Buy Buttcoin ; [repeat]"`
+For example `--words "Buy Buttcoin ; [repeat]"`
 
 It will use that text in the first two frames.
 
 You can also provide a number to specify how many times to repeat:
 
-For example `--words="Buy Buttcoin ; [repeat 2]"`
+For example `--words "Buy Buttcoin ; [repeat 2]"`
 
 The line will be shown in 3 frames (the original plus the 2 repeats).
 
@@ -147,7 +147,7 @@ The line will be shown in 3 frames (the original plus the 2 repeats).
 
 You can use linebreaks with `\n`.
 
-For example: `--words="Hello \n World"`
+For example: `--words "Hello \n World"`
 
 Will place `Hello` where a normal line would be.
 
@@ -176,7 +176,7 @@ Relative paths should work fine.
 Here's a fuller example:
 
 ```shell
-venv/bin/python src/main.py --input="/videos/stuff.webm" --fontsize=2.8 --delay=300 --width=600 --words="I want to eat ;; [Random] ; [repeat 2] ;" --format=mp4 --bgcolor=0,0,0 --baseline --output="stuff/videos"
+venv/bin/python src/main.py --input "/videos/stuff.webm" --fontsize 2.8 --delay 300 --width 600 --words "I want to eat ;; [Random] ; [repeat 2] ;" --format mp4 --bgcolor 0,0,0 --baseline --output "stuff/videos"
 ```
 
 ---
@@ -187,7 +187,7 @@ venv/bin/python src/main.py --input="/videos/stuff.webm" --fontsize=2.8 --delay=
 
 ## Arguments <a name="arguments"></a>
 
-You can use arguments like: `--delay=350 --width=500 --order=normal`
+You can use arguments like: `--delay 350 --width 500 --order normal`
 
 These modify how the file is going to be generated.
 
@@ -199,11 +199,11 @@ Path to a video or image to use as the source of the frames.
 
 `webm`, `mp4`, `gif`, and even `jpg` or `png` should work.
 
-For example: `--input=stuff/cow.mp4`
+For example: `--input stuff/cow.mp4`
 
 It's possible to use multiple input files by separating them with commas.
 
-For example: `--input=/some/path/1.gif,/some/other/path/2.mp4,/another/one/3.png`
+For example: `--input /some/path/1.gif,/some/other/path/2.mp4,/another/one/3.png`
 
 If multiple inputs, one is selected randomly as the source of the frames.
 
@@ -263,7 +263,7 @@ This is a line after an empty line
 Then you can point to it like:
 
 ```
---wordfile="/path/to/words.txt"
+--wordfile "/path/to/words.txt"
 ```
 
 It will use word lines the same as with `--words`.
@@ -279,7 +279,7 @@ If there are no more lines to use, it will re-use the last line.
 For you can do like:
 
 ```
---words="Single Line" --frames=5 --fillwords
+--words "Single Line" --frames 5 --fillwords
 ```
 
 And it will use that line in all 5 frames.
@@ -328,7 +328,7 @@ The specific list of frame indices to use.
 
 The first frame starts at `0`.
 
-For example `--framelist="2,5,2,0,3"`
+For example `--framelist "2,5,2,0,3"`
 
 It will use those specific frames.
 
@@ -368,9 +368,9 @@ If those are not set then the text is placed at the center.
 
 If any of those is set to a negative value like `-100`, it will apply it from the center.
 
-For example: `--top=-100` would pull it a bit to the top from the center.
+For example: `--top -100` would pull it a bit to the top from the center.
 
-And `--right=-100` would pull it a bit to the right from the center.
+And `--right -100` would pull it a bit to the right from the center.
 
 ---
 
@@ -510,7 +510,7 @@ If the list is empty it will be filled with a long list of nouns.
 
 You can specify the words to consider, separated by semicolons.
 
-Like: `--randomlist="cat ; dog ; nice cow ; big horse"`
+Like: `--randomlist "cat ; dog ; nice cow ; big horse"`
 
 ---
 
@@ -528,7 +528,7 @@ a cow
 horse
 ```
 
-Then you point to it: `--randomfile="/path/to/animals.txt"`
+Then you point to it: `--randomfile "/path/to/animals.txt"`
 
 ---
 
@@ -576,7 +576,7 @@ This defines the pool of available filters to pick randomly.
 
 This applies when `filter` is `random` or `random2`.
 
-For example: `--filteropts="hue1,hue2,hue3,gray"`
+For example: `--filteropts "hue1,hue2,hue3,gray"`
 
 ---
 
@@ -596,7 +596,7 @@ It re-uses all the frames, resizes, and renders again.
 
 It doesn't do the rest of the operations.
 
-For example: `--input="/path/to/file.gif" --remake --width=500 --delay=300`
+For example: `--input "/path/to/file.gif" --remake --width 500 --delay 300`
 
 For instance, you can use this to change the `width` or `delay` of a rendered file.
 
@@ -606,7 +606,7 @@ For instance, you can use this to change the `width` or `delay` of a rendered fi
 
 You can make `TOML` files that define the arguments to use.
 
-Provide the path of a script like this: `--script="/path/to/script.toml"`
+Provide the path of a script like this: `--script "/path/to/script.toml"`
 
 For example, a script can look like this:
 
