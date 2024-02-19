@@ -647,12 +647,12 @@ You can write shell functions to make things faster using templates.
 For example here's a `fish` function:
 
 ```js
-	function funstuff
-		/path/to/venv/bin/python /path/to/gifmaker/src/main.py \
-		--input "/path/to/some/file.png" --words "$argv is [Random] [x5]" \
-		--bgcolor random_dark2 --fontcolor random_light2 \
-		--top 0 --fontsize 2.3 --filter random2 --width 600
-	end
+function funstuff
+	/path/to/venv/bin/python /path/to/gifmaker/src/main.py \
+	--input "/path/to/some/file.png" --words "$argv is [Random] [x5]" \
+	--bgcolor random_dark2 --fontcolor random_light2 \
+	--top 0 --fontsize 2.3 --filter random2 --width 600
+end
 ```
 
 Then you can run in your terminal `funstuff Grog`.
