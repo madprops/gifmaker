@@ -27,7 +27,7 @@ def check_random() -> None:
 			return ""
 
 		rand = match["word"]
-		randwords = []
+		randwords: List[str] = []
 
 		for _ in range(number):
 			allow_zero = True

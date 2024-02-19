@@ -64,7 +64,7 @@ def random_light() -> List[int]:
 def random_dark() -> List[int]:
 	return random_color(0.2)
 
-def random_digit(allow_zero) -> int:
+def random_digit(allow_zero: bool) -> int:
 	if allow_zero:
 		return random.randint(0, 9)
 	else:
