@@ -23,9 +23,9 @@ def get_frames() -> List[Any]:
 			frame = cv2.imread(str(path))
 			frames.append(frame)
 	else:
+		assert isinstance(config.frames, int)
 		cap = cv2.VideoCapture(str(path))
 		total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
-		assert isinstance(config.frames, int)
 		num_frames = total_frames if config.remake else config.frames
 		order = "normal" if (config.remake or config.framelist) else config.order
 		framelist = config.framelist if config.framelist else range(total_frames)
