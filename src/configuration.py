@@ -270,7 +270,7 @@ class Configuration:
 		if value == "light":
 			setattr(self, attr, utils.random_light())
 		elif value == "dark":
-			setattr(self, attr, utils.random_light())
+			setattr(self, attr, utils.random_dark())
 
 	def check_script(self, args: Namespace) -> None:
 		if self.script is None:
