@@ -19,12 +19,11 @@ def check_random() -> None:
 			numrange = utils.extract_range(num)
 
 			if len(numrange) == 1:
-				number = numrange[0]
+				if numrange[0] > 0:
+					number = numrange[0]
 			elif len(numrange) > 1:
-				number = random.randint(numrange[0], numrange[1])
-
-		if number < 1:
-			return ""
+				if numrange[0] < numrange[1]:
+					number = random.randint(numrange[0], numrange[1])
 
 		rand = match["word"]
 		randwords: List[str] = []
