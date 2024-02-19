@@ -131,6 +131,26 @@ The multipliers need to be at the end of the line.
 
 ---
 
+You can also generate random numbers with `[number]`
+
+For example `[number]` might result in `3`.
+
+You can specify the length of the number.
+
+For example `[number 2]` might result in `28`.
+
+---
+
+`[random]` and `[number]` can use a range.
+
+For example `[number 1-3]` will pick a random length between `1` and `3`.
+
+For example it could be `88` if it resulted in `2` (Length of 2).
+
+Same with `[random 2-3]`.
+
+---
+
 If you want to repeat the previous line, use `[repeat]`:
 
 For example `--words "Buy Buttcoin ; [repeat]"`
