@@ -217,7 +217,7 @@ These modify how the file is going to be generated.
 
 ---
 
-> input (Type: str | Default: The included video)
+> **input** (Type: str | Default: The included video)
 
 Path to a video or image to use as the source of the frames.
 
@@ -235,7 +235,7 @@ If multiple inputs, one is selected randomly as the source of the frames.
 
 ---
 
-> output (Type: str | Default: The output directory)
+> **output** (Type: str | Default: The output directory)
 
 Directory path to save the generated file.
 
@@ -255,7 +255,7 @@ The format is deduced by the extension (`gif` or `mp4`).
 
 ---
 
-> words (Type: str | Default: Empty)
+> **words** (Type: str | Default: Empty)
 
 The words string to use.
 
@@ -269,7 +269,7 @@ As described in [Usage](#usage).
 
 ---
 
-> wordfile (Type: str | Default: None)
+> **wordfile** (Type: str | Default: None)
 
 File to use as the source of word lines.
 
@@ -294,7 +294,7 @@ It will use word lines the same as with `--words`.
 
 ---
 
-> fillwords (Type: flag | Default: False)
+> **fillwords** (Type: flag | Default: False)
 
 Fill the rest of the frames with the last word line.
 
@@ -310,7 +310,7 @@ And it will use that line in all 5 frames.
 
 ---
 
-> separator (Type: str | Default: ";")
+> **separator** (Type: str | Default: ";")
 
 The character to use as the line separator in `words`.
 
@@ -318,19 +318,19 @@ This also affects `randomlist`.
 
 ---
 
-> linebreak (Type: str | Default: "\n")
+> **linebreak** (Type: str | Default: "\n")
 
 The character to use for linebreaks.
 
 ---
 
-> linespace (Type: int | Default 20)
+> **linespace** (Type: int | Default 20)
 
 Spacing between lines separated by `\n`.
 
 ---
 
-> delay (Type: int | Default: 600)
+> **delay** (Type: int | Default: 600)
 
 The delay between frames. In milliseconds.
 
@@ -338,7 +338,7 @@ A smaller `delay` = A faster animation.
 
 ---
 
-> frames (Type: int | Default: 3)
+> **frames** (Type: int | Default: 3)
 
 The amount of frames to use.
 
@@ -346,7 +346,7 @@ This value has a higher priority than the other frame count methods.
 
 ---
 
-> framelist (Type: str | Default: Empty)
+> **framelist** (Type: str | Default: Empty)
 
 The specific list of frame indices to use.
 
@@ -360,25 +360,25 @@ It also defines how long the animation is.
 
 ---
 
-> left (Type: int | Default: None)
+> **left** (Type: int | Default: None)
 
 Padding from the left edge to position the text.
 
 ---
 
-> right (Type: int | Default: None)
+> **right** (Type: int | Default: None)
 
 Padding from the right edge to position the text.
 
 ---
 
-> top (Type: int | Default: None)
+> **top** (Type: int | Default: None)
 
 Padding from the top edge to position the text.
 
 ---
 
-> bottom (Type: int | Default: None)
+> **bottom** (Type: int | Default: None)
 
 Padding from the bottom edge to position the text.
 
@@ -398,13 +398,13 @@ And `--right -100` would pull it a bit to the right from the center.
 
 ---
 
-> width (Type: int | Default: None)
+> **width** (Type: int | Default: None)
 
 Fixed width to every frame. Height is always automatic.
 
 ---
 
-> format (Type: str | Default: "gif")
+> **format** (Type: str | Default: "gif")
 
 The format of the output file. Either `gif` or `mp4`.
 
@@ -416,7 +416,7 @@ If the output is a directory it will use a random name with the appropriate form
 
 ---
 
-> order (Type: str | Default: "random")
+> **order** (Type: str | Default: "random")
 
 The order used to extract the frames.
 
@@ -430,7 +430,7 @@ Either `random` or `normal`.
 
 ---
 
-> font (Type: str | Default "simple")
+> **font** (Type: str | Default "simple")
 
 The font to use for the text.
 
@@ -438,7 +438,7 @@ Either `simple`, `complex`, `plain`, `duplex`, or `triplex`.
 
 ---
 
-> fontsize (Type: float | Default: 2.5)
+> **fontsize** (Type: float | Default: 2.5)
 
 The size of the text.
 
@@ -446,7 +446,7 @@ The number acts as a scale, not exact pixels.
 
 ---
 
-> fontcolor (Type: str | Default: "255,255,255")
+> **fontcolor** (Type: str | Default: "255,255,255")
 
 The color of the text.
 
@@ -466,7 +466,7 @@ These will get a random light or dark color on each frame.
 
 ---
 
-> boldness (Type: int | Default: 3)
+> **boldness** (Type: int | Default: 3)
 
 The thickness of the text.
 
@@ -474,7 +474,7 @@ The bigger the number, the fatter the text is.
 
 ---
 
-> bgcolor (Type: str | Default: None)
+> **bgcolor** (Type: str | Default: None)
 
 Add a background rectangle below the text.
 
@@ -496,7 +496,7 @@ These will get a random light or dark color on each frame.
 
 ---
 
-> opacity (Type: float | Default: 0.5)
+> **opacity** (Type: float | Default: 0.5)
 
 From `0` to `1`.
 
@@ -506,7 +506,7 @@ The closer it is to `0` the more transparent it is.
 
 ---
 
-> padding (Type: int | Default: 25)
+> **padding** (Type: int | Default: 25)
 
 The padding of the background rectangle.
 
@@ -516,7 +516,7 @@ This also sets the margin for `left`, `right`, `top`, and `bottom`.
 
 ---
 
-> baseline (Type: flag | Default: False)
+> **baseline** (Type: flag | Default: False)
 
 Use this to add the baseline to the background rectangle's height.
 
@@ -526,7 +526,7 @@ If you enable it the rectangle will cover all possible letters.
 
 ---
 
-> randomlist (Type: str | Default: Empty)
+> **randomlist** (Type: str | Default: Empty)
 
 Random words are selected from this list.
 
@@ -538,7 +538,7 @@ For example: `--randomlist "cat ; dog ; nice cow ; big horse"`.
 
 ---
 
-> randomfile (Type: str | Default: List of nouns)
+> **randomfile** (Type: str | Default: List of nouns)
 
 Path to a text file with the random words to use.
 
@@ -556,7 +556,7 @@ Then you point to it: `--randomfile "/path/to/animals.txt"`.
 
 ---
 
-> repeatrandom (Type: flag | Default: False)
+> **repeatrandom** (Type: flag | Default: False)
 
 If this is enabled, random words can be repeated at any time.
 
@@ -564,7 +564,7 @@ Else it will cycle through them randomly without repetitions.
 
 ---
 
-> loop (Type: int | Default 0)
+> **loop** (Type: int | Default 0)
 
 How to loop gif renders.
 
@@ -576,7 +576,7 @@ How to loop gif renders.
 
 ---
 
-> filter (Type: str | Default: "none")
+> **filter** (Type: str | Default: "none")
 
 A color filter that is applied to each frame.
 
@@ -594,7 +594,7 @@ And also: `gray`, `blur`, `invert`, `saturate`, `random`, `random2`, `none`.
 
 ---
 
-> filteropts (Type: str | Default: Empty)
+> **filteropts** (Type: str | Default: Empty)
 
 This defines the pool of available filters to pick randomly.
 
@@ -604,7 +604,7 @@ For example: `--filteropts "hue1,hue2,hue3,gray"`.
 
 ---
 
-> repeatfilter (Type: flag | Default: False)
+> **repeatfilter** (Type: flag | Default: False)
 
 If this is enabled, random filters can be repeated at any time.
 
@@ -612,7 +612,7 @@ Else it will cycle through them randomly without repetitions.
 
 ---
 
-> remake (Type: flag | Default: False)
+> **remake** (Type: flag | Default: False)
 
 Use this if you only want to re-render the frames.
 
