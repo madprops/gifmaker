@@ -3,12 +3,9 @@ from configuration import config
 import words
 import media
 
-# Libraries
-from pathlib import Path
-
 def main() -> None:
 	# Fill some paths based on root path
-	config.fill_paths(Path(__file__))
+	config.fill_paths(__file__)
 
 	# Check the provided arguments
 	config.parse_args()

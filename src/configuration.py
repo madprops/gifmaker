@@ -112,8 +112,8 @@ class Configuration:
 	# List to keep track of used random words
 	randwords: List[str] = []
 
-	def fill_paths(self, main_file: Path) -> None:
-		self.root = utils.full_path(main_file.parent.parent)
+	def fill_paths(self, main_file: str) -> None:
+		self.root = utils.full_path(Path(main_file).parent.parent)
 		self.input = [utils.full_path(Path(self.root, "media", "video.webm"))]
 		self.output = utils.full_path(Path(self.root, "output"))
 		self.randomfile = utils.full_path(Path(self.root, "data", "nouns.txt"))
