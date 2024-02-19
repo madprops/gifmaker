@@ -506,7 +506,7 @@ These will get a random light or dark color on each frame.
 
 ---
 
-> **opacity** (Type: float | Default: 0.5)
+> **opacity** (Type: float | Default: 0.6)
 
 From `0` to `1`.
 
