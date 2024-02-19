@@ -77,8 +77,8 @@ def check_repeat() -> None:
 		match = re.match(pattern, line)
 
 		if match:
-			n = match["number"]
-			number = int(n) if n is not None else 1
+			num = match["number"]
+			number = int(num) if num is not None else 1
 			new_lines.extend([new_lines[-1]] * number)
 		else:
 			new_lines.append(line)
@@ -90,13 +90,17 @@ def check_empty() -> None:
 		return
 
 	new_lines: List[str] = []
-	pattern = re.compile(r"^\[(?P<word>empty)\]$", re.IGNORECASE)
+	pattern = re.compile(r"^\[(?P<word>empty)(?:\s+(?P<number>\d+))?\]$", re.IGNORECASE)
 
 	for line in config.words:
 		match = re.match(pattern, line)
 
 		if match:
-			new_lines.append("")
+			num = match["number"]
+			number = int(num) if num is not None else 1
+
+			for _ in range(number):
+				new_lines.append("")
 		else:
 			new_lines.append(line)
 
