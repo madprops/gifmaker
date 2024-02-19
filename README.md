@@ -133,11 +133,11 @@ The multipliers need to be at the end of the line.
 
 You can also generate random numbers with `[number]`
 
-For example `[number]` might result in `3`.
+For example, `[number]` might result in `3`.
 
 You can specify the length of the number.
 
-For example `[number 2]` might result in `28`.
+For example, `[number 2]` might result in `28`.
 
 ---
 
@@ -153,13 +153,13 @@ Same with `[random 2-3]`.
 
 If you want to repeat the previous line, use `[repeat]`:
 
-For example `--words "Buy Buttcoin ; [repeat]"`
+For example: `--words "Buy Buttcoin ; [repeat]"`
 
 It will use that text in the first two frames.
 
 You can also provide a number to specify how many times to repeat:
 
-For example `--words "Buy Buttcoin ; [repeat 2]"`
+For example: `--words "Buy Buttcoin ; [repeat 2]"`
 
 The line will be shown in 3 frames (the original plus the 2 repeats).
 
