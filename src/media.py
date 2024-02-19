@@ -7,12 +7,13 @@ import cv2 # type: ignore
 from PIL import Image # type: ignore
 
 # Standard
-from pathlib import Path
 import random
+from pathlib import Path
 from typing import List, Any, Dict, Union
 
-def get_frames(path: Path) -> List[Any]:
+def get_frames() -> List[Any]:
 	frames = []
+	path = random.choice(config.input)
 	ext = utils.get_extension(path)
 
 	if ext == ".jpg" or ext == ".png":

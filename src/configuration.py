@@ -3,9 +3,9 @@ import utils
 
 # Standard
 import argparse
-from pathlib import Path
-from typing import List, Union, Any
 from argparse import Namespace
+from typing import List, Union, Any
+from pathlib import Path
 
 class Configuration:
 	# Delay between frames

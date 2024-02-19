@@ -4,7 +4,6 @@ import words
 import media
 
 # Libraries
-import random
 from pathlib import Path
 
 def main() -> None:
@@ -26,11 +25,8 @@ def main() -> None:
 	# Check how many frames to extract
 	media.count_frames()
 
-	# Pick one input path randomly
-	path = random.choice(config.input)
-
 	# Extract the required frames from the file
-	frames = media.get_frames(path)
+	frames = media.get_frames()
 
 	if config.remake:
 		# Only resize the frames
