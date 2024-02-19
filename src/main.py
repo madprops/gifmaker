@@ -11,13 +11,13 @@ def main() -> None:
 	config.parse_args()
 
 	if not config.remake:
-		# Replace [empty] with empty lines
+		# Replace [empty]
 		words.check_empty()
 
-		# Replace [random] with random words
+		# Replace [random] and [number]
 		words.check_random()
 
-		# Replace [repeat] with repeated lines
+		# Replace [repeat]
 		words.check_repeat()
 
 	# Extract the required frames from the file
