@@ -667,4 +667,6 @@ Using all the other arguments that are specific to look good on that image.
 
 Remember to source your `fish` config after adding functions:
 
-`source ~/.config/fish/config.fish`
+```shell
+source ~/.config/fish/config.fish
+```
