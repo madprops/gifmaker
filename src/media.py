@@ -12,6 +12,7 @@ from pathlib import Path
 from typing import List, Any, Dict, Union, Tuple
 
 def get_frames() -> List[Any]:
+	count_frames()
 	assert isinstance(config.frames, int)
 
 	frames = []
@@ -278,14 +279,14 @@ def render(frames: List[Any]) -> Union[Path, None]:
 		fourcc = cv2.VideoWriter_fourcc(*"mp4v")
 		fps = 1000 / config.delay
 		out = cv2.VideoWriter(str(output), fourcc, fps, (width, height))
-	else:
-		utils.exit("Invalid format")
-		return None
 
 		for frame in frames:
 			out.write(frame)
 
 		out.release()
+	else:
+		utils.exit("Invalid format")
+		return None
 
 	return output
 

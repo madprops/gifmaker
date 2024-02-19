@@ -19,9 +19,6 @@ def main() -> None:
 	# Replace [repeat] with repeated lines
 	words.check_repeat()
 
-	# Check how many frames to extract
-	media.count_frames()
-
 	# Extract the required frames from the file
 	frames = media.get_frames()
 
