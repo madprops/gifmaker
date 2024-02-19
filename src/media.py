@@ -12,18 +12,17 @@ from pathlib import Path
 from typing import List, Any, Dict, Union, Tuple
 
 def get_frames() -> List[Any]:
+	assert isinstance(config.frames, int)
+
 	frames = []
 	path = random.choice(config.input)
 	ext = utils.get_extension(path)
 
 	if ext == "jpg" or ext == "png":
-		assert isinstance(config.frames, int)
-
 		for _ in range(0, config.frames):
 			frame = cv2.imread(str(path))
 			frames.append(frame)
 	else:
-		assert isinstance(config.frames, int)
 		cap = cv2.VideoCapture(str(path))
 		total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
 		num_frames = total_frames if config.remake else config.frames
