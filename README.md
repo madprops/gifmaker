@@ -659,14 +659,16 @@ function funstuff
 end
 ```
 
-Then you can run in your terminal: `funstuff Grog`.
+This is added in `~/.config/fish/config.fish`.
 
-In this case it will do `Grogg is [Random]` 5 times.
-
-Using all the other arguments that are specific to look good on that image.
-
-Remember to source your `fish` config after adding functions:
+Source the config after adding the function:
 
 ```shell
 source ~/.config/fish/config.fish
 ```
+
+Then you can run: `funstuff Grog`.
+
+In this case it will do `Grogg is [Random]` 5 times.
+
+Using all the other arguments that are specific to look good on that image.
