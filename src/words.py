@@ -12,11 +12,10 @@ def check_random() -> None:
 		return
 
 	def replace(match: re.Match[Any]) -> str:
-		num = match["number"]
 		number = 1
 
-		if num:
-			numrange = utils.extract_range(num)
+		if match["number"]:
+			numrange = utils.extract_range(match["number"])
 
 			if len(numrange) == 1:
 				if numrange[0] > 0:
@@ -25,7 +24,6 @@ def check_random() -> None:
 				if numrange[0] < numrange[1]:
 					number = random.randint(numrange[0], numrange[1])
 
-		rand = match["word"]
 		randwords: List[str] = []
 
 		for _ in range(number):
@@ -35,9 +33,9 @@ def check_random() -> None:
 				if len(randwords) == 0:
 					allow_zero = False
 
-			randwords.append(get_random(rand, allow_zero))
+			randwords.append(get_random(match["word"], allow_zero))
 
-		if rand == "number":
+		if match["word"] == "number":
 			return "".join(randwords)
 		else:
 			return " ".join(randwords)
