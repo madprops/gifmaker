@@ -20,7 +20,7 @@ def random_string() -> str:
 	return con() + vow() + con() + vow() + con() + vow()
 
 def get_extension(path: Path) -> str:
-	return Path(path).suffix.lower()
+	return Path(path).suffix.lower()[1:]
 
 def resolve_path(path: Path) -> Path:
 	pth = Path(path).expanduser()
