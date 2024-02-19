@@ -66,7 +66,7 @@ class Configuration:
 	bgcolor: Union[List[int], str, None] = None
 
 	# The opacity of the background
-	opacity = 0.5
+	opacity = 0.6
 
 	# The padding of the background
 	padding = 25
