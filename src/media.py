@@ -279,6 +279,9 @@ def render(frames: List[Any]) -> Union[Path, None]:
 		fourcc = cv2.VideoWriter_fourcc(*"mp4v")
 		fps = 1000 / config.delay
 		out = cv2.VideoWriter(str(output), fourcc, fps, (width, height))
+	else:
+		utils.exit("Invalid format")
+		return None
 
 		for frame in frames:
 			out.write(frame)
