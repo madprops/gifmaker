@@ -637,3 +637,30 @@ bgcolor = "0,0,0"
 bottom = 0
 right = 0
 ```
+
+---
+
+### Functions
+
+You can make shell functions/aliases to make things easily.
+
+For example here's a `fish` function:
+
+```js
+	function funstuff
+		/path/to/venv/bin/python /path/to/gifmaker/src/main.py \
+		--input "/path/to/some/file.png" --words "$argv is [Random] [x5]" \
+		--bgcolor random_dark2 --fontcolor random_light2 \
+		--top 0 --fontsize 2.3 --filter random2 --width 600
+	end
+```
+
+Then you can run in your terminal `funstuff Grog`.
+
+In this case it will do `Grogg is [Random]` 5 times.
+
+Using all the other arguments that are specific to look good on that image.
+
+Remember to source your `fish` config after adding functions:
+
+`source ~/.config/fish/config.fish`
