@@ -181,10 +181,11 @@ class Configuration:
 		def commas_or_string(attr: str, vtype: Any) -> None:
 			value = getattr(args, attr)
 
-			if not "," in value:
-				setattr(self, attr, value)
-			else:
-				setattr(self, attr, get_list(value, vtype, ","))
+			if value is not None:
+				if not "," in value:
+					setattr(self, attr, value)
+				else:
+					setattr(self, attr, get_list(value, vtype, ","))
 
 		def path(attr: str) -> None:
 			value = getattr(args, attr)
