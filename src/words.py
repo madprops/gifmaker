@@ -1,6 +1,6 @@
 # Modules
 from configuration import config
-import words
+import utils
 
 # Standard
 import re
@@ -12,18 +12,39 @@ def check_random() -> None:
 		return
 
 	def replace(match: re.Match[Any]) -> str:
-		n = match["number"]
-		number = int(n) if n is not None else 1
+		num = match["number"]
+		number = 1
+
+		if num:
+			numrange = utils.extract_range(num)
+
+			if len(numrange) == 1:
+				number = numrange[0]
+			elif len(numrange) > 1:
+				number = random.randint(numrange[0], numrange[1])
+
+		if number < 1:
+			return ""
+
 		rand = match["word"]
 		randwords = []
 
 		for _ in range(number):
-			randwords.append(get_rand_word(rand))
+			allow_zero = True
 
-		return " ".join(randwords)
+			if number > 1:
+				if len(randwords) == 0:
+					allow_zero = False
+
+			randwords.append(get_random(rand, allow_zero))
+
+		if rand == "number":
+			return "".join(randwords)
+		else:
+			return " ".join(randwords)
 
 	new_lines: List[str] = []
-	pattern = re.compile(r"\[(?P<word>random)(?:\s+(?P<number>\d+))?\]", re.IGNORECASE)
+	pattern = re.compile(r"\[(?P<word>random|number)(?:\s+(?P<number>\d+(-\d+)?))?\]", re.IGNORECASE)
 	pattern_multi = re.compile(r"\[(?:x(?P<number>\d+))?\]$", re.IGNORECASE)
 
 	for line in config.words:
@@ -99,12 +120,14 @@ def random_word() -> str:
 
 	return w
 
-def get_rand_word(rand: str) -> str:
+def get_random(rand: str, allow_zero: bool) -> str:
 	if rand == "random":
 		return words.random_word().lower()
 	elif rand == "RANDOM":
 		return words.random_word().upper()
 	elif rand == "Random":
 		return words.random_word().title()
+	elif rand == "number":
+		return str(utils.random_digit(allow_zero))
 	else:
 		return ""

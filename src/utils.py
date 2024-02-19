@@ -1,4 +1,5 @@
 # Standard
+import re
 import sys
 import random
 import string
@@ -62,3 +63,24 @@ def random_light() -> List[int]:
 
 def random_dark() -> List[int]:
 	return random_color(0.2)
+
+def random_digit(allow_zero) -> int:
+	if allow_zero:
+		return random.randint(0, 9)
+	else:
+		return random.randint(1, 9)
+
+def extract_range(string: str) -> List[int]:
+	pattern = re.compile(r"(\d+)(?:-(\d+))?")
+	match = pattern.search(string)
+
+	if not match:
+		return [0]
+
+	start = match.group(1)
+	end = match.group(2)
+
+	if end is None:
+		return [int(start)]
+	else:
+		return [int(start), int(end)]
