@@ -143,9 +143,9 @@ For example `[number 2]` might result in `28`.
 
 `[random]` and `[number]` can use a range.
 
-For example `[number 1-3]` will pick a random length between `1` and `3`.
+For example, `[number 1-3]` will pick a random length between `1` and `3`.
 
-For example it could be `88` if it resulted in `2` (Length of 2).
+For example, it could be `88` if it resulted in `2` (Length of 2).
 
 Same with `[random 2-3]`.
 
