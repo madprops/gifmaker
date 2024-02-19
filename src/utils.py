@@ -89,9 +89,9 @@ def get_color(value: Union[str, List[int]]) -> List[int]:
 	rgb = None
 
 	if isinstance(value, str):
-		if value.startswith("light"):
+		if value == "light2":
 			rgb = random_light()
-		elif value.startswith("dark"):
+		elif value == "dark2":
 			rgb = random_dark()
 	elif isinstance(value, list):
 		rgb = list(reversed((value)))

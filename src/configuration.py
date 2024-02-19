@@ -261,11 +261,15 @@ class Configuration:
 			utils.exit("Word file does not exist")
 			return None
 
-		if isinstance(self.fontcolor, str):
-			self.fontcolor = utils.get_color(self.fontcolor)
+		if args.fontcolor == "light":
+			self.fontcolor = utils.random_light()
+		elif args.fontcolor == "dark":
+			self.fontcolor = utils.random_dark()
 
-		if isinstance(self.bgcolor, str):
-			self.bgcolor = utils.get_color(self.bgcolor)
+		if args.bgcolor == "light":
+			self.bgcolor = utils.random_light()
+		elif args.bgcolor == "dark":
+			self.bgcolor = utils.random_dark()
 
 	def check_script(self, args: Namespace) -> None:
 		if self.script is None:
