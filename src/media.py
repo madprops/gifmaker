@@ -251,34 +251,30 @@ def resize_frames(frames: List[Any]) -> List[Any]:
 
 def render(frames: List[Any]) -> Union[Path, None]:
 	ext = utils.get_extension(config.output)
-	err_msg = "Failed to make output directory"
+
+	def makedir(path: Path) -> None:
+		try:
+			path.mkdir(parents=False, exist_ok=True)
+		except:
+			utils.exit("Failed to make output directory")
+			return None
 
 	if ext:
-		try:
-			config.output.parent.mkdir(parents=False, exist_ok=True)
-		except:
-			utils.exit(err_msg)
-			return None
-
+		makedir(config.output.parent)
 		output = config.output
 	else:
-		try:
-			config.output.mkdir(parents=False, exist_ok=True)
-		except:
-			utils.exit(err_msg)
-			return None
-
+		makedir(config.output)
 		rand = utils.random_string()
 		file_name = f"{rand}.{config.format}"
 		output = Path(config.output, file_name)
 
 	fmt = ext if ext else config.format
 
-	if fmt == "gif":
+	if "gif" in fmt:
 		loop =  None if config.loop <= -1 else config.loop
 		frames = to_pillow(frames)
 		frames[0].save(output, save_all=True, append_images=frames[1:], duration=config.delay, loop=loop, optimize=True)
-	elif fmt == "mp4":
+	elif "mp4" in fmt:
 		width, height = get_shape(frames[0])
 		fourcc = cv2.VideoWriter_fourcc(*"mp4v")
 		fps = 1000 / config.delay
