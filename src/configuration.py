@@ -163,8 +163,14 @@ class Configuration:
 
 		args = p.parse_args()
 
-		def get_list(value: str, vtype: Any, separator: str) -> List[Any]:
-			return list(map(vtype, map(str.strip, value.split(separator))))
+		def get_list(attr: str, value: str, vtype: Any, separator: str) -> List[Any]:
+			try:
+				lst = list(map(vtype, map(str.strip, value.split(separator))))
+			except:
+				utils.exit(f"Failed to parse '--{attr}'")
+				return []
+
+			return lst
 
 		def normal(attr: str) -> None:
 			value = getattr(args, attr)
@@ -176,14 +182,14 @@ class Configuration:
 			value = getattr(args, attr)
 
 			if value is not None:
-				setattr(self, attr, get_list(value, vtype, ","))
+				setattr(self, attr, get_list(attr, value, vtype, ","))
 
 		def commas_or_string(attr: str, vtype: Any) -> None:
 			value = getattr(args, attr)
 
 			if value is not None:
 				if "," in value:
-					setattr(self, attr, get_list(value, vtype, ","))
+					setattr(self, attr, get_list(attr, value, vtype, ","))
 				else:
 					setattr(self, attr, value)
 
