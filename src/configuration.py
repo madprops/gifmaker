@@ -176,10 +176,15 @@ class Configuration:
 			value = getattr(args, attr)
 
 			if value is not None:
-				if not "," in value:
-					setattr(self, attr, value)
-				else:
-					setattr(self, attr, get_list(value, vtype, ","))
+				setattr(self, attr, get_list(value, vtype, ","))
+
+		def commas_or_string(attr: str, vtype: Any) -> None:
+			value = getattr(args, attr)
+
+			if not "," in value:
+				setattr(self, attr, value)
+			else:
+				setattr(self, attr, get_list(value, vtype, ","))
 
 		def path(attr: str) -> None:
 			value = getattr(args, attr)
@@ -223,8 +228,8 @@ class Configuration:
 		normal("repeatfilter")
 		normal("fillwords")
 
-		commas("fontcolor", int)
-		commas("bgcolor", int)
+		commas_or_string("fontcolor", int)
+		commas_or_string("bgcolor", int)
 		commas("filterlist", str)
 		commas("filteropts", str)
 		commas("framelist", int)
