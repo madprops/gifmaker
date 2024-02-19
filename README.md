@@ -185,6 +185,10 @@ This could be useful in `wordfile` to add empty lines at the end.
 
 Else you can just add more `;` to `words`.
 
+You can also use numbers like `[empty 3]`.
+
+That would add 3 empty frames.
+
 ---
 
 You can run `main.py` from anywhere in your system using its virtual env.
