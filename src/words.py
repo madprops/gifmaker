@@ -122,11 +122,11 @@ def random_word() -> str:
 
 def get_random(rand: str, allow_zero: bool) -> str:
 	if rand == "random":
-		return words.random_word().lower()
+		return random_word().lower()
 	elif rand == "RANDOM":
-		return words.random_word().upper()
+		return random_word().upper()
 	elif rand == "Random":
-		return words.random_word().title()
+		return random_word().title()
 	elif rand == "number":
 		return str(utils.random_digit(allow_zero))
 	else:
