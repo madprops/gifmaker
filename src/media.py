@@ -9,7 +9,7 @@ from PIL import Image # type: ignore
 # Standard
 from pathlib import Path
 import random
-from typing import List, Any, Dict, Tuple, Union
+from typing import List, Any, Dict, Union
 
 def get_frames(path: Path) -> List[Any]:
 	frames = []
@@ -59,16 +59,8 @@ def get_frames(path: Path) -> List[Any]:
 def add_text(frame: Any, lines: List[str]) -> Any:
 	font = get_font()
 	data = get_text_data(frame, lines)
+	rgb_font = utils.get_color(config.fontcolor)
 	padding = config.padding
-
-	if config.fontcolor == "random_light2":
-		rgb_font = utils.random_light()
-	elif config.fontcolor == "random_dark2":
-		rgb_font = utils.random_dark()
-	elif isinstance(config.fontcolor, list):
-		rgb_font = list(reversed((config.fontcolor)))
-	else:
-		rgb_font = [255, 255, 255]
 
 	if config.bgcolor:
 		if config.baseline:
@@ -76,14 +68,7 @@ def add_text(frame: Any, lines: List[str]) -> Any:
 		else:
 			baseline = 0
 
-		if config.bgcolor == "random_light2":
-			rgb_bg = utils.random_light()
-		elif config.bgcolor == "random_dark2":
-			rgb_bg = utils.random_dark()
-		elif isinstance(config.bgcolor, list):
-			rgb_bg = list(reversed((config.bgcolor)))
-		else:
-			rgb_bg = [0, 0, 0]
+		rgb_bg = utils.get_color(config.bgcolor)
 
 		rect_1 = (data["min_x_rect"] - padding, data["min_y_rect"] - padding)
 		rect_2 = (data["max_x_rect"] + padding, data["max_y_rect"] + padding + baseline)
@@ -391,8 +376,8 @@ def apply_filters(frames: List[Any]) -> List[Any]:
 
 	return new_frames
 
-def get_shape(frame: Any) -> Tuple[int, int]:
-	return frame.shape[1], frame.shape[0]
+def get_shape(frame: Any) -> List[int]:
+	return [frame.shape[1], frame.shape[0]]
 
 def count_frames() -> None:
 	if config.frames is not None:

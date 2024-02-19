@@ -84,3 +84,16 @@ def extract_range(string: str) -> List[int]:
 		return [int(start)]
 	else:
 		return [int(start), int(end)]
+
+def get_color(value: Union[str, List[int]]) -> List[int]:
+	rgb = None
+
+	if isinstance(value, str):
+		if value.startswith("light"):
+			rgb = random_light()
+		elif value.startswith("dark"):
+			rgb = random_dark()
+	elif isinstance(value, list):
+		rgb = list(reversed((value)))
+
+	return rgb or [100, 100, 100]

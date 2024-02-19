@@ -456,11 +456,11 @@ The color of the text.
 
 It uses the `RGB` format.
 
-The value can also be `random_light` or `random_dark`.
+The value can also be `light` or `dark`.
 
 These will get a random light or dark color.
 
-The value can also be `random_light2` or `random_dark2`.
+The value can also be `light2` or `dark2`.
 
 These will get a random light or dark color on each frame.
 

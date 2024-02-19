@@ -4,7 +4,7 @@ import utils
 # Standard
 import argparse
 from pathlib import Path
-from typing import List, Union, Any, Tuple
+from typing import List, Union, Any
 from argparse import Namespace
 
 class Configuration:
@@ -261,15 +261,11 @@ class Configuration:
 			utils.exit("Word file does not exist")
 			return None
 
-		if args.fontcolor == "random_light":
-			self.fontcolor = utils.random_light()
-		elif args.fontcolor == "random_dark":
-			self.fontcolor = utils.random_dark()
+		if isinstance(self.fontcolor, str):
+			self.fontcolor = utils.get_color(self.fontcolor)
 
-		if args.bgcolor == "random_light":
-			self.bgcolor = utils.random_light()
-		elif args.bgcolor == "random_dark":
-			self.bgcolor = utils.random_dark()
+		if isinstance(self.bgcolor, str):
+			self.bgcolor = utils.get_color(self.bgcolor)
 
 	def check_script(self, args: Namespace) -> None:
 		if self.script is None:
