@@ -642,7 +642,7 @@ right = 0
 
 ### Functions
 
-You can make shell functions/aliases to make things easily.
+You can write shell functions to make things faster using templates.
 
 For example here's a `fish` function:
 
