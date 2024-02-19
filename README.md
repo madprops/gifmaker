@@ -131,7 +131,7 @@ The multipliers need to be at the end of the line.
 
 ---
 
-You can also generate random numbers with `[number]`
+You can also generate random numbers with `[number]`.
 
 For example, `[number]` might result in `3`.
 
@@ -153,13 +153,13 @@ Same with `[random 2-3]`.
 
 If you want to repeat the previous line, use `[repeat]`:
 
-For example: `--words "Buy Buttcoin ; [repeat]"`
+For example: `--words "Buy Buttcoin ; [repeat]"`.
 
 It will use that text in the first two frames.
 
 You can also provide a number to specify how many times to repeat:
 
-For example: `--words "Buy Buttcoin ; [repeat 2]"`
+For example: `--words "Buy Buttcoin ; [repeat 2]"`.
 
 The line will be shown in 3 frames (the original plus the 2 repeats).
 
@@ -167,7 +167,7 @@ The line will be shown in 3 frames (the original plus the 2 repeats).
 
 You can use linebreaks with `\n`.
 
-For example: `--words "Hello \n World"`
+For example: `--words "Hello \n World"`.
 
 Will place `Hello` where a normal line would be.
 
@@ -179,7 +179,7 @@ You can control the spacing with the `linespace` argument.
 
 Another way to define an empty line is using `[empty]`.
 
-For example: `hello ; world ; [empty]`
+For example: `hello ; world ; [empty]`.
 
 This could be useful in `wordfile` to add empty lines at the end.
 
@@ -211,7 +211,7 @@ venv/bin/python src/main.py --input "/videos/stuff.webm" --fontsize 2.8 --delay 
 
 ## Arguments <a name="arguments"></a>
 
-You can use arguments like: `--delay 350 --width 500 --order normal`
+You can use arguments like: `--delay 350 --width 500 --order normal`.
 
 These modify how the file is going to be generated.
 
@@ -223,11 +223,11 @@ Path to a video or image to use as the source of the frames.
 
 `webm`, `mp4`, `gif`, and even `jpg` or `png` should work.
 
-For example: `--input stuff/cow.mp4`
+For example: `--input stuff/cow.mp4`.
 
 It's possible to use multiple input files by separating them with commas.
 
-For example: `--input /some/path/1.gif,/some/other/path/2.mp4,/another/one/3.png`
+For example: `--input /some/path/1.gif,/some/other/path/2.mp4,/another/one/3.png`.
 
 If multiple inputs, one is selected randomly as the source of the frames.
 
@@ -239,7 +239,7 @@ If multiple inputs, one is selected randomly as the source of the frames.
 
 Directory path to save the generated file.
 
-For example: `stuff/videos`
+For example: `stuff/videos`.
 
 It will use a random file name.
 
@@ -247,7 +247,7 @@ Using `gif` or `mp4` depending on the `format` argument.
 
 Or you can enter the path plus the file name.
 
-For example: `stuff/videos/cat.gif`
+For example: `stuff/videos/cat.gif`.
 
 The format is deduced by the extension (`gif` or `mp4`).
 
@@ -352,7 +352,7 @@ The specific list of frame indices to use.
 
 The first frame starts at `0`.
 
-For example `--framelist "2,5,2,0,3"`
+For example `--framelist "2,5,2,0,3"`.
 
 It will use those specific frames.
 
@@ -534,7 +534,7 @@ If the list is empty it will be filled with a long list of nouns.
 
 You can specify the words to consider, separated by semicolons.
 
-Like: `--randomlist "cat ; dog ; nice cow ; big horse"`
+For example: `--randomlist "cat ; dog ; nice cow ; big horse"`.
 
 ---
 
@@ -552,7 +552,7 @@ a cow
 horse
 ```
 
-Then you point to it: `--randomfile "/path/to/animals.txt"`
+Then you point to it: `--randomfile "/path/to/animals.txt"`.
 
 ---
 
@@ -580,9 +580,9 @@ How to loop gif renders.
 
 A color filter that is applied to each frame.
 
-Either: `hue1`, `hue2` .. up to `hue8`, `anyhue`, `anyhue2`
+The filters are: `hue1`, `hue2` .. up to `hue8`, and `anyhue`, `anyhue2`.
 
-And: `gray`, `blur`, `invert`, `saturate`, `random`, `random2`, `none`
+And also: `gray`, `blur`, `invert`, `saturate`, `random`, `random2`, `none`.
 
 `random` picks a random filter for all frames.
 
@@ -600,7 +600,7 @@ This defines the pool of available filters to pick randomly.
 
 This applies when `filter` is `random` or `random2`.
 
-For example: `--filteropts "hue1,hue2,hue3,gray"`
+For example: `--filteropts "hue1,hue2,hue3,gray"`.
 
 ---
 
@@ -620,7 +620,7 @@ It re-uses all the frames, resizes, and renders again.
 
 It doesn't do the rest of the operations.
 
-For example: `--input "/path/to/file.gif" --remake --width 500 --delay 300`
+For example: `--input "/path/to/file.gif" --remake --width 500 --delay 300`.
 
 For instance, you can use this to change the `width` or `delay` of a rendered file.
 
@@ -630,7 +630,7 @@ For instance, you can use this to change the `width` or `delay` of a rendered fi
 
 You can make `TOML` files that define the arguments to use.
 
-Provide the path of a script like this: `--script "/path/to/script.toml"`
+Provide the path of a script like this: `--script "/path/to/script.toml"`.
 
 For example, a script can look like this:
 
@@ -646,7 +646,7 @@ right = 0
 
 ### Functions
 
-You can write shell functions to make things faster using templates.
+You can write shell functions to make things faster by using templates.
 
 For example here's a `fish` function:
 
@@ -659,7 +659,7 @@ function funstuff
 end
 ```
 
-Then you can run in your terminal `funstuff Grog`.
+Then you can run in your terminal: `funstuff Grog`.
 
 In this case it will do `Grogg is [Random]` 5 times.
 
