@@ -636,6 +636,10 @@ For instance, you can use this to change the `width` or `delay` of a rendered fi
 
 ---
 
+<img src="media/more.gif">
+
+---
+
 ### Scripts
 
 You can make `TOML` files that define the arguments to use.
