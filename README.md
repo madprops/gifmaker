@@ -296,7 +296,7 @@ Fill the rest of the frames with the last word line.
 
 If there are no more lines to use, it will re-use the last line.
 
-For you can do like:
+You can do like:
 
 ```
 --words "Single Line" --frames 5 --fillwords
@@ -338,7 +338,7 @@ A smaller `delay` = A faster animation.
 
 The amount of frames to use.
 
-This value has higher priority than the other frame count methods.
+This value has a higher priority than the other frame count methods.
 
 ---
 
@@ -450,7 +450,7 @@ The color of the text.
 
 `0,0,0` would be black, for instance.
 
-It uses the `rgb` format.
+It uses the `RGB` format.
 
 The value can also be `random_light` or `random_dark`.
 
@@ -480,7 +480,7 @@ In case you want to give the text more contrast.
 
 `0,0,0` would be black, for instance.
 
-It uses the `rgb` format.
+It uses the `RGB` format.
 
 The value can also be `random_light` or `random_dark`.
 
@@ -574,7 +574,7 @@ How to loop gif renders.
 
 > filter = Type: str | Default: "none"
 
-A color filter applied to each frame.
+A color filter that is applied to each frame.
 
 Either: `hue1`, `hue2` .. up to `hue8`, `anyhue`, `anyhue2`
 
@@ -586,7 +586,7 @@ And: `gray`, `blur`, `invert`, `saturate`, `random`, `random2`, `none`
 
 `anyhue` is like `random` but limited to the hue effects.
 
-`anyhue2` is like `random2` but limited to the hue effects.
+`anyhue2` is like `random2` but is limited to the hue effects.
 
 ---
 
