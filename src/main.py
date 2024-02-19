@@ -10,14 +10,15 @@ def main() -> None:
 	# Check the provided arguments
 	config.parse_args()
 
-	# Replace [empty] with empty lines
-	words.check_empty()
+	if not config.remake:
+		# Replace [empty] with empty lines
+		words.check_empty()
 
-	# Replace [random] with random words
-	words.check_random()
+		# Replace [random] with random words
+		words.check_random()
 
-	# Replace [repeat] with repeated lines
-	words.check_repeat()
+		# Replace [repeat] with repeated lines
+		words.check_repeat()
 
 	# Extract the required frames from the file
 	frames = media.get_frames()
