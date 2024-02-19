@@ -182,10 +182,10 @@ class Configuration:
 			value = getattr(args, attr)
 
 			if value is not None:
-				if not "," in value:
-					setattr(self, attr, value)
-				else:
+				if "," in value:
 					setattr(self, attr, get_list(value, vtype, ","))
+				else:
+					setattr(self, attr, value)
 
 		def path(attr: str) -> None:
 			value = getattr(args, attr)
