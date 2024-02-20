@@ -7,7 +7,7 @@ import re
 import random
 from typing import List, Any
 
-def check_random() -> None:
+def replace_random() -> None:
 	if not config.words:
 		return
 
@@ -63,7 +63,7 @@ def check_random() -> None:
 
 	config.words = new_lines
 
-def check_repeat() -> None:
+def replace_repeat() -> None:
 	if not config.words:
 		return
 
@@ -82,7 +82,7 @@ def check_repeat() -> None:
 
 	config.words = new_lines
 
-def check_empty() -> None:
+def replace_empty() -> None:
 	if not config.words:
 		return
 
@@ -98,6 +98,27 @@ def check_empty() -> None:
 
 			for _ in range(number):
 				new_lines.append("")
+		else:
+			new_lines.append(line)
+
+	config.words = new_lines
+
+def replace_date() -> None:
+	if not config.words:
+		return
+
+	def replace(match: re.Match[Any]) -> str:
+		fmt = match["format"] or "%H:%M:%S"
+		return utils.get_date(fmt)
+
+	new_lines: List[str] = []
+	pattern = re.compile(r"\[(?P<word>date)(?:\s+(?P<format>.*))?\]", re.IGNORECASE)
+
+	for line in config.words:
+		match = re.search(pattern, line)
+
+		if match:
+			new_lines.append(re.sub(pattern, replace, line))
 		else:
 			new_lines.append(line)
 

@@ -191,6 +191,18 @@ That would add 3 empty frames.
 
 ---
 
+There's also `[date]` which can be used to print dates.
+
+You can define any date format in it.
+
+For example `[date %Y-%m-%d]` would print year-month-day.
+
+You can see all format codes here: [datetime docs](https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes).
+
+If no format is used it defaults to: `%H:%M:%S`.
+
+---
+
 You can run `main.py` from anywhere in your system using its virtual env.
 
 Relative paths should work fine.

@@ -5,6 +5,7 @@ import random
 import string
 import colorsys
 from pathlib import Path
+from datetime import datetime
 from typing import List, Dict, Union
 
 def random_string() -> str:
@@ -84,3 +85,9 @@ def extract_range(string: str) -> List[int]:
 		return [int(start)]
 	else:
 		return [int(start), int(end)]
+
+def get_date(fmt: str) -> str:
+	if fmt:
+		return datetime.now().strftime(fmt)
+	else:
+		return str(int(datetime.now().timestamp()))

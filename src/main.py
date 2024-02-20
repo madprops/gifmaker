@@ -12,13 +12,16 @@ def main() -> None:
 
 	if not config.remake:
 		# Replace [empty]
-		words.check_empty()
+		words.replace_empty()
 
 		# Replace [random] and [number]
-		words.check_random()
+		words.replace_random()
+
+		# Replace [date]
+		words.replace_date()
 
 		# Replace [repeat]
-		words.check_repeat()
+		words.replace_repeat()
 
 	# Extract the required frames from the file
 	frames = media.get_frames()
