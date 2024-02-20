@@ -731,7 +731,7 @@ Here's some snippets that might help:
 HERE = Path(__file__).parent
 
 # Common arguments for all functions
-gifmaker = "/path/to/gifmaker"
+gifmaker = "/path/to/gifmaker" # Or just the command name
 gm_common = "--font triplex --width 555 --nogrow --output /tmp/gifmaker"
 
 # Input image/video relative to the program's main
