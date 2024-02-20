@@ -41,7 +41,7 @@ Clone this repo, and get inside the directory:
 ```shell
 git clone --depth 1 this_repo_url
 
-cd new_directory
+cd gifmaker
 ```
 
 Then create the virtual env:
