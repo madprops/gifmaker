@@ -718,6 +718,8 @@ In this case it will do `Grogg is [Random]` 5 times.
 
 Using all the other arguments that are specific to look good on that image.
 
+---
+
 ## Python
 
 You might want to interface through another Python program.
