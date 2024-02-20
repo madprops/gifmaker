@@ -740,5 +740,11 @@ def generate_something(who):
 		"--top 0 --fontsize 2.3 --filter random2",
 	]
 
-	run_command(command)
+	run_gifmaker(command)
+
+def run_gifmaker(command):
+	cmd = " ".join(command)
+	# Execute the command
+	# Do something with the file
+	# Maybe upload it somewhere
 ```
