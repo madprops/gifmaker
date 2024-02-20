@@ -26,6 +26,7 @@ And memes.
 1. [Installation](#installation)
 1. [Usage](#usage)
 1. [Arguments](#arguments)
+1. [More](#more)
 
 ---
 
@@ -667,6 +668,8 @@ For instance, you can use this to change the `width` or `delay` of a rendered fi
 <img src="media/more.gif">
 
 ---
+
+## More Information<a name="more"></a>
 
 ### Scripts
 
