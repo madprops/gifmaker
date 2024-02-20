@@ -730,7 +730,7 @@ Here's some snippets that might help:
 gifmaker = "/path/to/gifmaker"
 gm_common = "--font triplex --width 555 --nogrow --output /tmp/gifmaker"
 
-# You can have multiple variations of this
+# You can have multiple functions like this
 def generate_something(who):
 	command = [
 		gifmaker,
