@@ -414,6 +414,16 @@ If the width is not defined it will use an automatic one.
 
 ---
 
+> **nogrow** (Type: flag | Default: False)
+
+If this is enabled, the frames won't be resized if they'd be bigger than the original.
+
+For instance, if the original has a width of `500` and you set `--width 600`.
+
+It's a way to limit the values of `--width` and `--height`.
+
+---
+
 > **format** (Type: str | Default: "gif")
 
 The format of the output file. Either `gif` or `mp4`.
@@ -633,16 +643,6 @@ It doesn't do the rest of the operations.
 For example: `--input "/path/to/file.gif" --remake --width 500 --delay 300`.
 
 For instance, you can use this to change the `width` or `delay` of a rendered file.
-
----
-
-> **nogrow** (Type: flag | Default: False)
-
-If this is enabled, the frames won't be resized if they'd be bigger than the original.
-
-For instance, if the original has a width of `500` and you set `--width 600`.
-
-It's a way to limit the values of `--width` and `--height`.
 
 ---
 
