@@ -727,6 +727,9 @@ You might want to interface through another Python program.
 Here's some snippets that might help:
 
 ```python
+import subprocess, asyncio
+from pathlib import Path
+
 # The directory of the main file
 HERE = Path(__file__).parent
 
