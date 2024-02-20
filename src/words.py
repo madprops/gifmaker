@@ -128,6 +128,27 @@ def replace_date() -> None:
 
 	config.words = new_lines
 
+def replace_count() -> None:
+	if not config.words:
+		return
+
+	def replace(match: re.Match[Any]) -> str:
+		config.wordcount += 1
+		return str(config.wordcount)
+
+	new_lines: List[str] = []
+	pattern = re.compile(r"\[(?P<word>count)\]", re.IGNORECASE)
+
+	for line in config.words:
+		match = re.search(pattern, line)
+
+		if match:
+			new_lines.append(re.sub(pattern, replace, line))
+		else:
+			new_lines.append(line)
+
+	config.words = new_lines
+
 def random_word() -> str:
 	if not config.randomlist:
 		lines = config.randomfile.read_text().splitlines()

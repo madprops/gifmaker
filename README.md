@@ -210,6 +210,22 @@ If no format is used it defaults to `%H:%M:%S`.
 
 ---
 
+There's also `[count]`.
+
+The count starts at `0` and is increased on every `[count]`.
+
+For example `--words "Match: [count] ; Nothing ; Match [count]"`.
+
+It would print `Match: 1`, `Nothing`, and `Match: 2`.
+
+You might want to print the count on every frame:
+
+```ssh
+--words "[count] ; [repeat 9]" --bottom 0 --right 0
+```
+
+---
+
 You can run `main.py` from anywhere in your system using its virtual env.
 
 Relative paths should work fine.

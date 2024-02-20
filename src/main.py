@@ -23,6 +23,9 @@ def main() -> None:
 		# Replace [repeat]
 		words.replace_repeat()
 
+		# Replace [count]
+		words.replace_count()
+
 	# Extract the required frames from the file
 	frames = media.get_frames()
 
