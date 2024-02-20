@@ -717,3 +717,53 @@ Then you can run: `funstuff Grog`.
 In this case it will do `Grogg is [Random]` 5 times.
 
 Using all the other arguments that are specific to look good on that image.
+
+## Python
+
+You might want to interface through another Python program.
+
+Here's some snippets that might help:
+
+```python
+# The directory of the main file
+HERE = Path(__file__).parent
+
+# Common arguments for all functions
+gifmaker = "/path/to/gifmaker"
+gm_common = "--font triplex --width 555 --nogrow --output /tmp/gifmaker"
+
+# Input image/video relative to the program's main
+def get_input_path(name):
+	return str(Path(HERE, name))
+
+# You can have multiple variations of this
+async def generate_something(who):
+	input_path = get_input_path("source.jpg")
+
+	command = [
+		gifmaker,
+		gm_common,
+		f"--input '{input_path}'",
+		f"--words '{who} is [Random] [x5]' --bgcolor 0,0,0",
+		"--top 0 --fontsize 2.3 --filter random2",
+	]
+
+	await run_command(command)
+
+# Run a command and do something with the result
+async def run_command(command):
+	process = await asyncio.create_subprocess_shell(
+		" ".join(command),
+		stdout=subprocess.PIPE,
+		stderr=subprocess.PIPE,
+		shell=True,
+	)
+
+	stdout, stderr = await process.communicate()
+
+	if process.returncode != 0:
+		print(f"Error: {stderr.decode()}")
+		return
+
+	await upload(Path(stdout.decode().strip()))
+```
