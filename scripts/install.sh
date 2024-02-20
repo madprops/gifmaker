@@ -1,9 +1,15 @@
 #!/usr/bin/env bash
-# This is used to install the python virtual env
 
 root="$(dirname "$(readlink -f "$0")")"
 parent="$(dirname "$root")"
-cd "$parent"
 
-python -m venv venv &&
-venv/bin/pip install -r requirements.txt
+content=$(cat <<EOF
+#!/usr/bin/env bash
+$parent/venv/bin/python $parent/src/main.py "\${@}"
+EOF
+)
+
+echo "$content" > /tmp/gifmaker_tmp.sh
+sudo sudo mv /tmp/gifmaker_tmp.sh /usr/bin/gifmaker
+sudo sudo chmod +x /usr/bin/gifmaker
+echo "Script created at /usr/bin/gifmaker"

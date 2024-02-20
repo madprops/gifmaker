@@ -55,9 +55,11 @@ Then install the dependencies:
 venv/bin/pip install -r requirements.txt
 ```
 
-Or simply run `scripts/install.sh` to create the virtual env and install the dependencies.
+Or simply run `scripts/venv.sh` to create the virtual env and install the dependencies.
 
 There's a `scripts/test.sh` file that runs the program with some arguments to test if things are working properly.
+
+There's a `scripts/install.sh` file that adds a bash script at `/usr/bin/gifmaker` so you can run it easily.
 
 ---
 
