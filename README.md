@@ -140,21 +140,17 @@ The multipliers need to be at the end of the line.
 
 You can also generate random numbers with `[number]`.
 
+This is a single digit from `0` to `9`.
+
 For example, `[number]` might result in `3`.
 
 You can specify the length of the number.
 
-For example, `[number 2]` might result in `28`.
+For example, `[number 3]` might result in `128`.
 
----
+You can also use a number range.
 
-`[random]` and `[number]` can use a range.
-
-For example, `[number 1-3]` will pick a random length between `1` and `3`.
-
-For example, it could be `88` if it resulted in `2` (Length of 2).
-
-Same with `[random 2-3]`.
+For example, `[number 0-10]` will pick a random number from `0` to `10`.
 
 ---
 

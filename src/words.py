@@ -18,11 +18,15 @@ def replace_random() -> None:
 			numrange = utils.extract_range(match["number"])
 
 			if len(numrange) == 1:
-				if numrange[0] > 0:
+				if numrange[0] >= 1:
 					number = numrange[0]
+				else:
+					return ""
 			elif len(numrange) > 1:
 				if numrange[0] < numrange[1]:
-					number = random.randint(numrange[0], numrange[1])
+					return str(random.randint(numrange[0], numrange[1]))
+				else:
+					return ""
 
 		randwords: List[str] = []
 
