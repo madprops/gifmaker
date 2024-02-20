@@ -110,9 +110,6 @@ class Configuration:
 	# Fill the rest of the frames with the last word line
 	fillwords = False
 
-	# Don't enlarge if the frames are smaller than the width or height
-	nogrow = False
-
 	# --- INTERAL VARS
 
 	# List to keep track of used random words
@@ -167,7 +164,6 @@ class Configuration:
 		p.add_argument("--repeatrandom", action="store_true", help="Repeating random words is ok")
 		p.add_argument("--repeatfilter", action="store_true", help="Repeating random filters is ok")
 		p.add_argument("--fillwords", action="store_true", help="Fill the rest of the frames with the last word line")
-		p.add_argument("--nogrow", action="store_true", help="Don't enlarge if the frames are smaller than the width")
 
 		args = p.parse_args()
 
@@ -243,7 +239,6 @@ class Configuration:
 		normal("repeatrandom")
 		normal("repeatfilter")
 		normal("fillwords")
-		normal("nogrow")
 
 		commas_or_string("fontcolor", int)
 		commas_or_string("bgcolor", int)
