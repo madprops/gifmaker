@@ -152,6 +152,10 @@ You can also use a number range.
 
 For example, `[number 0-10]` will pick a random number from `0` to `10`.
 
+```sh
+--words "I rate it [number 0-10] out of 10"
+```
+
 ---
 
 If you want to repeat the previous line, use `[repeat]`:
