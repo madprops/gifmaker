@@ -724,7 +724,7 @@ Using all the other arguments that are specific to look good on that image.
 
 You might want to interface through another Python program.
 
-Here's some snippets that might help:
+Here's some snippet that might help:
 
 ```python
 gifmaker = "/path/to/gifmaker"
