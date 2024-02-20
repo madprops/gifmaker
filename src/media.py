@@ -271,9 +271,15 @@ def render(frames: List[Any]) -> Union[Path, None]:
 	fmt = ext if ext else config.format
 
 	if fmt == "gif":
-		loop =  None if config.loop <= -1 else config.loop
 		frames = to_pillow(frames)
-		frames[0].save(output, save_all=True, append_images=frames[1:], duration=config.delay, loop=loop, optimize=True)
+		loop =  None if config.loop <= -1 else config.loop
+		frames[0].save(output, save_all=True, append_images=frames[1:], duration=config.delay, loop=loop)
+	elif fmt == "png":
+		frames = to_pillow(frames)
+		frames[0].save(output, format="PNG")
+	elif fmt == "jpg":
+		frames = to_pillow(frames)
+		frames[0].save(output, format="JPEG")
 	elif fmt == "mp4":
 		width, height = get_shape(frames[0])
 		fourcc = cv2.VideoWriter_fourcc(*"mp4v")

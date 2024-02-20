@@ -6,9 +6,9 @@ It extracts random (or sequential) frames from a video or image.
 
 It (optionally) places words somewhere on each frame.
 
-Then joins all frames into an animated `gif` or `mp4`.
+Then joins all frames into an animation or image.
 
-You can use many arguments to produce different kinds of animations.
+You can use many arguments to produce different kinds of results.
 
 ---
 
@@ -199,7 +199,7 @@ For example `[date %Y-%m-%d]` would print year-month-day.
 
 You can see all format codes here: [datetime docs](https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes).
 
-If no format is used it defaults to: `%H:%M:%S`.
+If no format is used it defaults to `%H:%M:%S`.
 
 ---
 
@@ -255,13 +255,13 @@ For example: `stuff/videos`.
 
 It will use a random file name.
 
-Using `gif` or `mp4` depending on the `format` argument.
+Using `gif`, `mp4`, `jpg`, or `png` depending on the `format` argument.
 
 Or you can enter the path plus the file name.
 
 For example: `stuff/videos/cat.gif`.
 
-The format is deduced by the extension (`gif` or `mp4`).
+The format is deduced by the extension (`gif`, `mp4`, `jpg`, or `png`).
 
 `-o` is a shorter alias for this.
 
@@ -438,7 +438,7 @@ It's a way to limit the values of `--width` and `--height`.
 
 > **format** (Type: str | Default: "gif")
 
-The format of the output file. Either `gif` or `mp4`.
+The format of the output file. Either `gif`, `mp4`, `jpg`, or `png`.
 
 This is only used when the output is not a direct file path.
 

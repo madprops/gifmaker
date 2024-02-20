@@ -44,7 +44,7 @@ class Configuration:
 	# The separator to use when splitting word lines
 	separator = ";"
 
-	# The format of the output file. Either gif or mp4
+	# The format of the output file. Either gif, mp4, jpg, or png
 	format = "gif"
 
 	# The order to use when extracting the frames
@@ -139,7 +139,7 @@ class Configuration:
 		p.add_argument("--height", type=int, help="Height to resize the frames")
 		p.add_argument("--frames", type=int, help="Number of frames to use if no words are provided")
 		p.add_argument("--output", "-o", type=str, help="Output directory to save the file")
-		p.add_argument("--format", type=str, choices=["gif", "mp4"], help="The format of the output file")
+		p.add_argument("--format", type=str, choices=["gif", "mp4", "jpg", "png"], help="The format of the output file")
 		p.add_argument("--separator", type=str, help="Character to use as the separator")
 		p.add_argument("--order", type=str, choices=["random", "normal"], help="The order to use when extracting the frames")
 		p.add_argument("--font", type=str, choices=["simple", "complex", "plain", "duplex", "triplex"], help="The font to use for the text")
