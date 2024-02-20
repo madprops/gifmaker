@@ -1,6 +1,6 @@
 <img src="media/image.jpg" width="380">
 
-This is a Python program to produce gif images or videos.
+This is a Python program to produce images or videos.
 
 It extracts random (or sequential) frames from a video or image.
 
