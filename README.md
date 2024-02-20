@@ -731,7 +731,7 @@ gifmaker = "/path/to/gifmaker"
 gm_common = "--font triplex --width 555 --nogrow --output /tmp/gifmaker"
 
 # You can have multiple variations of this
-async def generate_something(who):
+def generate_something(who):
 	command = [
 		gifmaker,
 		gm_common,
@@ -740,5 +740,5 @@ async def generate_something(who):
 		"--top 0 --fontsize 2.3 --filter random2",
 	]
 
-	await run_command(command)
+	run_command(command)
 ```
