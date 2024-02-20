@@ -230,17 +230,17 @@ def resize_frames(frames: List[Any]) -> List[Any]:
 	new_frames = []
 	new_width = config.width
 	new_height = config.height
-
-	def get_ratio() -> float:
-		w, h = get_shape(frames[0])
-		return w / h
+	w, h = get_shape(frames[0])
+	ratio = w / h
 
 	if new_width and (not new_height):
-		ratio = get_ratio()
 		new_height = int(new_width / ratio)
 	elif new_height and (not new_width):
-		ratio = get_ratio()
 		new_width = int(new_height * ratio)
+
+	if config.nogrow:
+		if (new_width > w) or (new_height > h):
+			return frames
 
 	size = (new_width, new_height)
 
