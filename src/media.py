@@ -238,6 +238,12 @@ def resize_frames(frames: List[Any]) -> List[Any]:
 	elif new_height and (not new_width):
 		new_width = int(new_height * ratio)
 
+	assert isinstance(new_width, int)
+	assert isinstance(new_height, int)
+
+	if (new_width <= 0) or (new_height <= 0):
+		return frames
+
 	if config.nogrow:
 		if (new_width > w) or (new_height > h):
 			return frames
