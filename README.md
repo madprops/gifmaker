@@ -75,12 +75,16 @@ Run `src/main.py` using the Python in the virtual env:
 venv/bin/python src/main.py
 ```
 
+Or set it up so you can simply use `gifmaker`.
+
+(Check `scripts/install.sh` or make an alias)
+
 You can provide a video or image path using the `--input` argument:
 
 ```shell
-venv/bin/python src/main.py --input "/path/to/video.webm"
-venv/bin/python src/main.py --input "/path/to/animated.gif"
-venv/bin/python src/main.py --input "/path/to/image.png"
+gifmaker --input "/path/to/video.webm"
+gifmaker --input "/path/to/animated.gif"
+gifmaker --input "/path/to/image.png"
 ```
 
 `webm`, `mp4`, `gif`, `jpg`, and `png` should work, and maybe other formats.
@@ -90,7 +94,7 @@ You can pass it a string of lines to use on each frame.
 They are separated by `;` (semicolons).
 
 ```shell
-venv/bin/python src/main.py --words "Hello Brother ; Construct Additional Pylons"
+gifmaker --words "Hello Brother ; Construct Additional Pylons"
 ```
 
 It will make 2 frames, one per line.
@@ -102,7 +106,7 @@ If you want to use words and have some frames without them simply use more `;`.
 You can use random words with `[random]`:
 
 ```shell
-venv/bin/python src/main.py --words "I Like [random] and [random]"
+gifmaker --words "I Like [random] and [random]"
 ```
 
 It will pick random words from a list of English words.
@@ -214,7 +218,7 @@ Relative paths should work fine.
 Here's a fuller example:
 
 ```shell
-venv/bin/python src/main.py --input "/videos/stuff.webm" --fontsize 2.8 --delay 300 --width 600 --words "I want to eat ;; [Random] ; [repeat 2] ;" --format mp4 --bgcolor 0,0,0 --baseline --output "stuff/videos"
+gifmaker --input "/videos/stuff.webm" --fontsize 2.8 --delay 300 --width 600 --words "I want to eat ;; [Random] ; [repeat 2] ;" --format mp4 --bgcolor 0,0,0 --baseline --output "stuff/videos"
 ```
 
 ---
@@ -690,7 +694,7 @@ For example here's a `fish` function:
 
 ```js
 function funstuff
-	/path/to/venv/bin/python /path/to/gifmaker/src/main.py \
+	gifmaker \
 	--input "/path/to/some/file.png" --words "$argv is [Random] [x5]" \
 	--bgcolor random_dark2 --fontcolor random_light2 \
 	--top 0 --fontsize 2.3 --filter random2 --width 600
