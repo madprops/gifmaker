@@ -638,7 +638,7 @@ For instance, you can use this to change the `width` or `delay` of a rendered fi
 
 > **nogrow** (Type: flag | Default: False)
 
-If this is enabled, the frames won't be resized if they're bigger than the original.
+If this is enabled, the frames won't be resized if they'd be bigger than the original.
 
 For instance, if the original has a width of `500` and you set `--width 600`.
 
