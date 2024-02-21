@@ -46,14 +46,14 @@ def read_toml(path: Path) -> Union[Dict[str, str], None]:
 
 	if (not path.exists()) or (not path.is_file()):
 		exit("TOML file does not exist")
-		return None
+		return
 
 	try:
 		return tomllib.load(open(path, "rb"))
 	except Exception as e:
 		print(f"Error: {e}")
 		exit("Failed to read TOML file")
-		return None
+		return
 
 def random_color(lightness: float) -> List[int]:
 	hue = random.random()

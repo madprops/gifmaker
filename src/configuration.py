@@ -133,7 +133,7 @@ class Configuration:
 		p.add_argument("--input", "-i", type=str, help="Path to the a video or image file. Separated by commas")
 		p.add_argument("--words", type=str, help="Lines of words to use on the frames")
 		p.add_argument("--wordfile", type=str, help="Path of file with word lines")
-		p.add_argument("--delay", type=int, help="The delay in ms between frames")
+		p.add_argument("--delay", type=str, help="The delay in ms between frames")
 		p.add_argument("--left", type=int, help="Left padding")
 		p.add_argument("--right", type=int, help="Right padding")
 		p.add_argument("--top", type=int, help="Top padding")
@@ -146,18 +146,18 @@ class Configuration:
 		p.add_argument("--separator", type=str, help="Character to use as the separator")
 		p.add_argument("--order", type=str, choices=["random", "normal"], help="The order to use when extracting the frames")
 		p.add_argument("--font", type=str, choices=["simple", "complex", "plain", "duplex", "triplex"], help="The font to use for the text")
-		p.add_argument("--fontsize", type=float, help="Text size")
+		p.add_argument("--fontsize", type=str, help="Text size")
 		p.add_argument("--fontcolor", type=str, help="Text color. 3 numbers from 0 to 255, separated by commas")
-		p.add_argument("--boldness", type=int, help="Text thickness")
+		p.add_argument("--boldness", type=str, help="Text thickness")
 		p.add_argument("--bgcolor", type=str, help="Add a background rectangle for the text with this color. 3 numbers from 0 to 255, separated by commas")
-		p.add_argument("--opacity", type=float, help="The opacity of the background rectangle")
-		p.add_argument("--padding", type=int, help="The padding of the background rectangle")
+		p.add_argument("--opacity", type=str, help="The opacity of the background rectangle")
+		p.add_argument("--padding", type=str, help="The padding of the background rectangle")
 		p.add_argument("--baseline", action="store_true", help="Add the baseline to the background rectangle's height")
 		p.add_argument("--randomlist", type=str, help="List of words to consider for random words")
 		p.add_argument("--randomfile", type=str, help="Path to a list of words to consider for random words")
 		p.add_argument("--script", type=str, help="Path to a TOML file that defines the arguments to use")
 		p.add_argument("--loop", type=int, help="How to loop a gif render")
-		p.add_argument("--linespace", type=int, help="Spacing between lines")
+		p.add_argument("--linespace", type=str, help="Spacing between lines")
 		p.add_argument("--linebreak", type=str, help="Linebreak character")
 		p.add_argument("--remake", action="store_true", help="Re-render the frames to change the width or delay")
 		p.add_argument("--filter", type=str, choices=[
@@ -217,14 +217,50 @@ class Configuration:
 				paths = [utils.resolve_path(p.strip()) for p in value.split(",")]
 				setattr(self, attr, paths)
 
+		# Allow -1 and +1 formats
+		def number(attr: str, vtype: Any, allow_zero: bool) -> None:
+			default = getattr(self, attr)
+			value = getattr(args, attr)
+
+			if value is None:
+				return
+
+			num = value
+			op = ""
+
+			if value.startswith("-") or value.startswith("+"):
+				op = value[0]
+				num = value[1:]
+
+			try:
+				if vtype == int:
+					num = int(num)
+				elif vtype == float:
+					num = float(num)
+			except:
+				utils.exit(f"Failed to parse '{attr}'")
+				return
+
+			if op == "-":
+				num = default - num
+			elif op == "+":
+				num = default + num
+
+			err = f"Value for '{attr}' is too low"
+
+			if num == 0:
+				if not allow_zero:
+					utils.exit(err)
+			elif num < 0:
+				utils.exit(err)
+				return
+
+			setattr(self, attr, num)
+
 		# Get script args first
 		path("script")
 		self.check_script(args)
 
-		normal("delay")
-		normal("fontsize")
-		normal("boldness")
-		normal("opacity")
 		normal("left")
 		normal("right")
 		normal("top")
@@ -235,11 +271,9 @@ class Configuration:
 		normal("order")
 		normal("font")
 		normal("frames")
-		normal("padding")
 		normal("baseline")
 		normal("loop")
 		normal("separator")
-		normal("linespace")
 		normal("linebreak")
 		normal("filter")
 		normal("remake")
@@ -247,6 +281,13 @@ class Configuration:
 		normal("repeatfilter")
 		normal("fillwords")
 		normal("nogrow")
+
+		number("fontsize", float, False)
+		number("boldness", float, False)
+		number("delay", int, False)
+		number("opacity", float, True)
+		number("padding", int, True)
+		number("linespace", int, True)
 
 		commas_or_string("fontcolor", int)
 		commas_or_string("bgcolor", int)
@@ -268,12 +309,12 @@ class Configuration:
 		for path in self.input:
 			if not path.exists() or not path.is_file():
 				utils.exit("Input file does not exist")
-				return None
+				return
 
 		if self.wordfile:
 			if not self.wordfile.exists() or not self.wordfile.is_file():
 				utils.exit("Word file does not exist")
-				return None
+				return
 
 			self.read_wordfile()
 		elif args.words:
@@ -284,7 +325,7 @@ class Configuration:
 
 		if not self.randomfile.exists() or not self.randomfile.is_file():
 			utils.exit("Word file does not exist")
-			return None
+			return
 
 		self.set_color("fontcolor")
 		self.set_color("bgcolor")

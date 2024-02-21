@@ -681,6 +681,16 @@ For instance, you can use this to change the `width` or `delay` of a rendered fi
 
 ---
 
+If a number argument has a default you can use `-` and `+` operators.
+
+For example, since `fontsize` has a default of `2.5`.
+
+You can do `--fontsize +1` or `--fontsize -1`.
+
+To get `3.5` or `1.5`.
+
+---
+
 <img src="media/more.gif">
 
 ---

@@ -263,7 +263,7 @@ def render(frames: List[Any]) -> Union[Path, None]:
 			path.mkdir(parents=False, exist_ok=True)
 		except:
 			utils.exit("Failed to make output directory")
-			return None
+			return
 
 	if ext:
 		makedir(config.output.parent)
@@ -298,7 +298,7 @@ def render(frames: List[Any]) -> Union[Path, None]:
 		out.release()
 	else:
 		utils.exit("Invalid format")
-		return None
+		return
 
 	return output
 
