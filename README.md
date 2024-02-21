@@ -565,6 +565,31 @@ This is to give the rectangle rounded corners.
 
 ---
 
+
+> **outline** (Type: str | Default: None)
+
+Add an outline around the text.
+
+In case you want to give the text more contrast.
+
+3 numbers from `0` to `255`, separated by commas.
+
+`0,0,0` would be black, for instance.
+
+It uses the `RGB` format.
+
+The value can also be `random_light` or `random_dark`.
+
+These will get a random light or dark color.
+
+The value can also be `random_light2` or `random_dark2`.
+
+These will get a random light or dark color on each frame.
+
+Names are also supported, like `green`, `black`, `red`.
+
+---
+
 > **align** (Type: str | Default: "center")
 
 How to align the center when there are multiple lines.

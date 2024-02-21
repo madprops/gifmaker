@@ -66,15 +66,20 @@ def draw_text(frame: Image.Image, line: str) -> Image.Image:
 	data = get_text_data(frame, line)
 	fontcolor = get_color(config.fontcolor)
 	text = textwrap.fill(line, width=30)
+	_, top, _, _ = font.getbbox(text)
+	padding = config.padding
+	rect_1 = (data["min_x"] - padding, data["min_y"] + top - padding)
+	rect_2 = (data["max_x"] + padding, data["max_y"] + padding)
 
 	if config.bgcolor:
-		padding = config.padding
-		_, top, _, _ = font.getbbox(text)
-		rect_1 = (data["min_x"] - padding, data["min_y"] + top - padding)
-		rect_2 = (data["max_x"] + padding, data["max_y"] + padding)
 		bgcolor = get_color(config.bgcolor)
 		alpha = utils.add_alpha(bgcolor, config.opacity)
 		draw.rounded_rectangle((rect_1, rect_2), fill=alpha, radius=config.radius)
+
+	if config.outline:
+		draw.polygon([rect_1[0], rect_1[1], rect_2[0], \
+		rect_1[1], rect_2[0], rect_2[1], rect_1[0], rect_2[1]], \
+		outline=get_color(config.outline))
 
 	position = (data["min_x"], data["min_y"])
 	draw.multiline_text(position, text, fill=fontcolor, font=font, align=config.align)
@@ -110,7 +115,7 @@ def get_text_data(frame: Image.Image, line: str) -> Dict[str, int]:
 
 	text = textwrap.fill(line, width=30)
 
-	b_left, b_top, b_right, b_bottom = draw.textbbox((0, 0), text, font=font)
+	_, _, b_right, b_bottom = draw.textbbox((0, 0), text, font=font)
 
 	if (p_left is not None) and (p_left >= 0):
 		text_x = p_left
