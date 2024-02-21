@@ -1,7 +1,7 @@
 words = "Disregard [Random] ; [repeat] ; Acquire [Random] ; [repeat] ;"
 fontcolor = "light2"
 bgcolor = "dark2"
-bottom = 0
-right = 0
+bottom = 30
+right = 30
 filter = "random2"
 width = 700

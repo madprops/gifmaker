@@ -555,8 +555,6 @@ The padding of the background rectangle.
 
 This gives some spacing around the text.
 
-This also sets the margin for `left`, `right`, `top`, and `bottom`.
-
 ---
 
 > **radius** (Type: int | Default: 0)
