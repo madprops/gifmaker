@@ -116,7 +116,11 @@ There are 4 kinds of random formats: `[random]`, `[RANDOM]`, `[Random]`, `[RanDo
 
 The replaced word will use the case of those.
 
-For example `[RANDOM]` might be `PLANET`.
+With `[random]` you get lower case, like `water`.
+
+With `[RANDOM]` you get all caps, like `PLANET`.
+
+With `[Random]` you get the first letter capitalized, like `The garden`.
 
 With `[RanDom]` you get title case, like `The Machine`.
 
