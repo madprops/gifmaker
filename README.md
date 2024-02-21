@@ -537,6 +537,8 @@ These will get a random light or dark color on each frame.
 
 Names are also supported, like `green`, `black`, `red`.
 
+It can also be `font` to use the same color as the font.
+
 ---
 
 > **opacity** (Type: float | Default: 0.6)
@@ -587,6 +589,8 @@ The value can also be `random_light2` or `random_dark2`.
 These will get a random light or dark color on each frame.
 
 Names are also supported, like `green`, `black`, `red`.
+
+It can also be `font` to use the same color as the font.
 
 ---
 
