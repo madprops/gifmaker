@@ -292,7 +292,7 @@ def apply_filters(frames: List[Image.Image]) -> List[Image.Image]:
 		if not filters:
 			get_filters()
 
-	def change_hue(frame: Image.Image, factor: float) -> Image.Image:
+	def change_hue(frame: Image.Image, n: int) -> Image.Image:
 		hsv = frame.convert("HSV")
 		h, s, v = hsv.split()
 		h = h.point(lambda i: (i + hue_step * n) % 180)
@@ -317,7 +317,7 @@ def apply_filters(frames: List[Image.Image]) -> List[Image.Image]:
 		if filtr.startswith("hue"):
 			for n in range(min_hue, max_hue + 1):
 				if filtr == f"hue{n}":
-					new_frame = change_hue(frame, hue_step * n)
+					new_frame = change_hue(frame, n)
 					break
 
 		if new_frame is None:
