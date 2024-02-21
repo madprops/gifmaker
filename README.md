@@ -351,12 +351,6 @@ This also affects `randomlist`.
 
 ---
 
-> **linebreak** (Type: str | Default: "\n")
-
-The character to use for linebreaks.
-
----
-
 > **delay** (Type: int | Default: 600)
 
 The delay between frames. In milliseconds.

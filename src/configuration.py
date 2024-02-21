@@ -78,9 +78,6 @@ class Configuration:
 	# How to loop a gif render
 	loop = 0
 
-	# Linebreak character
-	linebreak = "\\n"
-
 	# Re-render the frames to change the width or delay
 	remake = False
 
@@ -152,7 +149,6 @@ class Configuration:
 		p.add_argument("--randomfile", type=str, help="Path to a list of words to consider for random words")
 		p.add_argument("--script", type=str, help="Path to a TOML file that defines the arguments to use")
 		p.add_argument("--loop", type=int, help="How to loop a gif render")
-		p.add_argument("--linebreak", type=str, help="Linebreak character")
 		p.add_argument("--remake", action="store_true", help="Re-render the frames to change the width or delay")
 		p.add_argument("--filter", type=str, choices=[
 			"hue1", "hue2", "hue3", "hue4", "hue5", "hue6", "hue7", "hue8", "anyhue", "anyhue2",
@@ -267,7 +263,6 @@ class Configuration:
 		normal("frames")
 		normal("loop")
 		normal("separator")
-		normal("linebreak")
 		normal("filter")
 		normal("remake")
 		normal("repeatrandom")
