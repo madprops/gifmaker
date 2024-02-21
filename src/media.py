@@ -118,7 +118,7 @@ def get_text_data(frame: Image.Image, line: str) -> Dict[str, int]:
 	if (p_top is not None) and (p_top >= 0):
 		text_y = p_top + padding
 	elif (p_bottom is not None) and (p_bottom >= 0):
-		text_y = height - p_bottom - padding + text_height
+		text_y = height - p_bottom - padding - text_height
 	else:
 		text_y = (height - text_height) // 2
 
