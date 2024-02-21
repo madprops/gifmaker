@@ -69,6 +69,9 @@ class Configuration:
 	# The padding of the background
 	padding = 25
 
+	# The border radius of the background
+	radius = 0
+
 	# Path to a TOML file that defines the arguments to use
 	script: Union[Path, None] = None
 
@@ -144,6 +147,7 @@ class Configuration:
 		p.add_argument("--bgcolor", type=str, help="Add a background rectangle for the text with this color. 3 numbers from 0 to 255, separated by commas")
 		p.add_argument("--opacity", type=str, help="The opacity of the background rectangle")
 		p.add_argument("--padding", type=str, help="The padding of the background rectangle")
+		p.add_argument("--radius", type=str, help="The border radius of the background")
 		p.add_argument("--randomlist", type=str, help="List of words to consider for random words")
 		p.add_argument("--randomfile", type=str, help="Path to a list of words to consider for random words")
 		p.add_argument("--script", type=str, help="Path to a TOML file that defines the arguments to use")
@@ -275,6 +279,7 @@ class Configuration:
 		number("delay", int, False)
 		number("opacity", float, True)
 		number("padding", int, True)
+		number("radius", int, True)
 
 		commas_or_string("fontcolor", int)
 		commas_or_string("bgcolor", int)

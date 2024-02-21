@@ -551,6 +551,16 @@ This gives some spacing around the text.
 
 This also sets the margin for `left`, `right`, `top`, and `bottom`.
 
+---
+
+> **radius** (Type: int | Default: 0)
+
+The border radius of the background rectangle.
+
+This is to give the rectangle rounded corners.
+
+---
+
 > **randomlist** (Type: str | Default: Empty)
 
 Random words are selected from this list.

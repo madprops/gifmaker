@@ -60,7 +60,7 @@ def get_frames() -> List[Image.Image]:
 	return frames
 
 def add_text(frame: Image.Image, line: str) -> Image.Image:
-	draw = ImageDraw.Draw(frame)
+	draw = ImageDraw.Draw(frame, "RGBA")
 	font = get_font()
 	data = get_text_data(frame, line)
 	fontcolor = get_color(config.fontcolor)
@@ -69,11 +69,12 @@ def add_text(frame: Image.Image, line: str) -> Image.Image:
 	if config.bgcolor:
 		bgcolor = get_color(config.bgcolor)
 		alpha = utils.add_alpha(bgcolor, config.opacity)
+		print(alpha)
 
 		rect_1 = (data["min_x_rect"] - padding, data["min_y_rect"] - padding)
 		rect_2 = (data["max_x_rect"] + padding, data["max_y_rect"] + padding)
 
-		draw.rectangle([rect_1, rect_2], fill=alpha)
+		draw.rounded_rectangle([rect_1, rect_2], fill=alpha, radius=config.radius)
 
 	position = (data["min_x_rect"], data["min_y_rect"])
 	draw.text(position, line, fill=fontcolor, font=font)
