@@ -8,6 +8,9 @@ from pathlib import Path
 from datetime import datetime
 from typing import List, Dict, Union, Tuple
 
+# Libraries
+import webcolors # type: ignore
+
 # Used for random colors
 colordiff = 0.16
 
@@ -97,3 +100,9 @@ def get_date(fmt: str) -> str:
 
 def add_alpha(rgb: Tuple[int, int, int], alpha: float) -> Tuple[int, int, int, int]:
 	return int(rgb[0]), int(rgb[1]), int(rgb[2]), int(255 * alpha)
+
+def color_name(name: str) -> Union[Tuple[int, int, int], None]:
+	try:
+		return (webcolors.name_to_rgb(name))
+	except:
+		return None

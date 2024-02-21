@@ -503,6 +503,8 @@ The value can also be `light2` or `dark2`.
 
 These will get a random light or dark color on each frame.
 
+Names are also supported, like `green`, `black`, `red`.
+
 ---
 
 > **bgcolor** (Type: str | Default: None)
@@ -524,6 +526,8 @@ These will get a random light or dark color.
 The value can also be `random_light2` or `random_dark2`.
 
 These will get a random light or dark color on each frame.
+
+Names are also supported, like `green`, `black`, `red`.
 
 ---
 

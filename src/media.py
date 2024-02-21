@@ -5,12 +5,12 @@ import utils
 # Libraries
 import imageio # type: ignore
 from PIL import Image, ImageFilter, ImageOps, ImageDraw, ImageFont # type: ignore
+import numpy as np
 import numpy.typing as npt
 
 # Standard
 import random
 import colorsys
-import numpy as np
 from pathlib import Path
 from typing import List, Dict, Union, Tuple
 
@@ -354,6 +354,8 @@ def get_color(value: Union[str, List[int]]) -> Tuple[int, int, int]:
 			rgb = utils.random_light()
 		elif value == "dark2":
 			rgb = utils.random_dark()
+		else:
+			rgb = utils.color_name(value)
 	elif isinstance(value, list):
 		rgb = (value[0], value[1], value[2])
 
