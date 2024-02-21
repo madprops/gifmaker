@@ -235,7 +235,7 @@ Relative paths should work fine.
 Here's a fuller example:
 
 ```shell
-gifmaker --input "/videos/stuff.webm" --fontsize 2.8 --delay 300 --width 600 --words "I want to eat ;; [Random] ; [repeat 2] ;" --format mp4 --bgcolor 0,0,0 --baseline --output "stuff/videos"
+gifmaker --input "/videos/stuff.webm" --fontsize 18 --delay 300 --width 600 --words "I want to eat ;; [Random] ; [repeat 2] ;" --format mp4 --bgcolor 0,0,0 --baseline --output "stuff/videos"
 ```
 
 ---
@@ -493,11 +493,9 @@ Either `simple`, `complex`, `plain`, `duplex`, or `triplex`.
 
 ---
 
-> **fontsize** (Type: float | Default: 2.5)
+> **fontsize** (Type: int | Default: 20)
 
 The size of the text.
-
-The number acts as a scale, not exact pixels.
 
 ---
 
@@ -637,7 +635,7 @@ A color filter that is applied to each frame.
 
 The filters are: `hue1`, `hue2` .. up to `hue8`, and `anyhue`, `anyhue2`.
 
-And also: `gray`, `blur`, `invert`, `saturate`, `random`, `random2`, `none`.
+And also: `gray`, `blur`, `invert`, `random`, `random2`, `none`.
 
 `random` picks a random filter for all frames.
 
@@ -685,11 +683,11 @@ If a number argument has a default you can use `p` and `m` operators.
 
 `p` means `plus` while `m` means `minus`.
 
-For example, since `fontsize` has a default of `2.5`.
+For example, since `fontsize` has a default of `20`.
 
 You can do `--fontsize p1` or `--fontsize m1`.
 
-To get `3.5` or `1.5`.
+To get `21` or `19`.
 
 ---
 
@@ -728,7 +726,7 @@ function funstuff
 	gifmaker \
 	--input "/path/to/some/file.png" --words "$argv is [Random] [x5]" \
 	--bgcolor random_dark2 --fontcolor random_light2 \
-	--top 0 --fontsize 2.3 --filter random2 --width 600
+	--top 0 --fontsize 22 --filter random2 --width 600
 end
 ```
 
@@ -765,7 +763,7 @@ def generate_something(who):
 		gm_common,
 		f"--input 'source.jpg'",
 		f"--words '{who} is [Random] [x5]' --bgcolor 0,0,0",
-		"--top 0 --fontsize 2.3 --filter random2",
+		"--top 0 --fontsize 22 --filter random2",
 	]
 
 	run_gifmaker(command)

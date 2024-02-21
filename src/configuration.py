@@ -3,6 +3,7 @@ import utils
 
 # Standard
 import argparse
+import codecs
 from argparse import Namespace
 from typing import List, Union, Any
 from pathlib import Path
@@ -54,7 +55,7 @@ class Configuration:
 	font = "simple"
 
 	# The size of the text
-	fontsize = 2.5
+	fontsize = 20
 
 	# The color of the text
 	fontcolor: Union[List[int], str] = [255, 255, 255]
@@ -126,6 +127,7 @@ class Configuration:
 		self.input = [utils.full_path(Path(self.root, "media", "video.webm"))]
 		self.output = utils.full_path(Path(self.root, "output"))
 		self.randomfile = utils.full_path(Path(self.root, "data", "nouns.txt"))
+		self.fontspath = utils.full_path(Path(self.root, "fonts"))
 
 	def parse_args(self) -> None:
 		p = argparse.ArgumentParser(description="Borat the Gif Maker")
@@ -145,8 +147,8 @@ class Configuration:
 		p.add_argument("--format", type=str, choices=["gif", "mp4", "jpg", "png"], help="The format of the output file")
 		p.add_argument("--separator", type=str, help="Character to use as the separator")
 		p.add_argument("--order", type=str, choices=["random", "normal"], help="The order to use when extracting the frames")
-		p.add_argument("--font", type=str, choices=["simple", "complex", "plain", "duplex", "triplex"], help="The font to use for the text")
-		p.add_argument("--fontsize", type=str, help="Text size")
+		p.add_argument("--font", type=str, choices=["default"], help="The font to use for the text")
+		p.add_argument("--fontsize", type=str, help="The size of the font")
 		p.add_argument("--fontcolor", type=str, help="Text color. 3 numbers from 0 to 255, separated by commas")
 		p.add_argument("--boldness", type=str, help="Text thickness")
 		p.add_argument("--bgcolor", type=str, help="Add a background rectangle for the text with this color. 3 numbers from 0 to 255, separated by commas")
@@ -162,7 +164,7 @@ class Configuration:
 		p.add_argument("--remake", action="store_true", help="Re-render the frames to change the width or delay")
 		p.add_argument("--filter", type=str, choices=[
 			"hue1", "hue2", "hue3", "hue4", "hue5", "hue6", "hue7", "hue8", "anyhue", "anyhue2",
-			"gray", "blur", "invert", "saturate", "random", "random2", "none",
+			"gray", "blur", "invert", "random", "random2", "none",
 			], help="Color filter to apply to frames")
 		p.add_argument("--filterlist", type=str, help="Filters to use per frame. Separated by commas")
 		p.add_argument("--filteropts", type=str, help="The list of allowed filters when picking randomly. Separated by commas")
@@ -282,7 +284,7 @@ class Configuration:
 		normal("fillwords")
 		normal("nogrow")
 
-		number("fontsize", float, False)
+		number("fontsize", int, False)
 		number("boldness", float, False)
 		number("delay", int, False)
 		number("opacity", float, True)
@@ -304,7 +306,7 @@ class Configuration:
 
 	def check_args(self, args: Namespace) -> None:
 		def separate(value: str) -> List[str]:
-			return [item.strip() for item in value.split(self.separator)]
+			return [codecs.decode(item.strip(), "unicode-escape") for item in value.split(self.separator)]
 
 		for path in self.input:
 			if not path.exists() or not path.is_file():
