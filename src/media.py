@@ -363,7 +363,7 @@ def get_color(attr: str) -> Tuple[int, int, int]:
 			rgb = config.last_fontcolor
 		else:
 			rgb = utils.color_name(value)
-	elif isinstance(value, list):
+	elif isinstance(value, tuple):
 		rgb = (value[0], value[1], value[2])
 
 	ans = rgb or (100, 100, 100)
