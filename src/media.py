@@ -11,6 +11,7 @@ import numpy.typing as npt
 # Standard
 import random
 import colorsys
+import textwrap
 from pathlib import Path
 from typing import List, Dict, Union, Tuple
 
@@ -59,22 +60,24 @@ def get_frames() -> List[Image.Image]:
 
 	return frames
 
-def add_text(frame: Image.Image, line: str) -> Image.Image:
+def draw_text(frame: Image.Image, line: str) -> Image.Image:
 	draw = ImageDraw.Draw(frame, "RGBA")
 	font = get_font()
 	data = get_text_data(frame, line)
 	fontcolor = get_color(config.fontcolor)
+	text = textwrap.fill(line, width=30)
 
 	if config.bgcolor:
 		padding = config.padding
+		_, top, _, _ = font.getbbox(text)
+		rect_1 = (data["min_x"] - padding, data["min_y"] + top - padding)
+		rect_2 = (data["max_x"] + padding, data["max_y"] + padding)
 		bgcolor = get_color(config.bgcolor)
 		alpha = utils.add_alpha(bgcolor, config.opacity)
-		rect_1 = (data["min_x_rect"] - padding, data["min_y_rect"] - padding)
-		rect_2 = (data["max_x_rect"] + padding, data["max_y_rect"] + padding)
-		draw.rounded_rectangle([rect_1, rect_2], fill=alpha, radius=config.radius)
+		draw.rounded_rectangle((rect_1, rect_2), fill=alpha, radius=config.radius)
 
-	position = (data["min_x_text"], data["min_y_text"])
-	draw.text(position, line, fill=fontcolor, font=font, align=config.align)
+	position = (data["min_x"], data["min_y"])
+	draw.multiline_text(position, text, fill=fontcolor, font=font, align=config.align)
 	return frame
 
 def get_font_item(name: str) -> ImageFont.FreeTypeFont:
@@ -104,16 +107,15 @@ def get_text_data(frame: Image.Image, line: str) -> Dict[str, int]:
 	p_bottom = config.bottom
 	p_left = config.left
 	p_right = config.right
-	padding = config.padding
 
-	d_left, d_top, d_right, d_bottom = draw.textbbox((0, 0), "aaaaaa", font=font)
-	b_left, b_top, b_right, b_bottom = draw.textbbox((0, 0), line, font=font)
-	descent = (b_bottom - d_bottom) / 2
+	text = textwrap.fill(line, width=30)
+
+	b_left, b_top, b_right, b_bottom = draw.textbbox((0, 0), text, font=font)
 
 	if (p_left is not None) and (p_left >= 0):
-		text_x = p_left + padding
+		text_x = p_left
 	elif (p_right is not None) and (p_right >= 0):
-		text_x = width - b_right - p_right - padding
+		text_x = width - b_right - p_right
 	else:
 		text_x = (width - b_right) // 2
 
@@ -123,9 +125,9 @@ def get_text_data(frame: Image.Image, line: str) -> Dict[str, int]:
 			text_x -= p_right
 
 	if (p_top is not None) and (p_top >= 0):
-		text_y = p_top + padding
+		text_y = p_top
 	elif (p_bottom is not None) and (p_bottom >= 0):
-		text_y = height - p_bottom - padding - b_bottom + b_top
+		text_y = height - p_bottom - b_bottom
 	else:
 		text_y = (height - b_bottom) // 2
 
@@ -135,12 +137,10 @@ def get_text_data(frame: Image.Image, line: str) -> Dict[str, int]:
 			text_y -= p_bottom
 
 	ans = {
-		"min_x_rect": text_x,
-		"min_y_rect": text_y,
-		"max_x_rect": text_x + b_right,
-		"max_y_rect": text_y + b_bottom,
-		"min_x_text": text_x,
-		"min_y_text": text_y - b_top + descent,
+		"min_x": text_x,
+		"min_y": text_y,
+		"max_x": text_x + b_right,
+		"max_y": text_y + b_bottom,
 	}
 
 	return ans
@@ -165,7 +165,7 @@ def word_frames(frames: List[Image.Image]) -> List[Image.Image]:
 		line = config.words[index]
 
 		if line:
-			frame = add_text(frame, line)
+			frame = draw_text(frame, line)
 
 		worded.append(frame)
 
