@@ -72,17 +72,11 @@ class Configuration:
 	# The padding of the background
 	padding = 25
 
-	# Don't add the baseline to the background's height
-	baseline = False
-
 	# Path to a TOML file that defines the arguments to use
 	script: Union[Path, None] = None
 
 	# How to loop a gif render
 	loop = 0
-
-	# Spacing between lines
-	linespace = 20
 
 	# Linebreak character
 	linebreak = "\\n"
@@ -154,12 +148,10 @@ class Configuration:
 		p.add_argument("--bgcolor", type=str, help="Add a background rectangle for the text with this color. 3 numbers from 0 to 255, separated by commas")
 		p.add_argument("--opacity", type=str, help="The opacity of the background rectangle")
 		p.add_argument("--padding", type=str, help="The padding of the background rectangle")
-		p.add_argument("--baseline", action="store_true", help="Add the baseline to the background rectangle's height")
 		p.add_argument("--randomlist", type=str, help="List of words to consider for random words")
 		p.add_argument("--randomfile", type=str, help="Path to a list of words to consider for random words")
 		p.add_argument("--script", type=str, help="Path to a TOML file that defines the arguments to use")
 		p.add_argument("--loop", type=int, help="How to loop a gif render")
-		p.add_argument("--linespace", type=str, help="Spacing between lines")
 		p.add_argument("--linebreak", type=str, help="Linebreak character")
 		p.add_argument("--remake", action="store_true", help="Re-render the frames to change the width or delay")
 		p.add_argument("--filter", type=str, choices=[
@@ -273,7 +265,6 @@ class Configuration:
 		normal("order")
 		normal("font")
 		normal("frames")
-		normal("baseline")
 		normal("loop")
 		normal("separator")
 		normal("linebreak")
@@ -289,7 +280,6 @@ class Configuration:
 		number("delay", int, False)
 		number("opacity", float, True)
 		number("padding", int, True)
-		number("linespace", int, True)
 
 		commas_or_string("fontcolor", int)
 		commas_or_string("bgcolor", int)

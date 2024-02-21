@@ -180,8 +180,6 @@ Will place `Hello` where a normal line would be.
 
 And then place `World` underneath it.
 
-You can control the spacing with the `linespace` argument.
-
 ---
 
 Another way to define an empty line is using `[empty]`.
@@ -235,7 +233,7 @@ Relative paths should work fine.
 Here's a fuller example:
 
 ```shell
-gifmaker --input "/videos/stuff.webm" --fontsize 18 --delay 300 --width 600 --words "I want to eat ;; [Random] ; [repeat 2] ;" --format mp4 --bgcolor 0,0,0 --baseline --output "stuff/videos"
+gifmaker --input "/videos/stuff.webm" --fontsize 18 --delay 300 --width 600 --words "I want to eat ;; [Random] ; [repeat 2] ;" --format mp4 --bgcolor 0,0,0 --output "stuff/videos"
 ```
 
 ---
@@ -356,12 +354,6 @@ This also affects `randomlist`.
 > **linebreak** (Type: str | Default: "\n")
 
 The character to use for linebreaks.
-
----
-
-> **linespace** (Type: int | Default 20)
-
-Spacing between lines separated by `\n`.
 
 ---
 
@@ -566,18 +558,6 @@ The padding of the background rectangle.
 This gives some spacing around the text.
 
 This also sets the margin for `left`, `right`, `top`, and `bottom`.
-
----
-
-> **baseline** (Type: flag | Default: False)
-
-Use this to add the baseline to the background rectangle's height.
-
-The baseline is the room reserved for letters that have descenders, like the bottom half of `y`.
-
-If you enable it the rectangle will cover all possible letters.
-
----
 
 > **randomlist** (Type: str | Default: Empty)
 

@@ -5,15 +5,16 @@ import utils
 # Libraries
 import imageio # type: ignore
 from PIL import Image, ImageFilter, ImageOps, ImageDraw, ImageFont # type: ignore
+import numpy.typing as npt
 
 # Standard
 import random
 import colorsys
-import numpy as np # type: ignore
+import numpy as np
 from pathlib import Path
-from typing import List, Any, Dict, Union, Tuple
+from typing import List, Dict, Union, Tuple, Any
 
-def get_frames() -> List[Any]:
+def get_frames() -> List[Image.Image]:
 	count_frames()
 	assert isinstance(config.frames, int)
 
@@ -41,7 +42,7 @@ def get_frames() -> List[Any]:
 
 			try:
 				img = to_pillow(reader.get_data(index), "RGB")
-				frame = frames.append(img)
+				frames.append(img)
 			except:
 				pass
 
@@ -58,7 +59,7 @@ def get_frames() -> List[Any]:
 
 	return frames
 
-def add_text(frame: Any, line: str) -> Any:
+def add_text(frame: Image.Image, line: str) -> Image.Image:
 	draw = ImageDraw.Draw(frame)
 	font = get_font()
 	data = get_text_data(frame, line)
@@ -66,38 +67,31 @@ def add_text(frame: Any, line: str) -> Any:
 	padding = config.padding
 
 	if config.bgcolor:
-		if config.baseline:
-			baseline = data["framedata"][0]["baseline"]
-		else:
-			baseline = 0
-
 		bgcolor = get_color(config.bgcolor)
-		bgcolor = add_alpha(bgcolor, config.opacity)
-		print(bgcolor)
+		alpha = utils.add_alpha(bgcolor, config.opacity)
 
 		rect_1 = (data["min_x_rect"] - padding, data["min_y_rect"] - padding)
-		rect_2 = (data["max_x_rect"] + padding, data["max_y_rect"] + padding + baseline)
+		rect_2 = (data["max_x_rect"] + padding, data["max_y_rect"] + padding)
 
-		draw.rectangle([rect_1, rect_2], fill=bgcolor)
+		draw.rectangle([rect_1, rect_2], fill=alpha)
 
 	position = (data["min_x_rect"], data["min_y_rect"])
 	draw.text(position, line, fill=fontcolor, font=font)
 
 	return frame
 
-def get_font_item(name: str) -> Any:
+def get_font_item(name: str) -> ImageFont.FreeTypeFont:
 	path = Path(config.fontspath, name)
 	return ImageFont.truetype(path, size=config.fontsize)
 
-def get_font() -> Any:
+def get_font() -> ImageFont.FreeTypeFont:
 	font = get_font_item("Roboto-Regular.ttf")
 	return font
 
-def get_text_data(frame: Any, line: str) -> Dict[str, Any]:
+def get_text_data(frame: Image.Image, line: str) -> Dict[str, int]:
 	draw = ImageDraw.Draw(frame)
-	width, height = get_shape(frame)
+	width, height = frame.size
 	font = get_font()
-	framedata = []
 
 	p_top = config.top
 	p_bottom = config.bottom
@@ -125,9 +119,6 @@ def get_text_data(frame: Any, line: str) -> Dict[str, Any]:
 		text_y = p_top + padding
 	elif (p_bottom is not None) and (p_bottom >= 0):
 		text_y = height - p_bottom - padding + text_height
-
-		if config.baseline:
-			text_y -= baseline
 	else:
 		text_y = (height - text_height) // 2
 
@@ -145,7 +136,7 @@ def get_text_data(frame: Any, line: str) -> Dict[str, Any]:
 
 	return ans
 
-def word_frames(frames: List[Any]) -> List[Any]:
+def word_frames(frames: List[Image.Image]) -> List[Image.Image]:
 	if not config.words:
 		return frames
 
@@ -171,14 +162,14 @@ def word_frames(frames: List[Any]) -> List[Any]:
 
 	return worded
 
-def resize_frames(frames: List[Any]) -> List[Any]:
+def resize_frames(frames: List[Image.Image]) -> List[Image.Image]:
 	if (not config.width) and (not config.height):
 		return frames
 
 	new_frames = []
 	new_width = config.width
 	new_height = config.height
-	w, h = get_shape(frames[0])
+	w, h = frames[0].size
 	ratio = w / h
 
 	if new_width and (not new_height):
@@ -203,7 +194,7 @@ def resize_frames(frames: List[Any]) -> List[Any]:
 
 	return new_frames
 
-def render(frames: List[Any]) -> Union[Path, None]:
+def render(frames: List[Image.Image]) -> Union[Path, None]:
 	ext = utils.get_extension(config.output)
 
 	def makedir(path: Path) -> None:
@@ -246,7 +237,7 @@ def render(frames: List[Any]) -> Union[Path, None]:
 
 	return output
 
-def apply_filters(frames: List[Any]) -> List[Any]:
+def apply_filters(frames: List[Image.Image]) -> List[Image.Image]:
 	if (config.filter == "none") and (not config.filterlist):
 		return frames
 
@@ -285,13 +276,7 @@ def apply_filters(frames: List[Any]) -> List[Any]:
 		if not filters:
 			get_filters()
 
-	def to_hsv(frame: Any) -> Any:
-		return rgb_to_hsv(np.array(frame))
-
-	def to_rgb(frame: Any) -> Any:
-		return to_pillow(hsv_to_rgb(frame), "RGB")
-
-	def change_hue(frame: Any, factor: float) -> Any:
+	def change_hue(frame: Image.Image, factor: float) -> Image.Image:
 		hsv_image = frame.convert("HSV")
 		h, s, v = hsv_image.split()
 		h = h.point(lambda i: i * factor)
@@ -333,9 +318,6 @@ def apply_filters(frames: List[Any]) -> List[Any]:
 
 	return new_frames
 
-def get_shape(frame: Any) -> Tuple[int, int]:
-	return frame.size
-
 def count_frames() -> None:
 	if config.frames is not None:
 		return
@@ -348,8 +330,8 @@ def count_frames() -> None:
 	else:
 		config.frames = 3
 
-def get_color(value: Union[str, List[int]]) -> List[int]:
-	rgb = None
+def get_color(value: Union[str, List[int]]) -> Tuple[int, int, int]:
+	rgb: Union[Tuple[int, int, int], None] = None
 
 	if isinstance(value, str):
 		if value == "light2":
@@ -357,15 +339,12 @@ def get_color(value: Union[str, List[int]]) -> List[int]:
 		elif value == "dark2":
 			rgb = utils.random_dark()
 	elif isinstance(value, list):
-		rgb = value
+		rgb = (value[0], value[1], value[2])
 
-	return tuple(rgb) or (100, 100, 100)
+	return rgb or (100, 100, 100)
 
-def add_alpha(rgb: Tuple[int, int, int], alpha: float) -> Tuple[int, int, int, int]:
-	return int(rgb[0]), int(rgb[1]), int(rgb[2]), int(255 * alpha)
-
-def to_pillow(frame: Any, mode: str) -> Any:
+def to_pillow(frame: npt.NDArray[np.float64], mode: str) -> Image.Image:
 	return Image.fromarray(frame, mode=mode)
 
-def to_array(frames: Any) -> Any:
+def to_array(frames: List[Image.Image]) -> List[npt.NDArray[np.float64]]:
 	return [np.array(frame) for frame in frames]

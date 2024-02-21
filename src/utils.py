@@ -6,7 +6,7 @@ import string
 import colorsys
 from pathlib import Path
 from datetime import datetime
-from typing import List, Dict, Union
+from typing import List, Dict, Union, Tuple
 
 # Used for random colors
 colordiff = 0.16
@@ -55,17 +55,17 @@ def read_toml(path: Path) -> Union[Dict[str, str], None]:
 		exit("Failed to read TOML file")
 		return None
 
-def random_color(lightness: float) -> List[int]:
+def random_color(lightness: float) -> Tuple[int, int, int]:
 	hue = random.random()
 	saturation = 0.8
 	r, g, b = colorsys.hsv_to_rgb(hue, saturation, lightness)
 	r, g, b = int(r * 255), int(g * 255), int(b * 255)
-	return [r, g, b]
+	return r, g, b
 
-def random_light() -> List[int]:
+def random_light() -> Tuple[int, int, int]:
 	return random_color(1 - colordiff)
 
-def random_dark() -> List[int]:
+def random_dark() -> Tuple[int, int, int]:
 	return random_color(colordiff)
 
 def random_digit(allow_zero: bool) -> int:
@@ -94,3 +94,6 @@ def get_date(fmt: str) -> str:
 		return datetime.now().strftime(fmt)
 	else:
 		return str(int(datetime.now().timestamp()))
+
+def add_alpha(rgb: Tuple[int, int, int], alpha: float) -> Tuple[int, int, int, int]:
+	return int(rgb[0]), int(rgb[1]), int(rgb[2]), int(255 * alpha)
