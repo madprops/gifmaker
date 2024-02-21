@@ -681,11 +681,13 @@ For instance, you can use this to change the `width` or `delay` of a rendered fi
 
 ---
 
-If a number argument has a default you can use `-` and `+` operators.
+If a number argument has a default you can use `p` and `m` operators.
+
+`p` means `plus` while `m` means `minus`.
 
 For example, since `fontsize` has a default of `2.5`.
 
-You can do `--fontsize +1` or `--fontsize -1`.
+You can do `--fontsize p1` or `--fontsize m1`.
 
 To get `3.5` or `1.5`.
 

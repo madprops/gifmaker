@@ -228,7 +228,7 @@ class Configuration:
 			num = value
 			op = ""
 
-			if value.startswith("-") or value.startswith("+"):
+			if value.startswith("p") or value.startswith("m"):
 				op = value[0]
 				num = value[1:]
 
@@ -241,10 +241,10 @@ class Configuration:
 				utils.exit(f"Failed to parse '{attr}'")
 				return
 
-			if op == "-":
-				num = default - num
-			elif op == "+":
+			if op == "p":
 				num = default + num
+			elif op == "m":
+				num = default - num
 
 			err = f"Value for '{attr}' is too low"
 
