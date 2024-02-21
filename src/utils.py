@@ -103,7 +103,7 @@ def add_alpha(rgb: Tuple[int, int, int], alpha: float) -> Tuple[int, int, int, i
 
 def color_name(name: str) -> Union[Tuple[int, int, int], None]:
 	try:
-		return (webcolors.name_to_rgb(name))
+		return tuple(webcolors.name_to_rgb(name))
 	except:
 		return None
 

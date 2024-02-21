@@ -67,7 +67,7 @@ class Configuration:
 	opacity = 0.6
 
 	# The padding of the background
-	padding = 25
+	padding = 20
 
 	# The border radius of the background
 	radius = 0

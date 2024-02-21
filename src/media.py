@@ -64,15 +64,16 @@ def add_text(frame: Image.Image, line: str) -> Image.Image:
 	font = get_font()
 	data = get_text_data(frame, line)
 	fontcolor = get_color(config.fontcolor)
-	position = (data["min_x_rect"], data["min_y_rect"])
 
 	if config.bgcolor:
-		p = config.padding
+		padding = config.padding
 		bgcolor = get_color(config.bgcolor)
 		alpha = utils.add_alpha(bgcolor, config.opacity)
-		left, top, right, bottom = draw.textbbox(position, line, font=font)
-		draw.rounded_rectangle((left - p, top - p, right + p, bottom + p), fill=alpha, radius=config.radius)
+		rect_1 = (data["min_x_rect"] - padding, data["min_y_rect"] - padding)
+		rect_2 = (data["max_x_rect"] + padding, data["max_y_rect"] + padding)
+		draw.rounded_rectangle([rect_1, rect_2], fill=alpha, radius=config.radius)
 
+	position = (data["min_x_text"], data["min_y_text"])
 	draw.text(position, line, fill=fontcolor, font=font, align=config.align)
 	return frame
 
@@ -105,16 +106,16 @@ def get_text_data(frame: Image.Image, line: str) -> Dict[str, int]:
 	p_right = config.right
 	padding = config.padding
 
-	text_size = draw.textbbox((0, 0), line, font)
-	text_width = text_size[2]
-	text_height = text_size[3]
+	d_left, d_top, d_right, d_bottom = draw.textbbox((0, 0), "aaaaaa", font=font)
+	b_left, b_top, b_right, b_bottom = draw.textbbox((0, 0), line, font=font)
+	descent = (b_bottom - d_bottom) / 2
 
 	if (p_left is not None) and (p_left >= 0):
 		text_x = p_left + padding
 	elif (p_right is not None) and (p_right >= 0):
-		text_x = width - text_width - p_right - padding
+		text_x = width - b_right - p_right - padding
 	else:
-		text_x = (width - text_width) // 2
+		text_x = (width - b_right) // 2
 
 		if (p_left is not None) and (p_left < 0):
 			text_x += p_left
@@ -124,9 +125,9 @@ def get_text_data(frame: Image.Image, line: str) -> Dict[str, int]:
 	if (p_top is not None) and (p_top >= 0):
 		text_y = p_top + padding
 	elif (p_bottom is not None) and (p_bottom >= 0):
-		text_y = height - p_bottom - padding - text_height
+		text_y = height - p_bottom - padding - b_bottom + b_top
 	else:
-		text_y = (height - text_height) // 2
+		text_y = (height - b_bottom) // 2
 
 		if (p_top is not None) and (p_top < 0):
 			text_y += p_top
@@ -136,8 +137,10 @@ def get_text_data(frame: Image.Image, line: str) -> Dict[str, int]:
 	ans = {
 		"min_x_rect": text_x,
 		"min_y_rect": text_y,
-		"max_x_rect": text_x + text_width,
-		"max_y_rect": text_y + text_height,
+		"max_x_rect": text_x + b_right,
+		"max_y_rect": text_y + b_bottom,
+		"min_x_text": text_x,
+		"min_y_text": text_y - b_top + descent,
 	}
 
 	return ans
