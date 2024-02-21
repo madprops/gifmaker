@@ -730,7 +730,7 @@ Here's some snippet that might help:
 
 ```python
 gifmaker = "/path/to/gifmaker"
-gm_common = "--font triplex --width 555 --nogrow --output /tmp/gifmaker"
+gm_common = "--font bold --width 555 --nogrow --output /tmp/gifmaker"
 
 # You can have multiple functions like this
 def generate_something(who):
