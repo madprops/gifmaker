@@ -112,11 +112,15 @@ gifmaker --words "I Like [random] and [random]"
 
 It will pick random words from a list of English words.
 
-There are 3 kinds of random formats: `[random]`, `[RANDOM]`, and `[Random]`.
+There are 4 kinds of random formats: `[random]`, `[RANDOM]`, `[Random]`, `[RanDom]`, and `[randomx]`.
 
 The replaced word will use the case of those.
 
 For example `[RANDOM]` might be `PLANET`.
+
+With `[RanDom]` you get title case, like `The Machine`.
+
+With `[randomx]` you get the exact item from the random list.
 
 You can specify how many random words to generate by using a number:
 

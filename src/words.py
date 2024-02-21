@@ -45,7 +45,7 @@ def replace_random() -> None:
 			return " ".join(randwords)
 
 	new_lines: List[str] = []
-	pattern = re.compile(r"\[(?P<word>random|number)(?:\s+(?P<number>\d+(-\d+)?))?\]", re.IGNORECASE)
+	pattern = re.compile(r"\[(?P<word>randomx?|number)(?:\s+(?P<number>\d+(-\d+)?))?\]", re.IGNORECASE)
 	pattern_multi = re.compile(r"\[(?:x(?P<number>\d+))?\]$", re.IGNORECASE)
 
 	for line in config.words:
@@ -173,7 +173,11 @@ def get_random(rand: str, allow_zero: bool) -> str:
 	elif rand == "RANDOM":
 		return random_word().upper()
 	elif rand == "Random":
+		return random_word().capitalize()
+	elif rand == "RanDom":
 		return random_word().title()
+	elif rand == "randomx":
+		return random_word()
 	elif rand == "number":
 		return str(utils.random_digit(allow_zero))
 	else:
