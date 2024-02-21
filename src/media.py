@@ -69,7 +69,6 @@ def add_text(frame: Image.Image, line: str) -> Image.Image:
 	if config.bgcolor:
 		bgcolor = get_color(config.bgcolor)
 		alpha = utils.add_alpha(bgcolor, config.opacity)
-		print(alpha)
 
 		rect_1 = (data["min_x_rect"] - padding, data["min_y_rect"] - padding)
 		rect_2 = (data["max_x_rect"] + padding, data["max_y_rect"] + padding)
@@ -317,7 +316,7 @@ def apply_filters(frames: List[Image.Image]) -> List[Image.Image]:
 
 		if new_frame is None:
 			if filtr == "gray":
-				new_frame = frame.convert("L")
+				new_frame = ImageOps.colorize(frame.convert("L"), "black", "white")
 			elif filtr == "blur":
 				new_frame = frame.filter(ImageFilter.BLUR)
 			elif filtr == "invert":
