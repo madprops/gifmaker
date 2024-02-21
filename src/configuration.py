@@ -141,7 +141,7 @@ class Configuration:
 		p.add_argument("--format", type=str, choices=["gif", "mp4", "jpg", "png"], help="The format of the output file")
 		p.add_argument("--separator", type=str, help="Character to use as the separator")
 		p.add_argument("--order", type=str, choices=["random", "normal"], help="The order to use when extracting the frames")
-		p.add_argument("--font", type=str, choices=["default"], help="The font to use for the text")
+		p.add_argument("--font", type=str, choices=["sans", "serif", "mono"], help="The font to use for the text")
 		p.add_argument("--fontsize", type=str, help="The size of the font")
 		p.add_argument("--fontcolor", type=str, help="Text color. 3 numbers from 0 to 255, separated by commas")
 		p.add_argument("--boldness", type=str, help="Text thickness")

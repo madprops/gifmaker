@@ -85,7 +85,11 @@ def get_font_item(name: str) -> ImageFont.FreeTypeFont:
 	return ImageFont.truetype(path, size=config.fontsize)
 
 def get_font() -> ImageFont.FreeTypeFont:
-	font = get_font_item("Roboto-Regular.ttf")
+	if config.font == "monospace":
+		font = get_font_item("RobotoMono-Regular.ttf")
+	else:
+		font = get_font_item("Roboto-Regular.ttf")
+
 	return font
 
 def get_text_data(frame: Image.Image, line: str) -> Dict[str, int]:
