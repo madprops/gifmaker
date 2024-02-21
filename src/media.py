@@ -261,7 +261,7 @@ def apply_filters(frames: List[Image.Image]) -> List[Image.Image]:
 
 	min_hue = 1
 	max_hue = 8
-	hue_step = 0.1
+	hue_step = 20
 
 	hue_filters = [f"hue{i}" for i in range(min_hue, max_hue + 1)]
 	all_filters = hue_filters + ["gray", "blur", "invert", "none"]
@@ -293,11 +293,11 @@ def apply_filters(frames: List[Image.Image]) -> List[Image.Image]:
 			get_filters()
 
 	def change_hue(frame: Image.Image, factor: float) -> Image.Image:
-		hsv_image = frame.convert("HSV")
-		h, s, v = hsv_image.split()
-		h = h.point(lambda i: i * factor)
-		new_image = Image.merge("HSV", (h, s, v))
-		return new_image.convert("RGB")
+		hsv = frame.convert("HSV")
+		h, s, v = hsv.split()
+		h2 = (np.array(h) + hue_step * n) % 180
+		new_frame = Image.merge("HSV", (Image.fromarray(h2), s, v))
+		return new_frame.convert("RGB")
 
 	get_filters()
 	filtr = config.filter
