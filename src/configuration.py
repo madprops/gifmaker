@@ -63,6 +63,9 @@ class Configuration:
 	# The color of the background
 	bgcolor: Union[List[int], str, None] = None
 
+	# The color of the outline
+	outline: Union[List[int], str, None] = None
+
 	# The opacity of the background
 	opacity = 0.6
 

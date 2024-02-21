@@ -4,5 +4,6 @@ bgcolor = "dark2"
 bottom = 30
 right = 30
 filter = "random2"
+outline = "font"
 width = 700
 fontsize = 80
