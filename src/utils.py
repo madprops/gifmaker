@@ -12,7 +12,7 @@ from typing import List, Dict, Union, Tuple
 import webcolors # type: ignore
 
 # Used for random colors
-colordiff = 0.16
+colordiff = 0.15
 
 def random_string() -> str:
 	vowels = "aeiou"

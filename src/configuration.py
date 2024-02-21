@@ -119,6 +119,9 @@ class Configuration:
 	# Counter for [count]
 	wordcount = 0
 
+	# Last font color used
+	last_fontcolor = None
+
 	def fill_paths(self, main_file: str) -> None:
 		self.root = utils.full_path(Path(main_file).parent.parent)
 		self.input = [utils.full_path(Path(self.root, "media", "video.webm"))]
@@ -337,8 +340,6 @@ class Configuration:
 			setattr(self, attr, utils.random_light())
 		elif value == "dark":
 			setattr(self, attr, utils.random_dark())
-		elif (value == "font"):
-			setattr(self, attr, self.fontcolor)
 
 	def check_script(self, args: Namespace) -> None:
 		if self.script is None:

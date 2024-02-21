@@ -64,7 +64,7 @@ def draw_text(frame: Image.Image, line: str) -> Image.Image:
 	draw = ImageDraw.Draw(frame, "RGBA")
 	font = get_font()
 	data = get_text_data(frame, line)
-	fontcolor = get_color(config.fontcolor)
+	fontcolor = get_color("fontcolor")
 	text = textwrap.fill(line, width=30)
 	_, top, _, _ = font.getbbox(text)
 	padding = config.padding
@@ -72,14 +72,14 @@ def draw_text(frame: Image.Image, line: str) -> Image.Image:
 	rect_2 = (data["max_x"] + padding, data["max_y"] + padding)
 
 	if config.bgcolor:
-		bgcolor = get_color(config.bgcolor)
+		bgcolor = get_color("bgcolor")
 		alpha = utils.add_alpha(bgcolor, config.opacity)
 		draw.rounded_rectangle((rect_1, rect_2), fill=alpha, radius=config.radius)
 
 	if config.outline:
 		draw.polygon([rect_1[0], rect_1[1], rect_2[0], \
 		rect_1[1], rect_2[0], rect_2[1], rect_1[0], rect_2[1]], \
-		outline=get_color(config.outline))
+		outline=get_color("outline"))
 
 	position = (data["min_x"], data["min_y"])
 	draw.multiline_text(position, text, fill=fontcolor, font=font, align=config.align)
@@ -350,7 +350,8 @@ def count_frames() -> None:
 	else:
 		config.frames = 3
 
-def get_color(value: Union[str, List[int]]) -> Tuple[int, int, int]:
+def get_color(attr: str) -> Tuple[int, int, int]:
+	value = getattr(config, attr)
 	rgb: Union[Tuple[int, int, int], None] = None
 
 	if isinstance(value, str):
@@ -358,12 +359,19 @@ def get_color(value: Union[str, List[int]]) -> Tuple[int, int, int]:
 			rgb = utils.random_light()
 		elif value == "dark2":
 			rgb = utils.random_dark()
+		elif value == "font" and config.last_fontcolor:
+			rgb = config.last_fontcolor
 		else:
 			rgb = utils.color_name(value)
 	elif isinstance(value, list):
 		rgb = (value[0], value[1], value[2])
 
-	return rgb or (100, 100, 100)
+	ans = rgb or (100, 100, 100)
+
+	if attr == "fontcolor":
+		config.last_fontcolor = ans
+
+	return ans
 
 def to_pillow(frame: npt.NDArray[np.float64], mode: str) -> Image.Image:
 	return Image.fromarray(frame, mode=mode)
