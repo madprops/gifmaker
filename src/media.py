@@ -64,18 +64,15 @@ def add_text(frame: Image.Image, line: str) -> Image.Image:
 	font = get_font()
 	data = get_text_data(frame, line)
 	fontcolor = get_color(config.fontcolor)
-	padding = config.padding
+	position = (data["min_x_rect"], data["min_y_rect"])
+	left, top, right, bottom = draw.textbbox(position, line, font=font)
 
 	if config.bgcolor:
+		p = config.padding
 		bgcolor = get_color(config.bgcolor)
 		alpha = utils.add_alpha(bgcolor, config.opacity)
+		draw.rounded_rectangle((left - p, top - p, right + p, bottom + p), fill=alpha, radius=config.radius)
 
-		rect_1 = (data["min_x_rect"] - padding, data["min_y_rect"] - padding)
-		rect_2 = (data["max_x_rect"] + padding, data["max_y_rect"] + padding)
-
-		draw.rounded_rectangle([rect_1, rect_2], fill=alpha, radius=config.radius)
-
-	position = (data["min_x_rect"], data["min_y_rect"])
 	draw.text(position, line, fill=fontcolor, font=font, align=config.align)
 
 	return frame
