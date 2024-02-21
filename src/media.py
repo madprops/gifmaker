@@ -295,8 +295,8 @@ def apply_filters(frames: List[Image.Image]) -> List[Image.Image]:
 	def change_hue(frame: Image.Image, factor: float) -> Image.Image:
 		hsv = frame.convert("HSV")
 		h, s, v = hsv.split()
-		h2 = (np.array(h) + hue_step * n) % 180
-		new_frame = Image.merge("HSV", (Image.fromarray(h2), s, v))
+		h = h.point(lambda i: (i + hue_step * n) % 180)
+		new_frame = Image.merge("HSV", (h, s, v))
 		return new_frame.convert("RGB")
 
 	get_filters()
