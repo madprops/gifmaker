@@ -298,7 +298,7 @@ def render(frames: List[Any]) -> Union[Path, None]:
 		out.release()
 	else:
 		utils.exit("Invalid format")
-		return
+		return None
 
 	return output
 
