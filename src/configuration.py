@@ -142,7 +142,7 @@ class Configuration:
 		p.add_argument("--separator", type=str, help="Character to use as the separator")
 		p.add_argument("--order", type=str, choices=["random", "normal"], help="The order to use when extracting the frames")
 		p.add_argument("--font", type=str, choices=["sans", "serif", "mono", "bold", "italic"], help="The font to use for the text")
-		p.add_argument("--fontsize", type=str, help="The size of the font")
+		p.add_argument("--fontsize", type=Any, help="The size of the font")
 		p.add_argument("--fontcolor", type=str, help="Text color. 3 numbers from 0 to 255, separated by commas")
 		p.add_argument("--bgcolor", type=str, help="Add a background rectangle for the text with this color. 3 numbers from 0 to 255, separated by commas")
 		p.add_argument("--opacity", type=str, help="The opacity of the background rectangle")
@@ -219,6 +219,7 @@ class Configuration:
 			if value is None:
 				return
 
+			value = str(value)
 			num = value
 			op = ""
 

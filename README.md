@@ -701,6 +701,7 @@ For example, a script can look like this:
 ```toml
 words = "Disregard [Random] ; [repeat] ; Acquire [Random] ; [repeat] ;"
 fontcolor = "44,80,200"
+fontsize = 80
 bgcolor = "0,0,0"
 bottom = 0
 right = 0
