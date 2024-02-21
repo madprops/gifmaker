@@ -55,7 +55,7 @@ class Configuration:
 	font = "simple"
 
 	# The size of the text
-	fontsize = 20
+	fontsize = 50
 
 	# The color of the text
 	fontcolor: Union[List[int], str] = [255, 255, 255]

@@ -479,7 +479,7 @@ Either `sans`, `serif`, `mono`, `bold`, or `italic`.
 
 ---
 
-> **fontsize** (Type: int | Default: 20)
+> **fontsize** (Type: int | Default: 50)
 
 The size of the text.
 
