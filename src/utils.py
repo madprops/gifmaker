@@ -8,6 +8,9 @@ from pathlib import Path
 from datetime import datetime
 from typing import List, Dict, Union
 
+# Used for random colors
+colordiff = 0.16
+
 def random_string() -> str:
 	vowels = "aeiou"
 	consonants = "".join(set(string.ascii_lowercase) - set(vowels))
@@ -60,10 +63,10 @@ def random_color(lightness: float) -> List[int]:
 	return [r, g, b]
 
 def random_light() -> List[int]:
-	return random_color(0.8)
+	return random_color(1 - colordiff)
 
 def random_dark() -> List[int]:
-	return random_color(0.2)
+	return random_color(colordiff)
 
 def random_digit(allow_zero: bool) -> int:
 	if allow_zero:
