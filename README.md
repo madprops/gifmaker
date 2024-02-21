@@ -256,7 +256,7 @@ Path to a video or image to use as the source of the frames.
 
 `webm`, `mp4`, `gif`, and even `jpg` or `png` should work.
 
-For example: `--input stuff/cow.mp4`.
+For example: `--input stuff/cow.webm`.
 
 It's possible to use multiple input files by separating them with commas.
 
@@ -276,13 +276,13 @@ For example: `stuff/videos`.
 
 It will use a random file name.
 
-Using `gif`, `mp4`, `jpg`, or `png` depending on the `format` argument.
+Using `gif`, `webm`, `mp4`, `jpg`, or `png` depending on the `format` argument.
 
 Or you can enter the path plus the file name.
 
 For example: `stuff/videos/cat.gif`.
 
-The format is deduced by the extension (`gif`, `mp4`, `jpg`, or `png`).
+The format is deduced by the extension (`gif`, `webm`, `mp4`, `jpg`, or `png`).
 
 `-o` is a shorter alias for this.
 
@@ -447,7 +447,7 @@ It's a way to limit the values of `--width` and `--height`.
 
 > **format** (Type: str | Default: "gif")
 
-The format of the output file. Either `gif`, `mp4`, `jpg`, or `png`.
+The format of the output file. Either `gif`, `webm`, `mp4`, `jpg`, or `png`.
 
 This is only used when the output is not a direct file path.
 

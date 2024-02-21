@@ -235,7 +235,13 @@ def render(frames: List[Image.Image]) -> Union[Path, None]:
 		imageio.imsave(output, frames[0], format="JPG")
 	elif fmt == "mp4" or fmt == "webm":
 		fps = 1000 / config.delay
-		writer = imageio.get_writer(output, fps=fps)
+
+		if fmt == "mp4":
+			codec = "libx264"
+		elif fmt == "webm":
+			codec = "libvpx"
+
+		writer = imageio.get_writer(output, fps=fps, codec=codec)
 
 		for frame in frames:
 			writer.append_data(frame)
