@@ -12,7 +12,7 @@ import random
 import colorsys
 import numpy as np
 from pathlib import Path
-from typing import List, Dict, Union, Tuple, Any
+from typing import List, Dict, Union, Tuple
 
 def get_frames() -> List[Image.Image]:
 	count_frames()
