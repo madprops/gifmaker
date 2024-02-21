@@ -481,7 +481,7 @@ Either `random` or `normal`.
 
 The font to use for the text.
 
-Either `simple`, `complex`, `plain`, `duplex`, or `triplex`.
+Either `sans`, `serif`, `mono`, `bold`, or `italic`.
 
 ---
 
@@ -508,14 +508,6 @@ These will get a random light or dark color.
 The value can also be `light2` or `dark2`.
 
 These will get a random light or dark color on each frame.
-
----
-
-> **boldness** (Type: int | Default: 3)
-
-The thickness of the text.
-
-The bigger the number, the fatter the text is.
 
 ---
 

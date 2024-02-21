@@ -85,8 +85,14 @@ def get_font_item(name: str) -> ImageFont.FreeTypeFont:
 	return ImageFont.truetype(path, size=config.fontsize)
 
 def get_font() -> ImageFont.FreeTypeFont:
-	if config.font == "monospace":
+	if config.font == "mono":
 		font = get_font_item("RobotoMono-Regular.ttf")
+	elif config.font == "serif":
+		font = get_font_item("RobotoSerif-Regular.ttf")
+	elif config.font == "bold":
+		font = get_font_item("Roboto-Bold.ttf")
+	elif config.font == "italic":
+		font = get_font_item("Roboto-Italic.ttf")
 	else:
 		font = get_font_item("Roboto-Regular.ttf")
 

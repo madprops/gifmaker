@@ -60,9 +60,6 @@ class Configuration:
 	# The color of the text
 	fontcolor: Union[List[int], str] = [255, 255, 255]
 
-	# The thickness of the text
-	boldness = 3
-
 	# The color of the background
 	bgcolor: Union[List[int], str, None] = None
 
@@ -141,10 +138,9 @@ class Configuration:
 		p.add_argument("--format", type=str, choices=["gif", "mp4", "jpg", "png"], help="The format of the output file")
 		p.add_argument("--separator", type=str, help="Character to use as the separator")
 		p.add_argument("--order", type=str, choices=["random", "normal"], help="The order to use when extracting the frames")
-		p.add_argument("--font", type=str, choices=["sans", "serif", "mono"], help="The font to use for the text")
+		p.add_argument("--font", type=str, choices=["sans", "serif", "mono", "bold", "italic"], help="The font to use for the text")
 		p.add_argument("--fontsize", type=str, help="The size of the font")
 		p.add_argument("--fontcolor", type=str, help="Text color. 3 numbers from 0 to 255, separated by commas")
-		p.add_argument("--boldness", type=str, help="Text thickness")
 		p.add_argument("--bgcolor", type=str, help="Add a background rectangle for the text with this color. 3 numbers from 0 to 255, separated by commas")
 		p.add_argument("--opacity", type=str, help="The opacity of the background rectangle")
 		p.add_argument("--padding", type=str, help="The padding of the background rectangle")
@@ -276,7 +272,6 @@ class Configuration:
 		normal("nogrow")
 
 		number("fontsize", int, False)
-		number("boldness", float, False)
 		number("delay", int, False)
 		number("opacity", float, True)
 		number("padding", int, True)
