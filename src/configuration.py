@@ -296,7 +296,8 @@ class Configuration:
 
 	def check_args(self, args: Namespace) -> None:
 		def separate(value: str) -> List[str]:
-			return [codecs.decode(item.strip(), "unicode-escape") for item in value.split(self.separator)]
+			return [codecs.decode(utils.clean_linebreak(item).strip(), "unicode-escape") \
+			 for item in value.split(self.separator)]
 
 		for path in self.input:
 			if not path.exists() or not path.is_file():
