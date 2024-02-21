@@ -334,7 +334,7 @@ class Configuration:
 			setattr(self, attr, utils.random_light())
 		elif value == "dark":
 			setattr(self, attr, utils.random_dark())
-		elif (value == "font") and (attr != "fontcolor"):
+		elif (value == "font"):
 			setattr(self, attr, self.fontcolor)
 
 	def check_script(self, args: Namespace) -> None:
