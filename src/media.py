@@ -65,16 +65,15 @@ def add_text(frame: Image.Image, line: str) -> Image.Image:
 	data = get_text_data(frame, line)
 	fontcolor = get_color(config.fontcolor)
 	position = (data["min_x_rect"], data["min_y_rect"])
-	left, top, right, bottom = draw.textbbox(position, line, font=font)
 
 	if config.bgcolor:
 		p = config.padding
 		bgcolor = get_color(config.bgcolor)
 		alpha = utils.add_alpha(bgcolor, config.opacity)
+		left, top, right, bottom = draw.textbbox(position, line, font=font)
 		draw.rounded_rectangle((left - p, top - p, right + p, bottom + p), fill=alpha, radius=config.radius)
 
 	draw.text(position, line, fill=fontcolor, font=font, align=config.align)
-
 	return frame
 
 def get_font_item(name: str) -> ImageFont.FreeTypeFont:
