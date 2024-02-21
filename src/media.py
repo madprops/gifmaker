@@ -76,7 +76,7 @@ def add_text(frame: Image.Image, line: str) -> Image.Image:
 		draw.rounded_rectangle([rect_1, rect_2], fill=alpha, radius=config.radius)
 
 	position = (data["min_x_rect"], data["min_y_rect"])
-	draw.text(position, line, fill=fontcolor, font=font)
+	draw.text(position, line, fill=fontcolor, font=font, align=config.align)
 
 	return frame
 

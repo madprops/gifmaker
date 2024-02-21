@@ -555,6 +555,13 @@ This is to give the rectangle rounded corners.
 
 ---
 
+> **align** (Type: str | Default: "center")
+
+How to align the center when there are multiple lines.
+
+Either `left`, `center`, or `right`.
+
+---
 > **randomlist** (Type: str | Default: Empty)
 
 Random words are selected from this list.

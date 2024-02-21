@@ -72,6 +72,9 @@ class Configuration:
 	# The border radius of the background
 	radius = 0
 
+	# How to align the text
+	align = "center"
+
 	# Path to a TOML file that defines the arguments to use
 	script: Union[Path, None] = None
 
@@ -145,6 +148,7 @@ class Configuration:
 		p.add_argument("--opacity", type=str, help="The opacity of the background rectangle")
 		p.add_argument("--padding", type=str, help="The padding of the background rectangle")
 		p.add_argument("--radius", type=str, help="The border radius of the background")
+		p.add_argument("--align", type=str, choices=["left", "center", "right"], help="How to align the center when there are multiple lines")
 		p.add_argument("--randomlist", type=str, help="List of words to consider for random words")
 		p.add_argument("--randomfile", type=str, help="Path to a list of words to consider for random words")
 		p.add_argument("--script", type=str, help="Path to a TOML file that defines the arguments to use")
@@ -269,6 +273,7 @@ class Configuration:
 		normal("repeatfilter")
 		normal("fillwords")
 		normal("nogrow")
+		normal("align")
 
 		number("fontsize", int, False)
 		number("delay", int, False)
