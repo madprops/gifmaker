@@ -412,5 +412,5 @@ def to_pillow(frame: npt.NDArray[np.float64], mode: str) -> Image.Image:
 def to_array(frames: List[Image.Image]) -> List[npt.NDArray[np.float64]]:
 	return [np.array(frame) for frame in frames]
 
-def one_frame():
+def one_frame() -> bool:
 	return config.format.lower() in ["jpg", "png"]
