@@ -160,7 +160,7 @@ You can also use a number range.
 
 For example, `[number 0-10]` will pick a random number from `0` to `10`.
 
-```sh
+```shell
 --words "I rate it [number 0-10] out of 10"
 ```
 
@@ -226,7 +226,7 @@ It would print `Match: 1`, `Nothing`, and `Match: 2`.
 
 You might want to print the count on every frame:
 
-```ssh
+```shell
 --words "[count] ; [repeat 9]" --bottom 0 --right 0
 ```
 
