@@ -88,18 +88,19 @@ def draw_text(frame: Image.Image, line: str) -> Image.Image:
 	if config.outline:
 		ocolor = get_color("outline")
 		owidth = config.outlinewidth
+		halfwidth = owidth / 2
 
-		draw.line([(min_x_p - (owidth / 2), min_y_p - (owidth / 2)), \
-		(max_x_p + (owidth / 2), min_y_p - (owidth / 2))], fill=ocolor, width=owidth)
+		draw.line([(min_x_p - halfwidth, min_y_p - halfwidth), \
+		(max_x_p + halfwidth, min_y_p - halfwidth)], fill=ocolor, width=owidth)
 
-		draw.line([(min_x_p - (owidth / 2), min_y_p - (owidth / 2)), \
-		(min_x_p - (owidth / 2), max_y_p + (owidth / 2))], fill=ocolor, width=owidth)
+		draw.line([(min_x_p - halfwidth, min_y_p - halfwidth), \
+		(min_x_p - halfwidth, max_y_p + halfwidth)], fill=ocolor, width=owidth)
 
-		draw.line([(min_x_p - (owidth / 2), max_y_p + (owidth / 2)), \
-		(max_x_p + (owidth / 2), max_y_p + (owidth / 2))], fill=ocolor, width=owidth)
+		draw.line([(min_x_p - halfwidth, max_y_p + halfwidth), \
+		(max_x_p + halfwidth, max_y_p + halfwidth)], fill=ocolor, width=owidth)
 
-		draw.line([(max_x_p + (owidth / 2), min_y_p - (owidth / 2)), \
-		(max_x_p + (owidth / 2), max_y_p + (owidth / 2))], fill=ocolor, width=owidth)
+		draw.line([(max_x_p + halfwidth, min_y_p - halfwidth), \
+		(max_x_p + halfwidth, max_y_p + halfwidth)], fill=ocolor, width=owidth)
 
 	position = (min_x, min_y)
 	draw.multiline_text(position, text, fill=fontcolor, font=font, align=config.align)
