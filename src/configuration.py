@@ -137,52 +137,77 @@ class Configuration:
 		self.fontspath = utils.full_path(Path(self.root, "fonts"))
 
 	def parse_args(self) -> None:
-		p = argparse.ArgumentParser(description="Borat the Gif Maker")
+		parser = argparse.ArgumentParser(description="Gif Maker")
 
-		p.add_argument("--input", "-i", type=str, help="Path to the a video or image file. Separated by commas")
-		p.add_argument("--words", type=str, help="Lines of words to use on the frames")
-		p.add_argument("--wordfile", type=str, help="Path of file with word lines")
-		p.add_argument("--delay", help="The delay in ms between frames")
-		p.add_argument("--left", type=int, help="Left padding")
-		p.add_argument("--right", type=int, help="Right padding")
-		p.add_argument("--top", type=int, help="Top padding")
-		p.add_argument("--bottom", type=int, help="Bottom padding")
-		p.add_argument("--width", type=int, help="Width to resize the frames")
-		p.add_argument("--height", type=int, help="Height to resize the frames")
-		p.add_argument("--frames", type=int, help="Number of frames to use if no words are provided")
-		p.add_argument("--output", "-o", type=str, help="Output directory to save the file")
-		p.add_argument("--format", type=str, choices=["gif", "webm", "mp4", "jpg", "png"], help="The format of the output file")
-		p.add_argument("--separator", type=str, help="Character to use as the separator")
-		p.add_argument("--order", type=str, choices=["random", "normal"], help="The order to use when extracting the frames")
-		p.add_argument("--font", type=str, choices=["sans", "serif", "mono", "bold", "italic"], help="The font to use for the text")
-		p.add_argument("--fontsize", help="The size of the font")
-		p.add_argument("--fontcolor", type=str, help="Text color. 3 numbers from 0 to 255, separated by commas. Names like 'red' are also supported")
-		p.add_argument("--bgcolor", type=str, help="Add a background rectangle for the text with this color. 3 numbers from 0 to 255, separated by commas. Names like 'red' are also supported")
-		p.add_argument("--outline", type=str, help="Add an outline around the text with this color. 3 numbers from 0 to 255, separated by commas. Names like 'red' are also supported")
-		p.add_argument("--outlinewidth", type=str, help="The width of the outline")
-		p.add_argument("--opacity", help="The opacity of the background rectangle")
-		p.add_argument("--padding", help="The padding of the background rectangle")
-		p.add_argument("--radius", help="The border radius of the background")
-		p.add_argument("--align", type=str, choices=["left", "center", "right"], help="How to align the center when there are multiple lines")
-		p.add_argument("--randomlist", type=str, help="List of words to consider for random words")
-		p.add_argument("--randomfile", type=str, help="Path to a list of words to consider for random words")
-		p.add_argument("--script", type=str, help="Path to a TOML file that defines the arguments to use")
-		p.add_argument("--loop", type=int, help="How to loop a gif render")
-		p.add_argument("--remake", action="store_true", help="Re-render the frames to change the width or delay")
-		p.add_argument("--filter", type=str, choices=[
-			"hue1", "hue2", "hue3", "hue4", "hue5", "hue6", "hue7", "hue8", "anyhue", "anyhue2",
-			"gray", "blur", "invert", "random", "random2", "none",
-			], help="Color filter to apply to frames")
-		p.add_argument("--filterlist", type=str, help="Filters to use per frame. Separated by commas")
-		p.add_argument("--filteropts", type=str, help="The list of allowed filters when picking randomly. Separated by commas")
-		p.add_argument("--framelist", type=str, help="List of frame indices to use. Separated by commas")
-		p.add_argument("--repeatrandom", action="store_true", help="Repeating random words is ok")
-		p.add_argument("--repeatfilter", action="store_true", help="Repeating random filters is ok")
-		p.add_argument("--fillwords", action="store_true", help="Fill the rest of the frames with the last word line")
-		p.add_argument("--nogrow", action="store_true", help="Don't resize if the frames are going to be bigger than the original")
-		p.add_argument("--wrap", type=str, help="Split line if it exceeds this char length")
+		argdefs = [
+			{"name": "input", "type": str, "help": "Path to the a video or image file. Separated by commas"},
+			{"name": "words", "type": str, "help": "Lines of words to use on the frames"},
+			{"name": "wordfile", "type": str, "help": "Path of file with word lines"},
+			{"name": "delay", "help": "The delay in ms between frames"},
+			{"name": "left", "type": int, "help": "Left padding"},
+			{"name": "right", "type": int, "help": "Right padding"},
+			{"name": "top", "type": int, "help": "Top padding"},
+			{"name": "bottom", "type": int, "help": "Bottom padding"},
+			{"name": "width", "type": int, "help": "Width to resize the frames"},
+			{"name": "height", "type": int, "help": "Height to resize the frames"},
+			{"name": "frames", "type": int, "help": "Number of frames to use if no words are provided"},
+			{"name": "output", "type": str, "help": "Output directory to save the file"},
+			{"name": "format", "type": str, "choices": ["gif", "webm", "mp4", "jpg", "png"], "help": "The format of the output file"},
+			{"name": "separator", "type": str, "help": "Character to use as the separator"},
+			{"name": "order", "type": str, "choices": ["random", "normal"], "help": "The order to use when extracting the frames"},
+			{"name": "font", "type": str, "choices": ["sans", "serif", "mono", "bold", "italic"], "help": "The font to use for the text"},
+			{"name": "fontsize", "help": "The size of the font"},
+			{"name": "fontcolor", "type": str, "help": "Text color. 3 numbers from 0 to 255, separated by commas. Names like 'red' are also supported"},
+			{"name": "bgcolor", "type": str, "help": "Add a background rectangle for the text with this color. 3 numbers from 0 to 255, separated by commas. Names like 'red' are also supported"},
+			{"name": "outline", "type": str, "help": "Add an outline around the text with this color. 3 numbers from 0 to 255, separated by commas. Names like 'red' are also supported"},
+			{"name": "outlinewidth", "type": str, "help": "The width of the outline"},
+			{"name": "opacity", "help": "The opacity of the background rectangle"},
+			{"name": "padding", "help": "The padding of the background rectangle"},
+			{"name": "radius", "help": "The border radius of the background"},
+			{"name": "align", "type": str, "choices": ["left", "center", "right"], "help": "How to align the center when there are multiple lines"},
+			{"name": "randomlist", "type": str, "help": "List of words to consider for random words"},
+			{"name": "randomfile", "type": str, "help": "Path to a list of words to consider for random words"},
+			{"name": "script", "type": str, "help": "Path to a TOML file that defines the arguments to use"},
+			{"name": "loop", "type": int, "help": "How to loop a gif render"},
+			{"name": "remake", "action": "store_true", "help": "Re-render the frames to change the width or delay"},
+			{"name": "filter", "type": str, "choices": [
+				"hue1", "hue2", "hue3", "hue4", "hue5", "hue6", "hue7", "hue8", "anyhue", "anyhue2",
+				"gray", "blur", "invert", "random", "random2", "none",
+				], "help": "Color filter to apply to frames"},
+			{"name": "filterlist", "type": str, "help": "Filters to use per frame. Separated by commas"},
+			{"name": "filteropts", "type": str, "help": "The list of allowed filters when picking randomly. Separated by commas"},
+			{"name": "framelist", "type": str, "help": "List of frame indices to use. Separated by commas"},
+			{"name": "repeatrandom", "action": "store_true", "help": "Repeating random words is ok"},
+			{"name": "repeatfilter", "action": "store_true", "help": "Repeating random filters is ok"},
+			{"name": "fillwords", "action": "store_true", "help": "Fill the rest of the frames with the last word line"},
+			{"name": "nogrow", "action": "store_true", "help": "Don't resize if the frames are going to be bigger than the original"},
+			{"name": "wrap", "type": str, "help": "Split line if it exceeds this char length"},
+		]
 
-		args = p.parse_args()
+		def prepare_parser():
+			aliases = {
+				"input": ["--i", "-i"],
+				"output": ["--o", "-o"],
+			}
+
+			for item in argdefs:
+				name = item["name"]
+				names = [f"--{name}", f"-{name}"]
+
+				if name in aliases:
+					names += aliases[name]
+
+				opts = ["type", "choices", "help", "action"]
+				tail = {key: item[key] for key in opts if key in item}
+
+				parser.add_argument(*names, **tail)
+
+		# ---------
+
+		prepare_parser()
+		args = parser.parse_args()
+
+		# ---------
 
 		def get_list(attr: str, value: str, vtype: Any, separator: str) -> List[Any]:
 			try:
@@ -227,7 +252,7 @@ class Configuration:
 				paths = [utils.resolve_path(p.strip()) for p in value.split(",")]
 				setattr(self, attr, paths)
 
-		# Allow -1 and +1 formats
+		# Allow p1 and m1 formats
 		def number(attr: str, vtype: Any, allow_zero: bool) -> None:
 			default = getattr(self, attr)
 			value = getattr(args, attr)
@@ -268,7 +293,8 @@ class Configuration:
 
 			setattr(self, attr, num)
 
-		# Get script args first
+		# ---------
+
 		path("script")
 		self.check_script(args)
 
