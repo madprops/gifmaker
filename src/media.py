@@ -382,8 +382,7 @@ def get_color(attr: str) -> Tuple[int, int, int]:
 			rgb = utils.random_light()
 		elif value == "dark2":
 			rgb = utils.random_dark()
-		elif value == "font" and config.last_fontcolor:
-			assert(isinstance(config.last_fontcolor, tuple))
+		elif (value == "font") and isinstance(config.last_fontcolor, tuple):
 			rgb = config.last_fontcolor
 		else:
 			rgb = utils.color_name(value)
