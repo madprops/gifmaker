@@ -108,4 +108,4 @@ def color_name(name: str) -> Union[Tuple[int, int, int], None]:
 		return None
 
 def clean_linebreak(s: str) -> str:
-	return re.sub(r"\s+\\n\s+", "\n", s)
+	return re.sub(r"\s*\\n\s*", "\n", s)
