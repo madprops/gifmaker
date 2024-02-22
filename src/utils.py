@@ -109,7 +109,6 @@ def color_name(name: str) -> Union[Tuple[int, int, int], None]:
 
 def clean_lines(s: str) -> str:
 	cleaned = s
-	cleaned = re.sub(r" *\n *", "\n", cleaned)
-	cleaned = re.sub(r" *\\n *", "\n", cleaned)
+	cleaned = re.sub(r" *(\n|\\n) *", "\n", cleaned)
 	cleaned = re.sub(r" +", " ", cleaned)
 	return cleaned.strip()
