@@ -253,7 +253,7 @@ class Configuration:
 				setattr(self, attr, paths)
 
 		# Allow p1 and m1 formats
-		def number(attr: str, vtype: Any, allow_zero: bool) -> None:
+		def number(attr: str, vtype: Any, allow_zero: bool = False, duration = False) -> None:
 			default = getattr(self, attr)
 			value = getattr(args, attr)
 
@@ -267,6 +267,9 @@ class Configuration:
 			if value.startswith("p") or value.startswith("m"):
 				op = value[0]
 				num = value[1:]
+
+			if duration:
+				num = utils.parse_duration(num)
 
 			try:
 				if vtype == int:
@@ -318,13 +321,13 @@ class Configuration:
 		normal("nogrow")
 		normal("align")
 
-		number("fontsize", int, False)
-		number("delay", int, False)
-		number("opacity", float, True)
-		number("padding", int, True)
-		number("radius", int, True)
-		number("outlinewidth", int, False)
-		number("wrap", int, False)
+		number("fontsize", int)
+		number("delay", int, duration=True)
+		number("opacity", float, allow_zero=True)
+		number("padding", int, allow_zero=True)
+		number("radius", int, allow_zero=True)
+		number("outlinewidth", int)
+		number("wrap", int)
 
 		commas_or_string("fontcolor", int)
 		commas_or_string("bgcolor", int)

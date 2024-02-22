@@ -112,3 +112,21 @@ def clean_lines(s: str) -> str:
 	cleaned = re.sub(r" *(\n|\\n) *", "\n", cleaned)
 	cleaned = re.sub(r" +", " ", cleaned)
 	return cleaned.strip()
+
+def parse_duration(time_string: str) -> str:
+	match = re.match(r"(\d+(\.\d+)?)([smh]+)", time_string)
+
+	if match:
+		value, _, unit = match.groups()
+		value = float(value)
+
+		if unit == "ms":
+			time_string = str(int(value))
+		elif unit == "s":
+			time_string = str(int(value * 1000))
+		elif unit == "m":
+			time_string = str(int(value * 60 * 1000))
+		elif unit == "h":
+			time_string = str(int(value * 60 * 60 * 1000))
+
+	return time_string
