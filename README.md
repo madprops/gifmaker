@@ -483,7 +483,7 @@ Either `random` or `normal`.
 
 The font to use for the text.
 
-Either `sans`, `serif`, `mono`, `bold`, or `italic`.
+Either `sans`, `serif`, `mono`, `bold`, `italic`, `cursive`, or `comic`.
 
 ---
 

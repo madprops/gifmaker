@@ -121,6 +121,10 @@ def get_font() -> ImageFont.FreeTypeFont:
 		font = get_font_item("Roboto-Bold.ttf")
 	elif config.font == "italic":
 		font = get_font_item("Roboto-Italic.ttf")
+	elif config.font == "cursive":
+		font = get_font_item("Pacifico-Regular.ttf")
+	elif config.font == "comic":
+		font = get_font_item("ComicNeue-Regular.ttf")
 	else:
 		font = get_font_item("Roboto-Regular.ttf")
 

@@ -155,7 +155,7 @@ class Configuration:
 			{"name": "format", "type": str, "choices": ["gif", "webm", "mp4", "jpg", "png"], "help": "The format of the output file"},
 			{"name": "separator", "type": str, "help": "Character to use as the separator"},
 			{"name": "order", "type": str, "choices": ["random", "normal"], "help": "The order to use when extracting the frames"},
-			{"name": "font", "type": str, "choices": ["sans", "serif", "mono", "bold", "italic"], "help": "The font to use for the text"},
+			{"name": "font", "type": str, "choices": ["sans", "serif", "mono", "bold", "italic", "cursive", "comic"], "help": "The font to use for the text"},
 			{"name": "fontsize", "help": "The size of the font"},
 			{"name": "fontcolor", "type": str, "help": "Text color. 3 numbers from 0 to 255, separated by commas. Names like 'red' are also supported"},
 			{"name": "bgcolor", "type": str, "help": "Add a background rectangle for the text with this color. 3 numbers from 0 to 255, separated by commas. Names like 'red' are also supported"},
