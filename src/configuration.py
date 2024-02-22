@@ -316,7 +316,7 @@ class Configuration:
 
 	def check_args(self, args: Namespace) -> None:
 		def separate(value: str) -> List[str]:
-			return [codecs.decode(utils.clean_linebreak(item).strip(), "unicode-escape") \
+			return [codecs.decode(utils.clean_lines(item), "unicode-escape") \
 			 for item in value.split(self.separator)]
 
 		for path in self.input:
