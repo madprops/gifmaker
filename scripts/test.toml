@@ -1,4 +1,4 @@
-words = "Disregard [Random] ; [repeat] ; Acquire [Random] ; [repeat] ;"
+words = "Disregard [Random] ; Acquire [Random] ; [date] ; [number 0-999];"
 fontcolor = "light2"
 bgcolor = "dark2"
 bottom = 30
