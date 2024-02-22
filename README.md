@@ -602,7 +602,7 @@ Either `left`, `center`, or `right`.
 
 > **wrap** (Type: int | Default: 30)
 
-Split line if it exceeds this char length.
+Split lines if they exceed this char length.
 
 It creates new lines. Makes text bigger vertically.
 
