@@ -6,7 +6,7 @@ import argparse
 import codecs
 import textwrap
 from argparse import Namespace
-from typing import List, Union, Any
+from typing import List, Union, Any, Tuple
 from pathlib import Path
 
 class Configuration:
@@ -127,7 +127,7 @@ class Configuration:
 	wordcount = 0
 
 	# Last font color used
-	last_fontcolor = None
+	last_fontcolor = Union[Tuple[int, int, int], None]
 
 	def fill_paths(self, main_file: str) -> None:
 		self.root = utils.full_path(Path(main_file).parent.parent)
@@ -139,7 +139,7 @@ class Configuration:
 	def parse_args(self) -> None:
 		parser = argparse.ArgumentParser(description="Gif Maker")
 
-		argdefs = [
+		argdefs: List[dict[str, Any]] = [
 			{"name": "input", "type": str, "help": "Path to the a video or image file. Separated by commas"},
 			{"name": "words", "type": str, "help": "Lines of words to use on the frames"},
 			{"name": "wordfile", "type": str, "help": "Path of file with word lines"},
@@ -184,7 +184,7 @@ class Configuration:
 			{"name": "wrap", "type": str, "help": "Split line if it exceeds this char length"},
 		]
 
-		def prepare_parser():
+		def prepare_parser() -> None:
 			aliases = {
 				"input": ["--i", "-i"],
 				"output": ["--o", "-o"],
