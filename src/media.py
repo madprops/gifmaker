@@ -68,20 +68,32 @@ def draw_text(frame: Image.Image, line: str) -> Image.Image:
 	text = textwrap.fill(line, width=30)
 	_, top, _, _ = font.getbbox(text)
 	padding = config.padding
-	rect_1 = (data["min_x"] - padding, data["min_y"] + top - padding)
-	rect_2 = (data["max_x"] + padding, data["max_y"] + padding)
+
+	min_x = data["min_x"]
+	min_y = data["min_y"]
+	max_x = data["max_x"]
+	max_y = data["max_y"]
+
+	min_x_p = min_x - padding
+	min_y_p = min_y	- padding + top
+	max_x_p = max_x + padding
+	max_y_p = max_y + padding
 
 	if config.bgcolor:
 		bgcolor = get_color("bgcolor")
 		alpha = utils.add_alpha(bgcolor, config.opacity)
-		draw.rounded_rectangle((rect_1, rect_2), fill=alpha, radius=config.radius)
+		rect_pos = (min_x_p, min_y_p), (max_x_p, max_y_p)
+		draw.rounded_rectangle(rect_pos, fill=alpha, radius=config.radius)
 
 	if config.outline:
-		draw.polygon([rect_1[0], rect_1[1], rect_2[0], \
-		rect_1[1], rect_2[0], rect_2[1], rect_1[0], rect_2[1]], \
-		outline=get_color("outline"))
+		ocolor = get_color("outline")
+		owidth = config.outlinewidth
+		draw.line([(min_x_p - owidth, min_y_p - owidth), (max_x_p, min_y_p - owidth)], fill=ocolor, width=owidth)
+		draw.line([(min_x_p - owidth, min_y_p - owidth), (min_x_p - owidth, max_y_p)], fill=ocolor, width=owidth)
+		draw.line([(min_x_p - owidth, max_y_p), (max_x_p, max_y_p)], fill=ocolor, width=owidth)
+		draw.line([(max_x_p, min_y_p - owidth), (max_x_p, max_y_p)], fill=ocolor, width=owidth)
 
-	position = (data["min_x"], data["min_y"])
+	position = (min_x, min_y)
 	draw.multiline_text(position, text, fill=fontcolor, font=font, align=config.align)
 	return frame
 

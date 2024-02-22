@@ -66,6 +66,9 @@ class Configuration:
 	# The color of the outline
 	outline: Union[List[int], str, None] = None
 
+	# The width of the outline
+	outlinewidth = 2
+
 	# The opacity of the background
 	opacity = 0.6
 
@@ -152,6 +155,7 @@ class Configuration:
 		p.add_argument("--fontcolor", type=str, help="Text color. 3 numbers from 0 to 255, separated by commas. Names like 'red' are also supported")
 		p.add_argument("--bgcolor", type=str, help="Add a background rectangle for the text with this color. 3 numbers from 0 to 255, separated by commas. Names like 'red' are also supported")
 		p.add_argument("--outline", type=str, help="Add an outline around the text with this color. 3 numbers from 0 to 255, separated by commas. Names like 'red' are also supported")
+		p.add_argument("--outlinewidth", type=str, help="The width of the outline")
 		p.add_argument("--opacity", help="The opacity of the background rectangle")
 		p.add_argument("--padding", help="The padding of the background rectangle")
 		p.add_argument("--radius", help="The border radius of the background")
@@ -288,6 +292,7 @@ class Configuration:
 		number("opacity", float, True)
 		number("padding", int, True)
 		number("radius", int, True)
+		number("outlinewidth", int, False)
 
 		commas_or_string("fontcolor", int)
 		commas_or_string("bgcolor", int)
