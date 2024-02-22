@@ -141,7 +141,6 @@ def get_text_data(frame: Image.Image, line: str) -> Dict[str, int]:
 	else:
 		# Center Horizontal
 		text_x = (width - b_right) // 2
-		print(b_right)
 
 		# Negatives Horizontal
 		if (p_left is not None) and (p_left < 0):
