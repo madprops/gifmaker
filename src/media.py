@@ -65,8 +65,7 @@ def draw_text(frame: Image.Image, line: str) -> Image.Image:
 	font = get_font()
 	data = get_text_data(frame, line)
 	fontcolor = get_color("fontcolor")
-	text = textwrap.fill(line, width=30)
-	_, top, _, _ = font.getbbox(text)
+	_, top, _, _ = font.getbbox(line)
 	padding = config.padding
 
 	min_x = data["min_x"]
@@ -103,7 +102,7 @@ def draw_text(frame: Image.Image, line: str) -> Image.Image:
 		(max_x_p + halfwidth, max_y_p + halfwidth)], fill=ocolor, width=owidth)
 
 	position = (min_x, min_y)
-	draw.multiline_text(position, text, fill=fontcolor, font=font, align=config.align)
+	draw.multiline_text(position, line, fill=fontcolor, font=font, align=config.align)
 	return frame
 
 def get_font_item(name: str) -> ImageFont.FreeTypeFont:
@@ -134,29 +133,36 @@ def get_text_data(frame: Image.Image, line: str) -> Dict[str, int]:
 	p_left = config.left
 	p_right = config.right
 
-	text = textwrap.fill(line, width=30)
+	_, _, b_right, b_bottom = draw.textbbox((0, 0), line, font=font)
 
-	_, _, b_right, b_bottom = draw.textbbox((0, 0), text, font=font)
-
+	# Left
 	if (p_left is not None) and (p_left >= 0):
 		text_x = p_left
+	# Right
 	elif (p_right is not None) and (p_right >= 0):
 		text_x = width - b_right - p_right
 	else:
+		# Center Horizontal
 		text_x = (width - b_right) // 2
+		print(b_right)
 
+		# Negatives Horizontal
 		if (p_left is not None) and (p_left < 0):
 			text_x += p_left
 		elif (p_right is not None) and (p_right < 0):
 			text_x -= p_right
 
+	# Top
 	if (p_top is not None) and (p_top >= 0):
 		text_y = p_top
+	# Bottom
 	elif (p_bottom is not None) and (p_bottom >= 0):
 		text_y = height - p_bottom - b_bottom
 	else:
+		# Center Vertical
 		text_y = (height - b_bottom) // 2
 
+		# Negatives Vertical
 		if (p_top is not None) and (p_top < 0):
 			text_y += p_top
 		elif (p_bottom is not None) and (p_bottom < 0):
