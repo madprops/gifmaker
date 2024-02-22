@@ -72,7 +72,7 @@ def replace_repeat() -> None:
 		return
 
 	new_lines: List[str] = []
-	pattern = re.compile(r"^\[(?P<word>repeat)(?:\s+(?P<number>\d+))?\]$", re.IGNORECASE)
+	pattern = re.compile(r"^\[(?P<word>rep(?:eat)?)\s*(?P<number>\d+)?\]$", re.IGNORECASE)
 
 	for line in config.words:
 		match = re.match(pattern, line)

@@ -178,6 +178,8 @@ For example: `--words "Buy Buttcoin ; [repeat 2]"`.
 
 The line will be shown in 3 frames (the original plus the 2 repeats).
 
+A shortcut is also available: `[rep]` or `[rep 3]`.
+
 ---
 
 You can use linebreaks with `\n`.
