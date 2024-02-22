@@ -25,6 +25,9 @@ def get_frames() -> List[Image.Image]:
 		for _ in range(0, config.frames):
 			img = to_pillow(imageio.imread(path), "RGB")
 			frames.append(img)
+
+			if one_frame():
+				break
 	else:
 		reader = imageio.get_reader(path)
 		num_frames = len(reader) if config.remake else config.frames
@@ -42,6 +45,9 @@ def get_frames() -> List[Image.Image]:
 			try:
 				img = to_pillow(reader.get_data(index), "RGB")
 				frames.append(img)
+
+				if one_frame():
+					break
 			except:
 				pass
 
@@ -401,3 +407,6 @@ def to_pillow(frame: npt.NDArray[np.float64], mode: str) -> Image.Image:
 
 def to_array(frames: List[Image.Image]) -> List[npt.NDArray[np.float64]]:
 	return [np.array(frame) for frame in frames]
+
+def one_frame():
+	return config.format.lower() in ["jpg", "png"]
