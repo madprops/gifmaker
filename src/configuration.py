@@ -4,6 +4,7 @@ import utils
 # Standard
 import argparse
 import codecs
+import textwrap
 from argparse import Namespace
 from typing import List, Union, Any
 from pathlib import Path
@@ -114,6 +115,9 @@ class Configuration:
 	# Don't resize if the frames are going to be bigger than the original
 	nogrow = False
 
+	# Split line if it exceeds this char length
+	wrap = 30
+
 	# --- INTERAL VARS
 
 	# List to keep track of used random words
@@ -176,6 +180,7 @@ class Configuration:
 		p.add_argument("--repeatfilter", action="store_true", help="Repeating random filters is ok")
 		p.add_argument("--fillwords", action="store_true", help="Fill the rest of the frames with the last word line")
 		p.add_argument("--nogrow", action="store_true", help="Don't resize if the frames are going to be bigger than the original")
+		p.add_argument("--wrap", type=str, help="Split line if it exceeds this char length")
 
 		args = p.parse_args()
 
@@ -293,6 +298,7 @@ class Configuration:
 		number("padding", int, True)
 		number("radius", int, True)
 		number("outlinewidth", int, False)
+		number("wrap", int, False)
 
 		commas_or_string("fontcolor", int)
 		commas_or_string("bgcolor", int)
@@ -334,9 +340,25 @@ class Configuration:
 			utils.exit("Word file does not exist")
 			return
 
+		self.linebreaks("words")
 		self.set_color("fontcolor")
 		self.set_color("bgcolor")
 		self.set_color("outline")
+
+	def linebreaks(self, attr: str) -> None:
+		lines = getattr(self, attr)
+
+		if not lines:
+			return
+
+		new_lines = []
+
+		for line in lines:
+			lines = line.split("\n")
+			wrapped = [textwrap.fill(x, self.wrap) for x in lines]
+			new_lines.append("\n".join(wrapped))
+
+		setattr(self, attr, new_lines)
 
 	def set_color(self, attr: str) -> None:
 		value = getattr(self, attr)

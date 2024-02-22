@@ -4,14 +4,12 @@ import utils
 
 # Libraries
 import imageio # type: ignore
-from PIL import Image, ImageFilter, ImageOps, ImageDraw, ImageFont # type: ignore
 import numpy as np
 import numpy.typing as npt
+from PIL import Image, ImageFilter, ImageOps, ImageDraw, ImageFont # type: ignore
 
 # Standard
 import random
-import colorsys
-import textwrap
 from pathlib import Path
 from typing import List, Dict, Union, Tuple
 
@@ -101,8 +99,7 @@ def draw_text(frame: Image.Image, line: str) -> Image.Image:
 		draw.line([(max_x_p + halfwidth, min_y_p - halfwidth), \
 		(max_x_p + halfwidth, max_y_p + halfwidth)], fill=ocolor, width=owidth)
 
-	position = (min_x, min_y)
-	draw.multiline_text(position, line, fill=fontcolor, font=font, align=config.align)
+	draw.multiline_text((min_x, min_y), line, fill=fontcolor, font=font, align=config.align)
 	return frame
 
 def get_font_item(name: str) -> ImageFont.FreeTypeFont:

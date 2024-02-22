@@ -599,6 +599,15 @@ How to align the center when there are multiple lines.
 Either `left`, `center`, or `right`.
 
 ---
+
+> **wrap** (Type: int | Default: 30)
+
+Split line if it exceeds this char length.
+
+It creates new lines. Makes text bigger vertically.
+
+---
+
 > **randomlist** (Type: str | Default: Empty)
 
 Random words are selected from this list.
