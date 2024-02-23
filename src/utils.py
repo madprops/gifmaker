@@ -132,7 +132,7 @@ def parse_duration(time_string: str) -> str:
     return time_string
 
 
-def divisible(number, by):
+def divisible(number: int, by: int) -> int:
     while number % by != 0:
         number += 1
 
