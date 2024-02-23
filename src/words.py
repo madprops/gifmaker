@@ -48,7 +48,7 @@ def replace_random() -> None:
 
     new_lines: List[str] = []
     pattern = re.compile(
-        r"\[\s*(?P<word>randomx?|number)(?:\s+(?P<number1>\d+)(?:\s*(.+?)\s*(?P<number2>\d+))?)?\s*\]", re.IGNORECASE)
+        r"\[\s*(?P<word>randomx?|number)(?:\s+(?P<number1>-?\d+)(?:\s*(.+?)\s*(?P<number2>-?\d+))?)?\s*\]", re.IGNORECASE)
     pattern_multi = re.compile(
         r"\[\s*(?:x(?P<number>\d+))?\s*\]$", re.IGNORECASE)
 
