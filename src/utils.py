@@ -77,21 +77,6 @@ def random_digit(allow_zero: bool) -> int:
 	else:
 		return random.randint(1, 9)
 
-def extract_range(string: str) -> List[int]:
-	pattern = re.compile(r"(\d+)(?:-(\d+))?")
-	match = pattern.search(string)
-
-	if not match:
-		return [0]
-
-	start = match.group(1)
-	end = match.group(2)
-
-	if end is None:
-		return [int(start)]
-	else:
-		return [int(start), int(end)]
-
 def get_date(fmt: str) -> str:
 	if fmt:
 		return datetime.now().strftime(fmt)

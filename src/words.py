@@ -12,40 +12,41 @@ def replace_random() -> None:
 		return
 
 	def replace(match: re.Match[Any]) -> str:
-		number = 1
+		word = match["word"].lower()
+		num1 = None
+		num2 = None
 
-		if match["number"]:
-			numrange = utils.extract_range(match["number"])
+		if match["number1"]:
+			num1 = int(match["number1"])
 
-			if len(numrange) == 1:
-				if numrange[0] >= 1:
-					number = numrange[0]
-				else:
-					return ""
-			elif len(numrange) > 1:
-				if numrange[0] < numrange[1]:
-					return str(random.randint(numrange[0], numrange[1]))
-				else:
-					return ""
+		if match["number2"]:
+			num2 = int(match["number2"])
+
+		if word == "number":
+			if num1 is not None and num2 is not None:
+				return str(random.randint(num1, num2))
 
 		randwords: List[str] = []
 
-		for _ in range(number):
+		if (num1 is None) or (num1 < 1):
+			num1 = 1
+
+		for _ in range(num1):
 			allow_zero = True
 
-			if number > 1:
+			if num1 > 1:
 				if len(randwords) == 0:
 					allow_zero = False
 
 			randwords.append(get_random(match["word"], allow_zero))
 
-		if match["word"] == "number":
+		if word == "number":
 			return "".join(randwords)
 		else:
 			return " ".join(randwords)
 
 	new_lines: List[str] = []
-	pattern = re.compile(r"\[(?P<word>randomx?|number)(?:\s+(?P<number>\d+(-\d+)?))?\]", re.IGNORECASE)
+	pattern = re.compile(r"\[(?P<word>randomx?|number)(?:\s+(?P<number1>\d+)(?:\s*(.+?)\s*(?P<number2>\d+))?)?\]", re.IGNORECASE)
 	pattern_multi = re.compile(r"\[(?:x(?P<number>\d+))?\]$", re.IGNORECASE)
 
 	for line in config.words:
@@ -57,7 +58,7 @@ def replace_random() -> None:
 
 			if match_multi:
 				multi = max(1, int(match_multi["number"]))
-				line = re.sub(pattern_multi, "", line)
+				line = re.sub(pattern_multi, "", line).strip()
 
 			for _ in range(multi):
 				new_line = re.sub(pattern, replace, line)
