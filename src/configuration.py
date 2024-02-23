@@ -139,6 +139,8 @@ class Configuration:
 
     def parse_args(self) -> None:
         parser = argparse.ArgumentParser(description="Gif Maker")
+        rgbnum = "3 numbers from 0 to 255, separated by commas. Names like 'yellow' are also supported"
+        commas = "Separated by commas"
 
         argdefs: List[dict[str, Any]] = [
             {"name": "input", "type": str,
@@ -169,9 +171,11 @@ class Configuration:
                 "sans", "serif", "mono", "bold", "italic", "cursive", "comic"], "help": "The font to use for the text"},
             {"name": "fontsize", "help": "The size of the font"},
             {"name": "fontcolor", "type": str,
-             "help": "Text color. 3 numbers from 0 to 255, separated by commas. Names like 'red' are also supported"},
-            {"name": "bgcolor", "type": str, "help": "Add a background rectangle for the text with this color. 3 numbers from 0 to 255, separated by commas. Names like 'red' are also supported"},
-            {"name": "outline", "type": str, "help": "Add an outline around the text with this color. 3 numbers from 0 to 255, separated by commas. Names like 'red' are also supported"},
+             "help": f"Text color. {rgbnum}"},
+            {"name": "bgcolor", "type": str,
+                "help": f"Add a background rectangle for the text with this color. {rgbnum}"},
+            {"name": "outline", "type": str,
+                "help": f"Add an outline around the text with this color. {rgbnum}"},
             {"name": "outlinewidth", "type": str,
              "help": "The width of the outline"},
             {"name": "opacity", "help": "The opacity of the background rectangle"},
@@ -193,11 +197,11 @@ class Configuration:
                 "gray", "blur", "invert", "random", "random2", "none",
             ], "help": "Color filter to apply to frames"},
             {"name": "filterlist", "type": str,
-             "help": "Filters to use per frame. Separated by commas"},
+             "help": f"Filters to use per frame. {commas}"},
             {"name": "filteropts", "type": str,
-             "help": "The list of allowed filters when picking randomly. Separated by commas"},
+             "help": f"The list of allowed filters when picking randomly. {commas}"},
             {"name": "framelist", "type": str,
-             "help": "List of frame indices to use. Separated by commas"},
+             "help": f"List of frame indices to use. {commas}"},
             {"name": "repeatrandom", "action": "store_true",
              "help": "Repeating random words is ok"},
             {"name": "repeatfilter", "action": "store_true",
