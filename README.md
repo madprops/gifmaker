@@ -602,6 +602,18 @@ If it's not divisible by 2 it will pick the next number automatically.
 
 ---
 
+> **notoptoutline** (Type: flag | Default: False)
+
+> **nobottomoutline** (Type: flag | Default: False)
+
+> **noleftoutline** (Type: flag | Default: False)
+
+> **norightoutline** (Type: flag | Default: False)
+
+Don't show specific lines from the outline.
+
+---
+
 > **align** (Type: str | Default: "center")
 
 How to align the center when there are multiple lines.

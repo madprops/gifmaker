@@ -71,6 +71,18 @@ class Configuration:
     # The width of the outline
     outlinewidth = 2
 
+    # Dont' draw the left outline
+    noleftoutline = False
+
+    # Don't draw the right outline
+    norightoutline = False
+
+    # Don't draw the top outline
+    notopoutline = False
+
+    # Don't draw the bottom outline
+    nobottomoutline = False
+
     # The opacity of the background
     opacity = 0.6
 
@@ -217,6 +229,14 @@ class Configuration:
              "help": "Split line if it exceeds this char length"},
             {"name": "nowrap", "action": "store_true",
              "help": "Don't wrap lines"},
+            {"name": "noleftoutline", "action": "store_true",
+             "help": "Don't draw the left outline"},
+            {"name": "norightoutline", "action": "store_true",
+            "help": "Don't draw the right outline"},
+            {"name": "notopoutline", "action": "store_true",
+            "help": "Don't draw the top outline"},
+            {"name": "nobottomoutline", "action": "store_true",
+            "help": "Don't draw the bottom outline"},
         ]
 
         def prepare_parser() -> None:
@@ -357,6 +377,10 @@ class Configuration:
         normal("nogrow")
         normal("align")
         normal("nowrap")
+        normal("noleftoutline")
+        normal("norightoutline")
+        normal("notopoutline")
+        normal("nobottomoutline")
 
         number("fontsize", int)
         number("delay", int, duration=True)
