@@ -156,7 +156,7 @@ You can specify the length of the number.
 
 For example, `[number 3]` might result in `128`.
 
-You can also use a number range.
+You can also use a number range by using two numbers.
 
 For example, `[number 0 10]` will pick a random number from `0` to `10`.
 

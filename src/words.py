@@ -46,8 +46,8 @@ def replace_random() -> None:
 			return " ".join(randwords)
 
 	new_lines: List[str] = []
-	pattern = re.compile(r"\[(?P<word>randomx?|number)(?:\s+(?P<number1>\d+)(?:\s*(.+?)\s*(?P<number2>\d+))?)?\]", re.IGNORECASE)
-	pattern_multi = re.compile(r"\[(?:x(?P<number>\d+))?\]$", re.IGNORECASE)
+	pattern = re.compile(r"\[\s*(?P<word>randomx?|number)(?:\s+(?P<number1>\d+)(?:\s*(.+?)\s*(?P<number2>\d+))?)?\s*\]", re.IGNORECASE)
+	pattern_multi = re.compile(r"\[\s*(?:x(?P<number>\d+))?\s*\]$", re.IGNORECASE)
 
 	for line in config.words:
 		match = re.search(pattern, line)
@@ -73,7 +73,7 @@ def replace_repeat() -> None:
 		return
 
 	new_lines: List[str] = []
-	pattern = re.compile(r"^\[(?P<word>rep(?:eat)?)\s*(?P<number>\d+)?\]$", re.IGNORECASE)
+	pattern = re.compile(r"^\[\s*(?P<word>rep(?:eat)?)\s*(?P<number>\d+)?\s*\]$", re.IGNORECASE)
 
 	for line in config.words:
 		match = re.match(pattern, line)
@@ -92,7 +92,7 @@ def replace_empty() -> None:
 		return
 
 	new_lines: List[str] = []
-	pattern = re.compile(r"^\[(?P<word>empty)(?:\s+(?P<number>\d+))?\]$", re.IGNORECASE)
+	pattern = re.compile(r"^\[\s*(?P<word>empty)(?:\s+(?P<number>\d+))?\s*\]$", re.IGNORECASE)
 
 	for line in config.words:
 		match = re.match(pattern, line)
@@ -117,7 +117,7 @@ def replace_date() -> None:
 		return utils.get_date(fmt)
 
 	new_lines: List[str] = []
-	pattern = re.compile(r"\[(?P<word>date)(?:\s+(?P<format>.*))?\]", re.IGNORECASE)
+	pattern = re.compile(r"\[\s*(?P<word>date)(?:\s+(?P<format>.*))?\s*\]", re.IGNORECASE)
 
 	for line in config.words:
 		match = re.search(pattern, line)
