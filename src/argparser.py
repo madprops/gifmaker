@@ -60,8 +60,7 @@ class ArgParser:
         value = getattr(self.args, attr)
 
         if value is not None:
-            paths = [utils.resolve_path(p.strip())
-                     for p in value.split(",")]
+            paths = [utils.resolve_path(p.strip()) for p in value.split(",")]
             setattr(self.obj, attr, paths)
 
     # Allow p1 and m1 formats

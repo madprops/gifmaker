@@ -32,10 +32,8 @@ def get_frames() -> List[Image.Image]:
     else:
         reader = imageio.get_reader(path)
         num_frames = len(reader) if config.remake else config.frames
-        order = "normal" if (
-            config.remake or config.framelist) else config.order
-        framelist = config.framelist if config.framelist else range(
-            reader.count_frames())
+        order = "normal" if (config.remake or config.framelist) else config.order
+        framelist = config.framelist if config.framelist else range(num_frames)
         current = 0
 
         # Sometimes it fails to read the frames so it needs more tries
@@ -100,22 +98,22 @@ def draw_text(frame: Image.Image, line: str) -> Image.Image:
 
         if not config.notopoutline:
             draw.line([(min_x_p, min_y_p - halfwidth),
-                    (max_x_p, min_y_p - halfwidth)], fill=ocolor, width=owidth)
+                       (max_x_p, min_y_p - halfwidth)], fill=ocolor, width=owidth)
 
         if not config.noleftoutline:
             draw.line([(min_x_p - halfwidth, min_y_p - owidth + 1),
-                    (min_x_p - halfwidth, max_y_p + owidth)], fill=ocolor, width=owidth)
+                       (min_x_p - halfwidth, max_y_p + owidth)], fill=ocolor, width=owidth)
 
         if not config.nobottomoutline:
             draw.line([(min_x_p, max_y_p + halfwidth),
-                    (max_x_p, max_y_p + halfwidth)], fill=ocolor, width=owidth)
+                       (max_x_p, max_y_p + halfwidth)], fill=ocolor, width=owidth)
 
         if not config.norightoutline:
             draw.line([(max_x_p + halfwidth, min_y_p - owidth + 1),
-                    (max_x_p + halfwidth, max_y_p + owidth)], fill=ocolor, width=owidth)
+                       (max_x_p + halfwidth, max_y_p + owidth)], fill=ocolor, width=owidth)
 
-    draw.multiline_text((min_x, min_y), line, fill=fontcolor,
-                        font=font, align=config.align)
+    draw.multiline_text((min_x, min_y), line, fill=fontcolor, font=font, align=config.align)
+
     return frame
 
 
@@ -377,8 +375,7 @@ def apply_filters(frames: List[Image.Image]) -> List[Image.Image]:
 
         if new_frame is None:
             if filtr == "gray":
-                new_frame = ImageOps.colorize(
-                    frame.convert("L"), "black", "white")
+                new_frame = ImageOps.colorize(frame.convert("L"), "black", "white")
             elif filtr == "blur":
                 new_frame = frame.filter(ImageFilter.BLUR)
             elif filtr == "invert":
