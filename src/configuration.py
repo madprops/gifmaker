@@ -1,16 +1,19 @@
 # Modules
 import utils
+from argparser import ArgParser
 
 # Standard
-import argparse
 import codecs
 import textwrap
 from argparse import Namespace
-from typing import List, Union, Any, Tuple
+from typing import List, Union, Dict, Tuple, Any
 from pathlib import Path
 
 
 class Configuration:
+    # Class to hold all the configuration of the program
+    # It also interfaces with ArgParser and processes further
+
     # Delay between frames
     delay = 600
 
@@ -145,266 +148,214 @@ class Configuration:
     # Last font color used
     last_fontcolor = Union[Tuple[int, int, int], None]
 
-    def fill_paths(self, main_file: str) -> None:
-        self.root = utils.full_path(Path(main_file).parent.parent)
-        self.input = [utils.full_path(Path(self.root, "media", "video.webm"))]
-        self.output = utils.full_path(Path(self.root, "output"))
-        self.randomfile = utils.full_path(Path(self.root, "data", "nouns.txt"))
-        self.fontspath = utils.full_path(Path(self.root, "fonts"))
-
-    def parse_args(self) -> None:
-        parser = argparse.ArgumentParser(description="Gif Maker")
+    def get_argdefs(self) -> Tuple[List[Dict[str, Any]], Dict[str, List[str]]]:
         rgbstr = "3 numbers from 0 to 255, separated by commas. Names like 'yellow' are also supported"
         commastr = "Separated by commas"
 
-        argdefs: List[dict[str, Any]] = [
+        argdefs: List[Dict[str, Any]] = [
             {"name": "input", "type": str,
-                "help": "Path to the a video or image file. Separated by commas"},
+             "help": "Path to the a video or image file. Separated by commas"},
+
             {"name": "words", "type": str,
              "help": "Lines of words to use on the frames"},
+
             {"name": "wordfile", "type": str,
              "help": "Path of file with word lines"},
-            {"name": "delay", "help": "The delay in ms between frames"},
-            {"name": "left", "type": int, "help": "Left padding"},
-            {"name": "right", "type": int, "help": "Right padding"},
-            {"name": "top", "type": int, "help": "Top padding"},
-            {"name": "bottom", "type": int, "help": "Bottom padding"},
-            {"name": "width", "type": int, "help": "Width to resize the frames"},
+
+            {"name": "delay", "type": str,
+             "help": "The delay in ms between frames"},
+
+            {"name": "left", "type": int,
+             "help": "Left padding"},
+
+            {"name": "right", "type": int,
+             "help": "Right padding"},
+
+            {"name": "top", "type": int,
+             "help": "Top padding"},
+
+            {"name": "bottom", "type": int,
+             "help": "Bottom padding"},
+
+            {"name": "width", "type": int,
+             "help": "Width to resize the frames"},
+
             {"name": "height", "type": int,
              "help": "Height to resize the frames"},
+
             {"name": "frames", "type": int,
              "help": "Number of frames to use if no words are provided"},
+
             {"name": "output", "type": str,
              "help": "Output directory to save the file"},
-            {"name": "format", "type": str, "choices": [
-                "gif", "webm", "mp4", "jpg", "png"], "help": "The format of the output file"},
+
+            {"name": "format", "type": str,
+             "choices": ["gif", "webm", "mp4", "jpg", "png"],
+             "help": "The format of the output file"},
+
             {"name": "separator", "type": str,
              "help": "Character to use as the separator"},
-            {"name": "order", "type": str, "choices": [
-                "random", "normal"], "help": "The order to use when extracting the frames"},
-            {"name": "font", "type": str, "choices": [
-                "sans", "serif", "mono", "bold", "italic", "cursive", "comic"], "help": "The font to use for the text"},
-            {"name": "fontsize", "help": "The size of the font"},
+
+            {"name": "order", "type": str,
+             "choices": ["random", "normal"],
+             "help": "The order to use when extracting the frames"},
+
+            {"name": "font", "type": str,
+             "choices": ["sans", "serif", "mono", "bold", "italic", "cursive", "comic"],
+             "help": "The font to use for the text"},
+
+            {"name": "fontsize", "type": str,
+             "help": "The size of the font"},
+
             {"name": "fontcolor", "type": str,
              "help": f"Text color. {rgbstr}"},
+
             {"name": "bgcolor", "type": str,
-                "help": f"Add a background rectangle for the text with this color. {rgbstr}"},
+             "help": f"Add a background rectangle for the text with this color. {rgbstr}"},
+
             {"name": "outline", "type": str,
-                "help": f"Add an outline around the text with this color. {rgbstr}"},
+             "help": f"Add an outline around the text with this color. {rgbstr}"},
+
             {"name": "outlinewidth", "type": str,
              "help": "The width of the outline"},
-            {"name": "opacity", "help": "The opacity of the background rectangle"},
-            {"name": "padding", "help": "The padding of the background rectangle"},
-            {"name": "radius", "help": "The border radius of the background"},
-            {"name": "align", "type": str, "choices": [
-                "left", "center", "right"], "help": "How to align the center when there are multiple lines"},
+
+            {"name": "opacity", "type": str,
+             "help": "The opacity of the background rectangle"},
+
+            {"name": "padding", "type": str,
+             "help": "The padding of the background rectangle"},
+
+            {"name": "radius", "type": str,
+             "help": "The border radius of the background"},
+
+            {"name": "align", "type": str,
+             "choices": ["left", "center", "right"],
+             "help": "How to align the center when there are multiple lines"},
+
             {"name": "randomlist", "type": str,
              "help": "List of words to consider for random words"},
+
             {"name": "randomfile", "type": str,
              "help": "Path to a list of words to consider for random words"},
+
             {"name": "script", "type": str,
              "help": "Path to a TOML file that defines the arguments to use"},
-            {"name": "loop", "type": int, "help": "How to loop a gif render"},
+
+            {"name": "loop", "type": int,
+             "help": "How to loop a gif render"},
+
             {"name": "remake", "action": "store_true",
              "help": "Re-render the frames to change the width or delay"},
-            {"name": "filter", "type": str, "choices": [
-                "hue1", "hue2", "hue3", "hue4", "hue5", "hue6", "hue7", "hue8", "anyhue", "anyhue2",
-                "gray", "blur", "invert", "random", "random2", "none",
-            ], "help": "Color filter to apply to frames"},
+
+            {"name": "filter", "type": str,
+             "choices": ["hue1", "hue2", "hue3", "hue4", "hue5", "hue6", "hue7", "hue8", "anyhue", "anyhue2",
+                         "gray", "blur", "invert", "random", "random2", "none"],
+             "help": "Color filter to apply to frames"},
+
             {"name": "filterlist", "type": str,
              "help": f"Filters to use per frame. {commastr}"},
+
             {"name": "filteropts", "type": str,
              "help": f"The list of allowed filters when picking randomly. {commastr}"},
+
             {"name": "framelist", "type": str,
              "help": f"List of frame indices to use. {commastr}"},
+
             {"name": "repeatrandom", "action": "store_true",
              "help": "Repeating random words is ok"},
+
             {"name": "repeatfilter", "action": "store_true",
              "help": "Repeating random filters is ok"},
+
             {"name": "fillwords", "action": "store_true",
              "help": "Fill the rest of the frames with the last word line"},
+
             {"name": "nogrow", "action": "store_true",
              "help": "Don't resize if the frames are going to be bigger than the original"},
+
             {"name": "wrap", "type": str,
              "help": "Split line if it exceeds this char length"},
+
             {"name": "nowrap", "action": "store_true",
              "help": "Don't wrap lines"},
+
             {"name": "noleftoutline", "action": "store_true",
              "help": "Don't draw the left outline"},
+
             {"name": "norightoutline", "action": "store_true",
-            "help": "Don't draw the right outline"},
+             "help": "Don't draw the right outline"},
+
             {"name": "notopoutline", "action": "store_true",
-            "help": "Don't draw the top outline"},
+             "help": "Don't draw the top outline"},
+
             {"name": "nobottomoutline", "action": "store_true",
-            "help": "Don't draw the bottom outline"},
+             "help": "Don't draw the bottom outline"},
         ]
 
-        def prepare_parser() -> None:
-            aliases = {
-                "input": ["--i", "-i"],
-                "output": ["--o", "-o"],
-            }
+        aliases = {
+            "input": ["--i", "-i"],
+            "output": ["--o", "-o"],
+        }
 
-            for item in argdefs:
-                name = item["name"]
-                names = [f"--{name}", f"-{name}"]
+        return argdefs, aliases
 
-                if name in aliases:
-                    names += aliases[name]
+    def parse_args(self) -> None:
+        argdefs, aliases = self.get_argdefs()
+        ap = ArgParser("Gif Maker", argdefs, aliases, self)
 
-                opts = ["type", "choices", "help", "action"]
-                tail = {key: item[key] for key in opts if key in item}
+        # ---
 
-                parser.add_argument(*names, **tail)
+        ap.path("script")
+        self.check_script(ap.args)
 
-        # ---------
+        # ---
 
-        prepare_parser()
-        args = parser.parse_args()
+        ap.number("fontsize", int)
+        ap.number("delay", int, duration=True)
+        ap.number("opacity", float, allow_zero=True)
+        ap.number("padding", int, allow_zero=True)
+        ap.number("radius", int, allow_zero=True)
+        ap.number("outlinewidth", int)
+        ap.number("wrap", int)
 
-        # ---------
+        # ---
 
-        def get_list(attr: str, value: str, vtype: Any, separator: str) -> List[Any]:
-            try:
-                lst = list(map(vtype, map(str.strip, value.split(separator))))
-            except:
-                utils.exit(f"Failed to parse '--{attr}'")
-                return []
+        ap.commas("filterlist", str)
+        ap.commas("filteropts", str)
+        ap.commas("framelist", int)
+        ap.commas("fontcolor", int, allow_string=True)
+        ap.commas("bgcolor", int, allow_string=True)
+        ap.commas("outline", int, allow_string=True)
 
-            return lst
+        # ---
 
-        def normal(attr: str) -> None:
-            value = getattr(args, attr)
+        normals = ["left", "right", "top", "bottom", "width", "height", "format", "order",
+                   "font", "frames", "loop", "separator", "filter", "remake", "repeatrandom",
+                   "repeatfilter", "fillwords", "nogrow", "align", "nowrap", "noleftoutline",
+                   "norightoutline", "notopoutline", "nobottomoutline"]
 
-            if value is not None:
-                setattr(self, attr, value)
+        for normal in normals:
+            ap.normal(normal)
 
-        def commas(attr: str, vtype: Any) -> None:
-            value = getattr(args, attr)
+        # ---
 
-            if value is not None:
-                setattr(self, attr, get_list(attr, value, vtype, ","))
+        paths = ["output", "wordfile", "randomfile"]
 
-        def commas_or_string(attr: str, vtype: Any) -> None:
-            value = getattr(args, attr)
+        for path in paths:
+            ap.path(path)
 
-            if value is not None:
-                if "," in value:
-                    setattr(self, attr, get_list(attr, value, vtype, ","))
-                else:
-                    setattr(self, attr, value)
+        # ---
 
-        def path(attr: str) -> None:
-            value = getattr(args, attr)
+        pathlists = ["input"]
 
-            if value is not None:
-                setattr(self, attr, utils.resolve_path(value))
+        for pathlist in pathlists:
+            ap.pathlist(pathlist)
 
-        def pathlist(attr: str) -> None:
-            value = getattr(args, attr)
+        # ---
 
-            if value is not None:
-                paths = [utils.resolve_path(p.strip())
-                         for p in value.split(",")]
-                setattr(self, attr, paths)
+        self.check_config(ap.args)
 
-        # Allow p1 and m1 formats
-        def number(attr: str, vtype: Any, allow_zero: bool = False, duration: bool = False) -> None:
-            default = getattr(self, attr)
-            value = getattr(args, attr)
-
-            if value is None:
-                return
-
-            value = str(value)
-            num = value
-            op = ""
-
-            if value.startswith("p") or value.startswith("m"):
-                op = value[0]
-                num = value[1:]
-
-            if duration:
-                num = utils.parse_duration(num)
-
-            try:
-                if vtype == int:
-                    num = int(num)
-                elif vtype == float:
-                    num = float(num)
-            except:
-                utils.exit(f"Failed to parse '{attr}'")
-                return
-
-            if op == "p":
-                num = default + num
-            elif op == "m":
-                num = default - num
-
-            err = f"Value for '{attr}' is too low"
-
-            if num == 0:
-                if not allow_zero:
-                    utils.exit(err)
-            elif num < 0:
-                utils.exit(err)
-                return
-
-            setattr(self, attr, num)
-
-        # ---------
-
-        path("script")
-        self.check_script(args)
-
-        normal("left")
-        normal("right")
-        normal("top")
-        normal("bottom")
-        normal("width")
-        normal("height")
-        normal("format")
-        normal("order")
-        normal("font")
-        normal("frames")
-        normal("loop")
-        normal("separator")
-        normal("filter")
-        normal("remake")
-        normal("repeatrandom")
-        normal("repeatfilter")
-        normal("fillwords")
-        normal("nogrow")
-        normal("align")
-        normal("nowrap")
-        normal("noleftoutline")
-        normal("norightoutline")
-        normal("notopoutline")
-        normal("nobottomoutline")
-
-        number("fontsize", int)
-        number("delay", int, duration=True)
-        number("opacity", float, allow_zero=True)
-        number("padding", int, allow_zero=True)
-        number("radius", int, allow_zero=True)
-        number("outlinewidth", int)
-        number("wrap", int)
-
-        commas_or_string("fontcolor", int)
-        commas_or_string("bgcolor", int)
-        commas_or_string("outline", int)
-        commas("filterlist", str)
-        commas("filteropts", str)
-        commas("framelist", int)
-
-        pathlist("input")
-        path("output")
-        path("wordfile")
-        path("randomfile")
-
-        self.check_args(args)
-
-    def check_args(self, args: Namespace) -> None:
+    def check_config(self, args: Namespace) -> None:
         def separate(value: str) -> List[str]:
             return [codecs.decode(utils.clean_lines(item), "unicode-escape")
                     for item in value.split(self.separator)]
@@ -474,6 +425,13 @@ class Configuration:
     def read_wordfile(self) -> None:
         if self.wordfile:
             self.words = self.wordfile.read_text().splitlines()
+
+    def fill_paths(self, main_file: str) -> None:
+        self.root = utils.full_path(Path(main_file).parent.parent)
+        self.input = [utils.full_path(Path(self.root, "media", "video.webm"))]
+        self.output = utils.full_path(Path(self.root, "output"))
+        self.randomfile = utils.full_path(Path(self.root, "data", "nouns.txt"))
+        self.fontspath = utils.full_path(Path(self.root, "fonts"))
 
 
 # Main configuration object
