@@ -117,7 +117,10 @@ class Configuration:
     nogrow = False
 
     # Split line if it exceeds this char length
-    wrap = 40
+    wrap = 35
+
+    # Don't wrap lines
+    nowrap = False
 
     # --- INTERAL VARS
 
@@ -212,6 +215,8 @@ class Configuration:
              "help": "Don't resize if the frames are going to be bigger than the original"},
             {"name": "wrap", "type": str,
              "help": "Split line if it exceeds this char length"},
+            {"name": "nowrap", "action": "store_true",
+             "help": "Don't wrap lines"},
         ]
 
         def prepare_parser() -> None:
@@ -351,6 +356,7 @@ class Configuration:
         normal("fillwords")
         normal("nogrow")
         normal("align")
+        normal("nowrap")
 
         number("fontsize", int)
         number("delay", int, duration=True)
@@ -400,12 +406,14 @@ class Configuration:
             utils.exit("Word file does not exist")
             return
 
-        self.linebreaks("words")
+        if not self.nowrap:
+            self.wrap_text("words")
+
         self.set_color("fontcolor")
         self.set_color("bgcolor")
         self.set_color("outline")
 
-    def linebreaks(self, attr: str) -> None:
+    def wrap_text(self, attr: str) -> None:
         lines = getattr(self, attr)
 
         if not lines:

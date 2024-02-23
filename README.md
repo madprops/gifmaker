@@ -602,11 +602,17 @@ Either `left`, `center`, or `right`.
 
 ---
 
-> **wrap** (Type: int | Default: 40)
+> **wrap** (Type: int | Default: 35)
 
 Split lines if they exceed this char length.
 
 It creates new lines. Makes text bigger vertically.
+
+---
+
+> **nowrap** (Type: flag | Default: False)
+
+Don't wrap the lines of words.
 
 ---
 
