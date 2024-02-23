@@ -602,7 +602,7 @@ Either `left`, `center`, or `right`.
 
 ---
 
-> **wrap** (Type: int | Default: 30)
+> **wrap** (Type: int | Default: 40)
 
 Split lines if they exceed this char length.
 

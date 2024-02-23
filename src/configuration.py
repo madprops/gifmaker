@@ -117,7 +117,7 @@ class Configuration:
     nogrow = False
 
     # Split line if it exceeds this char length
-    wrap = 30
+    wrap = 40
 
     # --- INTERAL VARS
 
@@ -440,8 +440,8 @@ class Configuration:
                 setattr(args, k, data[key])
 
     def read_wordfile(self) -> None:
-        if config.wordfile:
-            self.words = config.wordfile.read_text().splitlines()
+        if self.wordfile:
+            self.words = self.wordfile.read_text().splitlines()
 
 
 # Main configuration object
