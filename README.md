@@ -594,6 +594,14 @@ It can also be `font` to use the same color as the font.
 
 ---
 
+> **outlinewidth** (Type: int | Default: 2)
+
+Width of the outline. It must be a number divisible by 2.
+
+If it's not divisible by 2 it will pick the next number automatically.
+
+---
+
 > **align** (Type: str | Default: "center")
 
 How to align the center when there are multiple lines.

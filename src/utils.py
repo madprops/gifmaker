@@ -130,3 +130,10 @@ def parse_duration(time_string: str) -> str:
             time_string = str(int(value * 60 * 60 * 1000))
 
     return time_string
+
+
+def divisible(number, by):
+    while number % by != 0:
+        number += 1
+
+    return number
