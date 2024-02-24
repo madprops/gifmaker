@@ -33,9 +33,11 @@ def get_frames() -> List[Image.Image]:
         if ext == "gif":
             reader = imageio.mimread(path)
             max_frames = len(reader)
+            video = False
         else:
             reader = imageio.get_reader(path)
             max_frames = reader.count_frames()
+            video = True
 
         num_frames = max_frames if config.remake else config.frames
         order = "normal" if (config.remake or config.framelist) else config.order
@@ -50,8 +52,12 @@ def get_frames() -> List[Image.Image]:
                 index = random.randint(0, len(framelist))
 
             try:
-                img = to_pillow(reader.get_data(index), "RGB")
-                frames.append(img)
+                if video:
+                    img = reader.get_data(index)
+                else:
+                    img = reader[index]
+
+                frames.append(to_pillow(img, "RGB"))
 
                 if one_frame():
                     break
@@ -67,7 +73,8 @@ def get_frames() -> List[Image.Image]:
                 if current >= len(framelist):
                     current = 0
 
-        reader.close()
+        if video:
+            reader.close()
 
     return frames
 
@@ -285,8 +292,7 @@ def render(frames: List[Image.Image]) -> Union[Path, None]:
 
     if fmt == "gif":
         loop = None if config.loop <= -1 else config.loop
-        imageio.mimsave(output, frames, format="GIF",
-                        duration=config.delay, loop=loop)
+        imageio.mimsave(output, frames, format="GIF", duration=config.delay, loop=loop)
     elif fmt == "png":
         imageio.imsave(output, frames[0], format="PNG")
     elif fmt == "jpg":

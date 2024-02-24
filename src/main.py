@@ -64,6 +64,10 @@ def main() -> None:
     frames = media.get_frames()
     check_time("Get Frames")
 
+    if not frames:
+        utils.msg("No frames")
+        return
+
     if config.remake:
         # Only resize the frames
         frames = media.resize_frames(frames)
