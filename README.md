@@ -361,7 +361,7 @@ This also affects `randomlist`.
 
 ---
 
-> **delay** (Type: int | Default: 600)
+> **delay** (Type: int | Default: 700)
 
 The delay between frames. In milliseconds.
 

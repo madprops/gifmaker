@@ -15,7 +15,7 @@ class Configuration:
     # It also interfaces with ArgParser and processes further
 
     # Delay between frames
-    delay = 600
+    delay = 700
 
     # Number of frames to use if no words are provided
     frames: Union[int, None] = None
