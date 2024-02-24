@@ -82,8 +82,8 @@ def get_frames() -> List[Image.Image]:
 def draw_text(frame: Image.Image, line: str) -> Image.Image:
     draw = ImageDraw.Draw(frame, "RGBA")
     font = get_font()
-    data = get_text_data(frame, line)
-    fontcolor = get_color("fontcolor")
+    data = get_text_data(frame, line, font)
+    fontcolor = config.get_color("fontcolor")
     _, top, _, _ = font.getbbox(line)
     padding = config.padding
 
@@ -98,13 +98,13 @@ def draw_text(frame: Image.Image, line: str) -> Image.Image:
     max_y_p = max_y + padding
 
     if config.bgcolor:
-        bgcolor = get_color("bgcolor")
+        bgcolor = config.get_color("bgcolor")
         alpha = utils.add_alpha(bgcolor, config.opacity)
         rect_pos = (min_x_p, min_y_p), (max_x_p, max_y_p)
         draw.rounded_rectangle(rect_pos, fill=alpha, radius=config.radius)
 
     if config.outline:
-        ocolor = get_color("outline")
+        ocolor = config.get_color("outline")
         owidth = config.outlinewidth
         owidth = utils.divisible(owidth, 2)
         halfwidth = owidth / 2
@@ -130,34 +130,41 @@ def draw_text(frame: Image.Image, line: str) -> Image.Image:
     return frame
 
 
-def get_font_item(name: str) -> ImageFont.FreeTypeFont:
-    path = Path(config.fontspath, name)
+def get_font_item(font_file: str) -> ImageFont.FreeTypeFont:
+    path = Path(config.fontspath, font_file)
     return ImageFont.truetype(path, size=config.fontsize)
 
 
 def get_font() -> ImageFont.FreeTypeFont:
-    if config.font == "mono":
-        font = get_font_item("RobotoMono-Regular.ttf")
-    elif config.font == "serif":
-        font = get_font_item("RobotoSerif-Regular.ttf")
-    elif config.font == "bold":
-        font = get_font_item("Roboto-Bold.ttf")
-    elif config.font == "italic":
-        font = get_font_item("Roboto-Italic.ttf")
-    elif config.font == "cursive":
-        font = get_font_item("Pacifico-Regular.ttf")
-    elif config.font == "comic":
-        font = get_font_item("ComicNeue-Regular.ttf")
+    fonts = {
+        "sans": "Roboto-Regular.ttf",
+        "serif": "RobotoSerif-Regular.ttf",
+        "mono": "RobotoMono-Regular.ttf",
+        "italic": "Roboto-Italic.ttf",
+        "bold": "Roboto-Bold.ttf",
+        "cursive": "Pacifico-Regular.ttf",
+        "comic": "ComicNeue-Regular.ttf",
+    }
+
+    def random_font():
+        return random.choice(list(fonts.keys()))
+
+    if config.font == "random":
+        font = random_font()
+        font_file = fonts[font]
+        config.font = font
+    elif config.font == "random2":
+        font = random_font()
+        font_file = fonts[font]
     else:
-        font = get_font_item("Roboto-Regular.ttf")
+        font_file = fonts[config.font]
 
-    return font
+    return get_font_item(font_file)
 
 
-def get_text_data(frame: Image.Image, line: str) -> Dict[str, int]:
+def get_text_data(frame: Image.Image, line: str, font: ImageFont.FreeTypeFont) -> Dict[str, int]:
     draw = ImageDraw.Draw(frame)
     width, height = frame.size
-    font = get_font()
 
     p_top = config.top
     p_bottom = config.bottom
@@ -411,34 +418,6 @@ def count_frames() -> None:
         config.frames = num_words if num_words > 0 else config.frames
     else:
         config.frames = 3
-
-
-def get_color(attr: str) -> Tuple[int, int, int]:
-    value = getattr(config, attr)
-    rgb: Union[Tuple[int, int, int], None] = None
-
-    if isinstance(value, str):
-        if value == "light2":
-            rgb = utils.random_light()
-        elif value == "dark2":
-            rgb = utils.random_dark()
-        elif (value == "font") and isinstance(config.last_fontcolor, tuple):
-            rgb = config.last_fontcolor
-        elif value == "lightfont2" and isinstance(config.last_fontcolor, tuple):
-            rgb = utils.light_contrast(config.last_fontcolor)
-        elif value == "darkfont2" and isinstance(config.last_fontcolor, tuple):
-            rgb = utils.dark_contrast(config.last_fontcolor)
-        else:
-            rgb = utils.color_name(value)
-    elif isinstance(value, (list, tuple)) and len(value) >= 3:
-        rgb = (value[0], value[1], value[2])
-
-    ans = rgb or (100, 100, 100)
-
-    if attr == "fontcolor":
-        config.last_fontcolor = ans
-
-    return ans
 
 
 def to_pillow(frame: npt.NDArray[np.float64], mode: str) -> Image.Image:

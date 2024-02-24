@@ -204,7 +204,8 @@ class Configuration:
              "help": "The order to use when extracting the frames"},
 
             {"name": "font", "type": str,
-             "choices": ["sans", "serif", "mono", "bold", "italic", "cursive", "comic"],
+             "choices": ["sans", "serif", "mono", "bold", "italic",
+                         "cursive", "comic", "random", "random2"],
              "help": "The font to use for the text"},
 
             {"name": "fontsize", "type": str,
@@ -390,10 +391,6 @@ class Configuration:
         if not self.nowrap:
             self.wrap_text("words")
 
-        self.set_color("fontcolor")
-        self.set_color("bgcolor")
-        self.set_color("outline")
-
     def wrap_text(self, attr: str) -> None:
         lines = getattr(self, attr)
 
@@ -408,19 +405,6 @@ class Configuration:
             new_lines.append("\n".join(wrapped))
 
         setattr(self, attr, new_lines)
-
-    def set_color(self, attr: str) -> None:
-        value = getattr(self, attr)
-
-        if value == "light":
-            setattr(self, attr, utils.random_light())
-        elif value == "dark":
-            setattr(self, attr, utils.random_dark())
-        elif isinstance(self.fontcolor, tuple):
-            if value == "lightfont":
-                setattr(self, attr, utils.light_contrast(self.fontcolor))
-            elif value == "darkfont":
-                setattr(self, attr, utils.dark_contrast(self.fontcolor))
 
     def check_script(self, args: Namespace) -> None:
         if self.script is None:
@@ -443,6 +427,49 @@ class Configuration:
         self.output = utils.full_path(Path(self.root, "output"))
         self.randomfile = utils.full_path(Path(self.root, "data", "nouns.txt"))
         self.fontspath = utils.full_path(Path(self.root, "fonts"))
+
+    def get_color(self, attr: str) -> Tuple[int, int, int]:
+        value = getattr(self, attr)
+        rgb: Union[Tuple[int, int, int], None] = None
+        set_config = False
+
+        if isinstance(value, str):
+            if value == "light":
+                rgb = utils.random_light()
+                set_config = True
+            elif value == "light2":
+                rgb = utils.random_light()
+            elif value == "dark":
+                rgb = utils.random_dark()
+                set_config = True
+            elif value == "dark2":
+                rgb = utils.random_dark()
+            elif (value == "font") and isinstance(self.last_fontcolor, tuple):
+                rgb = self.last_fontcolor
+            elif value == "lightfont" and isinstance(self.last_fontcolor, tuple):
+                rgb = utils.light_contrast(self.last_fontcolor)
+                set_config = True
+            elif value == "lightfont2" and isinstance(self.last_fontcolor, tuple):
+                rgb = utils.light_contrast(self.last_fontcolor)
+            elif value == "darkfont" and isinstance(self.last_fontcolor, tuple):
+                rgb = utils.dark_contrast(self.last_fontcolor)
+                set_config = True
+            elif value == "darkfont2" and isinstance(self.last_fontcolor, tuple):
+                rgb = utils.dark_contrast(self.last_fontcolor)
+            else:
+                rgb = utils.color_name(value)
+        elif isinstance(value, (list, tuple)) and len(value) >= 3:
+            rgb = (value[0], value[1], value[2])
+
+        if set_config:
+            setattr(self, attr, rgb)
+
+        ans = rgb or (100, 100, 100)
+
+        if attr == "fontcolor":
+            config.last_fontcolor = ans
+
+        return ans
 
 
 # Main configuration object

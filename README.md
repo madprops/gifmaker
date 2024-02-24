@@ -487,6 +487,10 @@ The font to use for the text.
 
 Either `sans`, `serif`, `mono`, `bold`, `italic`, `cursive`, or `comic`.
 
+There is also `random` and `random2`.
+
+First one is a random font, the other one is a random font on each frame.
+
 ---
 
 > **fontsize** (Type: int | Default: 50)
@@ -702,7 +706,7 @@ To get `21` or `19`.
 
 ---
 
-### Colors
+### Colors <a name="colors"></a>
 
 Some arguments use the color format.
 
@@ -712,11 +716,11 @@ It uses the `RGB` format.
 
 `0,0,0` would be black, for instance.
 
-The value can also be `random_light` or `random_dark`.
+The value can also be `light` or `dark`.
 
 These will get a random light or dark color.
 
-The value can also be `random_light2` or `random_dark2`.
+The value can also be `light2` or `dark2`.
 
 These will get a random light or dark color on each frame.
 
