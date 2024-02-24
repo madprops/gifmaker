@@ -92,9 +92,9 @@ def generate(line: str, multiple: bool = True) -> None:
             multi = max(1, int(match_multi["number"]))
             line = re.sub(pattern_multi, "", line).strip()
 
-    pattern_random = re.compile(r"\[\s*(?P<word>randomx?)(?:\s+(?P<number>-?\d+))?\s*\]", re.IGNORECASE)
-    pattern_number = re.compile(r"\[\s*(?P<word>number)(?:\s+(?P<number1>-?\d+) \
-                         (?:\s*(.+?)\s*(?P<number2>-?\d+))?)?\s*\]", re.IGNORECASE)
+    pattern_random = re.compile(r"\[\s*(?P<word>randomx?)(?:\s+(?P<number>\d+))?\s*\]", re.IGNORECASE)
+    pattern_number = re.compile(
+        r"\[\s*(?P<word>number)(?:\s+(?P<number1>-?\d+)(?:\s+(?P<number2>-?\d+))?)?\s*\]", re.IGNORECASE)
     pattern_count = re.compile(r"\[(?P<word>count)\]", re.IGNORECASE)
     pattern_date = re.compile(r"\[\s*(?P<word>date)(?:\s+(?P<format>.*))?\s*\]", re.IGNORECASE)
 
