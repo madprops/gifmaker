@@ -56,7 +56,6 @@ def get_frames() -> List[Image.Image]:
                 if one_frame():
                     break
             except:
-                print("Error")
                 pass
 
             if len(frames) == num_frames:
