@@ -424,9 +424,7 @@ def count_frames() -> None:
 
 
 def to_pillow(frame: npt.NDArray[np.float64]) -> Image.Image:
-    if frame.shape[2] == 3:
-        mode = "RGB"
-    elif frame.shape[2] == 4:
+    if frame.shape[2] == 4:
         mode = "RGBA"
     else:
         mode = "RGB"
