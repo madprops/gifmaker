@@ -45,25 +45,21 @@ def main() -> None:
     check_time("Parse Args")
 
     if not config.remake:
-        # Replace [empty]
-        words.replace_empty()
-        check_time("Replace Empty")
+        # Check for [empty]
+        words.check_empty()
+        check_time("Check Empty")
 
-        # Replace [random] and [number]
-        words.replace_random()
-        check_time("Replace Random")
+        # Check generators like [random]
+        words.check_generators()
+        check_time("Check Generators")
 
-        # Replace [date]
-        words.replace_date()
-        check_time("Replace Date")
+        # Check for [date]
+        words.check_date()
+        check_time("Check Date")
 
-        # Replace [repeat]
-        words.replace_repeat()
-        check_time("Replace Repeat")
-
-        # Replace [count]
-        words.replace_count()
-        check_time("Replace Count")
+        # Check for [repeat]
+        words.check_repeat()
+        check_time("Check Repeat")
 
     # Extract the required frames from the file
     frames = media.get_frames()

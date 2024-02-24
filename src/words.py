@@ -8,7 +8,7 @@ import random
 from typing import List, Any
 
 
-def replace_random() -> None:
+def check_generators() -> None:
     if not config.words:
         return
 
@@ -43,14 +43,18 @@ def replace_random() -> None:
 
         if word == "number":
             return "".join(randwords)
-        else:
+        elif word == "random":
             return " ".join(randwords)
+        elif word == "count":
+            config.wordcount += 1
+            return str(config.wordcount)
+        else:
+            return ""
 
     new_lines: List[str] = []
     pattern = re.compile(
-        r"\[\s*(?P<word>randomx?|number)(?:\s+(?P<number1>-?\d+)(?:\s*(.+?)\s*(?P<number2>-?\d+))?)?\s*\]", re.IGNORECASE)
-    pattern_multi = re.compile(
-        r"\[\s*(?:x(?P<number>\d+))?\s*\]$", re.IGNORECASE)
+        r"\[\s*(?P<word>randomx?|number|count)(?:\s+(?P<number1>-?\d+)(?:\s*(.+?)\s*(?P<number2>-?\d+))?)?\s*\]", re.IGNORECASE)
+    pattern_multi = re.compile(r"\[\s*(?:x(?P<number>\d+))?\s*\]$", re.IGNORECASE)
 
     for line in config.words:
         match = re.search(pattern, line)
@@ -72,7 +76,7 @@ def replace_random() -> None:
     config.words = new_lines
 
 
-def replace_repeat() -> None:
+def check_repeat() -> None:
     if not config.words:
         return
 
@@ -93,7 +97,7 @@ def replace_repeat() -> None:
     config.words = new_lines
 
 
-def replace_empty() -> None:
+def check_empty() -> None:
     if not config.words:
         return
 
@@ -116,7 +120,7 @@ def replace_empty() -> None:
     config.words = new_lines
 
 
-def replace_date() -> None:
+def check_date() -> None:
     if not config.words:
         return
 
@@ -127,28 +131,6 @@ def replace_date() -> None:
     new_lines: List[str] = []
     pattern = re.compile(
         r"\[\s*(?P<word>date)(?:\s+(?P<format>.*))?\s*\]", re.IGNORECASE)
-
-    for line in config.words:
-        match = re.search(pattern, line)
-
-        if match:
-            new_lines.append(re.sub(pattern, replace, line))
-        else:
-            new_lines.append(line)
-
-    config.words = new_lines
-
-
-def replace_count() -> None:
-    if not config.words:
-        return
-
-    def replace(match: re.Match[Any]) -> str:
-        config.wordcount += 1
-        return str(config.wordcount)
-
-    new_lines: List[str] = []
-    pattern = re.compile(r"\[(?P<word>count)\]", re.IGNORECASE)
 
     for line in config.words:
         match = re.search(pattern, line)
