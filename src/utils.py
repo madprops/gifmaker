@@ -142,22 +142,17 @@ def msg(message: str) -> None:
     print(message, file=sys.stderr)
 
 def colortext(color: str, text: str) -> str:
-    code = ""
+    codes = {
+        "red": "\x1b[31m",
+        "green": "\x1b[32m",
+        "yellow": "\x1b[33m",
+        "blue": "\x1b[34m",
+        "magenta": "\x1b[35m",
+        "cyan": "\x1b[36m",
+    }
 
-    if color == "red":
-        code = "\x1b[31m"
-    elif color == "green":
-        code = "\x1b[32m"
-    elif color == "yellow":
-        code = "\x1b[33m"
-    elif color == "blue":
-        code = "\x1b[34m"
-    elif color == "magenta":
-        code = "\x1b[35m"
-    elif color == "cyan":
-        code = "\x1b[36m"
-
-    if code:
+    if color in codes:
+        code = codes[color]
         text = f"{code}{text}\x1b[0m"
 
     return text
