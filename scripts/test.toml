@@ -1,9 +1,11 @@
 words = "Disregard [Random] ; Acquire [Random] ; [date] ; [number 0-999];"
+fontsize = 80
 fontcolor = "light2"
-bgcolor = "dark2"
+bgcolor = "darkfont2"
+outline = "font"
+filter = "random2"
+width = 700
 bottom = 30
 right = 30
-filter = "random2"
-outline = "font"
-width = 700
-fontsize = 80
+delay = "p100"
+verbose = true
