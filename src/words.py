@@ -8,12 +8,54 @@ import random
 from typing import List, Any
 
 
-def check_generators() -> None:
+def process_words():
+    if config.remake or config.fillgen:
+        return
+
+    check_empty()
+    check_generators()
+    check_repeat()
+
+
+def check_generators():
     if not config.words:
         return
 
-    def replace(match: re.Match[Any]) -> str:
-        word = match["word"].lower()
+    new_lines: List[str] = []
+
+    for line in config.words:
+        new_lines.extend(generate(line))
+
+    config.words = new_lines
+
+
+def generate(line: str, multiple: bool = True) -> None:
+    def randgen(word: str, num: int) -> List[str]:
+        items: List[str] = []
+
+        for _ in range(num):
+            allow_zero = True
+
+            if num > 1:
+                if len(items) == 0:
+                    allow_zero = False
+
+            items.append(get_random(word, allow_zero))
+
+        return items
+
+    def replace_random(match: re.Match[Any]) -> str:
+        num = None
+
+        if match["number"]:
+            num = int(match["number"])
+
+        if (num is None) or (num < 1):
+            num = 1
+
+        return " ".join(randgen("random", num))
+
+    def replace_number(match: re.Match[Any]) -> str:
         num1 = None
         num2 = None
 
@@ -23,60 +65,48 @@ def check_generators() -> None:
         if match["number2"]:
             num2 = int(match["number2"])
 
-        if word == "number":
-            if num1 is not None and num2 is not None:
-                return str(random.randint(num1, num2))
+        if num1 is not None and num2 is not None:
+            return str(random.randint(num1, num2))
 
         if (num1 is None) or (num1 < 1):
             num1 = 1
 
-        def randgen() -> List[str]:
-            items: List[str] = []
+        return "".join(randgen("number", num1))
 
-            for _ in range(num1):
-                allow_zero = True
+    def replace_count(match: re.Match[Any]) -> str:
+        config.wordcount += 1
+        return str(config.wordcount)
 
-                if num1 > 1:
-                    if len(items) == 0:
-                        allow_zero = False
+    def replace_date(match: re.Match[Any]) -> str:
+        fmt = match["format"] or "%H:%M:%S"
+        return utils.get_date(fmt)
 
-                items.append(get_random(match["word"], allow_zero))
-
-            return items
-
-        if word == "number":
-            return "".join(randgen())
-        elif word == "random":
-            return " ".join(randgen())
-        elif word == "count":
-            config.wordcount += 1
-            return str(config.wordcount)
-        else:
-            return ""
-
+    multi = 1
     new_lines: List[str] = []
-    pattern = re.compile(
-        r"\[\s*(?P<word>randomx?|number|count)(?:\s+(?P<number1>-?\d+)(?:\s*(.+?)\s*(?P<number2>-?\d+))?)?\s*\]", re.IGNORECASE)
     pattern_multi = re.compile(r"\[\s*(?:x(?P<number>\d+))?\s*\]$", re.IGNORECASE)
 
-    for line in config.words:
-        match = re.search(pattern, line)
+    if multiple:
+        match_multi = re.search(pattern_multi, line)
 
-        if match:
-            multi = 1
-            match_multi = re.search(pattern_multi, line)
+        if match_multi:
+            multi = max(1, int(match_multi["number"]))
+            line = re.sub(pattern_multi, "", line).strip()
 
-            if match_multi:
-                multi = max(1, int(match_multi["number"]))
-                line = re.sub(pattern_multi, "", line).strip()
+    pattern_random = re.compile(r"\[\s*(?P<word>randomx?)(?:\s+(?P<number>-?\d+))?\s*\]", re.IGNORECASE)
+    pattern_number = re.compile(r"\[\s*(?P<word>number)(?:\s+(?P<number1>-?\d+) \
+                         (?:\s*(.+?)\s*(?P<number2>-?\d+))?)?\s*\]", re.IGNORECASE)
+    pattern_count = re.compile(r"\[(?P<word>count)\]", re.IGNORECASE)
+    pattern_date = re.compile(r"\[\s*(?P<word>date)(?:\s+(?P<format>.*))?\s*\]", re.IGNORECASE)
 
-            for _ in range(multi):
-                new_line = re.sub(pattern, replace, line)
-                new_lines.append(new_line)
-        else:
-            new_lines.append(line)
+    for _ in range(multi):
+        new_line = line
+        new_line = re.sub(pattern_random, replace_random, new_line)
+        new_line = re.sub(pattern_number, replace_number, new_line)
+        new_line = re.sub(pattern_count, replace_count, new_line)
+        new_line = re.sub(pattern_date, replace_date, new_line)
+        new_lines.append(new_line)
 
-    config.words = new_lines
+    return new_lines
 
 
 def check_repeat() -> None:
@@ -117,29 +147,6 @@ def check_empty() -> None:
 
             for _ in range(number):
                 new_lines.append("")
-        else:
-            new_lines.append(line)
-
-    config.words = new_lines
-
-
-def check_date() -> None:
-    if not config.words:
-        return
-
-    def replace(match: re.Match[Any]) -> str:
-        fmt = match["format"] or "%H:%M:%S"
-        return utils.get_date(fmt)
-
-    new_lines: List[str] = []
-    pattern = re.compile(
-        r"\[\s*(?P<word>date)(?:\s+(?P<format>.*))?\s*\]", re.IGNORECASE)
-
-    for line in config.words:
-        match = re.search(pattern, line)
-
-        if match:
-            new_lines.append(re.sub(pattern, replace, line))
         else:
             new_lines.append(line)
 

@@ -1,6 +1,7 @@
 # Modules
 from configuration import config
 import utils
+import words
 
 # Libraries
 import imageio  # type: ignore
@@ -222,16 +223,19 @@ def word_frames(frames: List[Image.Image]) -> List[Image.Image]:
     num_words = len(config.words)
 
     for i, frame in enumerate(frames):
-        index = i
+        if config.fillgen:
+            line = words.generate(config.words[0], False)[0]
+        else:
+            index = i
 
-        if index >= num_words:
-            if config.fillwords:
-                index = num_words - 1
-            else:
-                worded.append(frame)
-                continue
+            if index >= num_words:
+                if config.fillwords:
+                    index = num_words - 1
+                else:
+                    worded.append(frame)
+                    continue
 
-        line = config.words[index]
+            line = config.words[index]
 
         if line:
             frame = draw_text(frame, line)

@@ -329,7 +329,7 @@ This is a line after an empty line
 
 Then you can point to it like:
 
-```
+```shell
 --wordfile "/path/to/words.txt"
 ```
 
@@ -345,11 +345,23 @@ If there are no more lines to use, it will re-use the last line.
 
 You can do like:
 
-```
+```shell
 --words "Single Line" --frames 5 --fillwords
 ```
 
 And it will use that line in all 5 frames.
+
+---
+
+> **fillgen** (Type: flag | Default: False)
+
+If this is enabled, the first line of words will be generated  till the end of the frames.
+
+For example:
+
+```shell
+gifmaker --words "[random] takes [count] at [date]" --fillgen
+```
 
 ---
 
