@@ -8,7 +8,7 @@ import utils
 import time
 
 # Performance
-last_time: float = 0
+last_time = 0.0
 
 
 def get_time() -> float:
@@ -33,6 +33,7 @@ def check_time(name: str) -> None:
 
 def main() -> None:
     global last_time
+
     start_time = get_time()
     last_time = start_time
 
