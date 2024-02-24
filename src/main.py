@@ -10,13 +10,18 @@ import time
 # Performance
 last_time: float = 0
 
+def show_seconds(name: str, start: float, end: float) -> None:
+    num = round(start - end, 3)
+    label = utils.colortext("blue", name)
+    utils.msg(f"{label}: {num} seconds")
+
 def check_time(name: str) -> None:
     if not config.verbose:
         return
 
     global last_time
     now = time.time()
-    utils.show_seconds(name, now, last_time)
+    show_seconds(name, now, last_time)
     last_time = now
 
 def main() -> None:
@@ -80,8 +85,9 @@ def main() -> None:
     # End stats
     if config.verbose:
         utils.msg("")
-        utils.msg(f"Frames: {len(frames)}")
-        utils.show_seconds("Total", time.time(), start_time)
+        label = utils.colortext("blue", "Frames")
+        utils.msg(f"{label}: {len(frames)}")
+        show_seconds("Total", time.time(), start_time)
         utils.msg("")
 
     # Print the output path as the response
