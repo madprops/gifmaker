@@ -41,12 +41,18 @@ class ArgParser:
         if value is not None:
             setattr(self.obj, attr, value)
 
-    def commas(self, attr: str, vtype: Any, allow_string: bool = False) -> None:
+    def commas(self, attr: str, vtype: Any, allow_string: bool = False, is_tuple: bool = False) -> None:
         value = getattr(self.args, attr)
 
         if value is not None:
             if "," in value:
-                setattr(self.obj, attr, self.get_list(attr, value, vtype, ","))
+                lst = self.get_list(attr, value, vtype, ",")
+
+                if is_tuple:
+                    setattr(self.obj, attr, tuple(lst))
+                else:
+                    setattr(self.obj, attr, lst)
+
             elif allow_string:
                 setattr(self.obj, attr, value)
 

@@ -63,13 +63,13 @@ class Configuration:
     fontsize = 50
 
     # The color of the text
-    fontcolor: Union[List[int], str] = [255, 255, 255]
+    fontcolor: Union[Tuple[int, int, int], str] = (255, 255, 255)
 
     # The color of the background
-    bgcolor: Union[List[int], str, None] = None
+    bgcolor: Union[Tuple[int, int, int], str, None] = None
 
     # The color of the outline
-    outline: Union[List[int], str, None] = None
+    outline: Union[Tuple[int, int, int], str, None] = None
 
     # The width of the outline
     outlinewidth = 2
@@ -330,9 +330,9 @@ class Configuration:
         ap.commas("filterlist", str)
         ap.commas("filteropts", str)
         ap.commas("framelist", int)
-        ap.commas("fontcolor", int, allow_string=True)
-        ap.commas("bgcolor", int, allow_string=True)
-        ap.commas("outline", int, allow_string=True)
+        ap.commas("fontcolor", int, allow_string=True, is_tuple=True)
+        ap.commas("bgcolor", int, allow_string=True, is_tuple=True)
+        ap.commas("outline", int, allow_string=True, is_tuple=True)
 
         # ---
 
@@ -461,13 +461,13 @@ class Configuration:
         elif isinstance(value, (list, tuple)) and len(value) >= 3:
             rgb = (value[0], value[1], value[2])
 
-        if set_config:
-            setattr(self, attr, rgb)
-
         ans = rgb or (100, 100, 100)
 
         if attr == "fontcolor":
             config.last_fontcolor = ans
+
+        if set_config:
+            setattr(self, attr, rgb)
 
         return ans
 
