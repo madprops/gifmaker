@@ -11,6 +11,10 @@ import time
 last_time: float = 0
 
 
+def get_time() -> float:
+    return time.time()
+
+
 def show_seconds(name: str, start: float, end: float) -> None:
     num = round(start - end, 3)
     label = utils.colortext("blue", name)
@@ -22,14 +26,14 @@ def check_time(name: str) -> None:
         return
 
     global last_time
-    now = time.time()
+    now = get_time()
     show_seconds(name, now, last_time)
     last_time = now
 
 
 def main() -> None:
     global last_time
-    start_time = time.time()
+    start_time = get_time()
     last_time = start_time
 
     # Fill some paths based on root path
@@ -94,7 +98,7 @@ def main() -> None:
         utils.msg("")
         label = utils.colortext("blue", "Frames")
         utils.msg(f"{label}: {len(frames)}")
-        show_seconds("Total", time.time(), start_time)
+        show_seconds("Total", get_time(), start_time)
         utils.msg("")
 
     # Print the output path as the response
