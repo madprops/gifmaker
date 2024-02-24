@@ -56,8 +56,8 @@ class Configuration:
     # The order to use when extracting the frames
     order = "random"
 
-    # The font to use for the text. Either simple, complex, plain, duplex, or triplex
-    font = "simple"
+    # The font to use for the text. Either sans, serif, mono, bold, italic, cursive, comic
+    font = "sans"
 
     # The size of the text
     fontsize = 50

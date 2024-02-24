@@ -481,7 +481,7 @@ Either `random` or `normal`.
 
 ---
 
-> **font** (Type: str | Default "simple")
+> **font** (Type: str | Default "sans")
 
 The font to use for the text.
 
