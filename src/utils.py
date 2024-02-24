@@ -145,17 +145,17 @@ def colortext(color: str, text: str) -> str:
     code = ""
 
     if color == "red":
-        code = f"\x1b[31m"
+        code = "\x1b[31m"
     elif color == "green":
-        code = f"\x1b[32m"
+        code = "\x1b[32m"
     elif color == "yellow":
-        code = f"\x1b[33m"
+        code = "\x1b[33m"
     elif color == "blue":
-        code = f"\x1b[34m"
+        code = "\x1b[34m"
     elif color == "magenta":
-        code = f"\x1b[35m"
+        code = "\x1b[35m"
     elif color == "cyan":
-        code = f"\x1b[36m"
+        code = "\x1b[36m"
 
     if code:
         text = f"{code}{text}\x1b[0m"
