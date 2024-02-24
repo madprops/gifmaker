@@ -27,7 +27,6 @@ def check_generators() -> None:
             if num1 is not None and num2 is not None:
                 return str(random.randint(num1, num2))
 
-
         if (num1 is None) or (num1 < 1):
             num1 = 1
 
