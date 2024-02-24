@@ -22,59 +22,58 @@ def get_frames() -> List[Image.Image]:
     path = random.choice(config.input)
     ext = utils.get_extension(path)
 
-    if ext == "jpg" or ext == "png":
-        for _ in range(0, config.frames):
-            img = to_pillow(imageio.imread(path), "RGB")
-            frames.append(img)
-
-            if one_frame():
-                break
+    if (ext == "jpg") or (ext == "png"):
+        reader = imageio.imread(path)
+        max_frames = 1
+        mode = "image"
+    elif ext == "gif":
+        reader = imageio.mimread(path)
+        max_frames = len(reader)
+        mode = "gif"
     else:
-        if ext == "gif":
-            reader = imageio.mimread(path)
-            max_frames = len(reader)
-            video = False
-        else:
-            reader = imageio.get_reader(path)
-            max_frames = reader.count_frames()
-            video = True
+        reader = imageio.get_reader(path)
+        max_frames = reader.count_frames()
+        mode = "video"
 
+    if config.format.lower() in ["jpg", "png"]:
+        num_frames = 1
+    else:
         num_frames = max_frames if config.remake else config.frames
-        order = "normal" if (config.remake or config.framelist) else config.order
-        framelist = config.framelist if config.framelist else range(max_frames)
-        current = 0
 
-        # Sometimes it fails to read the frames so it needs more tries
-        for _ in range(0, num_frames * 25):
-            if order == "normal":
-                index = framelist[current]
-            elif order == "random":
-                index = random.randint(0, len(framelist))
+    order = "normal" if (config.remake or config.framelist) else config.order
+    framelist = config.framelist if config.framelist else range(max_frames)
+    current = 0
 
-            try:
-                if video:
-                    img = reader.get_data(index)
-                else:
-                    img = reader[index]
+    # Sometimes it fails to read the frames so it needs more tries
+    for _ in range(0, num_frames * 25):
+        if order == "normal":
+            index = framelist[current]
+        elif order == "random":
+            index = random.randint(0, len(framelist))
 
-                frames.append(to_pillow(img, "RGB"))
+        try:
+            if mode == "image":
+                img = reader
+            elif mode == "video":
+                img = reader.get_data(index)
+            elif mode == "gif":
+                img = reader[index]
 
-                if one_frame():
-                    break
-            except:
-                pass
+            frames.append(to_pillow(img, "RGB"))
+        except:
+            pass
 
-            if len(frames) == num_frames:
-                break
+        if len(frames) == num_frames:
+            break
 
-            if order == "normal":
-                current += 1
+        if order == "normal":
+            current += 1
 
-                if current >= len(framelist):
-                    current = 0
+            if current >= len(framelist):
+                current = 0
 
-        if video:
-            reader.close()
+    if mode == "video":
+        reader.close()
 
     return frames
 
@@ -426,7 +425,3 @@ def to_pillow(frame: npt.NDArray[np.float64], mode: str) -> Image.Image:
 
 def to_array(frames: List[Image.Image]) -> List[npt.NDArray[np.float64]]:
     return [np.array(frame) for frame in frames]
-
-
-def one_frame() -> bool:
-    return config.format.lower() in ["jpg", "png"]

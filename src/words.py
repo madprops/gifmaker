@@ -27,24 +27,28 @@ def check_generators() -> None:
             if num1 is not None and num2 is not None:
                 return str(random.randint(num1, num2))
 
-        randwords: List[str] = []
 
         if (num1 is None) or (num1 < 1):
             num1 = 1
 
-        for _ in range(num1):
-            allow_zero = True
+        def randgen() -> List[str]:
+            items: List[str] = []
 
-            if num1 > 1:
-                if len(randwords) == 0:
-                    allow_zero = False
+            for _ in range(num1):
+                allow_zero = True
 
-            randwords.append(get_random(match["word"], allow_zero))
+                if num1 > 1:
+                    if len(items) == 0:
+                        allow_zero = False
+
+                items.append(get_random(match["word"], allow_zero))
+
+            return items
 
         if word == "number":
-            return "".join(randwords)
+            return "".join(randgen())
         elif word == "random":
-            return " ".join(randwords)
+            return " ".join(randgen())
         elif word == "count":
             config.wordcount += 1
             return str(config.wordcount)

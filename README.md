@@ -229,7 +229,7 @@ It would print `Match: 1`, `Nothing`, and `Match: 2`.
 You might want to print the count on every frame:
 
 ```shell
---words "[count] ; [repeat 9]" --bottom 0 --right 0"
+--words "[count] [fill]"
 ```
 
 ---

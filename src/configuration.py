@@ -151,6 +151,9 @@ class Configuration:
     # Last font color used
     last_fontcolor: Union[Tuple[int, int, int], None] = None
 
+    # Fill the rest of the frames with these words
+    wordfill = ""
+
     def get_argdefs(self) -> Tuple[List[Dict[str, Any]], Dict[str, List[str]]]:
         rgbstr = "3 numbers from 0 to 255, separated by commas. Names like 'yellow' are also supported"
         commastr = "Separated by commas"
