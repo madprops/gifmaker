@@ -81,6 +81,21 @@ def random_dark() -> Tuple[int, int, int]:
     return random_color(colordiff)
 
 
+def color_contrast(color: Tuple[int, int, int], lightness: int) -> Tuple[int, int, int]:
+    hsv = list(colorsys.rgb_to_hsv(*color))
+    hsv[2] = lightness
+    rgb = colorsys.hsv_to_rgb(*hsv)
+    return (int(rgb[0]), int(rgb[1]), int(rgb[2]))
+
+
+def light_contrast(color: Tuple[int, int, int]) -> Tuple[int, int, int]:
+    return color_contrast(color, 200)
+
+
+def dark_contrast(color: Tuple[int, int, int]) -> Tuple[int, int, int]:
+    return color_contrast(color, 55)
+
+
 def random_digit(allow_zero: bool) -> int:
     if allow_zero:
         return random.randint(0, 9)
@@ -158,18 +173,3 @@ def colortext(color: str, text: str) -> str:
         text = f"{code}{text}\x1b[0m"
 
     return text
-
-
-def color_contrast(color: Tuple[int, int, int], value: int) -> Tuple[int, int, int]:
-    hsv = list(colorsys.rgb_to_hsv(*color))
-    hsv[2] = value
-    rgb = colorsys.hsv_to_rgb(*hsv)
-    return (int(rgb[0]), int(rgb[1]), int(rgb[2]))
-
-
-def light_contrast(color: Tuple[int, int, int]) -> Tuple[int, int, int]:
-    return color_contrast(color, 200)
-
-
-def dark_contrast(color: Tuple[int, int, int]) -> Tuple[int, int, int]:
-    return color_contrast(color, 55)
