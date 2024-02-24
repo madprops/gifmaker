@@ -8,7 +8,7 @@ import random
 from typing import List, Any
 
 
-def process_words():
+def process_words() -> None:
     if config.remake or config.fillgen:
         return
 
@@ -17,7 +17,7 @@ def process_words():
     check_repeat()
 
 
-def check_generators():
+def check_generators() -> None:
     if not config.words:
         return
 
@@ -29,7 +29,7 @@ def check_generators():
     config.words = new_lines
 
 
-def generate(line: str, multiple: bool = True) -> None:
+def generate(line: str, multiple: bool = True) -> List[str]:
     def randgen(word: str, num: int) -> List[str]:
         items: List[str] = []
 
@@ -93,8 +93,7 @@ def generate(line: str, multiple: bool = True) -> None:
             line = re.sub(pattern_multi, "", line).strip()
 
     pattern_random = re.compile(r"\[\s*(?P<word>randomx?)(?:\s+(?P<number>\d+))?\s*\]", re.IGNORECASE)
-    pattern_number = re.compile(
-        r"\[\s*(?P<word>number)(?:\s+(?P<number1>-?\d+)(?:\s+(?P<number2>-?\d+))?)?\s*\]", re.IGNORECASE)
+    pattern_number = re.compile(r"\[\s*(?P<word>number)(?:\s+(?P<number1>-?\d+)(?:\s+(?P<number2>-?\d+))?)?\s*\]", re.IGNORECASE)
     pattern_count = re.compile(r"\[(?P<word>count)\]", re.IGNORECASE)
     pattern_date = re.compile(r"\[\s*(?P<word>date)(?:\s+(?P<format>.*))?\s*\]", re.IGNORECASE)
 
