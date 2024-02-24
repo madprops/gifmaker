@@ -360,7 +360,7 @@ If this is enabled, the first line of words will be generated  till the end of t
 For example:
 
 ```shell
-gifmaker --words "[random] takes [count] at [date]" --fillgen
+gifmaker --words "[random] takes [count] at [date]" --fillgen --frames 5
 ```
 
 ---
