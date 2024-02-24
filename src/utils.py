@@ -140,3 +140,7 @@ def divisible(number: int, by: int) -> int:
 
 def msg(message: str) -> None:
     print(message, file=sys.stderr)
+
+def show_seconds(name:str, start: float, end: float) -> None:
+    num = round(start - end, 3)
+    msg(f"{name}: {num} seconds")

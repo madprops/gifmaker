@@ -10,14 +10,13 @@ import time
 # Performance
 last_time: float = 0
 
-def check_time(section: str) -> None:
+def check_time(name: str) -> None:
     if not config.verbose:
         return
 
     global last_time
     now = time.time()
-    diff = round(now - last_time, 3)
-    utils.msg(f"{section}: {diff} seconds")
+    utils.show_seconds(name, now, last_time)
     last_time = now
 
 def main() -> None:
@@ -80,9 +79,10 @@ def main() -> None:
 
     # End stats
     if config.verbose:
-        total = round(time.time() - start_time, 3)
-        utils.msg(f"\nFrames: {len(frames)}")
-        utils.msg(f"Total: {total} seconds\n")
+        utils.msg("")
+        utils.msg(f"Frames: {len(frames)}")
+        utils.show_seconds("Total", time.time(), start_time)
+        utils.msg("")
 
     # Print the output path as the response
     print(output)
