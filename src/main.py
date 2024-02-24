@@ -15,14 +15,15 @@ def check_time(section: str) -> None:
         return
 
     global last_time
-    now = time.process_time()
+    now = time.time()
     diff = round(now - last_time, 3)
     utils.msg(f"{section}: {diff} seconds")
     last_time = now
 
 def main() -> None:
     global last_time
-    last_time = time.process_time()
+    start_time = time.time()
+    last_time = start_time
 
     # Fill some paths based on root path
     config.fill_paths(__file__)
@@ -54,6 +55,7 @@ def main() -> None:
 
     # Extract the required frames from the file
     frames = media.get_frames()
+    check_time("Get Frames")
 
     if config.remake:
         # Only resize the frames
@@ -75,6 +77,12 @@ def main() -> None:
     # Render and save the output
     output = media.render(frames)
     check_time("Render")
+
+    # End stats
+    if config.verbose:
+        total = round(time.time() - start_time, 3)
+        utils.msg(f"\nFrames: {len(frames)}")
+        utils.msg(f"Total: {total} seconds\n")
 
     # Print the output path as the response
     print(output)

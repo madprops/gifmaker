@@ -47,7 +47,7 @@ def get_frames() -> List[Image.Image]:
             if order == "normal":
                 index = framelist[current]
             elif order == "random":
-                index = random.choice(framelist)
+                index = random.randint(0, max_frames)
 
             try:
                 img = to_pillow(reader.get_data(index), "RGB")
@@ -56,6 +56,7 @@ def get_frames() -> List[Image.Image]:
                 if one_frame():
                     break
             except:
+                print("Error")
                 pass
 
             if len(frames) == num_frames:
