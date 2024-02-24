@@ -744,9 +744,9 @@ It can also be `font` to use the same color as the font.
 
 It can also be `lightfont` and `darkfont`.
 
-This picks a contrast based on the current font color.
+These pick contrasts based on the current font color.
 
-For example if the font color is red, the contrast would be redish.
+For example if the font color is light red, the contrast would be dark redish.
 
 `lightfont2` and `darkfont2` do the same but on each frame.
 
