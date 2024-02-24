@@ -83,9 +83,9 @@ Or set it up so you can simply use `gifmaker`.
 You can provide a video or image path using the `--input` argument:
 
 ```shell
-gifmaker --input "/path/to/video.webm"
-gifmaker --input "/path/to/animated.gif"
-gifmaker --input "/path/to/image.png"
+gifmaker --input /path/to/video.webm
+gifmaker --input /path/to/animated.gif
+gifmaker --input /path/to/image.png
 ```
 
 `webm`, `mp4`, `gif`, `jpg`, and `png` should work, and maybe other formats.
@@ -136,7 +136,7 @@ You can multiply random commands by using numbers like `[x2]`.
 
 For example:
 
-```
+```shell
 --words "Buy [Random] [x2]"
 ```
 
@@ -229,7 +229,7 @@ It would print `Match: 1`, `Nothing`, and `Match: 2`.
 You might want to print the count on every frame:
 
 ```shell
---words "[count] --fillgen --frames 10"
+--words "[count]" --fillgen --frames 10
 ```
 
 ---
@@ -243,7 +243,7 @@ Relative paths should work fine.
 Here's a fuller example:
 
 ```shell
-gifmaker --input "/videos/stuff.webm" --fontsize 18 --delay 300 --width 600 --words "I want to eat ;; [Random] ; [repeat 2] ;" --format mp4 --bgcolor 0,0,0 --output "stuff/videos"
+gifmaker --input /videos/stuff.webm --fontsize 18 --delay 300 --width 600 --words "I want to eat ;; [Random] ; [repeat 2] ;" --format mp4 --bgcolor 0,0,0 --output "stuff/videos"
 ```
 
 ---
@@ -343,13 +343,15 @@ Fill the rest of the frames with the last word line.
 
 If there are no more lines to use, it will re-use the last line.
 
-You can do like:
+For example:
 
 ```shell
---words "Single Line" --frames 5 --fillwords
+--words "First Line; Last Line" --frames 5 --fillwords
 ```
 
-And it will use that line in all 5 frames.
+First frame says "First Line".
+
+Then it will use "Last Line" for the rest of the frames.
 
 ---
 
@@ -505,7 +507,7 @@ First one is a random font, the other one is a random font on each frame.
 
 ---
 
-> **fontsize** (Type: int | Default: 50)
+> **fontsize** (Type: int | Default: 60)
 
 The size of the text.
 
@@ -700,7 +702,7 @@ It re-uses all the frames, resizes, and renders again.
 
 It doesn't do the rest of the operations.
 
-For example: `--input "/path/to/file.gif" --remake --width 500 --delay 300`.
+For example: `--input /path/to/file.gif --remake --width 500 --delay 300`.
 
 For instance, you can use this to change the `width` or `delay` of a rendered file.
 
@@ -784,7 +786,7 @@ For example here's a `fish` function:
 ```js
 function funstuff
 	gifmaker \
-	--input "/path/to/some/file.png" --words "$argv is [Random] [x5]" \
+	--input /path/to/some/file.png --words "$argv is [Random] [x5]" \
 	--bgcolor random_dark2 --fontcolor random_light2 \
 	--top 0 --fontsize 22 --filter random2 --width 600
 end
@@ -821,7 +823,7 @@ def generate_something(who):
 	command = [
 		gifmaker,
 		gm_common,
-		f"--input 'source.jpg'",
+		f"--input source.jpg",
 		f"--words '{who} is [Random] [x5]' --bgcolor 0,0,0",
 		"--top 0 --fontsize 22 --filter random2",
 	]

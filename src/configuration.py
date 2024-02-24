@@ -29,7 +29,7 @@ class Configuration:
     format = "gif"
     order = "random"
     font = "sans"
-    fontsize = 50
+    fontsize = 60
     fontcolor: Union[Tuple[int, int, int], str] = (255, 255, 255)
     bgcolor: Union[Tuple[int, int, int], str, None] = None
     outline: Union[Tuple[int, int, int], str, None] = None
