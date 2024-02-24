@@ -24,17 +24,17 @@ def get_frames() -> List[Image.Image]:
 
     if ext == "jpg" or ext == "png":
         for _ in range(0, config.frames):
-            img = to_pillow(imageio.imread(path, format=ext), "RGB")
+            img = to_pillow(imageio.imread(path), "RGB")
             frames.append(img)
 
             if one_frame():
                 break
     else:
         if ext == "gif":
-            reader = imageio.mimread(path, format=ext)
+            reader = imageio.mimread(path)
             max_frames = len(reader)
         else:
-            reader = imageio.get_reader(path, format=ext)
+            reader = imageio.get_reader(path)
             max_frames = reader.count_frames()
 
         num_frames = max_frames if config.remake else config.frames
