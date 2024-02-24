@@ -172,4 +172,4 @@ def light_contrast(color: Tuple[int, int, int]) -> Tuple[int, int, int]:
 
 
 def dark_contrast(color: Tuple[int, int, int]) -> Tuple[int, int, int]:
-    return color_contrast(color, 60)
+    return color_contrast(color, 55)
