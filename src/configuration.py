@@ -149,7 +149,7 @@ class Configuration:
     wordcount = 0
 
     # Last font color used
-    last_fontcolor = Union[Tuple[int, int, int], None]
+    last_fontcolor: Union[Tuple[int, int, int], None] = None
 
     def get_argdefs(self) -> Tuple[List[Dict[str, Any]], Dict[str, List[str]]]:
         rgbstr = "3 numbers from 0 to 255, separated by commas. Names like 'yellow' are also supported"
@@ -416,6 +416,11 @@ class Configuration:
             setattr(self, attr, utils.random_light())
         elif value == "dark":
             setattr(self, attr, utils.random_dark())
+        elif isinstance(self.fontcolor, tuple):
+            if value == "lightfont":
+                setattr(self, attr, utils.light_contrast(self.fontcolor))
+            elif value == "darkfont":
+                setattr(self, attr, utils.dark_contrast(self.fontcolor))
 
     def check_script(self, args: Namespace) -> None:
         if self.script is None:

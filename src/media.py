@@ -410,14 +410,19 @@ def count_frames() -> None:
 def get_color(attr: str) -> Tuple[int, int, int]:
     value = getattr(config, attr)
     rgb: Union[Tuple[int, int, int], None] = None
+    last_font_used = isinstance(config.last_fontcolor, tuple)
 
     if isinstance(value, str):
         if value == "light2":
             rgb = utils.random_light()
         elif value == "dark2":
             rgb = utils.random_dark()
-        elif (value == "font") and isinstance(config.last_fontcolor, tuple):
+        elif (value == "font") and last_font_used:
             rgb = config.last_fontcolor
+        elif value == "lightfont2" and last_font_used:
+            rgb = utils.light_contrast(config.last_fontcolor)
+        elif value == "darkfont2" and last_font_used:
+            rgb = utils.dark_contrast(config.last_fontcolor)
         else:
             rgb = utils.color_name(value)
     elif isinstance(value, (list, tuple)) and len(value) >= 3:

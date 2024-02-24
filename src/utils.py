@@ -158,3 +158,17 @@ def colortext(color: str, text: str) -> str:
         text = f"{code}{text}\x1b[0m"
 
     return text
+
+
+def light_contrast(color: Tuple[int, int, int]) -> Tuple[int, int, int]:
+    new_color = list(colorsys.rgb_to_hsv(*color))
+    new_color[2] = 200
+    new_color = colorsys.hsv_to_rgb(*new_color)
+    return tuple(int(i) for i in new_color)
+
+
+def dark_contrast(color: Tuple[int, int, int]) -> Tuple[int, int, int]:
+    new_color = list(colorsys.rgb_to_hsv(*color))
+    new_color[2] = 60
+    new_color = colorsys.hsv_to_rgb(*new_color)
+    return tuple(int(i) for i in new_color)

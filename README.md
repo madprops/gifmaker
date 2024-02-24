@@ -499,21 +499,7 @@ The size of the text.
 
 The color of the text.
 
-3 numbers from `0` to `255`, separated by commas.
-
-`0,0,0` would be black, for instance.
-
-It uses the `RGB` format.
-
-The value can also be `light` or `dark`.
-
-These will get a random light or dark color.
-
-The value can also be `light2` or `dark2`.
-
-These will get a random light or dark color on each frame.
-
-Names are also supported, like `green`, `black`, `red`.
+This is a [color](#colors).
 
 ---
 
@@ -521,23 +507,7 @@ Names are also supported, like `green`, `black`, `red`.
 
 Add a background rectangle below the text.
 
-In case you want to give the text more contrast.
-
-3 numbers from `0` to `255`, separated by commas.
-
-`0,0,0` would be black, for instance.
-
-It uses the `RGB` format.
-
-The value can also be `random_light` or `random_dark`.
-
-These will get a random light or dark color.
-
-The value can also be `random_light2` or `random_dark2`.
-
-These will get a random light or dark color on each frame.
-
-Names are also supported, like `green`, `black`, `red`.
+This is a [color](#colors).
 
 ---
 
@@ -574,23 +544,7 @@ Add an outline around the text.
 
 In case you want to give the text more contrast.
 
-3 numbers from `0` to `255`, separated by commas.
-
-`0,0,0` would be black, for instance.
-
-It uses the `RGB` format.
-
-The value can also be `random_light` or `random_dark`.
-
-These will get a random light or dark color.
-
-The value can also be `random_light2` or `random_dark2`.
-
-These will get a random light or dark color on each frame.
-
-Names are also supported, like `green`, `black`, `red`.
-
-It can also be `font` to use the same color as the font.
+This is a [color](#colors).
 
 ---
 
@@ -745,6 +699,38 @@ For example, since `fontsize` has a default of `20`.
 You can do `--fontsize p1` or `--fontsize m1`.
 
 To get `21` or `19`.
+
+---
+
+### Colors
+
+Some arguments use the color format.
+
+This can be 3 numbers from `0` to `255`, separated by commas.
+
+It uses the `RGB` format.
+
+`0,0,0` would be black, for instance.
+
+The value can also be `random_light` or `random_dark`.
+
+These will get a random light or dark color.
+
+The value can also be `random_light2` or `random_dark2`.
+
+These will get a random light or dark color on each frame.
+
+Names are also supported, like `green`, `black`, `red`.
+
+It can also be `font` to use the same color as the font.
+
+It can also be `lightfont` and `darkfont`.
+
+This picks a contrast based on the current font color.
+
+For example if the font color is red, the contrast would be redish.
+
+`lightfont2` and `darkfont2` do the same but on each frame.
 
 ---
 
