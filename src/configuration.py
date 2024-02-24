@@ -137,6 +137,9 @@ class Configuration:
     # Don't wrap lines
     nowrap = False
 
+    # Print more information like time performance
+    verbose = False
+
     # --- INTERAL VARS
 
     # List to keep track of used random words
@@ -290,6 +293,9 @@ class Configuration:
 
             {"name": "nobottomoutline", "action": "store_true",
              "help": "Don't draw the bottom outline"},
+
+            {"name": "verbose", "action": "store_true",
+             "help": "Print more information like time performance"},
         ]
 
         aliases = {
@@ -332,7 +338,7 @@ class Configuration:
         normals = ["left", "right", "top", "bottom", "width", "height", "format", "order",
                    "font", "frames", "loop", "separator", "filter", "remake", "repeatrandom",
                    "repeatfilter", "fillwords", "nogrow", "align", "nowrap", "noleftoutline",
-                   "norightoutline", "notopoutline", "nobottomoutline"]
+                   "norightoutline", "notopoutline", "nobottomoutline", "verbose"]
 
         for normal in normals:
             ap.normal(normal)

@@ -46,7 +46,7 @@ def full_path(path: Path) -> Path:
 
 
 def exit(message: str) -> None:
-    print(f"\nExit: {message}\n")
+    msg(f"\nExit: {message}\n")
     sys.exit(1)
 
 
@@ -60,7 +60,7 @@ def read_toml(path: Path) -> Union[Dict[str, str], None]:
     try:
         return tomllib.load(open(path, "rb"))
     except Exception as e:
-        print(f"Error: {e}")
+        msg(f"Error: {e}")
         exit("Failed to read TOML file")
         return None
 
@@ -137,3 +137,6 @@ def divisible(number: int, by: int) -> int:
         number += 1
 
     return number
+
+def msg(message: str) -> None:
+    print(message, file=sys.stderr)
