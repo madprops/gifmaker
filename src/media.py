@@ -60,7 +60,7 @@ def get_frames() -> List[Image.Image]:
             elif mode == "gif":
                 img = reader[index]
 
-            frames.append(to_pillow(img, "RGB"))
+            frames.append(to_pillow(img))
         except:
             pass
 
@@ -423,7 +423,14 @@ def count_frames() -> None:
         config.frames = 3
 
 
-def to_pillow(frame: npt.NDArray[np.float64], mode: str) -> Image.Image:
+def to_pillow(frame: npt.NDArray[np.float64]) -> Image.Image:
+    if frame.shape[2] == 3:
+        mode = "RGB"
+    elif frame.shape[2] == 4:
+        mode = "RGBA"
+    else:
+        mode = "RGB"
+
     return Image.fromarray(frame, mode=mode)
 
 
