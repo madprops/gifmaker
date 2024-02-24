@@ -146,7 +146,7 @@ def get_font() -> ImageFont.FreeTypeFont:
         "comic": "ComicNeue-Regular.ttf",
     }
 
-    def random_font():
+    def random_font() -> str:
         return random.choice(list(fonts.keys()))
 
     if config.font == "random":
