@@ -6,7 +6,7 @@ import string
 import colorsys
 from pathlib import Path
 from datetime import datetime
-from typing import List, Dict, Union, Tuple
+from typing import Dict, Union, Tuple
 
 # Libraries
 import webcolors  # type: ignore
@@ -160,15 +160,16 @@ def colortext(color: str, text: str) -> str:
     return text
 
 
+def color_contrast(color: Tuple[int, int, int], value: int) -> Tuple[int, int, int]:
+    hsv = list(colorsys.rgb_to_hsv(*color))
+    hsv[2] = value
+    rgb = colorsys.hsv_to_rgb(*hsv)
+    return (int(rgb[0]), int(rgb[1]), int(rgb[2]))
+
+
 def light_contrast(color: Tuple[int, int, int]) -> Tuple[int, int, int]:
-    new_color = list(colorsys.rgb_to_hsv(*color))
-    new_color[2] = 200
-    new_color = colorsys.hsv_to_rgb(*new_color)
-    return tuple(int(i) for i in new_color)
+    return color_contrast(color, 200)
 
 
 def dark_contrast(color: Tuple[int, int, int]) -> Tuple[int, int, int]:
-    new_color = list(colorsys.rgb_to_hsv(*color))
-    new_color[2] = 60
-    new_color = colorsys.hsv_to_rgb(*new_color)
-    return tuple(int(i) for i in new_color)
+    return color_contrast(color, 60)
