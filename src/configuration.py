@@ -50,13 +50,13 @@ class Configuration:
     # The separator to use when splitting word lines
     separator = ";"
 
-    # The format of the output file. Either gif, webm, mp4, jpg, or png
+    # The format of the output file
     format = "gif"
 
     # The order to use when extracting the frames
     order = "random"
 
-    # The font to use for the text. Either sans, serif, mono, bold, italic, cursive, comic
+    # The font to use for the text
     font = "sans"
 
     # The size of the text
