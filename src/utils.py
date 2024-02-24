@@ -138,8 +138,10 @@ def divisible(number: int, by: int) -> int:
 
     return number
 
+
 def msg(message: str) -> None:
     print(message, file=sys.stderr)
+
 
 def colortext(color: str, text: str) -> str:
     codes = {

@@ -10,10 +10,12 @@ import time
 # Performance
 last_time: float = 0
 
+
 def show_seconds(name: str, start: float, end: float) -> None:
     num = round(start - end, 3)
     label = utils.colortext("blue", name)
     utils.msg(f"{label}: {num} seconds")
+
 
 def check_time(name: str) -> None:
     if not config.verbose:
@@ -23,6 +25,7 @@ def check_time(name: str) -> None:
     now = time.time()
     show_seconds(name, now, last_time)
     last_time = now
+
 
 def main() -> None:
     global last_time
