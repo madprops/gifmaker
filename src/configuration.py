@@ -74,9 +74,6 @@ class Configuration:
         commastr = "Separated by commas"
 
         argdefs: List[Dict[str, Any]] = [
-            {"name": "string_arg", "type": str,
-             "help": "The string argument is used for words as well"},
-
             {"name": "input", "type": str,
              "help": "Path to the a video or image file. Separated by commas"},
 
@@ -241,8 +238,10 @@ class Configuration:
 
         # ---
 
-        if ap.args.string_arg is not None:
-            ap.args.words = ap.args.string_arg
+        string_arg = ap.string_arg()
+
+        if string_arg:
+            ap.args.words = string_arg
 
         # ---
 

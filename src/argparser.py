@@ -10,6 +10,8 @@ class ArgParser:
     # Generic class to get arguments from the terminal
     def __init__(self, title: str, argdefs: List[Dict[str, Any]], aliases: Dict[str, List[str]], obj: Any):
         parser = argparse.ArgumentParser(description=title)
+        string_arg = {"name": "string_arg", "nargs": "*"}
+        argdefs.append(string_arg)
 
         for item in argdefs:
             name = item["name"]
@@ -19,16 +21,19 @@ class ArgParser:
             else:
                 names = [f"--{name}", f"-{name}"]
 
-                if name in aliases:
-                    names += aliases[name]
+            if name in aliases:
+                names += aliases[name]
 
-            opts = ["type", "choices", "help", "action"]
+            opts = ["type", "choices", "help", "action", "nargs"]
             tail = {key: item[key] for key in opts if key in item}
 
             parser.add_argument(*names, **tail)
 
         self.args = parser.parse_args()
         self.obj = obj
+
+    def string_arg(self):
+        return " ".join(self.args.string_arg)
 
     def get_list(self, attr: str, value: str, vtype: Any, separator: str) -> List[Any]:
         try:
