@@ -565,7 +565,6 @@ This is to give the rectangle rounded corners.
 
 ---
 
-
 > **outline** (Type: str | Default: None)
 
 Add an outline around the text.
@@ -715,6 +714,18 @@ It doesn't do the rest of the operations.
 For example: `--input /path/to/file.gif --remake --width 500 --delay 300`.
 
 For instance, you can use this to change the `width` or `delay` of a rendered file.
+
+---
+
+> **descender** (Type: flag | Default: False)
+
+If enabled, the descender height will add extra space to the bottom of text.
+
+This is relevant when adding a background or an outline.
+
+This means words like `Ayyy` get covered completely, top of `A` and bottom of `y`.
+
+The default is to ignore the descender to ensure consistent placement of text.
 
 ---
 
