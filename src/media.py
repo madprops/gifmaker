@@ -174,6 +174,8 @@ def get_text_data(frame: Image.Image, line: str, font: ImageFont.FreeTypeFont) -
     p_right = config.right
 
     b_left, b_top, b_right, b_bottom = draw.multiline_textbbox((0, 0), line, font=font)
+    ascender = font.getbbox(line.split("\n")[0])[1]
+    descender = font.getbbox(line.split("\n")[-1], anchor="ls")[3]
 
     # Left
     if (p_left is not None) and (p_left >= 0):
@@ -196,7 +198,10 @@ def get_text_data(frame: Image.Image, line: str, font: ImageFont.FreeTypeFont) -
         text_y = p_top
     # Bottom
     elif (p_bottom is not None) and (p_bottom >= 0):
-        text_y = height - p_bottom - b_bottom
+        if not config.descender:
+            text_y = height - b_bottom + descender - p_bottom
+        else:
+            text_y = height - b_bottom - p_bottom
     else:
         # Center Vertical
         text_y = (height - b_bottom) // 2
@@ -206,9 +211,6 @@ def get_text_data(frame: Image.Image, line: str, font: ImageFont.FreeTypeFont) -
             text_y += p_top
         elif (p_bottom is not None) and (p_bottom < 0):
             text_y -= p_bottom
-
-    ascender = font.getbbox(line.split("\n")[0])[1]
-    descender = font.getbbox(line.split("\n")[-1], anchor="ls")[3]
 
     ans = {
         "min_x": text_x,
