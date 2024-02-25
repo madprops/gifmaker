@@ -13,10 +13,14 @@ class ArgParser:
 
         for item in argdefs:
             name = item["name"]
-            names = [f"--{name}", f"-{name}"]
 
-            if name in aliases:
-                names += aliases[name]
+            if name == "string_arg":
+                names = [name]
+            else:
+                names = [f"--{name}", f"-{name}"]
+
+                if name in aliases:
+                    names += aliases[name]
 
             opts = ["type", "choices", "help", "action"]
             tail = {key: item[key] for key in opts if key in item}

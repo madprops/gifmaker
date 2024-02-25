@@ -240,6 +240,16 @@ Relative paths should work fine.
 
 ---
 
+If you provide an argument without flags, it will be used for `words`:
+
+```sh
+gifmaker --input image.png "What is that? ; AAAAA?"
+```
+
+It's a shortcut to avoid having to type `--words`.
+
+---
+
 Here's a fuller example:
 
 ```shell
