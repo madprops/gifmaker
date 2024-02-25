@@ -81,7 +81,7 @@ def get_frames() -> List[Image.Image]:
 
 def draw_text(frame: Image.Image, line: str) -> Image.Image:
     draw = ImageDraw.Draw(frame, "RGBA")
-    font = get_font()
+    font = config.get_font()
     data = get_text_data(frame, line, font)
     fontcolor = config.get_color("fontcolor")
     padding = config.padding
@@ -130,38 +130,6 @@ def draw_text(frame: Image.Image, line: str) -> Image.Image:
     draw.multiline_text((min_x, min_y), line, fill=fontcolor, font=font, align=config.align)
 
     return frame
-
-
-def get_font_item(font_file: str) -> ImageFont.FreeTypeFont:
-    path = Path(config.fontspath, font_file)
-    return ImageFont.truetype(path, size=config.fontsize)
-
-
-def get_font() -> ImageFont.FreeTypeFont:
-    fonts = {
-        "sans": "Roboto-Regular.ttf",
-        "serif": "RobotoSerif-Regular.ttf",
-        "mono": "RobotoMono-Regular.ttf",
-        "italic": "Roboto-Italic.ttf",
-        "bold": "Roboto-Bold.ttf",
-        "cursive": "Pacifico-Regular.ttf",
-        "comic": "ComicNeue-Regular.ttf",
-    }
-
-    def random_font() -> str:
-        return random.choice(list(fonts.keys()))
-
-    if config.font == "random":
-        font = random_font()
-        font_file = fonts[font]
-        config.font = font
-    elif config.font == "random2":
-        font = random_font()
-        font_file = fonts[font]
-    else:
-        font_file = fonts[config.font]
-
-    return get_font_item(font_file)
 
 
 def get_text_data(frame: Image.Image, line: str, font: ImageFont.FreeTypeFont) -> Dict[str, int]:

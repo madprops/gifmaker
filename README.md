@@ -509,11 +509,13 @@ Either `random` or `normal`.
 
 The font to use for the text.
 
-Either `sans`, `serif`, `mono`, `bold`, `italic`, `cursive`, or `comic`.
+Either: `sans`, `serif`, `mono`, `bold`, `italic`, `cursive`, `comic`, or `nova`.
 
 There is also `random` and `random2`.
 
 First one is a random font, the other one is a random font on each frame.
+
+You can also specify a path to a `ttf` file.
 
 ---
 

@@ -8,6 +8,7 @@ import textwrap
 import random
 from argparse import Namespace
 from typing import List, Union, Dict, Tuple, Any
+from PIL import ImageFont  # type: ignore
 from pathlib import Path
 
 
@@ -128,8 +129,6 @@ class Configuration:
              "help": "The order to use when extracting the frames"},
 
             {"name": "font", "type": str,
-             "choices": ["sans", "serif", "mono", "bold", "italic",
-                         "cursive", "comic", "random", "random2"],
              "help": "The font to use for the text"},
 
             {"name": "fontsize", "type": str,
@@ -439,6 +438,38 @@ class Configuration:
         get_rng("frameseed", "random_frames")
         get_rng("wordseed", "random_words")
         get_rng("filterseed", "random_filters")
+
+    def get_font(self) -> ImageFont.FreeTypeFont:
+        fonts = {
+            "sans": "Roboto-Regular.ttf",
+            "serif": "RobotoSerif-Regular.ttf",
+            "mono": "RobotoMono-Regular.ttf",
+            "italic": "Roboto-Italic.ttf",
+            "bold": "Roboto-Bold.ttf",
+            "cursive": "Pacifico-Regular.ttf",
+            "comic": "ComicNeue-Regular.ttf",
+            "nova": "NovaSquare-Regular.ttf",
+        }
+
+        def random_font() -> str:
+            return random.choice(list(fonts.keys()))
+
+        if config.font == "random":
+            font = random_font()
+            font_file = fonts[font]
+            config.font = font
+        elif config.font == "random2":
+            font = random_font()
+            font_file = fonts[font]
+        elif ".ttf" in config.font:
+            font_file = utils.resolve_path(Path(config.font))
+        elif config.font in fonts:
+            font_file = fonts[config.font]
+        else:
+            font_file = fonts["sans"]
+
+        path = Path(config.fontspath, font_file)
+        return ImageFont.truetype(path, size=config.fontsize)
 
 
 # Main configuration object
