@@ -415,6 +415,14 @@ It also defines how long the animation is.
 
 ---
 
+> **frameopts** (Type: str | Default: Empty)
+
+Define the pool of frame indices when picking randomly.
+
+For example: `--frameopts 0,11,22`.
+
+---
+
 > **left** (Type: int | Default: None)
 
 Padding from the left edge to position the text.
@@ -693,7 +701,7 @@ This defines the pool of available filters to pick randomly.
 
 This applies when `filter` is `random` or `random2`.
 
-For example: `--filteropts "hue1,hue2,hue3,gray"`.
+For example: `--filteropts hue1,hue2,hue3,gray`.
 
 ---
 

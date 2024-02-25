@@ -50,7 +50,10 @@ def get_frames() -> List[Image.Image]:
         if order == "normal":
             index = framelist[current]
         elif order == "random":
-            index = config.random_frames.randint(0, len(framelist))
+            if config.frameopts:
+                index = random.choice(config.frameopts)
+            else:
+                index = config.random_frames.randint(0, len(framelist))
 
         try:
             if mode == "image":

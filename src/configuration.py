@@ -51,6 +51,7 @@ class Configuration:
     filteropts: List[str] = []
     filter = "none"
     framelist: List[str] = []
+    frameopts: List[str] = []
     repeatrandom = False
     repeatfilter = False
     fillwords = False
@@ -188,6 +189,9 @@ class Configuration:
             {"name": "framelist", "type": str,
              "help": f"List of frame indices to use. {commastr}"},
 
+            {"name": "frameopts", "type": str,
+             "help": f"The list of allowed frame indices when picking randomly. {commastr}"},
+
             {"name": "repeatrandom", "action": "store_true",
              "help": "Repeating random words is ok"},
 
@@ -275,9 +279,10 @@ class Configuration:
 
         # ---
 
+        ap.commas("framelist", int)
+        ap.commas("frameopts", int)
         ap.commas("filterlist", str)
         ap.commas("filteropts", str)
-        ap.commas("framelist", int)
         ap.commas("fontcolor", int, allow_string=True, is_tuple=True)
         ap.commas("bgcolor", int, allow_string=True, is_tuple=True)
         ap.commas("outline", int, allow_string=True, is_tuple=True)
