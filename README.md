@@ -733,9 +733,9 @@ The default is to ignore the descender to ensure consistent placement of text.
 
 > **frameseed** (Type: int | Default: None)
 
-> **filterseed** (Type: int | Default: None)
-
 > **wordseed** (Type: int | Default: None)
+
+> **filterseed** (Type: int | Default: None)
 
 The random component can be seeded.
 
