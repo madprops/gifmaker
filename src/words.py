@@ -4,7 +4,6 @@ import utils
 
 # Standard
 import re
-import random
 from typing import List, Any
 
 
@@ -66,7 +65,7 @@ def generate(line: str, multiple: bool = True) -> List[str]:
             num2 = int(match["number2"])
 
         if num1 is not None and num2 is not None:
-            return str(random.randint(num1, num2))
+            return str(config.random_words.randint(num1, num2))
 
         if (num1 is None) or (num1 < 1):
             num1 = 1
@@ -163,7 +162,7 @@ def random_word() -> str:
     if not config.randwords:
         return ""
 
-    w = random.choice(config.randwords)
+    w = config.random_words.choice(config.randwords)
 
     if not config.repeatrandom:
         config.randwords.remove(w)

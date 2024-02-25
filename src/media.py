@@ -50,7 +50,7 @@ def get_frames() -> List[Image.Image]:
         if order == "normal":
             index = framelist[current]
         elif order == "random":
-            index = random.randint(0, len(framelist))
+            index = config.random_frames.randint(0, len(framelist))
 
         try:
             if mode == "image":
@@ -365,7 +365,7 @@ def apply_filters(frames: List[Image.Image]) -> List[Image.Image]:
             filters = all_filters.copy()
 
     def random_filter() -> str:
-        filtr = random.choice(filters)
+        filtr = config.random_filters.choice(filters)
 
         if not config.repeatfilter:
             remove_filter(filtr)

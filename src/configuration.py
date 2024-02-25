@@ -5,6 +5,7 @@ from argparser import ArgParser
 # Standard
 import codecs
 import textwrap
+import random
 from argparse import Namespace
 from typing import List, Union, Dict, Tuple, Any
 from pathlib import Path
@@ -58,6 +59,10 @@ class Configuration:
     nowrap = False
     verbose = False
     descender = False
+    seed: Union[int, None] = None
+    frameseed: Union[int, None] = None
+    wordseed: Union[int, None] = None
+    filterseed: Union[int, None] = None
 
     # --- INTERAL VARS
 
@@ -222,6 +227,18 @@ class Configuration:
 
             {"name": "descender", "action": "store_true",
              "help": "Apply the height of the descender to the bottom padding of the text"},
+
+            {"name": "seed", "type": int,
+             "help": "Seed to use when using any random value"},
+
+            {"name": "frameseed", "type": int,
+             "help": "Seed to use when picking frames"},
+
+            {"name": "wordseed", "type": int,
+             "help": "Seed to use when picking words"},
+
+            {"name": "filterseed", "type": int,
+             "help": "Seed to use when picking filters"},
         ]
 
         aliases = {
@@ -272,7 +289,7 @@ class Configuration:
                    "font", "frames", "loop", "separator", "filter", "remake", "repeatrandom",
                    "repeatfilter", "fillwords", "nogrow", "align", "nowrap", "noleftoutline",
                    "norightoutline", "notopoutline", "nobottomoutline", "verbose", "fillgen",
-                   "descender"]
+                   "descender", "seed", "frameseed", "wordseed", "filterseed"]
 
         for normal in normals:
             ap.normal(normal)
@@ -323,6 +340,8 @@ class Configuration:
 
         if not self.nowrap:
             self.wrap_text("words")
+
+        self.set_random()
 
     def wrap_text(self, attr: str) -> None:
         lines = getattr(self, attr)
@@ -403,6 +422,23 @@ class Configuration:
             setattr(self, attr, rgb)
 
         return ans
+
+    def set_random(self) -> None:
+        def get_rng(attr, rng_name):
+            value = getattr(self, attr)
+
+            if value is not None:
+                rand = random.Random(value)
+            elif self.seed is not None:
+                rand = random.Random(self.seed)
+            else:
+                rand = random.Random()
+
+            setattr(self, rng_name, rand)
+
+        get_rng("frameseed", "random_frames")
+        get_rng("wordseed", "random_words")
+        get_rng("filterseed", "random_filters")
 
 
 # Main configuration object

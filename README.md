@@ -729,6 +729,34 @@ The default is to ignore the descender to ensure consistent placement of text.
 
 ---
 
+> **seed** (Type: int | Default: None)
+
+> **frameseed** (Type: int | Default: None)
+
+> **filterseed** (Type: int | Default: None)
+
+> **wordseed** (Type: int | Default: None)
+
+The random component can be seeded.
+
+This means that if you give it a value, it will always act the same.
+
+This can be useful if you want to replicate results.
+
+There are 3 random generators.
+
+One takes care of picking frames and is controlled by `frameseed`.
+
+One takes care of picking words and numbers and is controlled by `wordseed`.
+
+One takes care of picking filters and is controlled by `filterseed`.
+
+If those are not defined, then it will assign the generic `seed` (if defined).
+
+If no seed is defined then it won't use seeds and be truly random (the default).
+
+---
+
 If a number argument has a default you can use `p` and `m` operators.
 
 `p` means `plus` while `m` means `minus`.
