@@ -65,6 +65,10 @@ def main() -> None:
         frames = media.apply_filters(frames)
         check_time("Apply Filters")
 
+        # Deep Fry frames if enabled
+        frames = media.deep_fry(frames)
+        check_time("Deep Fry")
+
         # Add the words to the frames
         frames = media.word_frames(frames)
         check_time("Word Frames")

@@ -282,10 +282,6 @@ def render(frames: List[Image.Image]) -> Union[Path, None]:
         output = Path(config.output, file_name)
 
     fmt = ext if ext else config.format
-
-    if config.deepfry:
-        frames = deep_fry(frames)
-
     frames = to_array(frames)
 
     if fmt == "gif":
@@ -424,7 +420,10 @@ def to_array(frames: List[Image.Image]) -> List[npt.NDArray[np.float64]]:
     return [np.array(frame) for frame in frames]
 
 
-def deep_fry(frames: List[Image.Image]) -> Image.Image:
+def deep_fry(frames: List[Image.Image]) -> List[Image.Image]:
+    if not config.deepfry:
+        return frames
+
     quality = 3
     new_frames = []
 
