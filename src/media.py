@@ -11,6 +11,7 @@ from PIL import Image, ImageFilter, ImageOps, ImageDraw, ImageFont  # type: igno
 
 # Standard
 import random
+from io import BytesIO
 from pathlib import Path
 from typing import List, Dict, Union
 
@@ -64,7 +65,7 @@ def get_frames() -> List[Image.Image]:
                 img = reader[index]
 
             frames.append(to_pillow(img))
-        except:
+        except Exception as e:
             pass
 
         if len(frames) == num_frames:
@@ -281,6 +282,10 @@ def render(frames: List[Image.Image]) -> Union[Path, None]:
         output = Path(config.output, file_name)
 
     fmt = ext if ext else config.format
+
+    if config.deepfry:
+        frames = deep_fry(frames)
+
     frames = to_array(frames)
 
     if fmt == "gif":
@@ -417,3 +422,16 @@ def to_pillow(frame: npt.NDArray[np.float64]) -> Image.Image:
 
 def to_array(frames: List[Image.Image]) -> List[npt.NDArray[np.float64]]:
     return [np.array(frame) for frame in frames]
+
+
+def deep_fry(frames: List[Image.Image]) -> Image.Image:
+    quality = 3
+    new_frames = []
+
+    for frame in frames:
+        stream = BytesIO()
+        frame = frame.convert("RGB")
+        frame.save(stream, format="JPEG", quality=quality)
+        new_frames.append(Image.open(stream))
+
+    return new_frames

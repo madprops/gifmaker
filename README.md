@@ -767,6 +767,14 @@ If no seed is defined then it won't use seeds and be truly random (the default).
 
 ---
 
+> **deepfry** (Type: flag | Default: False)
+
+Apply heavy `jpeg` compression to all frames.
+
+Use to distort the result for whatever reason.
+
+---
+
 If a number argument has a default you can use `p` and `m` operators.
 
 `p` means `plus` while `m` means `minus`.

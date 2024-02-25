@@ -65,6 +65,7 @@ class Configuration:
     frameseed: Union[int, None] = None
     wordseed: Union[int, None] = None
     filterseed: Union[int, None] = None
+    deepfry = False
 
     # --- INTERAL VARS
 
@@ -242,6 +243,9 @@ class Configuration:
 
             {"name": "filterseed", "type": int,
              "help": "Seed to use when picking filters"},
+
+            {"name": "deepfry", "action": "store_true",
+             "help": "Compress the frames heavily"},
         ]
 
         aliases = {
@@ -293,7 +297,7 @@ class Configuration:
                    "font", "frames", "loop", "separator", "filter", "remake", "repeatrandom",
                    "repeatfilter", "fillwords", "nogrow", "align", "nowrap", "noleftoutline",
                    "norightoutline", "notopoutline", "nobottomoutline", "verbose", "fillgen",
-                   "descender", "seed", "frameseed", "wordseed", "filterseed"]
+                   "descender", "seed", "frameseed", "wordseed", "filterseed", "deepfry"]
 
         for normal in normals:
             ap.normal(normal)
