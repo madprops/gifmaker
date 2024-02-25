@@ -195,7 +195,7 @@ def get_text_data(frame: Image.Image, line: str, font: ImageFont.FreeTypeFont) -
 
     # Top
     if (p_top is not None) and (p_top >= 0):
-        text_y = p_top
+        text_y = p_top - ascender
     # Bottom
     elif (p_bottom is not None) and (p_bottom >= 0):
         if not config.descender:
@@ -204,7 +204,10 @@ def get_text_data(frame: Image.Image, line: str, font: ImageFont.FreeTypeFont) -
             text_y = height - b_bottom - p_bottom
     else:
         # Center Vertical
-        text_y = (height - b_bottom + descender - (config.padding / 2)) // 2
+        if not config.descender:
+            text_y = (height - b_bottom + descender - ascender - (config.padding / 2)) // 2
+        else:
+            text_y = (height - b_bottom - ascender) // 2
 
         # Negatives Vertical
         if (p_top is not None) and (p_top < 0):
