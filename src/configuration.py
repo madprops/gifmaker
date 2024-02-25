@@ -78,6 +78,11 @@ class Configuration:
     # Last font color used
     last_fontcolor: Union[Tuple[int, int, int], None] = None
 
+    # Random generators
+    random_frames: Union[random.Random, None] = None
+    random_words: Union[random.Random, None] = None
+    random_filters: Union[random.Random, None] = None
+
     def get_argdefs(self) -> Tuple[List[Dict[str, Any]], Dict[str, List[str]]]:
         rgbstr = "3 numbers from 0 to 255, separated by commas. Names like 'yellow' are also supported"
         commastr = "Separated by commas"
@@ -432,7 +437,7 @@ class Configuration:
         return ans
 
     def set_random(self) -> None:
-        def get_rng(attr, rng_name):
+        def set_rng(attr: str, rng_name: str) -> None:
             value = getattr(self, attr)
 
             if value is not None:
@@ -444,9 +449,9 @@ class Configuration:
 
             setattr(self, rng_name, rand)
 
-        get_rng("frameseed", "random_frames")
-        get_rng("wordseed", "random_words")
-        get_rng("filterseed", "random_filters")
+        set_rng("frameseed", "random_frames")
+        set_rng("wordseed", "random_words")
+        set_rng("filterseed", "random_filters")
 
     def get_font(self) -> ImageFont.FreeTypeFont:
         fonts = {
@@ -471,7 +476,7 @@ class Configuration:
             font = random_font()
             font_file = fonts[font]
         elif ".ttf" in config.font:
-            font_file = utils.resolve_path(Path(config.font))
+            font_file = str(utils.resolve_path(Path(config.font)))
         elif config.font in fonts:
             font_file = fonts[config.font]
         else:

@@ -54,6 +54,7 @@ def get_frames() -> List[Image.Image]:
             if config.frameopts:
                 index = random.choice(config.frameopts)
             else:
+                assert isinstance(config.random_frames, random.Random)
                 index = config.random_frames.randint(0, len(framelist))
 
         try:
@@ -337,6 +338,7 @@ def apply_filters(frames: List[Image.Image]) -> List[Image.Image]:
             filters = all_filters.copy()
 
     def random_filter() -> str:
+        assert isinstance(config.random_filters, random.Random)
         filtr = config.random_filters.choice(filters)
 
         if not config.repeatfilter:

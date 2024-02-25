@@ -32,7 +32,7 @@ class ArgParser:
         self.args = parser.parse_args()
         self.obj = obj
 
-    def string_arg(self):
+    def string_arg(self) -> str:
         return " ".join(self.args.string_arg)
 
     def get_list(self, attr: str, value: str, vtype: Any, separator: str) -> List[Any]:
