@@ -38,7 +38,7 @@ class Configuration:
     norightoutline = False
     notopoutline = False
     nobottomoutline = False
-    opacity = 0.6
+    opacity = 0.66
     padding = 20
     radius = 0
     align = "center"
@@ -57,6 +57,7 @@ class Configuration:
     wrap = 35
     nowrap = False
     verbose = False
+    descender = False
 
     # --- INTERAL VARS
 
@@ -218,6 +219,9 @@ class Configuration:
 
             {"name": "verbose", "action": "store_true",
              "help": "Print more information like time performance"},
+
+            {"name": "descender", "action": "store_true",
+             "help": "Apply the height of the descender to the bottom padding of the text"},
         ]
 
         aliases = {
@@ -267,7 +271,8 @@ class Configuration:
         normals = ["left", "right", "top", "bottom", "width", "height", "format", "order",
                    "font", "frames", "loop", "separator", "filter", "remake", "repeatrandom",
                    "repeatfilter", "fillwords", "nogrow", "align", "nowrap", "noleftoutline",
-                   "norightoutline", "notopoutline", "nobottomoutline", "verbose", "fillgen"]
+                   "norightoutline", "notopoutline", "nobottomoutline", "verbose", "fillgen",
+                   "descender"]
 
         for normal in normals:
             ap.normal(normal)

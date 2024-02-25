@@ -12,7 +12,7 @@ from PIL import Image, ImageFilter, ImageOps, ImageDraw, ImageFont  # type: igno
 # Standard
 import random
 from pathlib import Path
-from typing import List, Dict, Union, Tuple
+from typing import List, Dict, Union
 
 
 def get_frames() -> List[Image.Image]:
@@ -84,7 +84,6 @@ def draw_text(frame: Image.Image, line: str) -> Image.Image:
     font = get_font()
     data = get_text_data(frame, line, font)
     fontcolor = config.get_color("fontcolor")
-    _, top, _, _ = font.getbbox(line)
     padding = config.padding
 
     min_x = data["min_x"]
@@ -93,9 +92,12 @@ def draw_text(frame: Image.Image, line: str) -> Image.Image:
     max_y = data["max_y"]
 
     min_x_p = min_x - padding
-    min_y_p = min_y - padding + top
+    min_y_p = min_y - padding + data["ascender"]
     max_x_p = max_x + padding
     max_y_p = max_y + padding
+
+    if not config.descender:
+        max_y_p -= data["descender"]
 
     if config.bgcolor:
         bgcolor = config.get_color("bgcolor")
@@ -171,7 +173,7 @@ def get_text_data(frame: Image.Image, line: str, font: ImageFont.FreeTypeFont) -
     p_left = config.left
     p_right = config.right
 
-    _, _, b_right, b_bottom = draw.textbbox((0, 0), line, font=font)
+    b_left, b_top, b_right, b_bottom = draw.multiline_textbbox((0, 0), line, font=font)
 
     # Left
     if (p_left is not None) and (p_left >= 0):
@@ -205,11 +207,16 @@ def get_text_data(frame: Image.Image, line: str, font: ImageFont.FreeTypeFont) -
         elif (p_bottom is not None) and (p_bottom < 0):
             text_y -= p_bottom
 
+    ascender = font.getbbox(line.split("\n")[0])[1]
+    descender = font.getbbox(line.split("\n")[-1], anchor="ls")[3]
+
     ans = {
         "min_x": text_x,
         "min_y": text_y,
         "max_x": text_x + b_right,
         "max_y": text_y + b_bottom,
+        "ascender": ascender,
+        "descender": descender,
     }
 
     return ans

@@ -539,7 +539,7 @@ This is a [color](#colors).
 
 ---
 
-> **opacity** (Type: float | Default: 0.6)
+> **opacity** (Type: float | Default: 0.66)
 
 From `0` to `1`.
 
