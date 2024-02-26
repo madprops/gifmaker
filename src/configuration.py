@@ -363,6 +363,10 @@ class Configuration:
         if not self.nowrap:
             self.wrap_text("words")
 
+        if config.vertical or config.horizontal:
+            if self.format not in ["jpg", "png"]:
+                self.format = "png"
+
         self.set_random()
 
     def wrap_text(self, attr: str) -> None:

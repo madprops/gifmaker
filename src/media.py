@@ -37,11 +37,7 @@ def get_frames() -> List[Image.Image]:
         max_frames = reader.count_frames()
         mode = "video"
 
-    if config.format.lower() in ["jpg", "png"]:
-        num_frames = 1
-    else:
-        num_frames = max_frames if config.remake else config.frames
-
+    num_frames = max_frames if config.remake else config.frames
     order = "normal" if (config.remake or config.framelist) else config.order
     framelist = config.framelist if config.framelist else range(max_frames)
     current = 0
@@ -284,7 +280,7 @@ def render(frames: List[Image.Image]) -> Union[Path, None]:
     else:
         makedir(config.output)
         rand = utils.random_string()
-        file_name = f"{rand}.{fmt}"
+        file_name = f"{rand}.{config.format}"
         output = Path(config.output, file_name)
 
     if config.vertical:
@@ -373,7 +369,13 @@ def apply_filters(frames: List[Image.Image]) -> List[Image.Image]:
         h, s, v = hsv.split()
         h = h.point(lambda i: (i + hue_step * n) % 180)
         new_frame = Image.merge("HSV", (h, s, v))
-        return new_frame.convert("RGB")
+
+        if frame.mode in ["RGBA", "LA"]:
+            new_frame = Image.merge("RGBA", (new_frame.split() + (frame.split()[3],)))
+        else:
+            new_frame = new_frame.convert("RGB")
+
+        return new_frame
 
     get_filters()
     filtr = config.filter
@@ -398,11 +400,17 @@ def apply_filters(frames: List[Image.Image]) -> List[Image.Image]:
 
         if new_frame is None:
             if filtr == "gray":
-                new_frame = ImageOps.colorize(frame.convert("L"), "black", "white")
+                if frame.mode in ["RGBA", "LA"]:
+                    r, g, b, a = frame.split()
+                    gray_img = ImageOps.grayscale(frame.convert("RGB"))
+                    rgb_gray = ImageOps.colorize(gray_img, "black", "white")
+                    new_frame = Image.merge("RGBA", (rgb_gray.split() + (a,)))
+                else:
+                    new_frame = ImageOps.colorize(frame.convert("L"), "black", "white")
             elif filtr == "blur":
                 new_frame = frame.filter(ImageFilter.BLUR)
             elif filtr == "invert":
-                new_frame = ImageOps.invert(frame)
+                new_frame = ImageOps.invert(frame.convert("RGB"))
             else:
                 new_frame = frame
 
@@ -424,13 +432,16 @@ def count_frames() -> None:
         config.frames = 3
 
 
-def to_pillow(frame: npt.NDArray[np.float64]) -> Image.Image:
-    if frame.shape[2] == 4:
-        mode = "RGBA"
+def rgb_or_rgba(array: npt.NDArray[np.float64]) -> str:
+    if array.shape[2] == 4:
+        return "RGBA"
     else:
-        mode = "RGB"
+        return "RGB"
 
-    return Image.fromarray(frame, mode=mode)
+
+def to_pillow(array: npt.NDArray[np.float64]) -> Image.Image:
+    mode = rgb_or_rgba(array)
+    return Image.fromarray(array, mode=mode)
 
 
 def to_array(frame: Image.Image) -> npt.NDArray[np.float64]:
