@@ -67,6 +67,7 @@ class Configuration:
     filterseed: Union[int, None] = None
     deepfry = False
     vertical = False
+    horizontal = False
 
     # --- INTERAL VARS
 
@@ -252,6 +253,12 @@ class Configuration:
 
             {"name": "deepfry", "action": "store_true",
              "help": "Compress the frames heavily"},
+
+            {"name": "vertical", "action": "store_true",
+             "help": "Append images vertically"},
+
+            {"name": "horizontal", "action": "store_true",
+             "help": "Append images horizontally"},
         ]
 
         aliases = {
@@ -303,7 +310,8 @@ class Configuration:
                    "font", "frames", "loop", "separator", "filter", "remake", "repeatrandom",
                    "repeatfilter", "fillwords", "nogrow", "align", "nowrap", "noleftoutline",
                    "norightoutline", "notopoutline", "nobottomoutline", "verbose", "fillgen",
-                   "descender", "seed", "frameseed", "wordseed", "filterseed", "deepfry"]
+                   "descender", "seed", "frameseed", "wordseed", "filterseed", "deepfry",
+                   "vertical", "horizontal"]
 
         for normal in normals:
             ap.normal(normal)

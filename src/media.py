@@ -265,6 +265,11 @@ def resize_frames(frames: List[Image.Image]) -> List[Image.Image]:
 
 def render(frames: List[Image.Image]) -> Union[Path, None]:
     ext = utils.get_extension(config.output)
+    fmt = ext if ext else config.format
+
+    if config.vertical or config.horizontal:
+        if fmt not in ["jpg", "png"]:
+            fmt = "png"
 
     def makedir(path: Path) -> None:
         try:
@@ -279,10 +284,14 @@ def render(frames: List[Image.Image]) -> Union[Path, None]:
     else:
         makedir(config.output)
         rand = utils.random_string()
-        file_name = f"{rand}.{config.format}"
+        file_name = f"{rand}.{fmt}"
         output = Path(config.output, file_name)
 
-    fmt = ext if ext else config.format
+    if config.vertical:
+        frames = [append_frames(frames, "vertical")]
+
+    if config.horizontal:
+        frames = [append_frames(frames, "horizontal")]
 
     if fmt == "gif":
         frames = to_array_all(frames)
@@ -448,15 +457,25 @@ def deep_fry(frames: List[Image.Image]) -> List[Image.Image]:
     return new_frames
 
 
-def append_vertical(frames: List[Image.Image]) -> Image.Image:
+def append_frames(frames: List[Image.Image], mode) -> Image.Image:
     widths, heights = zip(*(i.size for i in frames))
-    total_width = max(widths)
-    total_height = sum(heights)
+
+    if mode == "vertical":
+        total_width = max(widths)
+        total_height = sum(heights)
+    elif mode == "horizontal":
+        total_width = sum(widths)
+        total_height = max(heights)
+
     new_frame = Image.new("RGB", (total_width, total_height))
-    y_offset = 0
+    offset = 0
 
     for frame in frames:
-        new_frame.paste(frame, (0, y_offset))
-        y_offset += frame.size[1]
+        if mode == "vertical":
+            new_frame.paste(frame, (0, offset))
+            offset += frame.size[1]
+        elif mode == "horizontal":
+            new_frame.paste(frame, (offset, 0))
+            offset += frame.size[0]
 
     return new_frame
