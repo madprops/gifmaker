@@ -65,7 +65,10 @@ def generate(line: str, multiple: bool = True) -> List[str]:
         if match["number2"]:
             num2 = int(match["number2"])
 
-        if num1 is not None and num2 is not None:
+        if (num1 is not None) and (num2 is not None):
+            if num1 >= num2:
+                return ""
+
             assert isinstance(config.random_words, random.Random)
             return str(config.random_words.randint(num1, num2))
 
