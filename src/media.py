@@ -283,16 +283,22 @@ def render(frames: List[Image.Image]) -> Union[Path, None]:
         output = Path(config.output, file_name)
 
     fmt = ext if ext else config.format
-    frames = to_array(frames)
 
     if fmt == "gif":
+        frames = to_array_all(frames)
         loop = None if config.loop <= -1 else config.loop
         imageio.mimsave(output, frames, format="GIF", duration=config.delay, loop=loop)
     elif fmt == "png":
-        imageio.imsave(output, frames[0], format="PNG")
+        frame = frames[0]
+        frame = to_array(frame)
+        imageio.imsave(output, frame, format="PNG")
     elif fmt == "jpg":
-        imageio.imsave(output, frames[0], format="JPG")
+        frame = frames[0]
+        frame = frame.convert("RGB")
+        frame = to_array(frame)
+        imageio.imsave(output, frame, format="JPEG")
     elif fmt == "mp4" or fmt == "webm":
+        frames = to_array_all(frames)
         fps = 1000 / config.delay
 
         if fmt == "mp4":
@@ -418,8 +424,12 @@ def to_pillow(frame: npt.NDArray[np.float64]) -> Image.Image:
     return Image.fromarray(frame, mode=mode)
 
 
-def to_array(frames: List[Image.Image]) -> List[npt.NDArray[np.float64]]:
-    return [np.array(frame) for frame in frames]
+def to_array(frame: Image.Image) -> npt.NDArray[np.float64]:
+    return np.array(frame)
+
+
+def to_array_all(frames: List[Image.Image]) -> List[npt.NDArray[np.float64]]:
+    return [to_array(frame) for frame in frames]
 
 
 def deep_fry(frames: List[Image.Image]) -> List[Image.Image]:
@@ -436,3 +446,17 @@ def deep_fry(frames: List[Image.Image]) -> List[Image.Image]:
         new_frames.append(Image.open(stream))
 
     return new_frames
+
+
+def append_vertical(frames: List[Image.Image]) -> Image.Image:
+    widths, heights = zip(*(i.size for i in frames))
+    total_width = max(widths)
+    total_height = sum(heights)
+    new_frame = Image.new("RGB", (total_width, total_height))
+    y_offset = 0
+
+    for frame in frames:
+        new_frame.paste(frame, (0, y_offset))
+        y_offset += frame.size[1]
+
+    return new_frame

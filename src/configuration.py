@@ -66,6 +66,7 @@ class Configuration:
     wordseed: Union[int, None] = None
     filterseed: Union[int, None] = None
     deepfry = False
+    vertical = False
 
     # --- INTERAL VARS
 
