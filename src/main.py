@@ -5,6 +5,7 @@ import media
 import utils
 
 # Standard
+import sys
 import time
 
 # Performance
@@ -43,6 +44,11 @@ def main() -> None:
     # Check the provided arguments
     config.parse_args()
     check_time("Parse Args")
+
+    # Print config defaults and exit
+    if config.mode == "defaults":
+        utils.respond(config.Internal.data)
+        return
 
     # Process words
     words.process_words()
@@ -90,7 +96,7 @@ def main() -> None:
         utils.msg("")
 
     # Print the output path as the response
-    print(output)
+    utils.respond(output)
 
 
 if __name__ == "__main__":

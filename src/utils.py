@@ -158,6 +158,10 @@ def msg(message: str) -> None:
     print(message, file=sys.stderr)
 
 
+def respond(message: str) -> None:
+    print(message, file=sys.stdout)
+
+
 def colortext(color: str, text: str) -> str:
     codes = {
         "red": "\x1b[31m",
@@ -173,3 +177,7 @@ def colortext(color: str, text: str) -> str:
         text = f"{code}{text}\x1b[0m"
 
     return text
+
+
+def dash_to_under(s: str) -> str:
+    return s.replace("-", "_")

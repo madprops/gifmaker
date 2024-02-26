@@ -50,8 +50,8 @@ def get_frames() -> List[Image.Image]:
             if config.frameopts:
                 index = random.choice(config.frameopts)
             else:
-                assert isinstance(config.random_frames, random.Random)
-                index = config.random_frames.randint(0, len(framelist))
+                assert isinstance(config.Internal.random_frames, random.Random)
+                index = config.Internal.random_frames.randint(0, len(framelist))
 
         try:
             if mode == "image":
@@ -112,19 +112,19 @@ def draw_text(frame: Image.Image, line: str) -> Image.Image:
         owidth = utils.divisible(owidth, 2)
         halfwidth = owidth / 2
 
-        if not config.notopoutline:
+        if not config.no_outline_top:
             draw.line([(min_x_p, min_y_p - halfwidth),
                        (max_x_p, min_y_p - halfwidth)], fill=ocolor, width=owidth)
 
-        if not config.noleftoutline:
+        if not config.no_outline_left:
             draw.line([(min_x_p - halfwidth, min_y_p - owidth + 1),
                        (min_x_p - halfwidth, max_y_p + owidth)], fill=ocolor, width=owidth)
 
-        if not config.nobottomoutline:
+        if not config.no_outline_bottom:
             draw.line([(min_x_p, max_y_p + halfwidth),
                        (max_x_p, max_y_p + halfwidth)], fill=ocolor, width=owidth)
 
-        if not config.norightoutline:
+        if not config.no_outline_right:
             draw.line([(max_x_p + halfwidth, min_y_p - owidth + 1),
                        (max_x_p + halfwidth, max_y_p + owidth)], fill=ocolor, width=owidth)
 
@@ -349,8 +349,8 @@ def apply_filters(frames: List[Image.Image]) -> List[Image.Image]:
             filters = all_filters.copy()
 
     def random_filter() -> str:
-        assert isinstance(config.random_filters, random.Random)
-        filtr = config.random_filters.choice(filters)
+        assert isinstance(config.Internal.random_filters, random.Random)
+        filtr = config.Internal.random_filters.choice(filters)
 
         if not config.repeatfilter:
             remove_filter(filtr)

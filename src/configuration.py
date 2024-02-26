@@ -3,6 +3,7 @@ import utils
 from argparser import ArgParser
 
 # Standard
+import json
 import codecs
 import textwrap
 import random
@@ -16,74 +17,78 @@ class Configuration:
     # Class to hold all the configuration of the program
     # It also interfaces with ArgParser and processes further
 
-    delay = 700
-    frames: Union[int, None] = None
-    left: Union[int, None] = None
-    right: Union[int, None] = None
-    top: Union[int, None] = None
-    bottom: Union[int, None] = None
-    width: Union[int, None] = None
-    height: Union[int, None] = None
-    words: List[str] = []
-    wordfile: Union[Path, None] = None
-    randomlist: List[str] = []
-    separator = ";"
-    format = "gif"
-    order = "random"
-    font = "sans"
-    fontsize = 60
-    fontcolor: Union[Tuple[int, int, int], str] = (255, 255, 255)
-    bgcolor: Union[Tuple[int, int, int], str, None] = None
-    outline: Union[Tuple[int, int, int], str, None] = None
-    outlinewidth = 2
-    noleftoutline = False
-    norightoutline = False
-    notopoutline = False
-    nobottomoutline = False
-    opacity = 0.66
-    padding = 20
-    radius = 0
-    align = "center"
-    script: Union[Path, None] = None
-    loop = 0
-    remake = False
-    filterlist: List[str] = []
-    filteropts: List[str] = []
-    filter = "none"
-    framelist: List[str] = []
-    frameopts: List[str] = []
-    repeatrandom = False
-    repeatfilter = False
-    fillwords = False
-    fillgen = False
-    nogrow = False
-    wrap = 35
-    nowrap = False
-    verbose = False
-    descender = False
-    seed: Union[int, None] = None
-    frameseed: Union[int, None] = None
-    wordseed: Union[int, None] = None
-    filterseed: Union[int, None] = None
-    deepfry = False
-    vertical = False
-    horizontal = False
+    def get_defaults(self):
+        self.delay = 700
+        self.frames: Union[int, None] = None
+        self.left: Union[int, None] = None
+        self.right: Union[int, None] = None
+        self.top: Union[int, None] = None
+        self.bottom: Union[int, None] = None
+        self.width: Union[int, None] = None
+        self.height: Union[int, None] = None
+        self.words: List[str] = []
+        self.wordfile: Union[Path, None] = None
+        self.randomlist: List[str] = []
+        self.separator = ";"
+        self.format = "gif"
+        self.order = "random"
+        self.font = "sans"
+        self.fontsize = 60
+        self.fontcolor: Union[Tuple[int, int, int], str] = (255, 255, 255)
+        self.bgcolor: Union[Tuple[int, int, int], str, None] = None
+        self.outline: Union[Tuple[int, int, int], str, None] = None
+        self.outlinewidth = 2
+        self.no_outline_left = False
+        self.no_outline_right = False
+        self.no_outline_top = False
+        self.no_outline_bottom = False
+        self.opacity = 0.66
+        self.padding = 20
+        self.radius = 0
+        self.align = "center"
+        self.script: Union[Path, None] = None
+        self.loop = 0
+        self.remake = False
+        self.filterlist: List[str] = []
+        self.filteropts: List[str] = []
+        self.filter = "none"
+        self.framelist: List[str] = []
+        self.frameopts: List[str] = []
+        self.repeatrandom = False
+        self.repeatfilter = False
+        self.fillwords = False
+        self.fillgen = False
+        self.nogrow = False
+        self.wrap = 35
+        self.nowrap = False
+        self.verbose = False
+        self.descender = False
+        self.seed: Union[int, None] = None
+        self.frameseed: Union[int, None] = None
+        self.wordseed: Union[int, None] = None
+        self.filterseed: Union[int, None] = None
+        self.deepfry = False
+        self.vertical = False
+        self.horizontal = False
+        self.mode = "normal"
 
-    # --- INTERAL VARS
+    class Internal:
+        # List to keep track of used random words
+        randwords: List[str] = []
 
-    # List to keep track of used random words
-    randwords: List[str] = []
+        # Counter for [count]
+        wordcount = 0
 
-    # Counter for [count]
-    wordcount = 0
+        # Last font color used
+        last_fontcolor: Union[Tuple[int, int, int], None] = None
 
-    # Last font color used
-    last_fontcolor: Union[Tuple[int, int, int], None] = None
+        # Random generators
+        random_frames: Union[random.Random, None] = None
+        random_words: Union[random.Random, None] = None
+        random_filters: Union[random.Random, None] = None
 
-    # Random generators
-    random_frames: Union[random.Random, None] = None
-    random_words: Union[random.Random, None] = None
-    random_filters: Union[random.Random, None] = None
+        # Data of some modes
+        data = ""
 
     def get_argdefs(self) -> Tuple[List[Dict[str, Any]], Dict[str, List[str]]]:
         rgbstr = "3 numbers from 0 to 255, separated by commas. Names like 'yellow' are also supported"
@@ -221,16 +226,16 @@ class Configuration:
             {"name": "nowrap", "action": "store_true",
              "help": "Don't wrap lines"},
 
-            {"name": "noleftoutline", "action": "store_true",
+            {"name": "no-outline-left", "action": "store_true",
              "help": "Don't draw the left outline"},
 
-            {"name": "norightoutline", "action": "store_true",
+            {"name": "no-outline-right", "action": "store_true",
              "help": "Don't draw the right outline"},
 
-            {"name": "notopoutline", "action": "store_true",
+            {"name": "no-outline-top", "action": "store_true",
              "help": "Don't draw the top outline"},
 
-            {"name": "nobottomoutline", "action": "store_true",
+            {"name": "no-outline-bottom", "action": "store_true",
              "help": "Don't draw the bottom outline"},
 
             {"name": "verbose", "action": "store_true",
@@ -259,6 +264,9 @@ class Configuration:
 
             {"name": "horizontal", "action": "store_true",
              "help": "Append images horizontally"},
+
+            {"name": "mode", "type": str,
+             "help": "Use 'defaults' to print the default values."},
         ]
 
         aliases = {
@@ -271,6 +279,14 @@ class Configuration:
     def parse_args(self) -> None:
         argdefs, aliases = self.get_argdefs()
         ap = ArgParser("Gif Maker", argdefs, aliases, self)
+
+        # ---
+
+        ap.normal("mode")
+
+        if config.mode == "defaults":
+            self.Internal.data = self.to_json()
+            return
 
         # ---
 
@@ -308,8 +324,8 @@ class Configuration:
 
         normals = ["left", "right", "top", "bottom", "width", "height", "format", "order",
                    "font", "frames", "loop", "separator", "filter", "remake", "repeatrandom",
-                   "repeatfilter", "fillwords", "nogrow", "align", "nowrap", "noleftoutline",
-                   "norightoutline", "notopoutline", "nobottomoutline", "verbose", "fillgen",
+                   "repeatfilter", "fillwords", "nogrow", "align", "nowrap", "no_outline_left",
+                   "no_outline_right", "no_outline_top", "no_outline_bottom", "verbose", "fillgen",
                    "descender", "seed", "frameseed", "wordseed", "filterseed", "deepfry",
                    "vertical", "horizontal"]
 
@@ -392,7 +408,7 @@ class Configuration:
 
         if data:
             for key in data:
-                k = key.replace("-", "_")
+                k = utils.dash_to_under(key)
                 setattr(args, k, data[key])
 
     def read_wordfile(self) -> None:
@@ -422,18 +438,18 @@ class Configuration:
                 set_config = True
             elif value == "dark2":
                 rgb = utils.random_dark()
-            elif (value == "font") and isinstance(self.last_fontcolor, tuple):
-                rgb = self.last_fontcolor
-            elif value == "lightfont" and isinstance(self.last_fontcolor, tuple):
-                rgb = utils.light_contrast(self.last_fontcolor)
+            elif (value == "font") and isinstance(self.Internal.last_fontcolor, tuple):
+                rgb = self.Internal.last_fontcolor
+            elif value == "lightfont" and isinstance(self.Internal.last_fontcolor, tuple):
+                rgb = utils.light_contrast(self.Internal.last_fontcolor)
                 set_config = True
-            elif value == "lightfont2" and isinstance(self.last_fontcolor, tuple):
-                rgb = utils.light_contrast(self.last_fontcolor)
-            elif value == "darkfont" and isinstance(self.last_fontcolor, tuple):
-                rgb = utils.dark_contrast(self.last_fontcolor)
+            elif value == "lightfont2" and isinstance(self.Internal.last_fontcolor, tuple):
+                rgb = utils.light_contrast(self.Internal.last_fontcolor)
+            elif value == "darkfont" and isinstance(self.Internal.last_fontcolor, tuple):
+                rgb = utils.dark_contrast(self.Internal.last_fontcolor)
                 set_config = True
-            elif value == "darkfont2" and isinstance(self.last_fontcolor, tuple):
-                rgb = utils.dark_contrast(self.last_fontcolor)
+            elif value == "darkfont2" and isinstance(self.Internal.last_fontcolor, tuple):
+                rgb = utils.dark_contrast(self.Internal.last_fontcolor)
             else:
                 rgb = utils.color_name(value)
         elif isinstance(value, (list, tuple)) and len(value) >= 3:
@@ -442,7 +458,7 @@ class Configuration:
         ans = rgb or (100, 100, 100)
 
         if attr == "fontcolor":
-            config.last_fontcolor = ans
+            config.Internal.last_fontcolor = ans
 
         if set_config:
             setattr(self, attr, rgb)
@@ -460,7 +476,7 @@ class Configuration:
             else:
                 rand = random.Random()
 
-            setattr(self, rng_name, rand)
+            setattr(self.Internal, rng_name, rand)
 
         set_rng("frameseed", "random_frames")
         set_rng("wordseed", "random_words")
@@ -498,6 +514,16 @@ class Configuration:
         path = Path(config.fontspath, font_file)
         return ImageFont.truetype(path, size=config.fontsize)
 
+    def to_json(self):
+        jsondict = {}
+
+        for key in self.__dict__:
+            value = str(getattr(self, key))
+            jsondict[key] = value
+
+        return json.dumps(jsondict)
+
 
 # Main configuration object
 config = Configuration()
+config.get_defaults()

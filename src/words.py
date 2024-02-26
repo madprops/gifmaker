@@ -69,8 +69,8 @@ def generate(line: str, multiple: bool = True) -> List[str]:
             if num1 >= num2:
                 return ""
 
-            assert isinstance(config.random_words, random.Random)
-            return str(config.random_words.randint(num1, num2))
+            assert isinstance(config.Internal.random_words, random.Random)
+            return str(config.Internal.random_words.randint(num1, num2))
 
         if (num1 is None) or (num1 < 1):
             num1 = 1
@@ -78,8 +78,8 @@ def generate(line: str, multiple: bool = True) -> List[str]:
         return "".join(randgen("number", num1))
 
     def replace_count(match: re.Match[Any]) -> str:
-        config.wordcount += 1
-        return str(config.wordcount)
+        config.Internal.wordcount += 1
+        return str(config.Internal.wordcount)
 
     def replace_date(match: re.Match[Any]) -> str:
         fmt = match["format"] or "%H:%M:%S"
@@ -161,17 +161,17 @@ def random_word() -> str:
         lines = config.randomfile.read_text().splitlines()
         config.randomlist = [line.strip() for line in lines]
 
-    if not config.randwords:
-        config.randwords = config.randomlist.copy()
+    if not config.Internal.randwords:
+        config.Internal.randwords = config.randomlist.copy()
 
-    if not config.randwords:
+    if not config.Internal.randwords:
         return ""
 
-    assert isinstance(config.random_words, random.Random)
-    w = config.random_words.choice(config.randwords)
+    assert isinstance(config.Internal.random_words, random.Random)
+    w = config.Internal.random_words.choice(config.Internal.randwords)
 
     if not config.repeatrandom:
-        config.randwords.remove(w)
+        config.Internal.randwords.remove(w)
 
     return w
 

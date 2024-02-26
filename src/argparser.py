@@ -48,7 +48,7 @@ class ArgParser:
         value = getattr(self.args, attr)
 
         if value is not None:
-            setattr(self.obj, attr, value)
+            self.set(attr, value)
 
     def commas(self, attr: str, vtype: Any, allow_string: bool = False, is_tuple: bool = False) -> None:
         value = getattr(self.args, attr)
@@ -58,29 +58,28 @@ class ArgParser:
                 lst = self.get_list(attr, value, vtype, ",")
 
                 if is_tuple:
-                    setattr(self.obj, attr, tuple(lst))
+                    self.set(attr, tuple(lst))
                 else:
-                    setattr(self.obj, attr, lst)
+                    self.set(attr, lst)
 
             elif allow_string:
-                setattr(self.obj, attr, value)
+                self.set(attr, value)
 
     def path(self, attr: str) -> None:
         value = getattr(self.args, attr)
 
         if value is not None:
-            setattr(self.obj, attr, utils.resolve_path(value))
+            self.set(attr, utils.resolve_path(value))
 
     def pathlist(self, attr: str) -> None:
         value = getattr(self.args, attr)
 
         if value is not None:
             paths = [utils.resolve_path(p.strip()) for p in value.split(",")]
-            setattr(self.obj, attr, paths)
+            self.set(attr, paths)
 
     # Allow p1 and m1 formats
     def number(self, attr: str, vtype: Any, allow_zero: bool = False, duration: bool = False) -> None:
-        default = getattr(self.obj, attr)
         value = getattr(self.args, attr)
 
         if value is None:
@@ -106,6 +105,8 @@ class ArgParser:
             utils.exit(f"Failed to parse '{attr}'")
             return
 
+        default = self.get(attr)
+
         if op == "p":
             num = default + num
         elif op == "m":
@@ -120,4 +121,10 @@ class ArgParser:
             utils.exit(err)
             return
 
-        setattr(self.obj, attr, num)
+        self.set(attr, num)
+
+    def get(self, attr: str) -> Any:
+        return getattr(self.obj, attr)
+
+    def set(self, attr: str, value: Any) -> None:
+        setattr(self.obj, attr, value)
