@@ -185,7 +185,7 @@ class Configuration:
 
             {"name": "filter", "type": str,
              "choices": ["hue1", "hue2", "hue3", "hue4", "hue5", "hue6", "hue7", "hue8", "anyhue", "anyhue2",
-                         "gray", "blur", "invert", "random", "random2", "none"],
+                         "gray", "grey", "blur", "invert", "random", "random2", "none"],
              "help": "Color filter to apply to frames"},
 
             {"name": "filterlist", "type": str,

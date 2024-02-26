@@ -399,7 +399,7 @@ def apply_filters(frames: List[Image.Image]) -> List[Image.Image]:
                     break
 
         if new_frame is None:
-            if filtr == "gray":
+            if filtr in ["gray", "grey"]:
                 if frame.mode in ["RGBA", "LA"]:
                     r, g, b, a = frame.split()
                     gray_img = ImageOps.grayscale(frame.convert("RGB"))
