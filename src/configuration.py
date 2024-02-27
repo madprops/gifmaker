@@ -10,15 +10,18 @@ import random
 from argparse import Namespace
 from typing import List, Union, Dict, Tuple, Any
 from PIL import ImageFont  # type: ignore
-from pathlib import Path
+from pathlib import Path, PosixPath
 
 
 class Configuration:
     # Class to hold all the configuration of the program
     # It also interfaces with ArgParser and processes further
 
-    def get_defaults(self):
+    def __init__(self):
         self.delay = 700
+        self.input: Union[List[Path], None] = None
+        self.output: Union[Path, None] = None
+        self.randomfile: Union[Path, None] = None
         self.frames: Union[int, None] = None
         self.left: Union[int, None] = None
         self.right: Union[int, None] = None
@@ -73,6 +76,12 @@ class Configuration:
         self.mode = "normal"
 
     class Internal:
+        # The path where the main file is located
+        root: Union[Path, None] = None
+
+        # The path where the fonts are located
+        fontspath: Union[Path, None] = None
+
         # List to keep track of used random words
         randwords: List[str] = []
 
@@ -348,6 +357,7 @@ class Configuration:
 
         # ---
 
+        self.fill_paths()
         self.check_config(ap.args)
 
     def check_config(self, args: Namespace) -> None:
@@ -415,12 +425,19 @@ class Configuration:
         if self.wordfile:
             self.words = self.wordfile.read_text().splitlines()
 
-    def fill_paths(self, main_file: str) -> None:
-        self.root = utils.full_path(Path(main_file).parent.parent)
-        self.input = [utils.full_path(Path(self.root, "media", "video.webm"))]
-        self.output = utils.full_path(Path(self.root, "output"))
-        self.randomfile = utils.full_path(Path(self.root, "data", "nouns.txt"))
-        self.fontspath = utils.full_path(Path(self.root, "fonts"))
+    def fill_root(self, main_file: str) -> None:
+        self.Internal.root = Path(main_file).parent.parent
+        self.Internal.fontspath = utils.full_path(Path(self.Internal.root, "fonts"))
+
+    def fill_paths(self) -> None:
+        if not self.input:
+            self.input = [utils.full_path(Path(self.Internal.root, "media", "video.webm"))]
+
+        if not self.output:
+            self.output = utils.full_path(Path(self.Internal.root, "output"))
+
+        if not self.randomfile:
+            self.randomfile = utils.full_path(Path(self.Internal.root, "data", "nouns.txt"))
 
     def get_color(self, attr: str) -> Tuple[int, int, int]:
         value = getattr(self, attr)
@@ -511,14 +528,14 @@ class Configuration:
         else:
             font_file = fonts["sans"]
 
-        path = Path(config.fontspath, font_file)
+        path = Path(config.Internal.fontspath, font_file)
         return ImageFont.truetype(path, size=config.fontsize)
 
     def to_json(self):
         jsondict = {}
 
         for key in self.__dict__:
-            value = str(getattr(self, key))
+            value = getattr(self, key)
             jsondict[key] = value
 
         return json.dumps(jsondict)
@@ -526,4 +543,3 @@ class Configuration:
 
 # Main configuration object
 config = Configuration()
-config.get_defaults()

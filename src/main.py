@@ -39,7 +39,7 @@ def main() -> None:
     last_time = start_time
 
     # Fill some paths based on root path
-    config.fill_paths(__file__)
+    config.fill_root(__file__)
 
     # Check the provided arguments
     config.parse_args()
