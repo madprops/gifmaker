@@ -10,14 +10,14 @@ import random
 from argparse import Namespace
 from typing import List, Union, Dict, Tuple, Any
 from PIL import ImageFont  # type: ignore
-from pathlib import Path, PosixPath
+from pathlib import Path
 
 
 class Configuration:
     # Class to hold all the configuration of the program
     # It also interfaces with ArgParser and processes further
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.delay = 700
         self.input: Union[Path, None] = None
         self.output: Union[Path, None] = None
@@ -301,7 +301,7 @@ class Configuration:
 
         ap.normal("mode")
 
-        if config.mode == "defaults":
+        if self.mode == "defaults":
             self.Internal.data = self.to_json()
             return
 
@@ -366,6 +366,8 @@ class Configuration:
             return [codecs.decode(utils.clean_lines(item), "unicode-escape")
                     for item in value.split(self.separator)]
 
+        assert isinstance(self.input, Path)
+
         if (not self.input.exists()) or (not self.input.is_file()):
             utils.exit("Input file does not exist")
             return
@@ -382,6 +384,8 @@ class Configuration:
         if args.randomlist:
             self.randomlist = separate(args.randomlist)
 
+        assert isinstance(self.randomfile, Path)
+
         if not self.randomfile.exists() or not self.randomfile.is_file():
             utils.exit("Word file does not exist")
             return
@@ -389,7 +393,7 @@ class Configuration:
         if not self.nowrap:
             self.wrap_text("words")
 
-        if config.vertical or config.horizontal:
+        if self.vertical or self.horizontal:
             if self.format not in ["jpg", "png"]:
                 self.format = "png"
 
@@ -430,6 +434,8 @@ class Configuration:
         self.Internal.fontspath = utils.full_path(Path(self.Internal.root, "fonts"))
 
     def fill_paths(self) -> None:
+        assert isinstance(self.Internal.root, Path)
+
         if not self.input:
             self.input = utils.full_path(Path(self.Internal.root, "media", "video.webm"))
 
@@ -475,7 +481,7 @@ class Configuration:
         ans = rgb or (100, 100, 100)
 
         if attr == "fontcolor":
-            config.Internal.last_fontcolor = ans
+            self.Internal.last_fontcolor = ans
 
         if set_config:
             setattr(self, attr, rgb)
@@ -514,30 +520,31 @@ class Configuration:
         def random_font() -> str:
             return random.choice(list(fonts.keys()))
 
-        if config.font == "random":
+        if self.font == "random":
             font = random_font()
             font_file = fonts[font]
-            config.font = font
-        elif config.font == "random2":
+            self.font = font
+        elif self.font == "random2":
             font = random_font()
             font_file = fonts[font]
-        elif ".ttf" in config.font:
-            font_file = str(utils.resolve_path(Path(config.font)))
-        elif config.font in fonts:
-            font_file = fonts[config.font]
+        elif ".ttf" in self.font:
+            font_file = str(utils.resolve_path(Path(self.font)))
+        elif self.font in fonts:
+            font_file = fonts[self.font]
         else:
             font_file = fonts["sans"]
 
-        path = Path(config.Internal.fontspath, font_file)
-        return ImageFont.truetype(path, size=config.fontsize)
+        assert isinstance(self.Internal.fontspath, Path)
+        path = Path(self.Internal.fontspath, font_file)
+        return ImageFont.truetype(path, size=self.fontsize)
 
-    def to_json(self):
+    def to_json(self) -> str:
         jsondict = {}
 
         for key in self.__dict__:
             value = getattr(self, key)
 
-            if isinstance(value, PosixPath):
+            if isinstance(value, Path):
                 value = str(value)
 
             jsondict[key] = value

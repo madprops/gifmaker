@@ -6,6 +6,7 @@ import utils
 import re
 import random
 from typing import List, Any
+from pathlib import Path
 
 
 def process_words() -> None:
@@ -158,6 +159,7 @@ def check_empty() -> None:
 
 def random_word() -> str:
     if not config.randomlist:
+        assert isinstance(config.randomfile, Path)
         lines = config.randomfile.read_text().splitlines()
         config.randomlist = [line.strip() for line in lines]
 

@@ -96,7 +96,7 @@ def main() -> None:
         utils.msg("")
 
     # Print the output path as the response
-    utils.respond(output)
+    utils.respond(str(output))
 
 
 if __name__ == "__main__":

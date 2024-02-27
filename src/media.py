@@ -18,7 +18,9 @@ from typing import List, Dict, Union
 
 def get_frames() -> List[Image.Image]:
     count_frames()
+
     assert isinstance(config.frames, int)
+    assert isinstance(config.input, Path)
 
     frames = []
     path = config.input
@@ -260,6 +262,7 @@ def resize_frames(frames: List[Image.Image]) -> List[Image.Image]:
 
 
 def render(frames: List[Image.Image]) -> Union[Path, None]:
+    assert isinstance(config.output, Path)
     ext = utils.get_extension(config.output)
     fmt = ext if ext else config.format
 
@@ -468,7 +471,7 @@ def deep_fry(frames: List[Image.Image]) -> List[Image.Image]:
     return new_frames
 
 
-def append_frames(frames: List[Image.Image], mode) -> Image.Image:
+def append_frames(frames: List[Image.Image], mode: str) -> Image.Image:
     widths, heights = zip(*(i.size for i in frames))
 
     if mode == "vertical":
