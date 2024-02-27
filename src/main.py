@@ -5,7 +5,6 @@ import media
 import utils
 
 # Standard
-import sys
 import time
 
 # Performance
