@@ -99,6 +99,15 @@ class Configuration:
         # Data of some modes
         data = ""
 
+        # Choices for some arguments
+        choices = {
+            "format": ["gif", "webm", "mp4", "jpg", "png"],
+            "order": ["random", "normal"],
+            "align": ["left", "center", "right"],
+            "filter": ["hue1", "hue2", "hue3", "hue4", "hue5", "hue6", "hue7", "hue8", "anyhue", "anyhue2",
+                        "gray", "grey", "blur", "invert", "random", "random2", "none"],
+        }
+
     def get_argdefs(self) -> Tuple[List[Dict[str, Any]], Dict[str, List[str]]]:
         rgbstr = "3 numbers from 0 to 255, separated by commas. Names like 'yellow' are also supported"
         commastr = "Separated by commas"
@@ -141,14 +150,14 @@ class Configuration:
              "help": "Output directory to save the file"},
 
             {"name": "format", "type": str,
-             "choices": ["gif", "webm", "mp4", "jpg", "png"],
+             "choices": self.Internal.choices["format"],
              "help": "The format of the output file"},
 
             {"name": "separator", "type": str,
              "help": "Character to use as the separator"},
 
             {"name": "order", "type": str,
-             "choices": ["random", "normal"],
+             "choices": self.Internal.choices["order"],
              "help": "The order to use when extracting the frames"},
 
             {"name": "font", "type": str,
@@ -179,7 +188,7 @@ class Configuration:
              "help": "The border radius of the background"},
 
             {"name": "align", "type": str,
-             "choices": ["left", "center", "right"],
+             "choices": self.Internal.choices["align"],
              "help": "How to align the center when there are multiple lines"},
 
             {"name": "randomlist", "type": str,
@@ -198,8 +207,7 @@ class Configuration:
              "help": "Re-render the frames to change the width or delay"},
 
             {"name": "filter", "type": str,
-             "choices": ["hue1", "hue2", "hue3", "hue4", "hue5", "hue6", "hue7", "hue8", "anyhue", "anyhue2",
-                         "gray", "grey", "blur", "invert", "random", "random2", "none"],
+             "choices": self.Internal.choices["filter"],
              "help": "Color filter to apply to frames"},
 
             {"name": "filterlist", "type": str,
@@ -533,6 +541,10 @@ class Configuration:
                 value = str(value)
 
             jsondict[key] = value
+
+        for key in self.Internal.choices:
+            value = self.Internal.choices[key]
+            jsondict[f"_choices_{key}"] = value
 
         return json.dumps(jsondict)
 
