@@ -54,7 +54,7 @@ def generate(line: str, multiple: bool = True) -> List[str]:
         if (num is None) or (num < 1):
             num = 1
 
-        return " ".join(randgen("random", num))
+        return " ".join(randgen(match["word"], num))
 
     def replace_number(match: re.Match[Any]) -> str:
         num1 = None
