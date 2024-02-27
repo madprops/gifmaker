@@ -10,8 +10,7 @@ import random
 from argparse import Namespace
 from typing import List, Union, Dict, Tuple, Any
 from PIL import ImageFont  # type: ignore
-from pathlib import Path
-import pathlib
+from pathlib import Path, PosixPath
 
 
 class Configuration:
@@ -530,7 +529,7 @@ class Configuration:
         for key in self.__dict__:
             value = getattr(self, key)
 
-            if isinstance(value, pathlib.PosixPath):
+            if isinstance(value, PosixPath):
                 value = str(value)
 
             jsondict[key] = value
