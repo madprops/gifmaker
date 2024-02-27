@@ -66,7 +66,8 @@ def read_toml(path: Path) -> Union[Dict[str, str], None]:
 
 
 def random_color(lightness: float) -> Tuple[int, int, int]:
-    hue = random.random()
+    from configuration import config
+    hue = config.Internal.random_colors.random()
     saturation = 0.8
     r, g, b = colorsys.hsv_to_rgb(hue, saturation, lightness)
     r, g, b = int(r * 255), int(g * 255), int(b * 255)

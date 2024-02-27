@@ -70,6 +70,7 @@ class Configuration:
         self.frameseed: Union[int, None] = None
         self.wordseed: Union[int, None] = None
         self.filterseed: Union[int, None] = None
+        self.colorseed: Union[int, None] = None
         self.deepfry = False
         self.vertical = False
         self.horizontal = False
@@ -273,6 +274,9 @@ class Configuration:
             {"name": "filterseed", "type": int,
              "help": "Seed to use when picking filters"},
 
+            {"name": "colorseed", "type": int,
+             "help": "Seed to use when picking colors"},
+
             {"name": "deepfry", "action": "store_true",
              "help": "Compress the frames heavily"},
 
@@ -343,8 +347,8 @@ class Configuration:
                    "font", "frames", "loop", "separator", "filter", "remake", "repeatrandom",
                    "repeatfilter", "fillwords", "nogrow", "align", "nowrap", "no_outline_left",
                    "no_outline_right", "no_outline_top", "no_outline_bottom", "verbose", "fillgen",
-                   "descender", "seed", "frameseed", "wordseed", "filterseed", "deepfry",
-                   "vertical", "horizontal"]
+                   "descender", "seed", "frameseed", "wordseed", "filterseed", "colorseed",
+                   "deepfry", "vertical", "horizontal"]
 
         for normal in normals:
             ap.normal(normal)
@@ -504,6 +508,7 @@ class Configuration:
         set_rng("frameseed", "random_frames")
         set_rng("wordseed", "random_words")
         set_rng("filterseed", "random_filters")
+        set_rng("colorseed", "random_colors")
 
     def get_font(self) -> ImageFont.FreeTypeFont:
         fonts = {
