@@ -8,27 +8,26 @@ from typing import List, Any, Dict
 
 class ArgParser:
     # Generic class to get arguments from the terminal
-    def __init__(self, title: str, argdefs: List[Dict[str, Any]], aliases: Dict[str, List[str]], obj: Any):
+    def __init__(self, title: str, argdefs: Dict[str, Any], aliases: Dict[str, List[str]], obj: Any):
         parser = argparse.ArgumentParser(description=title)
-        string_arg = {"name": "string_arg", "nargs": "*"}
-        argdefs.append(string_arg)
+        argdefs["string_arg"] = {"nargs": "*"}
 
-        for item in argdefs:
-            name = item["name"]
+        for key in argdefs:
+            item = argdefs[key]
 
-            if name == "string_arg":
-                names = [name]
+            if key == "string_arg":
+                names = [key]
             else:
                 # Add -- and - formats
-                names = [f"--{name}", f"-{name}"]
-                name2 = name.replace("-", "")
+                names = [f"--{key}", f"-{key}"]
+                key2 = key.replace("-", "")
 
                 # Check without dashes
-                if name2 != name:
-                    names.extend([f"--{name2}", f"-{name2}"])
+                if key2 != key:
+                    names.extend([f"--{key2}", f"-{key2}"])
 
-            if name in aliases:
-                names += aliases[name]
+            if key in aliases:
+                names += aliases[key]
 
             opts = ["type", "choices", "help", "action", "nargs"]
             tail = {key: item[key] for key in opts if key in item}
@@ -123,7 +122,7 @@ class ArgParser:
         self.set(attr, num)
 
     def get(self, attr: str) -> Any:
-        return getattr(self.obj, attr)
+        return self.obj.get(attr)
 
     def set(self, attr: str, value: Any) -> None:
-        setattr(self.obj, attr, value)
+        self.obj.set(attr, value)

@@ -10,7 +10,7 @@ from pathlib import Path
 
 
 def process_words() -> None:
-    if config.remake or config.fillgen:
+    if config.get("remake") or config.get("fillgen"):
         return
 
     check_empty()
@@ -19,15 +19,15 @@ def process_words() -> None:
 
 
 def check_generators() -> None:
-    if not config.words:
+    if not config.get("words"):
         return
 
     new_lines: List[str] = []
 
-    for line in config.words:
+    for line in config.get("words"):
         new_lines.extend(generate(line))
 
-    config.words = new_lines
+    config.set("words", new_lines)
 
 
 def generate(line: str, multiple: bool = True) -> List[str]:
@@ -114,14 +114,14 @@ def generate(line: str, multiple: bool = True) -> List[str]:
 
 
 def check_repeat() -> None:
-    if not config.words:
+    if not config.get("words"):
         return
 
     new_lines: List[str] = []
     pattern = re.compile(
         r"^\[\s*(?P<word>rep(?:eat)?)\s*(?P<number>\d+)?\s*\]$", re.IGNORECASE)
 
-    for line in config.words:
+    for line in config.get("words"):
         match = re.match(pattern, line)
 
         if match:
@@ -131,18 +131,18 @@ def check_repeat() -> None:
         else:
             new_lines.append(line)
 
-    config.words = new_lines
+    config.set("words", new_lines)
 
 
 def check_empty() -> None:
-    if not config.words:
+    if not config.get("words"):
         return
 
     new_lines: List[str] = []
     pattern = re.compile(
         r"^\[\s*(?P<word>empty)(?:\s+(?P<number>\d+))?\s*\]$", re.IGNORECASE)
 
-    for line in config.words:
+    for line in config.get("words"):
         match = re.match(pattern, line)
 
         if match:
@@ -154,17 +154,17 @@ def check_empty() -> None:
         else:
             new_lines.append(line)
 
-    config.words = new_lines
+    config.set("words", new_lines)
 
 
 def random_word() -> str:
-    if not config.randomlist:
-        assert isinstance(config.randomfile, Path)
-        lines = config.randomfile.read_text().splitlines()
-        config.randomlist = [line.strip() for line in lines]
+    if not config.get("randomlist"):
+        assert isinstance(config.get("randomfile"), Path)
+        lines = config.get("randomfile").read_text().splitlines()
+        config.set("randomlist", [line.strip() for line in lines])
 
     if not config.Internal.randwords:
-        config.Internal.randwords = config.randomlist.copy()
+        config.Internal.randwords = config.get("randomlist").copy()
 
     if not config.Internal.randwords:
         return ""
@@ -172,7 +172,7 @@ def random_word() -> str:
     assert isinstance(config.Internal.random_words, random.Random)
     w = config.Internal.random_words.choice(config.Internal.randwords)
 
-    if not config.repeatrandom:
+    if not config.get("repeatrandom"):
         config.Internal.randwords.remove(w)
 
     return w
