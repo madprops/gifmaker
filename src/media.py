@@ -21,7 +21,7 @@ def get_frames() -> List[Image.Image]:
     assert isinstance(config.frames, int)
 
     frames = []
-    path = random.choice(config.input)
+    path = config.input
     ext = utils.get_extension(path)
 
     if (ext == "jpg") or (ext == "png"):

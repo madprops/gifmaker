@@ -278,12 +278,6 @@ Path to a video or image to use as the source of the frames.
 
 For example: `--input stuff/cow.webm`.
 
-It's possible to use multiple input files by separating them with commas.
-
-For example: `--input /some/path/1.gif,/some/other/path/2.mp4,/another/one/3.png`.
-
-If multiple inputs, one is selected randomly as the source of the frames.
-
 `-i` is a shorter alias for this.
 
 ---

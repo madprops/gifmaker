@@ -71,13 +71,6 @@ class ArgParser:
         if value is not None:
             self.set(attr, utils.resolve_path(value))
 
-    def pathlist(self, attr: str) -> None:
-        value = getattr(self.args, attr)
-
-        if value is not None:
-            paths = [utils.resolve_path(p.strip()) for p in value.split(",")]
-            self.set(attr, paths)
-
     # Allow p1 and m1 formats
     def number(self, attr: str, vtype: Any, allow_zero: bool = False, duration: bool = False) -> None:
         value = getattr(self.args, attr)

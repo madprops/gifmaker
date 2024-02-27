@@ -10,7 +10,8 @@ import random
 from argparse import Namespace
 from typing import List, Union, Dict, Tuple, Any
 from PIL import ImageFont  # type: ignore
-from pathlib import Path, PosixPath
+from pathlib import Path
+import pathlib
 
 
 class Configuration:
@@ -19,7 +20,7 @@ class Configuration:
 
     def __init__(self):
         self.delay = 700
-        self.input: Union[List[Path], None] = None
+        self.input: Union[Path, None] = None
         self.output: Union[Path, None] = None
         self.randomfile: Union[Path, None] = None
         self.frames: Union[int, None] = None
@@ -343,17 +344,10 @@ class Configuration:
 
         # ---
 
-        paths = ["output", "wordfile", "randomfile"]
+        paths = ["input", "output", "wordfile", "randomfile"]
 
         for path in paths:
             ap.path(path)
-
-        # ---
-
-        pathlists = ["input"]
-
-        for pathlist in pathlists:
-            ap.pathlist(pathlist)
 
         # ---
 
@@ -365,10 +359,9 @@ class Configuration:
             return [codecs.decode(utils.clean_lines(item), "unicode-escape")
                     for item in value.split(self.separator)]
 
-        for path in self.input:
-            if not path.exists() or not path.is_file():
-                utils.exit("Input file does not exist")
-                return
+        if (not self.input.exists()) or (not self.input.is_file()):
+            utils.exit("Input file does not exist")
+            return
 
         if self.wordfile:
             if not self.wordfile.exists() or not self.wordfile.is_file():
@@ -431,7 +424,7 @@ class Configuration:
 
     def fill_paths(self) -> None:
         if not self.input:
-            self.input = [utils.full_path(Path(self.Internal.root, "media", "video.webm"))]
+            self.input = utils.full_path(Path(self.Internal.root, "media", "video.webm"))
 
         if not self.output:
             self.output = utils.full_path(Path(self.Internal.root, "output"))
@@ -536,6 +529,10 @@ class Configuration:
 
         for key in self.__dict__:
             value = getattr(self, key)
+
+            if isinstance(value, pathlib.PosixPath):
+                value = str(value)
+
             jsondict[key] = value
 
         return json.dumps(jsondict)
