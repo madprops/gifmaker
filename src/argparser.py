@@ -19,7 +19,13 @@ class ArgParser:
             if name == "string_arg":
                 names = [name]
             else:
+                # Add -- and - formats
                 names = [f"--{name}", f"-{name}"]
+                name2 = name.replace("-", "")
+
+                # Check without dashes
+                if name2 != name:
+                    names.extend([f"--{name2}", f"-{name2}"])
 
             if name in aliases:
                 names += aliases[name]
