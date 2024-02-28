@@ -44,7 +44,7 @@ def main() -> None:
     check_time("Parse Args")
 
     # Print argument info and exit
-    if config.mode == "arginfo":
+    if config.Internal.mode == "arguments":
         utils.respond(config.Internal.data)
         return
 

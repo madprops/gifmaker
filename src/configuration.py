@@ -74,7 +74,6 @@ class Configuration:
         self.deepfry = False
         self.vertical = False
         self.horizontal = False
-        self.mode = "normal"
 
     class Internal:
         # The path where the main file is located
@@ -96,6 +95,10 @@ class Configuration:
         random_frames: Union[random.Random, None] = None
         random_words: Union[random.Random, None] = None
         random_filters: Union[random.Random, None] = None
+        random_colors: Union[random.Random, None] = None
+
+        # Mode of the program
+        mode = "normal"
 
         # Data of some modes
         data = ""
@@ -105,67 +108,67 @@ class Configuration:
         commastr = "Separated by commas"
 
         # Argument definitions
-        argdefs: Dict[str, Any] = {
-            "input": {"value": None, "type": str, "help": "Path to a video or image file. Separated by commas"},
-            "words": {"value": [], "type": str, "help": "Lines of words to use on the frames"},
-            "wordfile": {"value": None, "type": str, "help": "Path of file with word lines"},
-            "delay": {"value": 700, "type": str, "help": "The delay in ms between frames"},
-            "left": {"value": None, "type": int, "help": "Left padding"},
-            "right": {"value": None, "type": int, "help": "Right padding"},
-            "top": {"value": None, "type": int, "help": "Top padding"},
-            "bottom": {"value": None, "type": int, "help": "Bottom padding"},
-            "width": {"value": None, "type": int, "help": "Width to resize the frames"},
-            "height": {"value": None, "type": int, "help": "Height to resize the frames"},
-            "frames": {"value": None, "type": int, "help": "Number of frames to use if no words are provided"},
-            "output": {"value": None, "type": str, "help": "Output directory to save the file"},
-            "format": {"value": "gif", "type": str, "choices": ["gif", "webm", "mp4", "jpg", "png"], "help": "The format of the output file"},
-            "separator": {"value": ";", "type": str, "help": "Character to use as the separator"},
-            "order": {"value": "random", "type": str, "choices": ["random", "normal"], "help": "The order to use when extracting the frames"},
-            "font": {"value": "sans", "type": str, "help": "The font to use for the text"},
-            "fontsize": {"value": 60, "type": str, "help": "The size of the font"},
-            "fontcolor": {"value": (255, 255, 255), "type": str, "help": f"Text color. {rgbstr}"},
-            "bgcolor": {"value": None, "type": str, "help": f"Add a background rectangle for the text with this color. {rgbstr}"},
-            "outline": {"value": None, "type": str, "help": f"Add an outline around the text with this color. {rgbstr}"},
-            "outlinewidth": {"value": 2, "type": str, "help": "The width of the outline"},
-            "opacity": {"value": 0.66, "type": str, "help": "The opacity of the background rectangle"},
-            "padding": {"value": 20, "type": str, "help": "The padding of the background rectangle"},
-            "radius": {"value": 0, "type": str, "help": "The border radius of the background"},
-            "align": {"value": "center", "type": str, "choices": ["left", "center", "right"], "help": "How to align the center when there are multiple lines"},
-            "randomlist": {"value": [], "type": str, "help": "List of words to consider for random words"},
-            "randomfile": {"value": None, "type": str, "help": "Path to a list of words to consider for random words"},
-            "script": {"value": None, "type": str, "help": "Path to a TOML file that defines the arguments to use"},
-            "loop": {"value": 0, "type": int, "help": "How to loop a gif render"},
-            "remake": {"value": False, "action": "store_true", "help": "Re-render the frames to change the width or delay"},
-            "filter": {"value": "none", "type": str,
+        arguments: Dict[str, Any] = {
+            "input": {"type": str, "help": "Path to a video or image file. Separated by commas"},
+            "words": {"type": str, "help": "Lines of words to use on the frames"},
+            "wordfile": {"type": str, "help": "Path of file with word lines"},
+            "delay": {"type": str, "help": "The delay in ms between frames"},
+            "left": {"type": int, "help": "Left padding"},
+            "right": {"type": int, "help": "Right padding"},
+            "top": {"type": int, "help": "Top padding"},
+            "bottom": {"type": int, "help": "Bottom padding"},
+            "width": {"type": int, "help": "Width to resize the frames"},
+            "height": {"type": int, "help": "Height to resize the frames"},
+            "frames": {"type": int, "help": "Number of frames to use if no words are provided"},
+            "output": {"type": str, "help": "Output directory to save the file"},
+            "format": {"type": str, "choices": ["gif", "webm", "mp4", "jpg", "png"], "help": "The format of the output file"},
+            "separator": {"type": str, "help": "Character to use as the separator"},
+            "order": {"type": str, "choices": ["random", "normal"], "help": "The order to use when extracting the frames"},
+            "font": {"type": str, "help": "The font to use for the text"},
+            "fontsize": {"type": str, "help": "The size of the font"},
+            "fontcolor": {"type": str, "help": f"Text color. {rgbstr}"},
+            "bgcolor": {"type": str, "help": f"Add a background rectangle for the text with this color. {rgbstr}"},
+            "outline": {"type": str, "help": f"Add an outline around the text with this color. {rgbstr}"},
+            "outlinewidth": {"type": str, "help": "The width of the outline"},
+            "opacity": {"type": str, "help": "The opacity of the background rectangle"},
+            "padding": {"type": str, "help": "The padding of the background rectangle"},
+            "radius": {"type": str, "help": "The border radius of the background"},
+            "align": {"type": str, "choices": ["left", "center", "right"], "help": "How to align the center when there are multiple lines"},
+            "randomlist": {"type": str, "help": "List of words to consider for random words"},
+            "randomfile": {"type": str, "help": "Path to a list of words to consider for random words"},
+            "script": {"type": str, "help": "Path to a TOML file that defines the arguments to use"},
+            "loop": {"type": int, "help": "How to loop a gif render"},
+            "remake": {"action": "store_true", "help": "Re-render the frames to change the width or delay"},
+            "filter": {"type": str,
                        "help": "Color filter to apply to frames",
                        "choices": ["hue1", "hue2", "hue3", "hue4", "hue5", "hue6", "hue7", "hue8",
                                    "anyhue", "anyhue2", "gray", "grey", "blur", "invert", "random", "random2", "none"]},
-            "filterlist": {"value": [], "type": str, "help": f"Filters to use per frame. {commastr}"},
-            "filteropts": {"value": [], "type": str, "help": f"The list of allowed filters when picking randomly. {commastr}"},
-            "framelist": {"value": [], "type": str, "help": f"List of frame indices to use. {commastr}"},
-            "frameopts": {"value": [], "type": str, "help": f"The list of allowed frame indices when picking randomly. {commastr}"},
-            "repeatrandom": {"value": False, "action": "store_true", "help": "Repeating random words is ok"},
-            "repeatfilter": {"value": False, "action": "store_true", "help": "Repeating random filters is ok"},
-            "fillwords": {"value": False, "action": "store_true", "help": "Fill the rest of the frames with the last word line"},
-            "fillgen": {"value": False, "action": "store_true", "help": "Generate the first line of words till the end of frames"},
-            "nogrow": {"value": False, "action": "store_true", "help": "Don't resize if the frames are going to be bigger than the original"},
-            "wrap": {"value": 35, "type": str, "help": "Split line if it exceeds this char length"},
-            "nowrap": {"value": False, "action": "store_true", "help": "Don't wrap lines"},
-            "no_outline_left": {"value": False, "action": "store_true", "help": "Don't draw the left outline"},
-            "no_outline_right": {"value": False, "action": "store_true", "help": "Don't draw the right outline"},
-            "no_outline_top": {"value": False, "action": "store_true", "help": "Don't draw the top outline"},
-            "no_outline_bottom": {"value": False, "action": "store_true", "help": "Don't draw the bottom outline"},
-            "verbose": {"value": False, "action": "store_true", "help": "Print more information like time performance"},
-            "descender": {"value": False, "action": "store_true", "help": "Apply the height of the descender to the bottom padding of the text"},
-            "seed": {"value": None, "type": int, "help": "Seed to use when using any random value"},
-            "frameseed": {"value": None, "type": int, "help": "Seed to use when picking frames"},
-            "wordseed": {"value": None, "type": int, "help": "Seed to use when picking words"},
-            "filterseed": {"value": None, "type": int, "help": "Seed to use when picking filters"},
-            "colorseed": {"value": None, "type": int, "help": "Seed to use when picking colors"},
-            "deepfry": {"value": False, "action": "store_true", "help": "Compress the frames heavily"},
-            "vertical": {"value": False, "action": "store_true", "help": "Append images vertically"},
-            "horizontal": {"value": False, "action": "store_true", "help": "Append images horizontally"},
-            "mode": {"value": "normal", "type": str, "help": "Use 'arginfo' to print the argument information."},
+            "filterlist": {"type": str, "help": f"Filters to use per frame. {commastr}"},
+            "filteropts": {"type": str, "help": f"The list of allowed filters when picking randomly. {commastr}"},
+            "framelist": {"type": str, "help": f"List of frame indices to use. {commastr}"},
+            "frameopts": {"type": str, "help": f"The list of allowed frame indices when picking randomly. {commastr}"},
+            "repeatrandom": {"action": "store_true", "help": "Repeating random words is ok"},
+            "repeatfilter": {"action": "store_true", "help": "Repeating random filters is ok"},
+            "fillwords": {"action": "store_true", "help": "Fill the rest of the frames with the last word line"},
+            "fillgen": {"action": "store_true", "help": "Generate the first line of words till the end of frames"},
+            "nogrow": {"action": "store_true", "help": "Don't resize if the frames are going to be bigger than the original"},
+            "wrap": {"type": str, "help": "Split line if it exceeds this char length"},
+            "nowrap": {"action": "store_true", "help": "Don't wrap lines"},
+            "no_outline_left": {"action": "store_true", "help": "Don't draw the left outline"},
+            "no_outline_right": {"action": "store_true", "help": "Don't draw the right outline"},
+            "no_outline_top": {"action": "store_true", "help": "Don't draw the top outline"},
+            "no_outline_bottom": {"action": "store_true", "help": "Don't draw the bottom outline"},
+            "verbose": {"action": "store_true", "help": "Print more information like time performance"},
+            "descender": {"action": "store_true", "help": "Apply the height of the descender to the bottom padding of the text"},
+            "seed": {"type": int, "help": "Seed to use when using any random value"},
+            "frameseed": {"type": int, "help": "Seed to use when picking frames"},
+            "wordseed": {"type": int, "help": "Seed to use when picking words"},
+            "filterseed": {"type": int, "help": "Seed to use when picking filters"},
+            "colorseed": {"type": int, "help": "Seed to use when picking colors"},
+            "deepfry": {"action": "store_true", "help": "Compress the frames heavily"},
+            "vertical": {"action": "store_true", "help": "Append images vertically"},
+            "horizontal": {"action": "store_true", "help": "Append images horizontally"},
+            "arguments": {"action": "store_true", "help": "Print argument information."},
         }
 
         aliases = {
@@ -174,13 +177,12 @@ class Configuration:
         }
 
     def parse_args(self) -> None:
-        ap = ArgParser("Gif Maker", self.Internal.argdefs, self.Internal.aliases, self)
+        ap = ArgParser("Gif Maker", self.Internal.arguments, self.Internal.aliases, self)
 
         # ---
 
-        ap.normal("mode")
-
-        if self.mode == "arginfo":
+        if getattr(ap.args, "arguments"):
+            self.Internal.mode = "arguments"
             self.Internal.data = self.to_json()
             return
 
@@ -419,10 +421,16 @@ class Configuration:
         return ImageFont.truetype(path, size=self.fontsize)
 
     def to_json(self) -> str:
+        filter_out = ["string_arg", "arguments"]
+
         new_dict = {
             key: {k: v for k, v in value.items() if (k != "type" and k != "action")}
-            for key, value in self.Internal.argdefs.items()
+            for key, value in self.Internal.arguments.items() if key not in filter_out
         }
+
+        for key in new_dict:
+            if hasattr(self, key):
+                new_dict[key]["value"] = getattr(self, key)
 
         return json.dumps(new_dict)
 
