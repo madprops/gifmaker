@@ -86,30 +86,46 @@ def draw_text(frame: Image.Image, line: str) -> Image.Image:
     draw = ImageDraw.Draw(frame, "RGBA")
     font = config.get_font()
     data = get_text_data(frame, line, font)
-    fontcolor = config.get_color("fontcolor")
-    padding = config.padding
+    get_colors = True
+
+    if line == config.Internal.last_words:
+        if config.word_color_mode == "normal":
+            get_colors = False
+
+    if not config.Internal.last_colors:
+        get_colors = True
+
+    if get_colors:
+        fontcolor = config.get_color("fontcolor")
+        bgcolor = config.get_color("bgcolor")
+        ocolor = config.get_color("outline")
+    else:
+        fontcolor = config.Internal.last_colors[0]
+        bgcolor = config.Internal.last_colors[1]
+        ocolor = config.Internal.last_colors[2]
+
+    config.Internal.last_colors = [fontcolor, bgcolor, ocolor]
+    config.Internal.last_words = line
 
     min_x = data["min_x"]
     min_y = data["min_y"]
     max_x = data["max_x"]
     max_y = data["max_y"]
 
-    min_x_p = min_x - padding
-    min_y_p = min_y - padding + data["ascender"]
-    max_x_p = max_x + padding
-    max_y_p = max_y + padding
+    min_x_p = min_x - config.padding
+    min_y_p = min_y - config.padding + data["ascender"]
+    max_x_p = max_x + config.padding
+    max_y_p = max_y + config.padding
 
     if not config.descender:
         max_y_p -= data["descender"]
 
     if config.bgcolor:
-        bgcolor = config.get_color("bgcolor")
         alpha = utils.add_alpha(bgcolor, config.opacity)
         rect_pos = (min_x_p, min_y_p), (max_x_p, max_y_p)
         draw.rounded_rectangle(rect_pos, fill=alpha, radius=config.radius)
 
     if config.outline:
-        ocolor = config.get_color("outline")
         owidth = config.outlinewidth
         owidth = utils.divisible(owidth, 2)
         halfwidth = owidth / 2

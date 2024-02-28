@@ -773,6 +773,26 @@ Use to distort the result for whatever reason.
 
 ---
 
+> **word-color-mode** (Type: str | Default: "normal")
+
+Either `normal` or `random`.
+
+In `normal` it will avoid fetching random colors on the same lines.
+
+For instance if the words are `First line [x2] ; Second line [x2]`.
+
+And the colors are set to `--fontcolor light2 --bgcolor darkfont2`.
+
+It will use the same colors for the first 2 frames, and then other colors for the rest.
+
+Instead of picking random colors on each frame.
+
+This is to avoid the text being too aggresive visually.
+
+This can be disabled with `random`, which will fetch random colors on each frame.
+
+---
+
 If a number argument has a default you can use `p` and `m` operators.
 
 `p` means `plus` while `m` means `minus`.

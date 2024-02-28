@@ -74,6 +74,7 @@ class Configuration:
         self.deepfry = False
         self.vertical = False
         self.horizontal = False
+        self.word_color_mode = "normal"
 
     class Internal:
         # The path where the main file is located
@@ -96,6 +97,12 @@ class Configuration:
         random_words: Union[random.Random, None] = None
         random_filters: Union[random.Random, None] = None
         random_colors: Union[random.Random, None] = None
+
+        # Last word printed
+        last_words = ""
+
+        # Last colors used
+        last_colors: List[Tuple[int, int, int]] = []
 
         # Response string
         response = ""
@@ -165,7 +172,8 @@ class Configuration:
             "deepfry": {"action": "store_true", "help": "Compress the frames heavily"},
             "vertical": {"action": "store_true", "help": "Append images vertically"},
             "horizontal": {"action": "store_true", "help": "Append images horizontally"},
-            "arguments": {"action": "store_true", "help": "Print argument information."},
+            "arguments": {"action": "store_true", "help": "Print argument information"},
+            "word-color-mode": {"type": str, "choices": ["normal", "random"], "help": "Color mode for words"},
         }
 
         aliases = {
@@ -221,7 +229,7 @@ class Configuration:
                    "repeatfilter", "fillwords", "nogrow", "align", "nowrap", "no_outline_left",
                    "no_outline_right", "no_outline_top", "no_outline_bottom", "verbose", "fillgen",
                    "descender", "seed", "frameseed", "wordseed", "filterseed", "colorseed",
-                   "deepfry", "vertical", "horizontal"]
+                   "deepfry", "vertical", "horizontal", "word_color_mode"]
 
         for normal in normals:
             ap.normal(normal)
