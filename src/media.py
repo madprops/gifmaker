@@ -19,8 +19,11 @@ from typing import List, Dict, Union
 def get_frames() -> List[Image.Image]:
     count_frames()
 
+    assert isinstance(config.frames, int)
+    assert isinstance(config.input, Path)
+
     frames = []
-    path = config.get("input")
+    path = config.input
     ext = utils.get_extension(path)
 
     if (ext == "jpg") or (ext == "png"):
@@ -36,9 +39,9 @@ def get_frames() -> List[Image.Image]:
         max_frames = reader.count_frames()
         mode = "video"
 
-    num_frames = max_frames if config.get("remake") else config.get("frames")
-    order = "normal" if (config.get("remake") or config.get("framelist")) else config.get("order")
-    framelist = config.get("framelist") if config.get("framelist") else range(max_frames)
+    num_frames = max_frames if config.remake else config.frames
+    order = "normal" if (config.remake or config.framelist) else config.order
+    framelist = config.framelist if config.framelist else range(max_frames)
     current = 0
 
     # Sometimes it fails to read the frames so it needs more tries
@@ -46,9 +49,10 @@ def get_frames() -> List[Image.Image]:
         if order == "normal":
             index = framelist[current]
         elif order == "random":
-            if config.get("frameopts"):
-                index = random.choice(config.get("frameopts"))
+            if config.frameopts:
+                index = random.choice(config.frameopts)
             else:
+                assert isinstance(config.Internal.random_frames, random.Random)
                 index = config.Internal.random_frames.randint(0, len(framelist))
 
         try:
@@ -83,7 +87,7 @@ def draw_text(frame: Image.Image, line: str) -> Image.Image:
     font = config.get_font()
     data = get_text_data(frame, line, font)
     fontcolor = config.get_color("fontcolor")
-    padding = config.get("padding")
+    padding = config.padding
 
     min_x = data["min_x"]
     min_y = data["min_y"]
@@ -95,38 +99,38 @@ def draw_text(frame: Image.Image, line: str) -> Image.Image:
     max_x_p = max_x + padding
     max_y_p = max_y + padding
 
-    if not config.get("descender"):
+    if not config.descender:
         max_y_p -= data["descender"]
 
-    if config.get("bgcolor"):
+    if config.bgcolor:
         bgcolor = config.get_color("bgcolor")
-        alpha = utils.add_alpha(bgcolor, config.get("opacity"))
+        alpha = utils.add_alpha(bgcolor, config.opacity)
         rect_pos = (min_x_p, min_y_p), (max_x_p, max_y_p)
-        draw.rounded_rectangle(rect_pos, fill=alpha, radius=config.get("radius"))
+        draw.rounded_rectangle(rect_pos, fill=alpha, radius=config.radius)
 
-    if config.get("outline"):
+    if config.outline:
         ocolor = config.get_color("outline")
-        owidth = config.get("outlinewidth")
+        owidth = config.outlinewidth
         owidth = utils.divisible(owidth, 2)
         halfwidth = owidth / 2
 
-        if not config.get("no_outline_top"):
+        if not config.no_outline_top:
             draw.line([(min_x_p, min_y_p - halfwidth),
                        (max_x_p, min_y_p - halfwidth)], fill=ocolor, width=owidth)
 
-        if not config.get("no_outline_left"):
+        if not config.no_outline_left:
             draw.line([(min_x_p - halfwidth, min_y_p - owidth + 1),
                        (min_x_p - halfwidth, max_y_p + owidth)], fill=ocolor, width=owidth)
 
-        if not config.get("no_outline_bottom"):
+        if not config.no_outline_bottom:
             draw.line([(min_x_p, max_y_p + halfwidth),
                        (max_x_p, max_y_p + halfwidth)], fill=ocolor, width=owidth)
 
-        if not config.get("no_outline_right"):
+        if not config.no_outline_right:
             draw.line([(max_x_p + halfwidth, min_y_p - owidth + 1),
                        (max_x_p + halfwidth, max_y_p + owidth)], fill=ocolor, width=owidth)
 
-    draw.multiline_text((min_x, min_y), line, fill=fontcolor, font=font, align=config.get("align"))
+    draw.multiline_text((min_x, min_y), line, fill=fontcolor, font=font, align=config.align)
 
     return frame
 
@@ -135,10 +139,10 @@ def get_text_data(frame: Image.Image, line: str, font: ImageFont.FreeTypeFont) -
     draw = ImageDraw.Draw(frame)
     width, height = frame.size
 
-    p_top = config.get("top")
-    p_bottom = config.get("bottom")
-    p_left = config.get("left")
-    p_right = config.get("right")
+    p_top = config.top
+    p_bottom = config.bottom
+    p_left = config.left
+    p_right = config.right
 
     b_left, b_top, b_right, b_bottom = draw.multiline_textbbox((0, 0), line, font=font)
     ascender = font.getbbox(line.split("\n")[0])[1]
@@ -165,14 +169,14 @@ def get_text_data(frame: Image.Image, line: str, font: ImageFont.FreeTypeFont) -
         text_y = p_top - ascender
     # Bottom
     elif (p_bottom is not None) and (p_bottom >= 0):
-        if not config.get("descender"):
+        if not config.descender:
             text_y = height - b_bottom + descender - p_bottom
         else:
             text_y = height - b_bottom - p_bottom
     else:
         # Center Vertical
-        if not config.get("descender"):
-            text_y = (height - b_bottom + descender - ascender - (config.get("padding") / 2)) // 2
+        if not config.descender:
+            text_y = (height - b_bottom + descender - ascender - (config.padding / 2)) // 2
         else:
             text_y = (height - b_bottom - ascender) // 2
 
@@ -195,26 +199,26 @@ def get_text_data(frame: Image.Image, line: str, font: ImageFont.FreeTypeFont) -
 
 
 def word_frames(frames: List[Image.Image]) -> List[Image.Image]:
-    if not config.get("words"):
+    if not config.words:
         return frames
 
     worded = []
-    num_words = len(config.get("words"))
+    num_words = len(config.words)
 
     for i, frame in enumerate(frames):
-        if config.get("fillgen"):
-            line = words.generate(config.get("words")[0], False)[0]
+        if config.fillgen:
+            line = words.generate(config.words[0], False)[0]
         else:
             index = i
 
             if index >= num_words:
-                if config.get("fillwords"):
+                if config.fillwords:
                     index = num_words - 1
                 else:
                     worded.append(frame)
                     continue
 
-            line = config.get("words")[index]
+            line = config.words[index]
 
         if line:
             frame = draw_text(frame, line)
@@ -225,12 +229,12 @@ def word_frames(frames: List[Image.Image]) -> List[Image.Image]:
 
 
 def resize_frames(frames: List[Image.Image]) -> List[Image.Image]:
-    if (not config.get("width")) and (not config.get("height")):
+    if (not config.width) and (not config.height):
         return frames
 
     new_frames = []
-    new_width = config.get("width")
-    new_height = config.get("height")
+    new_width = config.width
+    new_height = config.height
     w, h = frames[0].size
     ratio = w / h
 
@@ -239,10 +243,13 @@ def resize_frames(frames: List[Image.Image]) -> List[Image.Image]:
     elif new_height and (not new_width):
         new_width = int(new_height * ratio)
 
+    assert isinstance(new_width, int)
+    assert isinstance(new_height, int)
+
     if (new_width <= 0) or (new_height <= 0):
         return frames
 
-    if config.get("nogrow"):
+    if config.nogrow:
         if (new_width > w) or (new_height > h):
             return frames
 
@@ -255,10 +262,11 @@ def resize_frames(frames: List[Image.Image]) -> List[Image.Image]:
 
 
 def render(frames: List[Image.Image]) -> Union[Path, None]:
-    ext = utils.get_extension(config.get("output"))
-    fmt = ext if ext else config.get("format")
+    assert isinstance(config.output, Path)
+    ext = utils.get_extension(config.output)
+    fmt = ext if ext else config.format
 
-    if config.get("vertical") or config.get("horizontal"):
+    if config.vertical or config.horizontal:
         if fmt not in ["jpg", "png"]:
             fmt = "png"
 
@@ -270,25 +278,24 @@ def render(frames: List[Image.Image]) -> Union[Path, None]:
             return
 
     if ext:
-        makedir(config.get("output.parent"))
-        output = config.get("output")
+        makedir(config.output.parent)
+        output = config.output
     else:
-        makedir(config.get("output"))
+        makedir(config.output)
         rand = utils.random_string()
-        formt = config.get("format")
-        file_name = f"{rand}.{formt}"
-        output = Path(config.get("output"), file_name)
+        file_name = f"{rand}.{config.format}"
+        output = Path(config.output, file_name)
 
-    if config.get("vertical"):
+    if config.vertical:
         frames = [append_frames(frames, "vertical")]
 
-    if config.get("horizontal"):
+    if config.horizontal:
         frames = [append_frames(frames, "horizontal")]
 
     if fmt == "gif":
         frames = to_array_all(frames)
-        loop = None if config.get("loop") <= -1 else config.get("loop")
-        imageio.mimsave(output, frames, format="GIF", duration=config.get("delay"), loop=loop)
+        loop = None if config.loop <= -1 else config.loop
+        imageio.mimsave(output, frames, format="GIF", duration=config.delay, loop=loop)
     elif fmt == "png":
         frame = frames[0]
         frame = to_array(frame)
@@ -300,7 +307,7 @@ def render(frames: List[Image.Image]) -> Union[Path, None]:
         imageio.imsave(output, frame, format="JPEG")
     elif fmt == "mp4" or fmt == "webm":
         frames = to_array_all(frames)
-        fps = 1000 / config.get("delay")
+        fps = 1000 / config.delay
 
         if fmt == "mp4":
             codec = "libx264"
@@ -321,7 +328,7 @@ def render(frames: List[Image.Image]) -> Union[Path, None]:
 
 
 def apply_filters(frames: List[Image.Image]) -> List[Image.Image]:
-    if (config.get("filter") == "none") and (not config.get("filterlist")):
+    if (config.filter == "none") and (not config.filterlist):
         return frames
 
     new_frames = []
@@ -337,17 +344,18 @@ def apply_filters(frames: List[Image.Image]) -> List[Image.Image]:
     def get_filters() -> None:
         nonlocal filters
 
-        if config.get("filteropts"):
-            filters = config.get("filteropts").copy()
-        elif config.get("filter").startswith("anyhue"):
+        if config.filteropts:
+            filters = config.filteropts.copy()
+        elif config.filter.startswith("anyhue"):
             filters = hue_filters.copy()
         else:
             filters = all_filters.copy()
 
     def random_filter() -> str:
+        assert isinstance(config.Internal.random_filters, random.Random)
         filtr = config.Internal.random_filters.choice(filters)
 
-        if not config.get("repeatfilter"):
+        if not config.repeatfilter:
             remove_filter(filtr)
 
         return filtr
@@ -373,16 +381,16 @@ def apply_filters(frames: List[Image.Image]) -> List[Image.Image]:
         return new_frame
 
     get_filters()
-    filtr = config.get("filter")
+    filtr = config.filter
 
-    if not config.get("filterlist"):
-        if config.get("filter") == "random" or config.get("filter") == "anyhue":
+    if not config.filterlist:
+        if config.filter == "random" or config.filter == "anyhue":
             filtr = random_filter()
 
     for frame in frames:
-        if config.get("filterlist"):
-            filtr = config.get("filterlist").pop(0)
-        elif config.get("filter") == "random2" or config.get("filter") == "anyhue2":
+        if config.filterlist:
+            filtr = config.filterlist.pop(0)
+        elif config.filter == "random2" or config.filter == "anyhue2":
             filtr = random_filter()
 
         new_frame = None
@@ -415,16 +423,16 @@ def apply_filters(frames: List[Image.Image]) -> List[Image.Image]:
 
 
 def count_frames() -> None:
-    if config.get("frames") is not None:
+    if config.frames is not None:
         return
 
-    if config.get("framelist"):
-        config.set("frames", len(config.get("framelist")))
-    elif config.get("words"):
-        num_words = len(config.get("words"))
-        config.set("frames", num_words if num_words > 0 else config.get("frames"))
+    if config.framelist:
+        config.frames = len(config.framelist)
+    elif config.words:
+        num_words = len(config.words)
+        config.frames = num_words if num_words > 0 else config.frames
     else:
-        config.set("frames", 3)
+        config.frames = 3
 
 
 def rgb_or_rgba(array: npt.NDArray[np.float64]) -> str:
@@ -448,7 +456,7 @@ def to_array_all(frames: List[Image.Image]) -> List[npt.NDArray[np.float64]]:
 
 
 def deep_fry(frames: List[Image.Image]) -> List[Image.Image]:
-    if not config.get("deepfry"):
+    if not config.deepfry:
         return frames
 
     quality = 3

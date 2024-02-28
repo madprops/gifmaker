@@ -22,7 +22,7 @@ def show_seconds(name: str, start: float, end: float) -> None:
 
 
 def check_time(name: str) -> None:
-    if not config.get("verbose"):
+    if not config.verbose:
         return
 
     global last_time
@@ -43,8 +43,8 @@ def main() -> None:
     config.parse_args()
     check_time("Parse Args")
 
-    # Print config defaults and exit
-    if config.get("mode") == "defaults":
+    # Print argument info and exit
+    if config.mode == "arginfo":
         utils.respond(config.Internal.data)
         return
 
@@ -60,7 +60,7 @@ def main() -> None:
         utils.msg("No frames")
         return
 
-    if config.get("remake"):
+    if config.remake:
         # Only resize the frames
         frames = media.resize_frames(frames)
         check_time("Resize Frames")
@@ -86,7 +86,7 @@ def main() -> None:
     check_time("Render")
 
     # End stats
-    if config.get("verbose"):
+    if config.verbose:
         utils.msg("")
         label = utils.colortext("blue", "Frames")
         utils.msg(f"{label}: {len(frames)}")

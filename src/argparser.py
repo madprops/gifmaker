@@ -122,7 +122,7 @@ class ArgParser:
         self.set(attr, num)
 
     def get(self, attr: str) -> Any:
-        return self.obj.get(attr)
+        return getattr(self.obj, attr)
 
     def set(self, attr: str, value: Any) -> None:
-        self.obj.set(attr, value)
+        setattr(self.obj, attr, value)

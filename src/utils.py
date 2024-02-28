@@ -182,7 +182,3 @@ def colortext(color: str, text: str) -> str:
 
 def dash_to_under(s: str) -> str:
     return s.replace("-", "_")
-
-
-def under_to_dash(s: str) -> str:
-    return s.replace("_", "-")
