@@ -18,13 +18,15 @@ class ArgParser:
             if key == "string_arg":
                 names = [key]
             else:
+                name = utils.under_to_dash(key)
+
                 # Add -- and - formats
-                names = [f"--{key}", f"-{key}"]
-                key2 = key.replace("-", "")
+                names = [f"--{name}", f"-{name}"]
+                name2 = key.replace("-", "")
 
                 # Check without dashes
-                if key2 != key:
-                    names.extend([f"--{key2}", f"-{key2}"])
+                if name2 != name:
+                    names.extend([f"--{name2}", f"-{name2}"])
 
             if key in aliases:
                 names += aliases[key]
