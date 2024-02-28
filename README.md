@@ -893,7 +893,7 @@ gifmaker_common = [
 
 # Add quotes around everything and join
 def join_command(command):
-    return " ".join(f"\"{arg}\"" for arg in command)
+    return " ".join(f'"{arg}"' for arg in command)
 
 # Get the command list and turn it into a string
 def gifmaker_command(args):
