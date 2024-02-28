@@ -877,27 +877,51 @@ Using all the other arguments that are specific to look good on that image.
 
 You might want to interface through another Python program.
 
-Here's some snippet that might help:
+Here's some snippets that might help:
 
 ```python
-gifmaker = "/path/to/gifmaker"
-gm_common = "--font bold --width 555 --nogrow --output /tmp/gifmaker"
+import asyncio
+
+# Arguments shared by all functions
+gifmaker_common = [
+    "/usr/bin/gifmaker",
+    "--width", 350,
+    "--output", "/tmp/gifmaker",
+    "--nogrow",
+]
+
+# Add quotes around everything and join
+def join_command(command):
+    return " ".join(f"\"{arg}\"" for arg in command)
+
+# Get the command list and turn it into a string
+def gifmaker_command(args):
+    command = gifmaker_common.copy()
+    command.extend(args)
+    return join_command(command)
 
 # You can have multiple functions like this
 def generate_something(who):
-	command = [
-		gifmaker,
-		gm_common,
-		f"--input source.jpg",
-		f"--words '{who} is [Random] [x5]' --bgcolor 0,0,0",
-		"--top 0 --fontsize 22 --filter random2",
-	]
+    command = gifmaker_command([
+        "--input", get_path("describe.jpg"),
+        "--words", f"{who} is\\n[Random] [x5]",
+        "--filter", "anyhue2",
+        "--opacity", 0.8,
+        "--fontsize", 66,
+        "--delay", 700,
+        "--padding", 50,
+        "--fontcolor", "light2",
+        "--bgcolor", "black",
+    ])
 
 	run_gifmaker(command)
 
-def run_gifmaker(command):
-	cmd = " ".join(command)
-	# Execute the command
-	# Do something with the file
-	# Maybe upload it somewhere
+# This is an async example
+async def run_gifmaker(command):
+    process = await asyncio.create_subprocess_shell(
+        command,
+        stdout=asyncio.subprocess.PIPE,
+        stderr=asyncio.subprocess.PIPE,
+        shell=True,
+    )
 ```
