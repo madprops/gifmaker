@@ -741,19 +741,23 @@ The default is to ignore the descender to ensure consistent placement of text.
 
 > **filterseed** (Type: int | Default: None)
 
+> **colorseed** (Type: int | Default: None)
+
 The random component can be seeded.
 
 This means that if you give it a value, it will always act the same.
 
 This can be useful if you want to replicate results.
 
-There are 3 random generators.
+There are multiple random generators:
 
 One takes care of picking frames and is controlled by `frameseed`.
 
 One takes care of picking words and numbers and is controlled by `wordseed`.
 
 One takes care of picking filters and is controlled by `filterseed`.
+
+One takes care of picking colors and is controlled by `colorseed`.
 
 If those are not defined, then it will assign the generic `seed` (if defined).
 
