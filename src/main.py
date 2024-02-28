@@ -43,8 +43,8 @@ def main() -> None:
     config.parse_args()
     check_time("Parse Args")
 
-    # Print argument info and exit
-    if config.Internal.mode == "arguments":
+    # Print data if not empty then exit
+    if config.Internal.data:
         utils.respond(config.Internal.data)
         return
 

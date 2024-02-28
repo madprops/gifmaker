@@ -97,9 +97,6 @@ class Configuration:
         random_filters: Union[random.Random, None] = None
         random_colors: Union[random.Random, None] = None
 
-        # Mode of the program
-        mode = "normal"
-
         # Data of some modes
         data = ""
 
@@ -182,8 +179,7 @@ class Configuration:
         # ---
 
         if getattr(ap.args, "arguments"):
-            self.Internal.mode = "arguments"
-            self.Internal.data = self.to_json()
+            self.Internal.data = self.arguments_json()
             return
 
         # ---
@@ -420,7 +416,7 @@ class Configuration:
         path = Path(self.Internal.fontspath, font_file)
         return ImageFont.truetype(path, size=self.fontsize)
 
-    def to_json(self) -> str:
+    def arguments_json(self) -> str:
         filter_out = ["string_arg", "arguments"]
 
         new_dict = {
