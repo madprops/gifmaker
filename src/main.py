@@ -43,9 +43,9 @@ def main() -> None:
     config.parse_args()
     check_time("Parse Args")
 
-    # Print data if not empty then exit
-    if config.Internal.data:
-        utils.respond(config.Internal.data)
+    # Print response if not empty then exit
+    if config.Internal.response:
+        utils.respond(config.Internal.response)
         return
 
     # Process words

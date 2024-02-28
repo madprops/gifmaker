@@ -97,8 +97,8 @@ class Configuration:
         random_filters: Union[random.Random, None] = None
         random_colors: Union[random.Random, None] = None
 
-        # Data of some modes
-        data = ""
+        # Response string
+        response = ""
 
         # Strings for info
         rgbstr = "3 numbers from 0 to 255, separated by commas. Names like 'yellow' are also supported"
@@ -179,7 +179,7 @@ class Configuration:
         # ---
 
         if getattr(ap.args, "arguments"):
-            self.Internal.data = self.arguments_json()
+            self.Internal.response = self.arguments_json()
             return
 
         # ---
