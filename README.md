@@ -902,17 +902,17 @@ def gifmaker_command(args):
 
 # You can have multiple functions like this
 def generate_something(who):
-    command = gifmaker_command([
-        "--input", get_path("describe.jpg"),
-        "--words", f"{who} is\\n[Random] [x5]",
-        "--filter", "anyhue2",
-        "--opacity", 0.8,
-        "--fontsize", 66,
-        "--delay", 700,
-        "--padding", 50,
-        "--fontcolor", "light2",
-        "--bgcolor", "black",
-    ])
+	command = gifmaker_command([
+		"--input", get_path("describe.jpg"),
+		"--words", f"{who} is\\n[Random] [x5]",
+		"--filter", "anyhue2",
+		"--opacity", 0.8,
+		"--fontsize", 66,
+		"--delay", 700,
+		"--padding", 50,
+		"--fontcolor", "light2",
+		"--bgcolor", "black",
+	])
 
 	run_gifmaker(command)
 
