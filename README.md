@@ -881,6 +881,7 @@ Here's some snippets that might help:
 
 ```python
 import asyncio
+from pathlib import Path
 
 # Arguments shared by all functions
 gifmaker_common = [
@@ -924,4 +925,12 @@ async def run_gifmaker(command):
         stderr=asyncio.subprocess.PIPE,
         shell=True,
     )
+
+    stdout, stderr = await process.communicate()
+
+    if process.returncode != 0:
+        print(f"Error: {stderr.decode()}")
+        return
+
+    await upload(Path(stdout.decode().strip()))
 ```
