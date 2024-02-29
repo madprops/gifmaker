@@ -2,7 +2,7 @@
 import re
 import sys
 import argparse
-from typing import List, Any, Dict
+from typing import List, Any, Dict, Union
 from pathlib import Path
 
 
@@ -152,11 +152,11 @@ class ArgParser:
         return s.replace("_", "-")
 
     @staticmethod
-    def full_path(path: Path) -> Path:
-        return path.expanduser().resolve()
+    def full_path(path: Union[Path, str]) -> Path:
+        return Path(path).expanduser().resolve()
 
     @staticmethod
-    def resolve_path(path: Path) -> Path:
+    def resolve_path(path: Union[Path, str]) -> Path:
         path = ArgParser.full_path(path)
 
         if path.is_absolute():
