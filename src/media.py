@@ -289,7 +289,7 @@ def render(frames: List[Image.Image]) -> Union[Path, None]:
     def makedir(path: Path) -> None:
         try:
             path.mkdir(parents=False, exist_ok=True)
-        except:
+        except BaseException:
             utils.exit("Failed to make output directory")
             return
 
