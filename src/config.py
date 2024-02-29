@@ -307,7 +307,7 @@ class Configuration:
 
         if data:
             for key in data:
-                k = utils.dash_to_under(key)
+                k = ArgParser.dash_to_under(key)
                 setattr(args, k, data[key])
 
     def read_wordfile(self) -> None:
@@ -316,19 +316,19 @@ class Configuration:
 
     def fill_root(self, main_file: str) -> None:
         self.Internal.root = Path(main_file).parent.parent
-        self.Internal.fontspath = utils.full_path(Path(self.Internal.root, "fonts"))
+        self.Internal.fontspath = ArgParser.full_path(Path(self.Internal.root, "fonts"))
 
     def fill_paths(self) -> None:
         assert isinstance(self.Internal.root, Path)
 
         if not self.input:
-            self.input = utils.full_path(Path(self.Internal.root, "media", "video.webm"))
+            self.input = ArgParser.full_path(Path(self.Internal.root, "media", "video.webm"))
 
         if not self.output:
-            self.output = utils.full_path(Path(self.Internal.root, "output"))
+            self.output = ArgParser.full_path(Path(self.Internal.root, "output"))
 
         if not self.randomfile:
-            self.randomfile = utils.full_path(Path(self.Internal.root, "data", "nouns.txt"))
+            self.randomfile = ArgParser.full_path(Path(self.Internal.root, "data", "nouns.txt"))
 
     def get_color(self, attr: str) -> Tuple[int, int, int]:
         value = getattr(self, attr)
@@ -414,7 +414,7 @@ class Configuration:
             font = random_font()
             font_file = fonts[font]
         elif ".ttf" in self.font:
-            font_file = str(utils.resolve_path(Path(self.font)))
+            font_file = str(ArgParser.resolve_path(Path(self.font)))
         elif self.font in fonts:
             font_file = fonts[self.font]
         else:

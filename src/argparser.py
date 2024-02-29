@@ -1,9 +1,8 @@
-# Modules
-import utils
-
 # Standard
+import sys
 import argparse
 from typing import List, Any, Dict
+from pathlib import Path
 
 
 class ArgParser:
@@ -18,7 +17,7 @@ class ArgParser:
             if key == "string_arg":
                 names = [key]
             else:
-                name = utils.under_to_dash(key)
+                name = ArgParser.under_to_dash(key)
 
                 # Add -- and - formats
                 names = [f"--{name}", f"-{name}"]
@@ -31,7 +30,8 @@ class ArgParser:
             if key in aliases:
                 names += aliases[key]
 
-            tail = {key: value for key, value in item.items() if value is not None}
+            tail = {key: value for key,
+                    value in item.items() if value is not None}
             parser.add_argument(*names, **tail)
 
         self.args = parser.parse_args()
@@ -44,8 +44,7 @@ class ArgParser:
         try:
             lst = list(map(vtype, map(str.strip, value.split(separator))))
         except BaseException:
-            utils.exit(f"Failed to parse '--{attr}'")
-            return []
+            sys.exit(f"Failed to parse '--{attr}'")
 
         return lst
 
@@ -74,7 +73,7 @@ class ArgParser:
         value = getattr(self.args, attr)
 
         if value is not None:
-            self.set(attr, utils.resolve_path(value))
+            self.set(attr, self.resolve_path(value))
 
     # Allow p1 and m1 formats
     def number(self, attr: str, vtype: Any, allow_zero: bool = False, duration: bool = False) -> None:
@@ -92,7 +91,7 @@ class ArgParser:
             num = value[1:]
 
         if duration:
-            num = utils.parse_duration(num)
+            num = self.parse_duration(num)
 
         try:
             if vtype == int:
@@ -100,8 +99,7 @@ class ArgParser:
             elif vtype == float:
                 num = float(num)
         except BaseException:
-            utils.exit(f"Failed to parse '{attr}'")
-            return
+            sys.exit(f"Failed to parse '{attr}'")
 
         default = self.get(attr)
 
@@ -114,10 +112,9 @@ class ArgParser:
 
         if num == 0:
             if not allow_zero:
-                utils.exit(err)
+                sys.exit(err)
         elif num < 0:
-            utils.exit(err)
-            return
+            sys.exit(err)
 
         self.set(attr, num)
 
@@ -126,3 +123,38 @@ class ArgParser:
 
     def set(self, attr: str, value: Any) -> None:
         setattr(self.obj, attr, value)
+
+    def parse_duration(self, time_string: str) -> str:
+        match = re.match(r"(\d+(\.\d+)?)([smh]+)", time_string)
+
+        if match:
+            value, _, unit = match.groups()
+            value = float(value)
+
+            if unit == "ms":
+                time_string = str(int(value))
+            elif unit == "s":
+                time_string = str(int(value * 1000))
+            elif unit == "m":
+                time_string = str(int(value * 60 * 1000))
+            elif unit == "h":
+                time_string = str(int(value * 60 * 60 * 1000))
+
+        return time_string
+
+    def dash_to_under(s: str) -> str:
+        return s.replace("-", "_")
+
+    def under_to_dash(s: str) -> str:
+        return s.replace("_", "-")
+
+    def full_path(path: Path) -> Path:
+        return path.expanduser().resolve()
+
+    def resolve_path(path: Path) -> Path:
+        path = ArgParser.full_path(path)
+
+        if path.is_absolute():
+            return ArgParser.full_path(path)
+        else:
+            return ArgParser.full_path(Path(Path.cwd(), path))
