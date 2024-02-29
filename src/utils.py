@@ -66,7 +66,7 @@ def read_toml(path: Path) -> Union[Dict[str, str], None]:
 
 
 def random_color(lightness: float) -> Tuple[int, int, int]:
-    from configuration import config
+    from config import config
     assert isinstance(config.Internal.random_colors, random.Random)
     hue = config.Internal.random_colors.random()
     saturation = 0.8

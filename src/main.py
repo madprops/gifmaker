@@ -1,5 +1,5 @@
 # Modules
-from configuration import config
+from config import config
 import words
 import media
 import utils
