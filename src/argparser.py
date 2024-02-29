@@ -1,4 +1,5 @@
 # Standard
+import re
 import sys
 import argparse
 from typing import List, Any, Dict
@@ -73,7 +74,7 @@ class ArgParser:
         value = getattr(self.args, attr)
 
         if value is not None:
-            self.set(attr, self.resolve_path(value))
+            self.set(attr, ArgParser.resolve_path(value))
 
     # Allow p1 and m1 formats
     def number(self, attr: str, vtype: Any, allow_zero: bool = False, duration: bool = False) -> None:
@@ -142,15 +143,19 @@ class ArgParser:
 
         return time_string
 
+    @staticmethod
     def dash_to_under(s: str) -> str:
         return s.replace("-", "_")
 
+    @staticmethod
     def under_to_dash(s: str) -> str:
         return s.replace("_", "-")
 
+    @staticmethod
     def full_path(path: Path) -> Path:
         return path.expanduser().resolve()
 
+    @staticmethod
     def resolve_path(path: Path) -> Path:
         path = ArgParser.full_path(path)
 
