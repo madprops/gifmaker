@@ -11,9 +11,6 @@ from typing import Dict, Union, Tuple
 # Libraries
 import webcolors  # type: ignore
 
-# Used for random colors
-colordiff = 0.15
-
 
 def random_string() -> str:
     vowels = "aeiou"
@@ -52,23 +49,24 @@ def read_toml(path: Path) -> Union[Dict[str, str], None]:
         return None
 
 
-def random_color(lightness: float) -> Tuple[int, int, int]:
+def random_color() -> Tuple[int, int, int]:
     from config import config
     assert isinstance(config.Internal.random_colors, random.Random)
-    hue = config.Internal.random_colors.random()
-    saturation = 0.8
-    r, g, b = colorsys.hsv_to_rgb(hue, saturation, lightness)
-    r, g, b = int(r * 255), int(g * 255), int(b * 255)
-    return r, g, b
+
+    def component():
+        return config.Internal.random_colors.randint(0, 255)
+
+    return component(), component(), component()
 
 
 def random_light() -> Tuple[int, int, int]:
-    return random_color(1 - colordiff)
+    color = random_color()
+    return change_lightness(color, 255 - 20)
 
 
 def random_dark() -> Tuple[int, int, int]:
-    return random_color(colordiff)
-
+    color = random_color()
+    return change_lightness(color, 40)
 
 def change_lightness(color: Tuple[int, int, int], lightness: int) -> Tuple[int, int, int]:
     hsv = list(colorsys.rgb_to_hsv(*color))
