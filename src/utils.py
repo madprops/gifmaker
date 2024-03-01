@@ -68,6 +68,7 @@ def random_dark() -> Tuple[int, int, int]:
     color = random_color()
     return change_lightness(color, 40)
 
+
 def change_lightness(color: Tuple[int, int, int], lightness: int) -> Tuple[int, int, int]:
     hsv = list(colorsys.rgb_to_hsv(*color))
     hsv[2] = lightness
