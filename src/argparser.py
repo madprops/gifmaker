@@ -59,15 +59,14 @@ class ArgParser:
         value = getattr(self.args, attr)
 
         if value is not None:
-            if "," in value:
+            if ("," in value) or (not allow_string):
                 lst = self.get_list(attr, value, vtype, ",")
 
                 if is_tuple:
                     self.set(attr, tuple(lst))
                 else:
                     self.set(attr, lst)
-
-            elif allow_string:
+            else:
                 self.set(attr, value)
 
     def path(self, attr: str) -> None:
