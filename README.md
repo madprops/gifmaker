@@ -80,17 +80,17 @@ There's a `scripts/test.sh` file that runs the program with some arguments to te
 
 ## Usage <a name="usage"></a>
 
-Run `gifmaker/main.py` using the Python in the virtual env:
+Use the installed `gifmaker` command if you used `pipx`.
+
+---
+
+Or run `gifmaker/main.py` using the Python in the virtual env:
 
 ```shell
 venv/bin/python -m gifmaker.main
 ```
 
 There's a `run.sh` that does this.
-
----
-
-Or use the installed command `gifmaker` if you used `pipx`.
 
 ---
 
