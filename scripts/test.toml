@@ -1,3 +1,5 @@
+input = "media/video.webm"
+output = "/tmp/gifmaker_test.gif"
 words = "Disregard [Random] ; Acquire [Random] ; [date] ; [number 0 999];"
 fontsize = 80
 fontcolor = "light2"

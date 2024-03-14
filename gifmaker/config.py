@@ -1,6 +1,6 @@
 # Modules
-import utils
-from argparser import ArgParser
+from . import utils
+from .argparser import ArgParser
 
 # Standard
 import json
@@ -111,6 +111,9 @@ class Configuration:
         rgbstr = "3 numbers from 0 to 255, separated by commas. Names like 'yellow' are also supported"
         commastr = "Separated by commas"
 
+        # Information about the program
+        manifest: Dict[str, str]
+
         # Argument definitions
         arguments: Dict[str, Any] = {
             "input": {"type": str, "help": "Path to a video or image file. Separated by commas"},
@@ -182,7 +185,14 @@ class Configuration:
         }
 
     def parse_args(self) -> None:
-        ap = ArgParser("Gif Maker", self.Internal.arguments, self.Internal.aliases, self)
+        v_title = self.Internal.manifest["title"]
+        v_version = self.Internal.manifest["version"]
+        v_info = f"{v_title} {v_version}"
+
+        self.Internal.arguments["version"] = {"action": "version",
+                                              "help": "Check the version of the program", "version": v_info}
+
+        ap = ArgParser(self.Internal.manifest["title"], self.Internal.arguments, self.Internal.aliases, self)
 
         # ---
 
@@ -251,7 +261,13 @@ class Configuration:
             return [codecs.decode(utils.clean_lines(item), "unicode-escape")
                     for item in value.split(self.separator)]
 
-        assert isinstance(self.input, Path)
+        if not self.input:
+            utils.exit("You need to provide an input file")
+            return
+
+        if not self.output:
+            utils.exit("You need to provide an output file")
+            return
 
         if (not self.input.exists()) or (not self.input.is_file()):
             utils.exit("Input file does not exist")
@@ -315,20 +331,18 @@ class Configuration:
             self.words = self.wordfile.read_text().splitlines()
 
     def fill_root(self, main_file: str) -> None:
-        self.Internal.root = Path(main_file).parent.parent
+        self.Internal.root = Path(main_file).parent
         self.Internal.fontspath = ArgParser.full_path(Path(self.Internal.root, "fonts"))
+
+    def get_manifest(self):
+        with open(Path(self.Internal.root, "manifest.json"), "r") as file:
+            self.Internal.manifest = json.load(file)
 
     def fill_paths(self) -> None:
         assert isinstance(self.Internal.root, Path)
 
-        if not self.input:
-            self.input = ArgParser.full_path(Path(self.Internal.root, "media", "video.webm"))
-
-        if not self.output:
-            self.output = ArgParser.full_path(Path(self.Internal.root, "output"))
-
         if not self.randomfile:
-            self.randomfile = ArgParser.full_path(Path(self.Internal.root, "data", "nouns.txt"))
+            self.randomfile = ArgParser.full_path(Path(self.Internal.root, "nouns.txt"))
 
     def get_color(self, attr: str) -> Tuple[int, int, int]:
         value = getattr(self, attr)

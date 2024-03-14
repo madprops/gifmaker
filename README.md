@@ -36,6 +36,18 @@ And memes.
 
 ## Installation <a name="installation"></a>
 
+### Using pipx
+
+```sh
+pipx install git+this_repo_url --force
+```
+
+Now you should have the `gifmaker` command available.
+
+---
+
+### Manual
+
 Clone this repo, and get inside the directory:
 
 ```shell
@@ -60,8 +72,6 @@ Or simply run `scripts/venv.sh` to create the virtual env and install the depend
 
 There's a `scripts/test.sh` file that runs the program with some arguments to test if things are working properly.
 
-There's a `scripts/install.sh` file that adds a bash script at `/usr/bin/gifmaker` so you can run it easily.
-
 ---
 
 <img src="media/usage.gif">
@@ -70,22 +80,22 @@ There's a `scripts/install.sh` file that adds a bash script at `/usr/bin/gifmake
 
 ## Usage <a name="usage"></a>
 
-Run `src/main.py` using the Python in the virtual env:
+Run `gifmaker/main.py` using the Python in the virtual env:
 
 ```shell
-venv/bin/python src/main.py
+venv/bin/python -m gifmaker.main
 ```
 
-Or set it up so you can simply use `gifmaker`.
+Or use the installed command `gifmaker` if you used `pipx`.
 
-(Check `scripts/install.sh` or make an alias)
+You can provide a video or image path using the `--input` argument.
 
-You can provide a video or image path using the `--input` argument:
+You also need to provide an output path:
 
 ```shell
-gifmaker --input /path/to/video.webm
-gifmaker --input /path/to/animated.gif
-gifmaker --input /path/to/image.png
+gifmaker --input /path/to/video.webm --output /tmp/gifmaker
+gifmaker --input /path/to/animated.gif --output /tmp/gifmaker
+gifmaker --input /path/to/image.png --output /tmp/gifmaker
 ```
 
 `webm`, `mp4`, `gif`, `jpg`, and `png` should work, and maybe other formats.
@@ -253,7 +263,7 @@ It's a shortcut to avoid having to type `--words`.
 Here's a fuller example:
 
 ```shell
-gifmaker --input /videos/stuff.webm --fontsize 18 --delay 300 --width 600 --words "I want to eat ;; [Random] ; [repeat 2] ;" --format mp4 --bgcolor 0,0,0 --output "stuff/videos"
+gifmaker --input /videos/stuff.webm --fontsize 18 --delay 300 --width 600 --words "I want to eat ;; [Random] ; [repeat 2] ;" --format mp4 --bgcolor 0,0,0 --output stuff/videos
 ```
 
 ---
@@ -270,7 +280,7 @@ These modify how the file is going to be generated.
 
 ---
 
-> **input** (Type: str | Default: The included video)
+> **input** (Type: str | Default: None)
 
 Path to a video or image to use as the source of the frames.
 
@@ -282,7 +292,7 @@ For example: `--input stuff/cow.webm`.
 
 ---
 
-> **output** (Type: str | Default: The output directory)
+> **output** (Type: str | Default: None)
 
 Directory path to save the generated file.
 

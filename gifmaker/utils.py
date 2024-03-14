@@ -11,6 +11,9 @@ from typing import Dict, Union, Tuple
 # Libraries
 import webcolors  # type: ignore
 
+# Standard
+import tomllib
+
 
 def random_string() -> str:
     vowels = "aeiou"
@@ -35,8 +38,6 @@ def exit(message: str) -> None:
 
 
 def read_toml(path: Path) -> Union[Dict[str, str], None]:
-    import tomllib
-
     if (not path.exists()) or (not path.is_file()):
         exit("TOML file does not exist")
         return None
@@ -50,7 +51,7 @@ def read_toml(path: Path) -> Union[Dict[str, str], None]:
 
 
 def random_color() -> Tuple[int, int, int]:
-    from config import config
+    from .config import config
     assert isinstance(config.Internal.random_colors, random.Random)
 
     def component():

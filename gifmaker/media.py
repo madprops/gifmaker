@@ -1,7 +1,7 @@
 # Modules
-from config import config
-import utils
-import words
+from .config import config
+from . import utils
+from . import words
 
 # Libraries
 import imageio  # type: ignore

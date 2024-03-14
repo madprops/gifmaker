@@ -1,6 +1,6 @@
 # Modules
-from config import config
-import utils
+from .config import config
+from . import utils
 
 # Standard
 import re

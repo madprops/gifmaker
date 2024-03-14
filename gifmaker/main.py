@@ -1,8 +1,8 @@
 # Modules
-from config import config
-import words
-import media
-import utils
+from .config import config
+from . import words
+from . import media
+from . import utils
 
 # Standard
 import time
@@ -38,6 +38,7 @@ def main() -> None:
 
     # Fill some paths based on root path
     config.fill_root(__file__)
+    config.get_manifest()
 
     # Check the provided arguments
     config.parse_args()
