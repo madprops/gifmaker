@@ -266,7 +266,7 @@ class Configuration:
             return
 
         if not self.output:
-            utils.exit("You need to provide an output file")
+            utils.exit("You need to provide an output path")
             return
 
         if (not self.input.exists()) or (not self.input.is_file()):
