@@ -1,0 +1,2 @@
+[console_scripts]
+gifmaker = gifmaker.main:main
