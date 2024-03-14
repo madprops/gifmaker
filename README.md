@@ -86,7 +86,13 @@ Run `gifmaker/main.py` using the Python in the virtual env:
 venv/bin/python -m gifmaker.main
 ```
 
+There's a `run.sh` that does this.
+
+---
+
 Or use the installed command `gifmaker` if you used `pipx`.
+
+---
 
 You can provide a video or image path using the `--input` argument.
 
