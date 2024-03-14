@@ -12,7 +12,7 @@ with open("requirements.txt") as f:
     requirements = f.read().splitlines()
 
 package_data = {}
-package_data[program] = ["*.txt", "*.ttf", "*.json"]
+package_data[program] = ["fonts/*.ttf", "*.txt", "*.json"]
 
 setup(
     name = title,
