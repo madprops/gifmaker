@@ -26,7 +26,7 @@ def get_frames() -> List[Image.Image]:
     path = config.input
     ext = utils.get_extension(path)
 
-    if (ext == "jpg") or (ext == "png"):
+    if (ext == "jpg") or (ext == "jpeg") or (ext == "png"):
         reader = imageio.imread(path)
         max_frames = 1
         mode = "image"
