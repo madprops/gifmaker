@@ -22,6 +22,9 @@
             pname = "gifmaker";
             version = "unstable";
 
+            # Explicitly declare setuptools for setup.py
+            format = "setuptools";
+
             # Uses the current directory as the source.
             # Ensure your files (including gifmaker/manifest.json) are tracked in git!
             src = ./.;
