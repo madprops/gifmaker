@@ -82,10 +82,42 @@ def get_frames() -> List[Image.Image]:
     return frames
 
 
+def ensure_contrast(fontcolor, bgcolor):
+    from PIL import ImageColor
+
+    try:
+        if isinstance(fontcolor, str):
+            f_val = ImageColor.getrgb(fontcolor)
+        else:
+            f_val = fontcolor
+
+        if isinstance(bgcolor, str):
+            b_val = ImageColor.getrgb(bgcolor)
+        else:
+            b_val = bgcolor
+
+        lum_f = 0.299 * f_val[0] + 0.587 * f_val[1] + 0.114 * f_val[2]
+        lum_b = 0.299 * b_val[0] + 0.587 * b_val[1] + 0.114 * b_val[2]
+
+        if abs(lum_f - lum_b) < 80:
+            return (255, 255, 255), (0, 0, 0)
+    except Exception:
+        pass
+
+    return fontcolor, bgcolor
+
+
 def draw_text(frame: Image.Image, line: str) -> Image.Image:
     draw = ImageDraw.Draw(frame, "RGBA")
+    line = line.replace("’", "'").replace("‘", "'").replace("“", '"').replace("”", '"')
     font = config.get_font()
-    data = get_text_data(frame, line, font)
+
+    try:
+        data = get_text_data(frame, line, font)
+    except Exception:
+        font = ImageFont.load_default()
+        data = get_text_data(frame, line, font)
+
     get_colors = True
 
     if line == config.Internal.last_words:
@@ -99,6 +131,7 @@ def draw_text(frame: Image.Image, line: str) -> Image.Image:
         fontcolor = config.get_color("fontcolor")
         bgcolor = config.get_color("bgcolor")
         ocolor = config.get_color("outline")
+        fontcolor, bgcolor = ensure_contrast(fontcolor, bgcolor)
     else:
         fontcolor = config.Internal.last_colors[0]
         bgcolor = config.Internal.last_colors[1]
@@ -131,27 +164,49 @@ def draw_text(frame: Image.Image, line: str) -> Image.Image:
         halfwidth = owidth / 2
 
         if not config.no_outline_top:
-            draw.line([(min_x_p, min_y_p - halfwidth),
-                       (max_x_p, min_y_p - halfwidth)], fill=ocolor, width=owidth)
+            draw.line(
+                [(min_x_p, min_y_p - halfwidth), (max_x_p, min_y_p - halfwidth)],
+                fill=ocolor,
+                width=owidth,
+            )
 
         if not config.no_outline_left:
-            draw.line([(min_x_p - halfwidth, min_y_p - owidth + 1),
-                       (min_x_p - halfwidth, max_y_p + owidth)], fill=ocolor, width=owidth)
+            draw.line(
+                [
+                    (min_x_p - halfwidth, min_y_p - owidth + 1),
+                    (min_x_p - halfwidth, max_y_p + owidth),
+                ],
+                fill=ocolor,
+                width=owidth,
+            )
 
         if not config.no_outline_bottom:
-            draw.line([(min_x_p, max_y_p + halfwidth),
-                       (max_x_p, max_y_p + halfwidth)], fill=ocolor, width=owidth)
+            draw.line(
+                [(min_x_p, max_y_p + halfwidth), (max_x_p, max_y_p + halfwidth)],
+                fill=ocolor,
+                width=owidth,
+            )
 
         if not config.no_outline_right:
-            draw.line([(max_x_p + halfwidth, min_y_p - owidth + 1),
-                       (max_x_p + halfwidth, max_y_p + owidth)], fill=ocolor, width=owidth)
+            draw.line(
+                [
+                    (max_x_p + halfwidth, min_y_p - owidth + 1),
+                    (max_x_p + halfwidth, max_y_p + owidth),
+                ],
+                fill=ocolor,
+                width=owidth,
+            )
 
-    draw.multiline_text((min_x, min_y), line, fill=fontcolor, font=font, align=config.align)
+    draw.multiline_text(
+        (min_x, min_y), line, fill=fontcolor, font=font, align=config.align
+    )
 
     return frame
 
 
-def get_text_data(frame: Image.Image, line: str, font: ImageFont.FreeTypeFont) -> Dict[str, int]:
+def get_text_data(
+    frame: Image.Image, line: str, font: ImageFont.FreeTypeFont
+) -> Dict[str, int]:
     draw = ImageDraw.Draw(frame)
     width, height = frame.size
 
@@ -161,8 +216,18 @@ def get_text_data(frame: Image.Image, line: str, font: ImageFont.FreeTypeFont) -
     p_right = config.right
 
     b_left, b_top, b_right, b_bottom = draw.multiline_textbbox((0, 0), line, font=font)
-    ascender = font.getbbox(line.split("\n")[0])[1]
-    descender = font.getbbox(line.split("\n")[-1], anchor="ls")[3]
+
+    ascender_bbox = font.getbbox(line.split("\n")[0])
+    if ascender_bbox is not None:
+        ascender = ascender_bbox[1]
+    else:
+        ascender = 0
+
+    descender_bbox = font.getbbox(line.split("\n")[-1], anchor="ls")
+    if descender_bbox is not None:
+        descender = descender_bbox[3]
+    else:
+        descender = 0
 
     # Left
     if (p_left is not None) and (p_left >= 0):
@@ -192,7 +257,9 @@ def get_text_data(frame: Image.Image, line: str, font: ImageFont.FreeTypeFont) -
     else:
         # Center Vertical
         if not config.descender:
-            text_y = (height - b_bottom + descender - ascender - (config.padding / 2)) // 2
+            text_y = (
+                height - b_bottom + descender - ascender - (config.padding / 2)
+            ) // 2
         else:
             text_y = (height - b_bottom - ascender) // 2
 
