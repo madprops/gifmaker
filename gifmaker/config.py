@@ -258,8 +258,10 @@ class Configuration:
 
     def check_config(self, args: Namespace) -> None:
         def separate(value: str) -> List[str]:
-            return [codecs.decode(utils.clean_lines(item), "unicode-escape")
-                    for item in value.split(self.separator)]
+            return [
+                    utils.clean_lines(item).replace("\\n", "\n").replace("\\t", "\t")
+                    for item in value.split(self.separator)
+                ]
 
         if not self.input:
             utils.exit("You need to provide an input file")
@@ -328,14 +330,14 @@ class Configuration:
 
     def read_wordfile(self) -> None:
         if self.wordfile:
-            self.words = self.wordfile.read_text().splitlines()
+            self.words = self.wordfile.read_text(encoding="utf-8").splitlines()
 
     def fill_root(self, main_file: str) -> None:
         self.Internal.root = Path(main_file).parent
         self.Internal.fontspath = ArgParser.full_path(Path(self.Internal.root, "fonts"))
 
     def get_manifest(self):
-        with open(Path(self.Internal.root, "manifest.json"), "r") as file:
+        with open(Path(self.Internal.root, "manifest.json"), "r", encoding="utf-8") as file:
             self.Internal.manifest = json.load(file)
 
     def fill_paths(self) -> None:

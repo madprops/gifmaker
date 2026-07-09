@@ -110,15 +110,14 @@ def ensure_contrast(fontcolor, bgcolor):
 
 def draw_text(frame: Image.Image, line: str) -> Image.Image:
     draw = ImageDraw.Draw(frame, "RGBA")
-    line = html.unescape(line)
-    line = line.replace("’", "'").replace("‘", "'").replace("“", '"').replace("”", '"')
-    line = line.replace("—", "-").replace("–", "-").replace("…", "...").replace("´", "'").replace("\xa0", " ")
     font = config.get_font()
+    line = sanitize_text(line, font)
 
     try:
         data = get_text_data(frame, line, font)
     except Exception:
         font = ImageFont.load_default()
+        line = sanitize_text(line, font)
         data = get_text_data(frame, line, font)
 
     get_colors = True
@@ -206,7 +205,9 @@ def draw_text(frame: Image.Image, line: str) -> Image.Image:
         )
     except Exception:
         font = ImageFont.load_default()
+        line = sanitize_text(line, font)
         data = get_text_data(frame, line, font)
+
         draw.multiline_text(
             (data["min_x"], data["min_y"]), line, fill=fontcolor, font=font, align=config.align
         )
@@ -226,13 +227,29 @@ def get_text_data(
 
     b_left, b_top, b_right, b_bottom = draw.multiline_textbbox((0, 0), line, font=font)
 
-    ascender_bbox = font.getbbox(line.split("\n")[0])
+    ascender_bbox = None
+
+    try:
+        ascender_bbox = font.getbbox(line.split("\n")[0])
+    except Exception:
+        pass
+
     if ascender_bbox is not None:
         ascender = ascender_bbox[1]
     else:
         ascender = 0
 
-    descender_bbox = font.getbbox(line.split("\n")[-1], anchor="ls")
+    descender_bbox = None
+    try:
+        descender_bbox = font.getbbox(line.split("\n")[-1], anchor="ls")
+    except TypeError:
+        try:
+            descender_bbox = font.getbbox(line.split("\n")[-1])
+        except Exception:
+            pass
+    except Exception:
+        pass
+
     if descender_bbox is not None:
         descender = descender_bbox[3]
     else:
@@ -288,7 +305,6 @@ def get_text_data(
     }
 
     return ans
-
 
 def word_frames(frames: List[Image.Image]) -> List[Image.Image]:
     if not config.words:
@@ -585,3 +601,35 @@ def append_frames(frames: List[Image.Image], mode: str) -> Image.Image:
             offset += frame.size[0]
 
     return new_frame
+
+def sanitize_text(line: str, font) -> str:
+    line = html.unescape(line)
+    replacements = {
+        "’": "'", "‘": "'", "“": '"', "”": '"',
+        "—": "-", "–": "-", "…": "...", "´": "'",
+        "\xa0": " ", "\r": "", "\u200b": "",
+    }
+    for k, v in replacements.items():
+        line = line.replace(k, v)
+
+    try:
+        if hasattr(font, "getbbox"):
+            if font.getbbox(line) is not None:
+                return line
+    except Exception:
+        pass
+
+    clean_chars = []
+    for char in line:
+        if char in "\n\t ":
+            clean_chars.append(char)
+            continue
+        try:
+            if hasattr(font, "getbbox"):
+                if font.getbbox(char) is None:
+                    continue
+            clean_chars.append(char)
+        except Exception:
+            continue
+
+    return "".join(clean_chars)

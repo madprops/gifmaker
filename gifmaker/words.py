@@ -160,7 +160,7 @@ def check_empty() -> None:
 def random_word() -> str:
     if not config.randomlist:
         assert isinstance(config.randomfile, Path)
-        lines = config.randomfile.read_text().splitlines()
+        lines = config.randomfile.read_text(encoding="utf-8").splitlines()
         config.randomlist = [line.strip() for line in lines]
 
     if not config.Internal.randwords:
