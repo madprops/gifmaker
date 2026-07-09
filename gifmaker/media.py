@@ -10,6 +10,7 @@ import numpy.typing as npt
 from PIL import Image, ImageFilter, ImageOps, ImageDraw, ImageFont  # type: ignore
 
 # Standard
+import html
 import random
 from io import BytesIO
 from pathlib import Path
@@ -109,7 +110,9 @@ def ensure_contrast(fontcolor, bgcolor):
 
 def draw_text(frame: Image.Image, line: str) -> Image.Image:
     draw = ImageDraw.Draw(frame, "RGBA")
+    line = html.unescape(line)
     line = line.replace("’", "'").replace("‘", "'").replace("“", '"').replace("”", '"')
+    line = line.replace("—", "-").replace("–", "-").replace("…", "...").replace("´", "'").replace("\xa0", " ")
     font = config.get_font()
 
     try:
@@ -197,12 +200,18 @@ def draw_text(frame: Image.Image, line: str) -> Image.Image:
                 width=owidth,
             )
 
-    draw.multiline_text(
-        (min_x, min_y), line, fill=fontcolor, font=font, align=config.align
-    )
+    try:
+        draw.multiline_text(
+            (min_x, min_y), line, fill=fontcolor, font=font, align=config.align
+        )
+    except Exception:
+        font = ImageFont.load_default()
+        data = get_text_data(frame, line, font)
+        draw.multiline_text(
+            (data["min_x"], data["min_y"]), line, fill=fontcolor, font=font, align=config.align
+        )
 
     return frame
-
 
 def get_text_data(
     frame: Image.Image, line: str, font: ImageFont.FreeTypeFont
